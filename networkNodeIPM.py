@@ -87,7 +87,10 @@ class group:
     ## I think I will want to include omega, nYears, nSizeBins, and sizeBins from the network
     ## Also, I might want to include checks to make sure the popSize0 and popLenDist0 are in the correct format
     def __init__(self, groupName, popSize0, popLenDist0, omega,
-                 nYears, survival, growth, recruitment, density, lengthWeight,  emigration, immigration,
+                 nYears, survival, growth, recruitment, density, lengthWeight,
+                 emigration = None, immigration = None,
+                 pulseIntroduction = None,
+                 adultSurvivalMultiplier = None,
                  groupSex = None):
 
         self.nYears = nYears
@@ -102,18 +105,40 @@ class group:
         self.recruitment = recruitment
         self.density = density
         self.lengthWeight = lengthWeight 
-        self.immigration = immigration
-        self.emigration = emigration
         self.omega = omega
         self.hWidth = self.omega[1] - self.omega[0]      
-        
+
+        if pulseIntroduction is None:
+            self.pulseIntroduction = np.zeros( (nYears + 1, len(omega)))
+        else:
+            self.pulseIntroduction = pulseIntroduction
+
+        if adultSurvivalMultiplier is None:
+            self.adultSurvivalMultiplier = np.ones( nYears + 1)
+        else:
+            self.adultSurvivalMultiplier = adultSurvivalMultiplier
+
+        if immigration is None:
+            self.immigration = np.zeros( (nYears + 1, len(omega)))
+        else:
+            self.immigration = immigration
+
+
+        if emigration is None:
+            self.emigration = np.zeros( (nYears + 1, len(omega)))
+        else:
+            self.emigration = emigration
+            
+
+            
     def timeStepGroup(self, t,
                       pGroupBirth = 1.0,
-                       recruitGroup = None,
-                       popLenDistbiomass = None):
+                      recruitGroup = None,
+                      popLenDistbiomass = None):
         ''' The annual time step dynamically changes the group's size through time.'''
         ## Kevin, is this the best way to do this?
         self.pGroupBirth = pGroupBirth
+        
         if recruitGroup is None:
             self.recruitGroup = self.popLenDist
         else:
@@ -124,32 +149,58 @@ class group:
         else:
             self.popLenDistBiomass = popLenDistbiomass
 
-        biomass = np.sum(self.popLenDist[ t, :] * self.lengthWeight(self.omega))
+        biomass = np.sum(self.popLenDistBiomass[ t, :] * self.lengthWeight(self.omega))
         decrease = self.density(biomass)
-        
-        self.popLenDist[t + 1, : ] = ( np.dot( self.hWidth * self.growth( self.omega, self.omega),
-                                               self.survival( self.omega) * self.popLenDist[t, :]) +
-                                       np.dot( self.hWidth * self.recruitment( self.omega, self.omega),
-                                               self.recruitGroup[t, :]) * decrease * self.pGroupBirth +    
-                                       self.immigration - self.emigration)
+
+
+        ## Does adult mortality from treatment occur before or after movement? Also, before or after birth?
+        self.popLenDist[t + 1, : ] = ( np.dot( self.hWidth * self.growth( self.omega, self.omega),  ## The first dot product is maturation
+                                               self.survival( self.omega) * self.popLenDist[t, :]) * self.adultSurvivalMultiplier[t] +
+                                       np.dot( self.hWidth * self.recruitment( self.omega, self.omega), ## The second dod product is reruitment
+                                               self.recruitGroup[t, :]) * decrease * self.pGroupBirth  + 
+                                       self.pulseIntroduction[t, :] + 
+                                       self.immigration[t, :] +
+                                       self.emigration[t, :] ) ## These two lines are for natural (i.e., not directly human) movements
         self.popSize[t + 1] =  self.popLenDist[ t + 1, :].sum()
 
     def plotLengthTime(self):
         '''Plot the length of fish in a group through time'''
+        if self.groupSex is None:
+            self.groupSex = ""
+                
         fig, ax = plt.subplots()
         for index in range(0, self.popLenDist.shape[0]):
             ax.plot(self.omega, self.popLenDist[ index, :])      
-        plt.title("Length distributions " + self.groupName)
+        plt.title("Length distributions " + self.groupName + " " + self.groupSex)
         plt.xlabel("Length")
         plt.ylabel("Population in size class")
         plt.show()
 
     def plotPop(self):
         '''Plot the total population size of fish through time'''
+        if self.groupSex is None:
+            self.groupSex = ""
+
         plt.plot(np.arange(0, self.nYears + 1, 1),  self.popSize)
-        plt.title("Population size through time for " + self.groupName)
+        plt.title("Population size through time for " + self.groupName + " " + self.groupSex)
         plt.xlabel("Time (years)")
         plt.ylabel("Population of group (all lengths)")
         plt.show()
 
+class node:
+    ''' 
+    The node class is a collection of groups that use the same spatial habitat (i.e., "node") at the same time.
+    '''
+
+    ## I think I will want to include omega, nYears, nSizeBins, and sizeBins from the network
+    ## Also, I might want to include checks to make sure the popSize0 and popLenDist0 are in the correct format
+    def __init__(self, nodeName):
+        self.nodeName = nodeName
+        self.groups = []
+        self.pathsOut = []
+        self.pathsIn = []
+        self.nodeBiomass = 0
+
+    def addGroups(nodes):
+        self.groups.append(nodes)
 
