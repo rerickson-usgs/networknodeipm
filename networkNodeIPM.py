@@ -2,7 +2,8 @@ import numpy as np
 import scipy.stats as stats
 import matplotlib.pyplot as plt
 
-class densityNegExp:  
+class densityNegExp:
+    '''Define a function where density has a negative exponential impact on the system'''
     def __init__(self, a, b):
         self.a = a
         self.b = b
@@ -11,9 +12,11 @@ class densityNegExp:
         return out 
 
 def densityNone(biomass):
+    '''Define a function where density has no impact on the system'''
     return 1 
     
 class lengthWeight:
+    '''Define a relationship between length and weight'''
     def __init__(self, alphaLW, betaLW):
         self.alphaLW = alphaLW
         self.betaLW  = betaLW
@@ -23,6 +26,7 @@ class lengthWeight:
         return out
 
 class logestic:
+    '''Defines a logistic function''' 
     def __init__(self, alphaL, betaL, minL, maxL):
         self.alphaL = alphaL
         self.betaL = betaL
@@ -36,6 +40,10 @@ class logestic:
         return out
 
 class growthVB:
+    '''
+    Define a von Bertalanffy growth function that maps the length at a 
+    current year to the probability of length at a future year. 
+    '''
     def __init__(self, aG, kG, sigmaG):
         self.aG = aG
         self.kG = kG
@@ -54,6 +62,7 @@ class growthVB:
         return(out)
 
 class linearRecruitment:
+    '''Define a function that models the recruitment asa function of fish length.x'''
     def __init__( self, omega, lengthWeight, survival, probabilityReproducing, eggTransition, eggPerkg, muJ, sigmaJ):
         self.juvenile = (stats.lognorm.pdf(omega, loc = 0, s = sigmaJ, scale = muJ) / 
                          stats.lognorm.pdf(omega, loc = 0, s = sigmaJ, scale = muJ).sum())
@@ -72,13 +81,18 @@ class linearRecruitment:
                                self.lengthWeight(omega) * self.juvenile
         return(out)
    
-class node:
+class group:
+    ''' The group class is the group of inviduals of a give "sex", e.g., males, females, YY-males, sterile males, ect.'''
+
     ## I think I will want to include omega, nYears, nSizeBins, and sizeBins from the network
     ## Also, I might want to include checks to make sure the popSize0 and popLenDist0 are in the correct format
-    def __init__(self, nodeName, popSize0, popLenDist0, omega,
-                 nYears, survival, growth, recruitment, density, lengthWeight,  emigration, immigration):
+    def __init__(self, groupName, popSize0, popLenDist0, omega,
+                 nYears, survival, growth, recruitment, density, lengthWeight,  emigration, immigration,
+                 groupSex = None):
+
         self.nYears = nYears
-        self.nodeName = nodeName
+        self.groupSex = groupSex
+        self.groupName = groupName
         self.popSize = np.zeros(nYears + 1)
         self.popSize[0] = popSize0
         self.popLenDist = np.zeros( (nYears + 1, len(omega)))
@@ -92,35 +106,50 @@ class node:
         self.emigration = emigration
         self.omega = omega
         self.hWidth = self.omega[1] - self.omega[0]      
-
-
         
-    def annualTimeStep(self, t):
+    def timeStepGroup(self, t,
+                      pGroupBirth = 1.0,
+                       recruitGroup = None,
+                       popLenDistbiomass = None):
+        ''' The annual time step dynamically changes the group's size through time.'''
         ## Kevin, is this the best way to do this?
+        self.pGroupBirth = pGroupBirth
+        if recruitGroup is None:
+            self.recruitGroup = self.popLenDist
+        else:
+            self.recruitGroup = recruitGroup     
+
+        if popLenDistbiomass is None:
+            self.popLenDistBiomass = self.popLenDist 
+        else:
+            self.popLenDistBiomass = popLenDistbiomass
+
         biomass = np.sum(self.popLenDist[ t, :] * self.lengthWeight(self.omega))
         decrease = self.density(biomass)
         
         self.popLenDist[t + 1, : ] = ( np.dot( self.hWidth * self.growth( self.omega, self.omega),
                                                self.survival( self.omega) * self.popLenDist[t, :]) +
                                        np.dot( self.hWidth * self.recruitment( self.omega, self.omega),
-                                               self.popLenDist[t, :]) * decrease +    
+                                               self.recruitGroup[t, :]) * decrease * self.pGroupBirth +    
                                        self.immigration - self.emigration)
         self.popSize[t + 1] =  self.popLenDist[ t + 1, :].sum()
 
     def plotLengthTime(self):
+        '''Plot the length of fish in a group through time'''
         fig, ax = plt.subplots()
         for index in range(0, self.popLenDist.shape[0]):
             ax.plot(self.omega, self.popLenDist[ index, :])      
-        plt.title("Length distributions " + self.nodeName)
+        plt.title("Length distributions " + self.groupName)
         plt.xlabel("Length")
         plt.ylabel("Population in size class")
         plt.show()
 
     def plotPop(self):
+        '''Plot the total population size of fish through time'''
         plt.plot(np.arange(0, self.nYears + 1, 1),  self.popSize)
-        plt.title("Population size through time for " + self.nodeName)
+        plt.title("Population size through time for " + self.groupName)
         plt.xlabel("Time (years)")
-        plt.ylabel("Total population at node")
+        plt.ylabel("Population of group (all lengths)")
         plt.show()
 
 

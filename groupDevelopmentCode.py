@@ -8,6 +8,7 @@ maxLength = 240,
 nPoints = 200
 omega = np.linspace( start = minLength, stop = maxLength, num = nPoints +2)[1:-1]
 
+
 ## Denisty parameter and distribution 
 a = 1
 b = 3e-7 # 1e-3
