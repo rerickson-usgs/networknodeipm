@@ -70,9 +70,6 @@ recruitment0 = nnIPM.linearRecruitment(omega = omega,
 
 ## Simulation parameters
 nYears = 300
-immigration = 0
-emigration = 0
-
 
 ## Specify stocking of YY-males
 
@@ -87,9 +84,7 @@ node1group1female = nnIPM.group(groupName = "Node 1",
                                 growth = growth,
                                 recruitment = recruitment,
                                 density = density,
-                                lengthWeight = lengthWeightUse,
-                                immigration = immigration, 
-                                emigration = emigration)
+                                lengthWeight = lengthWeightUse)
 
 node1group1male =   nnIPM.group(groupName = "Node 1",
                                 groupSex =  "male", 
@@ -101,9 +96,8 @@ node1group1male =   nnIPM.group(groupName = "Node 1",
                                 growth = growth,
                                 recruitment = recruitment,
                                 density = density,
-                                lengthWeight = lengthWeightUse,
-                                immigration = immigration, 
-                                emigration = emigration)
+                                groupImpactSexRatio = True,
+                                lengthWeight = lengthWeightUse)
 
 
 ## Pulse introdcution details 
@@ -115,6 +109,7 @@ releaseNumberYYmale = 5e3
 
 ## Assume same release disrtiubtion as intial population, 
 pulseIntroduction[ (releaseYearYYmale - 1):releaseYearStopYYmale, :] = popLenDist0 * releaseNumberYYmale
+
 # pulseIntroduction.sum(1) ## Prints out total stocking numbers per year 
 
 node1group1YYmale =   nnIPM.group(groupName = "Node 1",
@@ -127,8 +122,20 @@ node1group1YYmale =   nnIPM.group(groupName = "Node 1",
                                   growth = growth,
                                   recruitment = recruitment0,
                                   density = density,
+                                  groupOffspringPfemale = 0.0,
+                                  groupImpactSexRatio = True,
                                   pulseIntroduction = pulseIntroduction,
                                   lengthWeight = lengthWeightUse)
+
+
+node1 = nnIPM.node("node 1")
+
+## Add in groups to nodes 
+node1.addGroup( node1group1YYmale)
+node1.addGroupList( [node1group1male, node1group1female] )
+
+## Make sure nodes present in the group 
+print node1.describeNodes()
 
 ## Functions after here will eventually be wrapped into the node class 
 ## Iterate through time
@@ -138,29 +145,41 @@ node1group1YYmale =   nnIPM.group(groupName = "Node 1",
 eggProducingGroupLenDist = node1group1female.popLenDist
 popLenDistbiomass = node1group1female.popLenDist + node1group1male.popLenDist + node1group1YYmale.popLenDist
 
+
+nodePopulation = np.zeros(nYears + 1)
+
+pReferenceGroupBirth = np.zeros(nYears)
+offspringViabilityReduction = np.ones(nYears)
+
+
+## Next steps:
+## Create generic funciton to check for treatments rather than hard writing in code (about 6 lines down for 2 things to remove)
+## Allow different types of density impacts 
+## Add in harvest
+##  move into node functio: change node1 to be self, and year to be t
+## Add in node sumarizing and plotting functions
+
 for year in range(0, nYears):
-    ## Will want to replace the next lines of code with iterator for loops eventually
-    groupPops = np.array([node1group1female.popLenDist[ year, :].sum(),
-                          node1group1male.popLenDist[ year, :].sum(),
-                          node1group1YYmale.popLenDist[ year, :].sum()])
-    pGroupBirth = groupPops/groupPops.sum()
-    pGroupBirth[1] = np.sum(pGroupBirth[1:2])
-    pGroupBirth[2] = 0
-    popLenDistbiomass[ year, :] = (node1group1female.popLenDist[ year, :] +
-                                   node1group1male.popLenDist[ year, :] +
-                                   node1group1YYmale.popLenDist[ year, :] )
-    node1group1female.timeStepGroup(year,
-                                    pGroupBirth = pGroupBirth[0],
-                                    recruitGroup = eggProducingGroupLenDist,
-                                    popLenDistbiomass = popLenDistbiomass)
-    node1group1male.timeStepGroup(year,
-                                  pGroupBirth = pGroupBirth[1],
-                                  recruitGroup = eggProducingGroupLenDist,
-                                  popLenDistbiomass = popLenDistbiomass)
-    node1group1YYmale.timeStepGroup(year,
-                                    pGroupBirth = pGroupBirth[2],
-                                    recruitGroup = eggProducingGroupLenDist,
-                                    popLenDistbiomass = popLenDistbiomass)
+    ## Check if any groups have YY-male like treatments on
+    if all([grp.showGroupImpactSexRatio() is False for grp in node1.groups]) is False:
+        pReferenceGroupBirth[year]  = ( np.sum([grp.groupOffspringPfemale * grp.popLenDist[ year, :].sum() for
+                                                grp in node1.groups if grp.showGroupImpactSexRatio()]) /
+                                        np.sum([ grp.popLenDist[ year, :].sum() for grp in node1.groups if
+                                                 grp.showGroupImpactSexRatio()]) ) 
+    ## Check if any groups have non-viable offspring 
+    if all([grp.showGroupImpactViability() is False for grp in node1.groups]) is False:
+        offspringViabilityReduction[year]  = ( np.sum([grp.groupOffspringViability * grp.popLenDist[ year, :].sum() for
+                                                       grp in node1.groups if grp.showGroupImpactViability()]) /
+                                               np.sum([ grp.popLenDist[ year, :].sum() for grp in node1.groups if
+                                                        grp.showGroupImpactViability()]) )
+        
+    popLenDistbiomass[ year, :] = np.sum([ grp.popLenDist[ year, :] for grp in node1.groups], 0)
+
+    [grp.timeStepGroup(year,
+                       pReferenceGroupBirth = pReferenceGroupBirth[year],
+                       recruitGroup = eggProducingGroupLenDist,
+                       offspringViability = offspringViabilityReduction[year],
+                       popLenDistbiomass = popLenDistbiomass) for grp in node1.groups ]
     
 ## Plot results
 node1group1female.plotPop()
@@ -172,6 +191,7 @@ node1group1male.plotLengthTime()
 node1group1YYmale.plotPop()
 node1group1YYmale.plotLengthTime()
 
-
 print "Done" 
+
+
 

@@ -88,11 +88,17 @@ class group:
     ## Also, I might want to include checks to make sure the popSize0 and popLenDist0 are in the correct format
     def __init__(self, groupName, popSize0, popLenDist0, omega,
                  nYears, survival, growth, recruitment, density, lengthWeight,
+                 groupImpactSexRatio  = False,
+                 groupOffspringPfemale = 0.5,
+                 groupImpactViability = False,
+                 groupOffspringViability = 1.0, 
                  emigration = None, immigration = None,
                  pulseIntroduction = None,
                  adultSurvivalMultiplier = None,
                  groupSex = None):
 
+        self.groupImpactSexRatio = groupImpactSexRatio
+        self.groupImpactViability = groupImpactViability
         self.nYears = nYears
         self.groupSex = groupSex
         self.groupName = groupName
@@ -104,7 +110,9 @@ class group:
         self.growth = growth
         self.recruitment = recruitment
         self.density = density
-        self.lengthWeight = lengthWeight 
+        self.lengthWeight = lengthWeight
+        self.groupOffspringPfemale =  groupOffspringPfemale 
+        self.groupOffspringViability = groupOffspringViability
         self.omega = omega
         self.hWidth = self.omega[1] - self.omega[0]      
 
@@ -127,17 +135,25 @@ class group:
         if emigration is None:
             self.emigration = np.zeros( (nYears + 1, len(omega)))
         else:
-            self.emigration = emigration
-            
-
+            self.emigration = emigration          
             
     def timeStepGroup(self, t,
-                      pGroupBirth = 1.0,
+                      pReferenceGroupBirth = 0.5,
+                      offspringViability = 1.0,
                       recruitGroup = None,
-                      popLenDistbiomass = None):
+                      popLenDistbiomass = None,
+                      referenceSex = "female"):
         ''' The annual time step dynamically changes the group's size through time.'''
         ## Kevin, is this the best way to do this?
-        self.pGroupBirth = pGroupBirth
+
+
+        self.offspringViability = offspringViability
+        ## Hard wire function to calcuate pGroupBirth based upon sex,
+        ## remember that pGroupBirth, by defult, referes to females 
+        if self.groupSex is referenceSex:
+            self.pGroupBirth = pReferenceGroupBirth
+        else:
+            self.pGroupBirth = 1 - pReferenceGroupBirth
         
         if recruitGroup is None:
             self.recruitGroup = self.popLenDist
@@ -157,12 +173,24 @@ class group:
         self.popLenDist[t + 1, : ] = ( np.dot( self.hWidth * self.growth( self.omega, self.omega),  ## The first dot product is maturation
                                                self.survival( self.omega) * self.popLenDist[t, :]) * self.adultSurvivalMultiplier[t] +
                                        np.dot( self.hWidth * self.recruitment( self.omega, self.omega), ## The second dod product is reruitment
-                                               self.recruitGroup[t, :]) * decrease * self.pGroupBirth  + 
-                                       self.pulseIntroduction[t, :] + 
+                                               self.recruitGroup[t, :]) * decrease * self.pGroupBirth  * self.offspringViability + 
+                                       self.pulseIntroduction[t, :] + ## Stocking numbers for group 
                                        self.immigration[t, :] +
                                        self.emigration[t, :] ) ## These two lines are for natural (i.e., not directly human) movements
         self.popSize[t + 1] =  self.popLenDist[ t + 1, :].sum()
 
+    def showGroupName(self):
+        return self.groupName
+
+    def showGroupImpactSexRatio(self):
+        return self.groupImpactSexRatio
+
+    def showGroupImpactViability(self):
+        return self.groupImpactViability
+    
+    def showGroupSex(self):
+        return self.groupSex
+    
     def plotLengthTime(self):
         '''Plot the length of fish in a group through time'''
         if self.groupSex is None:
@@ -201,6 +229,22 @@ class node:
         self.pathsIn = []
         self.nodeBiomass = 0
 
-    def addGroups(nodes):
-        self.groups.append(nodes)
+    def listGroups(self):
+        return [grp for grp in self.groups]
+        
+    def describeNodes(self):
+        print self.nodeName + "contains the following groups:"
+        print "Group name \t Node sex"
+        for grp in self.groups:
+            print grp.showGroupName() + "\t\t" + grp.showGroupSex()
+        
+    def addGroup(self,  groupName ):
+        self.groups.append( groupName )
 
+    def addGroupList(self,  groupList):
+        [ self.groups.append( grp ) for grp in groupList]
+        
+    def nGroups(self):
+        return len(self.groups)
+    
+        
