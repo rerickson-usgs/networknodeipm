@@ -2,9 +2,9 @@ import numpy as np
 import scipy.stats as stats
 import networkNodeIPM  as nnIPM
 
-## Setup numerical mesh
+## Setup numerical mesh, currently uses midpoint rule
 minLength = 0
-maxLength = 300,
+maxLength = 300
 nPoints = 200
 omega = np.linspace( start = minLength, stop = maxLength, num = nPoints +2)[1:-1]
 
@@ -42,7 +42,7 @@ alphaR = 40
 betaR  = -4
 probabilityReproducing = nnIPM.logestic( alphaL = alphaR, betaL = betaR, minL = minR, maxL = maxR)
 
-## Age-1 length dist
+## Age-1 length dist, J is for "juvenile"
 muJ = np.log(10)
 sigmaJ = np.log(2)
 
@@ -53,19 +53,21 @@ lengthWeightUse = nnIPM.lengthWeight( alphaLW, betaLW)
 
 ## Recruitment function and required parameter not previously defined
 eggPerkg = 5e6 # old default is 5e3
-eggTransition = 3e-3  # 3e-3
+eggTransition = 3e-3  # 3e-3 ## Prob of making it from egg to age-1 fish 
 recruitment = nnIPM.linearRecruitment(omega = omega,
                                       lengthWeight = lengthWeightUse,
                                       probabilityReproducing = probabilityReproducing,
                                       survival = survival,
-                                      eggTransition = eggTransition, eggPerkg = eggPerkg, muJ = muJ, sigmaJ = sigmaJ)
+                                      eggTransition = eggTransition, eggPerkg = eggPerkg,
+                                      muJ = muJ, sigmaJ = sigmaJ)
 
 ## Create a recruitment function that produces no oppsring
 recruitment0 = nnIPM.linearRecruitment(omega = omega,
-                                      lengthWeight = lengthWeightUse,
-                                      probabilityReproducing = probabilityReproducing,
-                                      survival = survival,
-                                      eggTransition = 0, eggPerkg = 0, muJ = muJ, sigmaJ = sigmaJ)
+                                       lengthWeight = lengthWeightUse,
+                                       probabilityReproducing = probabilityReproducing,
+                                       survival = survival,
+                                       eggTransition = 0, eggPerkg = 0,
+                                       muJ = muJ, sigmaJ = sigmaJ)
 
 
 ## Simulation parameters

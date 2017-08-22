@@ -3,7 +3,7 @@ import scipy.stats as stats
 import matplotlib.pyplot as plt
 
 class densityNegExp:
-    '''Define a function where density has a negative exponential impact on the system'''
+    '''Define a function where density has a negative exponential impact on the system.'''
     def __init__(self, a, b):
         self.a = a
         self.b = b
@@ -12,11 +12,11 @@ class densityNegExp:
         return out 
 
 def densityNone(biomass):
-    '''Define a function where density has no impact on the system'''
+    '''Define a function where density has no impact on the system.'''
     return 1 
     
 class lengthWeight:
-    '''Define a relationship between length and weight'''
+    '''Define a relationship between length and weight.'''
     def __init__(self, alphaLW, betaLW):
         self.alphaLW = alphaLW
         self.betaLW  = betaLW
@@ -26,7 +26,7 @@ class lengthWeight:
         return out
 
 class logestic:
-    '''Defines a logistic function''' 
+    '''Defines a logistic function.''' 
     def __init__(self, alphaL, betaL, minL, maxL):
         self.alphaL = alphaL
         self.betaL = betaL
@@ -34,9 +34,9 @@ class logestic:
         self.maxL = maxL       
 
     def __call__(self, z):
-        out = self.minL + \
-              (self.maxL - self.minL) / \
-              ( 1 + np.exp( self.betaL * ( np.log(z) - np.log(self.alphaL))))  
+        out = ( self.minL + 
+                (self.maxL - self.minL) / 
+                ( 1 + np.exp( self.betaL * ( np.log(z) - np.log(self.alphaL)))) )
         return out
 
 class growthVB:
@@ -56,7 +56,7 @@ class growthVB:
         out = np.zeros( ( len(zPrime), len(z) ))
         
         for index in range(0, len(z)):
-            out[ : , index ] = stats.norm.pdf(x = zPrime, \
+            out[ : , index ] = stats.norm.pdf(x = zPrime, 
                                             loc = (1 - self.kG) * z[index] + self.kG * self.aG,
                                             scale = self.sigmaG)
         return(out)
@@ -77,8 +77,8 @@ class linearRecruitment:
         omegaPrime = np.atleast_1d(omegaPrime)
         out = np.zeros( ( len(omegaPrime), len(omega) ))
         for index in range(0, len(omega)):
-            out[ : , index ] = self.eggTransition * self.eggPerkg * self.survival(omega) * self.probabilityReproducing(omega) * \
-                               self.lengthWeight(omega) * self.juvenile
+            out[ : , index ] = ( self.eggTransition * self.eggPerkg * self.survival(omega) * self.probabilityReproducing(omega) * 
+                                 self.lengthWeight(omega) * self.juvenile )
         return(out)
    
 class group:
@@ -145,7 +145,6 @@ class group:
                       referenceSex = "female"):
         ''' The annual time step dynamically changes the group's size through time.'''
         ## Kevin, is this the best way to do this?
-
 
         self.offspringViability = offspringViability
         ## Hard wire function to calcuate pGroupBirth based upon sex,
