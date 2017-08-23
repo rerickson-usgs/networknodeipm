@@ -122,7 +122,7 @@ class group:
             self.pulseIntroduction = pulseIntroduction
 
         if adultSurvivalMultiplier is None:
-            self.adultSurvivalMultiplier = np.ones( nYears + 1)
+            self.adultSurvivalMultiplier = np.ones( (nYears + 1, len(omega)))
         else:
             self.adultSurvivalMultiplier = adultSurvivalMultiplier
 
@@ -170,7 +170,7 @@ class group:
 
         ## Does adult mortality from treatment occur before or after movement? Also, before or after birth?
         self.popLenDist[t + 1, : ] = ( np.dot( self.hWidth * self.growth( self.omega, self.omega),  ## The first dot product is maturation
-                                               self.survival( self.omega) * self.popLenDist[t, :]) * self.adultSurvivalMultiplier[t] +
+                                               self.survival( self.omega) * self.popLenDist[t, :]) * self.adultSurvivalMultiplier[t, :] +
                                        np.dot( self.hWidth * self.recruitment( self.omega, self.omega), ## The second dod product is reruitment
                                                self.recruitGroup[t, :]) * decrease * self.pGroupBirth  * self.offspringViability + 
                                        self.pulseIntroduction[t, :] + ## Stocking numbers for group 
@@ -227,7 +227,7 @@ class node:
         self.pathsOut = []
         self.pathsIn = []
         self.nodeBiomass = 0
-
+    
     def listGroups(self):
         return [grp for grp in self.groups]
         
@@ -245,5 +245,26 @@ class node:
         
     def nGroups(self):
         return len(self.groups)
-    
+
+
+
+class networkModel:
+    ''' 
+    The networkModel class is a collection of nodes and their interactions through time. 
+    '''
+
+    ## I think I will want to include omega, nYears, nSizeBins, and sizeBins from the network
+    ## Also, I might want to include checks to make sure the popSize0 and popLenDist0 are in the correct format
+    def __init__(self, networkName):
+        self.networkName = networkName
+        self.nodes = []
+        self.timePeriods = [] # need to be in order, enter as a tuple ()
+        self.nTimePeriods[]
+
+
+    ## Next steps:
+    ## Get one node system working
+    ## Add in annual time step movement
+    ## Add in seasonaility
+    ## While doing above, add in helper functions such as plot results, etc 
         
