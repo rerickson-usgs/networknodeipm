@@ -71,13 +71,13 @@ recruitment0 = nnIPM.linearRecruitment(omega = omega,
 
 
 ## Simulation parameters
-nYears = 300
+nYears = 100
 
 ## Specify stocking of YY-males
 
 ## Define groups
 node1group1female = nnIPM.group(groupName = "Node 1",
-                                groupSex =  "female", 
+                                groupSex =  "female",
                                 popSize0 = popSize0node1female, 
                                 popLenDist0 = popLenDist0, 
                                 omega = omega,
@@ -107,7 +107,7 @@ pulseIntroduction = np.zeros( (nYears + 1, len(omega)))
 
 releaseYearYYmale =  30
 releaseYearStopYYmale = 50
-releaseNumberYYmale = 5e3
+releaseNumberYYmale = 5e2
 
 ## Assume same release disrtiubtion as intial population, 
 pulseIntroduction[ (releaseYearYYmale - 1):releaseYearStopYYmale, :] = popLenDist0 * releaseNumberYYmale
@@ -157,7 +157,10 @@ offspringViabilityReduction = np.ones(nYears)
 ## Next steps:
 ## Try to create generic function to check for special framework, right now hardwired
 
+
 for year in range(0, nYears):
+    # print year 
+    # print eggProducingGroupLenDist[ year, :].sum()
     ## Check if any groups have YY-male like treatments on
     if all([grp.showGroupImpactSexRatio() is False for grp in node1.groups]) is False:
         pReferenceGroupBirth[year]  = ( np.sum([grp.groupOffspringPfemale * grp.popLenDist[ year, :].sum() for

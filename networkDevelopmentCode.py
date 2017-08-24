@@ -71,13 +71,14 @@ recruitment0 = nnIPM.linearRecruitment(omega = omega,
 
 
 ## Simulation parameters
-nYears = 300
+nYears = 200
 
 ## Specify stocking of YY-males
 
 ## Define groups
-node1group1female = nnIPM.group(groupName = "Node 1",
-                                groupSex =  "female", 
+node1group1female = nnIPM.group(groupName = "Node 1, females",
+                                groupSex =  "female",
+                                groupProduceEggs = True, 
                                 popSize0 = popSize0node1female, 
                                 popLenDist0 = popLenDist0, 
                                 omega = omega,
@@ -88,7 +89,7 @@ node1group1female = nnIPM.group(groupName = "Node 1",
                                 density = density,
                                 lengthWeight = lengthWeightUse)
 
-node1group1male =   nnIPM.group(groupName = "Node 1",
+node1group1male =   nnIPM.group(groupName = "Node 1, males",
                                 groupSex =  "male", 
                                 popSize0 = popSize0node1male, 
                                 popLenDist0 = popLenDist0, 
@@ -100,7 +101,6 @@ node1group1male =   nnIPM.group(groupName = "Node 1",
                                 density = density,
                                 groupImpactSexRatio = True,
                                 lengthWeight = lengthWeightUse)
-
 
 ## Pulse introdcution details 
 pulseIntroduction = np.zeros( (nYears + 1, len(omega)))
@@ -114,7 +114,7 @@ pulseIntroduction[ (releaseYearYYmale - 1):releaseYearStopYYmale, :] = popLenDis
 
 # pulseIntroduction.sum(1) ## Prints out total stocking numbers per year 
 
-node1group1YYmale =   nnIPM.group(groupName = "Node 1",
+node1group1YYmale =   nnIPM.group(groupName = "Node 1, yy-males",
                                   groupSex =  "YY-male", 
                                   popSize0 = 0, 
                                   popLenDist0 = popLenDist0, 
@@ -144,50 +144,48 @@ print node1.describeNodes()
 
 ## Will need to specify reproducing group as a variable
 
-eggProducingGroupLenDist = node1group1female.popLenDist
-popLenDistbiomass = node1group1female.popLenDist + node1group1male.popLenDist + node1group1YYmale.popLenDist
+# eggProducingGroupLenDist = node1group1female.popLenDist
+# popLenDistbiomass = node1group1female.popLenDist + node1group1male.popLenDist + node1group1YYmale.popLenDist
 
 
 nodePopulation = np.zeros(nYears + 1)
 
-pReferenceGroupBirth = np.zeros(nYears)
-offspringViabilityReduction = np.ones(nYears)
+oneNodeSystem = nnIPM.networkModel("one node", nYears = nYears, omega = omega)
+
+nodesIn = [node1]
+print oneNodeSystem.nNodes()
+oneNodeSystem.addNodeList(nodesIn)
+print oneNodeSystem.nNodes()
+
+
+oneNodeSystem.runNetworkSimulation()
+
+
+## Need to add a plot function for each node's total population
+## in node class than plot to a subplot in network class (see S/O new answer for help)
+## Also, need to calculate the sum of the total population in the network using the nodes
+
+out = [node.calculateNodePopulaiton() for node in oneNodeSystem.nodes]
+print np.sum(out, 0)
+# oneNodeSystem.nodes
+## use https://stackoverflow.com/questions/1358977/how-to-make-several-plots-on-a-single-page-using-matplotlib
+## to plot multiple subplots of all nodes in one pane 
 
 
 ## Next steps:
 ## Try to create generic function to check for special framework, right now hardwired
 
-for year in range(0, nYears):
-    ## Check if any groups have YY-male like treatments on
-    if all([grp.showGroupImpactSexRatio() is False for grp in node1.groups]) is False:
-        pReferenceGroupBirth[year]  = ( np.sum([grp.groupOffspringPfemale * grp.popLenDist[ year, :].sum() for
-                                                grp in node1.groups if grp.showGroupImpactSexRatio()]) /
-                                        np.sum([ grp.popLenDist[ year, :].sum() for grp in node1.groups if
-                                                 grp.showGroupImpactSexRatio()]) ) 
-    ## Check if any groups have non-viable offspring 
-    if all([grp.showGroupImpactViability() is False for grp in node1.groups]) is False:
-        offspringViabilityReduction[year]  = ( np.sum([grp.groupOffspringViability * grp.popLenDist[ year, :].sum() for
-                                                       grp in node1.groups if grp.showGroupImpactViability()]) /
-                                               np.sum([ grp.popLenDist[ year, :].sum() for grp in node1.groups if
-                                                        grp.showGroupImpactViability()]) )
-        
-    popLenDistbiomass[ year, :] = np.sum([ grp.popLenDist[ year, :] for grp in node1.groups], 0)
 
-    [grp.timeStepGroup(year,
-                       pReferenceGroupBirth = pReferenceGroupBirth[year],
-                       recruitGroup = eggProducingGroupLenDist,
-                       offspringViability = offspringViabilityReduction[year],
-                       popLenDistbiomass = popLenDistbiomass) for grp in node1.groups ]
     
 ## Plot results
-node1group1female.plotPop()
-node1group1female.plotLengthTime()
+# node1group1female.plotPop()
+# node1group1female.plotLengthTime()
 
-node1group1male.plotPop()
-node1group1male.plotLengthTime()
+# node1group1male.plotPop()
+# node1group1male.plotLengthTime()
 
-node1group1YYmale.plotPop()
-node1group1YYmale.plotLengthTime()
+# node1group1YYmale.plotPop()
+# node1group1YYmale.plotLengthTime()
 
 print "Done" 
 

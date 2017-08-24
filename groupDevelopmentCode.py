@@ -61,8 +61,6 @@ recruitment = nnIPM.linearRecruitment(omega = omega,
 
 ## Simulation parameters
 nYears = 300
-immigration = 0
-emigration = 0
 
 ## Define node 
 testGroup = nnIPM.group(groupName = "node 1", 

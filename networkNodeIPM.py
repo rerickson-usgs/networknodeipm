@@ -88,15 +88,16 @@ class group:
     ## Also, I might want to include checks to make sure the popSize0 and popLenDist0 are in the correct format
     def __init__(self, groupName, popSize0, popLenDist0, omega,
                  nYears, survival, growth, recruitment, density, lengthWeight,
+                 groupProduceEggs = False, 
                  groupImpactSexRatio  = False,
                  groupOffspringPfemale = 0.5,
                  groupImpactViability = False,
                  groupOffspringViability = 1.0, 
-                 emigration = None, immigration = None,
                  pulseIntroduction = None,
                  adultSurvivalMultiplier = None,
                  groupSex = None):
 
+        self.groupProduceEggs = groupProduceEggs
         self.groupImpactSexRatio = groupImpactSexRatio
         self.groupImpactViability = groupImpactViability
         self.nYears = nYears
@@ -126,16 +127,6 @@ class group:
         else:
             self.adultSurvivalMultiplier = adultSurvivalMultiplier
 
-        if immigration is None:
-            self.immigration = np.zeros( (nYears + 1, len(omega)))
-        else:
-            self.immigration = immigration
-
-
-        if emigration is None:
-            self.emigration = np.zeros( (nYears + 1, len(omega)))
-        else:
-            self.emigration = emigration          
             
     def timeStepGroup(self, t,
                       pReferenceGroupBirth = 0.5,
@@ -173,11 +164,32 @@ class group:
                                                self.survival( self.omega) * self.popLenDist[t, :]) * self.adultSurvivalMultiplier[t, :] +
                                        np.dot( self.hWidth * self.recruitment( self.omega, self.omega), ## The second dod product is reruitment
                                                self.recruitGroup[t, :]) * decrease * self.pGroupBirth  * self.offspringViability + 
-                                       self.pulseIntroduction[t, :] + ## Stocking numbers for group 
-                                       self.immigration[t, :] +
-                                       self.emigration[t, :] ) ## These two lines are for natural (i.e., not directly human) movements
+                                       self.pulseIntroduction[t, :]) ## Stocking numbers for group 
+
         self.popSize[t + 1] =  self.popLenDist[ t + 1, :].sum()
 
+
+    def movement(self, immigration, emigration):
+        ## This function wil require work and thought into the time step 
+        if immigration is None:
+            self.immigration = np.zeros( (nYears + 1, len(omega)))
+        else:
+            self.immigration = immigration
+
+        if emigration is None:
+            self.emigration = np.zeros( (nYears + 1, len(omega)))
+        else:
+            self.emigration = emigration          
+
+        self.popLenDist[t + 1, : ] = popLenDist[t + 1, : ] + self.immigration[t, :] - self.emigration[t, :]  
+            
+
+    def showGroupPopSize(self):
+        return self.popSize
+    
+    def showGroupProduceEggs(self):
+        return self.groupProduceEggs
+    
     def showGroupName(self):
         return self.groupName
 
@@ -246,8 +258,26 @@ class node:
     def nGroups(self):
         return len(self.groups)
 
+    def showNodeName(self):
+        return self.nodeName
+
+    def calculateNodePopulaiton(self):
+        self.nodePop =  np.sum([ grp.popLenDist.sum(1) for grp in self.groups], 0)
+        return self.nodePop
+
+    def plotNodePop(self):
+        '''Plot the total population size of fish through time'''
+        
+        plt.plot(np.arange(0, self.nYears + 1, 1),  self.nodeSize)
+        plt.title("Population size through time for all groups at " + self.nodeName)
+        plt.xlabel("Time (years)")
+        plt.ylabel("Population of node (all lengths)")
+        plt.show()
 
 
+
+
+    
 class networkModel:
     ''' 
     The networkModel class is a collection of nodes and their interactions through time. 
@@ -255,16 +285,67 @@ class networkModel:
 
     ## I think I will want to include omega, nYears, nSizeBins, and sizeBins from the network
     ## Also, I might want to include checks to make sure the popSize0 and popLenDist0 are in the correct format
-    def __init__(self, networkName):
+    def __init__(self, networkName, nYears, omega):
+        self.omega = omega
         self.networkName = networkName
         self.nodes = []
         self.timePeriods = [] # need to be in order, enter as a tuple ()
-        self.nTimePeriods[]
+        self.nTimePeriods = []
+        self.nYears = nYears
+        self.popLenDistbiomass = np.zeros(( nYears, len(omega)))
+        self.eggProducingGroupLenDist = np.zeros(( nYears, len(omega)))
+        
+    def addNodeList(self,  nodeList):
+        [ self.nodes.append( node ) for node in nodeList]
+        
+    def nNodes(self):
+        return len(self.nodes)
 
+        
+    def runNetworkSimulation(self):
+        self.pReferenceGroupBirth = np.zeros(self.nYears)
+        self.offspringViabilityReduction = np.ones(self.nYears)
+
+        for node in self.nodes:
+            for year in range(0, self.nYears):
+                ## add up sum of egg producing groups
+
+                self.eggProducingGroupLenDist[ year, :] = np.sum([ grp.popLenDist[ year, :] for grp in node.groups if grp.showGroupProduceEggs()])
+
+                
+                ## Check if any groups have YY-male like treatments on
+                if all([grp.showGroupImpactSexRatio() is False for grp in node.groups]) is False:
+                    self.pReferenceGroupBirth[year]  = ( np.sum([grp.groupOffspringPfemale * grp.popLenDist[ year, :].sum() for
+                                                                 grp in node.groups if grp.showGroupImpactSexRatio()]) /
+                                                         np.sum([ grp.popLenDist[ year, :].sum() for grp in node.groups if
+                                                                  grp.showGroupImpactSexRatio()]) ) 
+                    ## Check if any groups have non-viable offspring 
+                if all([grp.showGroupImpactViability() is False for grp in node.groups]) is False:
+                    self.offspringViabilityReduction[year]  = ( np.sum([grp.groupOffspringViability * grp.popLenDist[ year, :].sum() for
+                                                                        grp in node.groups if grp.showGroupImpactViability()]) /
+                                                                np.sum([ grp.popLenDist[ year, :].sum() for grp in node.groups if
+                                                                         grp.showGroupImpactViability()]) )
+                        
+                self.popLenDistbiomass[ year, :] = np.sum([ grp.popLenDist[ year, :] for grp in node.groups], 0)
+
+                [grp.timeStepGroup(year,
+                                   pReferenceGroupBirth = self.pReferenceGroupBirth[year],
+                                   recruitGroup = self.eggProducingGroupLenDist,
+                                   offspringViability = self.offspringViabilityReduction[year],
+                                   popLenDistbiomass = self.popLenDistbiomass) for grp in node.groups ]
+
+                ## LONG TERM, have networkNode function population all nodes from parameter table, look into useing Pandas for this.
+                ## Possibly as a wrapper function for this funciton 
 
     ## Next steps:
     ## Get one node system working
     ## Add in annual time step movement
     ## Add in seasonaility
     ## While doing above, add in helper functions such as plot results, etc 
-        
+
+
+    ## pseudo code for migration
+    ## if nodeOut.pathOut == nodefor nodesIn in all Nodes 
+
+
+    ## ADD in function to calc total population at a node 
