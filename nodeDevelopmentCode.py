@@ -182,7 +182,15 @@ for year in range(0, nYears):
                        offspringViability = offspringViabilityReduction[year],
                        popLenDistbiomass = popLenDistbiomass) for grp in node1.groups ]
     
-## Plot results
+
+## Use node plot functions
+node1.calculateNodePopulaiton()
+node1.plotNodePop(nYears = nYears)
+node1.plotNodeGroups(nYears = nYears)
+
+
+
+## Plot results by group 
 node1group1female.plotPop()
 node1group1female.plotLengthTime()
 
@@ -191,6 +199,7 @@ node1group1male.plotLengthTime()
 
 node1group1YYmale.plotPop()
 node1group1YYmale.plotLengthTime()
+
 
 print "Done" 
 

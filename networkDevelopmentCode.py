@@ -5,7 +5,7 @@ import networkNodeIPM  as nnIPM
 ## Setup numerical mesh, currently uses midpoint rule
 minLength = 0
 maxLength = 300
-nPoints = 200
+nPoints = 50
 omega = np.linspace( start = minLength, stop = maxLength, num = nPoints +2)[1:-1]
 
 ## Denisty parameter and distribution 
@@ -164,6 +164,8 @@ oneNodeSystem.runNetworkSimulation()
 ## Need to add a plot function for each node's total population
 ## in node class than plot to a subplot in network class (see S/O new answer for help)
 ## Also, need to calculate the sum of the total population in the network using the nodes
+
+
 
 out = [node.calculateNodePopulaiton() for node in oneNodeSystem.nodes]
 print np.sum(out, 0)

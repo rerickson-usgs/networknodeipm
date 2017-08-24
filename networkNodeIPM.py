@@ -265,16 +265,27 @@ class node:
         self.nodePop =  np.sum([ grp.popLenDist.sum(1) for grp in self.groups], 0)
         return self.nodePop
 
-    def plotNodePop(self):
+    def plotNodePop(self, nYears):
         '''Plot the total population size of fish through time'''
-        
-        plt.plot(np.arange(0, self.nYears + 1, 1),  self.nodeSize)
+        self.nYears = nYears
+                
+        plt.plot(np.arange(0, self.nYears + 1, 1),  self.nodePop)
         plt.title("Population size through time for all groups at " + self.nodeName)
         plt.xlabel("Time (years)")
         plt.ylabel("Population of node (all lengths)")
         plt.show()
 
-
+    def plotNodeGroups(self, nYears):
+        '''Plot the population sizes of node and groups in node'''
+        self.nYears = nYears 
+        fig, ax = plt.subplots()
+        ax.plot(np.arange(0, self.nYears + 1, 1),  self.nodePop)
+        for grp in self.groups:
+            ax.plot( np.arange(0, self.nYears + 1, 1), grp.popSize)      
+        plt.title("Population size through time for all groups at " + self.nodeName)
+        plt.xlabel("Time (years)")
+        plt.ylabel("Population of node (all lengths)")
+        plt.show()
 
 
     
@@ -334,8 +345,55 @@ class networkModel:
                                    offspringViability = self.offspringViabilityReduction[year],
                                    popLenDistbiomass = self.popLenDistbiomass) for grp in node.groups ]
 
-                ## LONG TERM, have networkNode function population all nodes from parameter table, look into useing Pandas for this.
-                ## Possibly as a wrapper function for this funciton 
+
+## NEED TO FIGURE OUT HOW TO plot all nodes/allgroups
+## Look at http://matplotlib.org/1.4.0/users/gridspec.html
+#     def plotAllNodeGroups(self):
+#         '''plot all groups in all nodes'''
+#         ## Calculate the populaiton at each node
+#         [ node.calculateNodePopulaiton() for node in self.nodes]
+#         ncols, nrows = [np.ceil(np.sqrt(11)), np.floor(np.sqrt(11))]
+#         fig, axs = plot.subplots(nrows = ncols, nrow = ncols, sharex=True, sharey=True)
+
+
+        
+#         axsLong = np.array([node.plotNodes() for node in self.nodes])
+#         axs[ranage(0, len(axsLong))] = axsLong
+
+# x = range(0,7)
+# nRow = 3
+# Out = np.zeros( (3,3))
+# for i in range(0, 2): # Row
+#     for j in range(0, 3): # Col
+#         print[i, j]
+#         print (j + 1) * i
+#         print j * i
+#         print j + (j + 1) * i
+#         # Out[j, i] = x[i + i*j]
+
+
+#         0, 1, 2, ## clearly j
+#         3, 4, 5, ## j + 3 = j + nCol * i
+#         6, 7     ## j + 6 
+# print Out 
+
+        
+    def plotNodeGroups(self, nYears):
+        '''Plot the population sizes of node and groups in node'''
+        self.nYears = nYears 
+        fig, ax = plt.subplots()
+        ax.plot(np.arange(0, self.nYears + 1, 1),  self.nodePop)
+        for grp in self.groups:
+            ax.plot( np.arange(0, self.nYears + 1, 1), grp.popSize)      
+        plt.title("Population size through time for all groups at " + self.nodeName)
+        plt.xlabel("Time (years)")
+        plt.ylabel("Population of node (all lengths)")
+        plt.show()
+
+        
+        node.plotNodeGroups()
+    ## LONG TERM, have networkNode function population all nodes from parameter table, look into useing Pandas for this.
+    ## Possibly as a wrapper function for this funciton 
 
     ## Next steps:
     ## Get one node system working
