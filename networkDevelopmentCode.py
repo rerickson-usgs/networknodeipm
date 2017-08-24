@@ -5,7 +5,7 @@ import networkNodeIPM  as nnIPM
 ## Setup numerical mesh, currently uses midpoint rule
 minLength = 0
 maxLength = 300
-nPoints = 50
+nPoints = 200
 omega = np.linspace( start = minLength, stop = maxLength, num = nPoints +2)[1:-1]
 
 ## Denisty parameter and distribution 
@@ -90,7 +90,8 @@ node1group1female = nnIPM.group(groupName = "Node 1, females",
                                 lengthWeight = lengthWeightUse)
 
 node1group1male =   nnIPM.group(groupName = "Node 1, males",
-                                groupSex =  "male", 
+                                groupSex =  "male",
+                                groupProduceEggs = False, 
                                 popSize0 = popSize0node1male, 
                                 popLenDist0 = popLenDist0, 
                                 omega = omega,
@@ -107,7 +108,7 @@ pulseIntroduction = np.zeros( (nYears + 1, len(omega)))
 
 releaseYearYYmale =  30
 releaseYearStopYYmale = 50
-releaseNumberYYmale = 5e3
+releaseNumberYYmale = 5e2
 
 ## Assume same release disrtiubtion as intial population, 
 pulseIntroduction[ (releaseYearYYmale - 1):releaseYearStopYYmale, :] = popLenDist0 * releaseNumberYYmale
@@ -115,7 +116,8 @@ pulseIntroduction[ (releaseYearYYmale - 1):releaseYearStopYYmale, :] = popLenDis
 # pulseIntroduction.sum(1) ## Prints out total stocking numbers per year 
 
 node1group1YYmale =   nnIPM.group(groupName = "Node 1, yy-males",
-                                  groupSex =  "YY-male", 
+                                  groupSex =  "YY-male",
+                                  groupProduceEggs = False, 
                                   popSize0 = 0, 
                                   popLenDist0 = popLenDist0, 
                                   omega = omega,
@@ -147,15 +149,12 @@ print node1.describeNodes()
 # eggProducingGroupLenDist = node1group1female.popLenDist
 # popLenDistbiomass = node1group1female.popLenDist + node1group1male.popLenDist + node1group1YYmale.popLenDist
 
-
-nodePopulation = np.zeros(nYears + 1)
-
 oneNodeSystem = nnIPM.networkModel("one node", nYears = nYears, omega = omega)
 
 nodesIn = [node1]
-print oneNodeSystem.nNodes()
+# print oneNodeSystem.nNodes()
 oneNodeSystem.addNodeList(nodesIn)
-print oneNodeSystem.nNodes()
+# print oneNodeSystem.nNodes()    
 
 
 oneNodeSystem.runNetworkSimulation()
@@ -168,7 +167,7 @@ oneNodeSystem.runNetworkSimulation()
 
 
 out = [node.calculateNodePopulaiton() for node in oneNodeSystem.nodes]
-print np.sum(out, 0)
+[node.plotNodeGroups(nYears) for node in oneNodeSystem.nodes]
 # oneNodeSystem.nodes
 ## use https://stackoverflow.com/questions/1358977/how-to-make-several-plots-on-a-single-page-using-matplotlib
 ## to plot multiple subplots of all nodes in one pane 

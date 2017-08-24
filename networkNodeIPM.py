@@ -158,7 +158,6 @@ class group:
         biomass = np.sum(self.popLenDistBiomass[ t, :] * self.lengthWeight(self.omega))
         decrease = self.density(biomass)
 
-
         ## Does adult mortality from treatment occur before or after movement? Also, before or after birth?
         self.popLenDist[t + 1, : ] = ( np.dot( self.hWidth * self.growth( self.omega, self.omega),  ## The first dot product is maturation
                                                self.survival( self.omega) * self.popLenDist[t, :]) * self.adultSurvivalMultiplier[t, :] +
@@ -293,7 +292,6 @@ class networkModel:
     ''' 
     The networkModel class is a collection of nodes and their interactions through time. 
     '''
-
     ## I think I will want to include omega, nYears, nSizeBins, and sizeBins from the network
     ## Also, I might want to include checks to make sure the popSize0 and popLenDist0 are in the correct format
     def __init__(self, networkName, nYears, omega):
@@ -311,18 +309,15 @@ class networkModel:
         
     def nNodes(self):
         return len(self.nodes)
-
         
     def runNetworkSimulation(self):
         self.pReferenceGroupBirth = np.zeros(self.nYears)
         self.offspringViabilityReduction = np.ones(self.nYears)
 
-        for node in self.nodes:
-            for year in range(0, self.nYears):
+        for year in range(0, self.nYears):
+            for node in self.nodes:
                 ## add up sum of egg producing groups
-
-                self.eggProducingGroupLenDist[ year, :] = np.sum([ grp.popLenDist[ year, :] for grp in node.groups if grp.showGroupProduceEggs()])
-
+                self.eggProducingGroupLenDist[ year, :] = np.sum([ grp.popLenDist[ year, :] for grp in node.groups if grp.showGroupProduceEggs()], 0)
                 
                 ## Check if any groups have YY-male like treatments on
                 if all([grp.showGroupImpactSexRatio() is False for grp in node.groups]) is False:
@@ -330,7 +325,7 @@ class networkModel:
                                                                  grp in node.groups if grp.showGroupImpactSexRatio()]) /
                                                          np.sum([ grp.popLenDist[ year, :].sum() for grp in node.groups if
                                                                   grp.showGroupImpactSexRatio()]) ) 
-                    ## Check if any groups have non-viable offspring 
+                ## Check if any groups have non-viable offspring 
                 if all([grp.showGroupImpactViability() is False for grp in node.groups]) is False:
                     self.offspringViabilityReduction[year]  = ( np.sum([grp.groupOffspringViability * grp.popLenDist[ year, :].sum() for
                                                                         grp in node.groups if grp.showGroupImpactViability()]) /
@@ -338,7 +333,7 @@ class networkModel:
                                                                          grp.showGroupImpactViability()]) )
                         
                 self.popLenDistbiomass[ year, :] = np.sum([ grp.popLenDist[ year, :] for grp in node.groups], 0)
-
+                    
                 [grp.timeStepGroup(year,
                                    pReferenceGroupBirth = self.pReferenceGroupBirth[year],
                                    recruitGroup = self.eggProducingGroupLenDist,
@@ -346,52 +341,33 @@ class networkModel:
                                    popLenDistbiomass = self.popLenDistbiomass) for grp in node.groups ]
 
 
-## NEED TO FIGURE OUT HOW TO plot all nodes/allgroups
-## Look at http://matplotlib.org/1.4.0/users/gridspec.html
-#     def plotAllNodeGroups(self):
-#         '''plot all groups in all nodes'''
-#         ## Calculate the populaiton at each node
-#         [ node.calculateNodePopulaiton() for node in self.nodes]
-#         ncols, nrows = [np.ceil(np.sqrt(11)), np.floor(np.sqrt(11))]
-#         fig, axs = plot.subplots(nrows = ncols, nrow = ncols, sharex=True, sharey=True)
+    # NEED TO FIGURE OUT HOW TO plot all nodes/allgroups
+    # Look at http://matplotlib.org/1.4.0/users/gridspec.html
+    def plotAllNodeGroups(self):
+        '''plot all groups in all nodes'''
+        ## Calculate the populaiton at each node
+        [ node.calculateNodePopulaiton() for node in self.nodes]
+        ncols, nrows = [np.ceil(np.sqrt(node.nNodes())), np.floor(np.sqrt(node.nNodes))]
+        fig, axs = plt.subplots(nrows = self.nodes(), sharex=True, sharey=True)
 
+        axs = [node.plotNodeGroups() for node in self.nodes]
+        axs = axs.reshape
+        
+        
+## Next code is for ref, possibly canibalize
+        # def plotNodeGroups(self, nYears):
+    #     '''Plot the population sizes of node and groups in node'''
+    #     self.nYears = nYears 
+    #     fig, ax = plt.subplots()
+    #     ax.plot(np.arange(0, self.nYears + 1, 1),  self.nodePop)
+    #     for grp in self.groups:
+    #         ax.plot( np.arange(0, self.nYears + 1, 1), grp.popSize)      
+    #     plt.title("Population size through time for all groups at " + self.nodeName)
+    #     plt.xlabel("Time (years)")
+    #     plt.ylabel("Population of node (all lengths)")
+    #     plt.show()
 
         
-#         axsLong = np.array([node.plotNodes() for node in self.nodes])
-#         axs[ranage(0, len(axsLong))] = axsLong
-
-# x = range(0,7)
-# nRow = 3
-# Out = np.zeros( (3,3))
-# for i in range(0, 2): # Row
-#     for j in range(0, 3): # Col
-#         print[i, j]
-#         print (j + 1) * i
-#         print j * i
-#         print j + (j + 1) * i
-#         # Out[j, i] = x[i + i*j]
-
-
-#         0, 1, 2, ## clearly j
-#         3, 4, 5, ## j + 3 = j + nCol * i
-#         6, 7     ## j + 6 
-# print Out 
-
-        
-    def plotNodeGroups(self, nYears):
-        '''Plot the population sizes of node and groups in node'''
-        self.nYears = nYears 
-        fig, ax = plt.subplots()
-        ax.plot(np.arange(0, self.nYears + 1, 1),  self.nodePop)
-        for grp in self.groups:
-            ax.plot( np.arange(0, self.nYears + 1, 1), grp.popSize)      
-        plt.title("Population size through time for all groups at " + self.nodeName)
-        plt.xlabel("Time (years)")
-        plt.ylabel("Population of node (all lengths)")
-        plt.show()
-
-        
-        node.plotNodeGroups()
     ## LONG TERM, have networkNode function population all nodes from parameter table, look into useing Pandas for this.
     ## Possibly as a wrapper function for this funciton 
 
