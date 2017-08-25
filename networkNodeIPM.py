@@ -235,7 +235,7 @@ class node:
     def __init__(self, nodeName):
         self.nodeName = nodeName
         self.groups = []
-        self.pathsOut = []
+        self.pathsOut = {}
         self.pathsIn = []
         self.nodeBiomass = 0
     
@@ -247,6 +247,12 @@ class node:
         print "Group name \t Node sex"
         for grp in self.groups:
             print grp.showGroupName() + "\t\t" + grp.showGroupSex()
+        
+    def addPathsOut(self, pathsOut):
+        self.pathsOut.update(pathsOut)
+
+    def addPathsIn(self, pathsIn):
+        [ self.pathsIn.append( pI ) for pI in pathsIn]
         
     def addGroup(self,  groupName ):
         self.groups.append( groupName )
@@ -340,32 +346,21 @@ class networkModel:
                                    offspringViability = self.offspringViabilityReduction[year],
                                    popLenDistbiomass = self.popLenDistbiomass) for grp in node.groups ]
 
-
+                ## Next step, run movement, then figureo out how to force migration into the system 
+                
     # NEED TO FIGURE OUT HOW TO plot all nodes/allgroups
     # Look at http://matplotlib.org/1.4.0/users/gridspec.html
     def plotAllNodeGroups(self):
         '''plot all groups in all nodes'''
         ## Calculate the populaiton at each node
-        [ node.calculateNodePopulaiton() for node in self.nodes]
-        ncols, nrows = [np.ceil(np.sqrt(node.nNodes())), np.floor(np.sqrt(node.nNodes))]
-        fig, axs = plt.subplots(nrows = self.nodes(), sharex=True, sharey=True)
-
-        axs = [node.plotNodeGroups() for node in self.nodes]
-        axs = axs.reshape
+        # [ node.calculateNodePopulaiton() for node in self.nodes]
+        ncols, nrows =  [ np.ceil(np.sqrt(self.nNodes())), np.floor(np.sqrt(self.nNodes()))]
+        print ncols
+        fig, axs = plt.subplots(nrows = self.nNodes(), sharex=True, sharey=True)
+        # axs = [node.plotNodeGroups(self.nYears) for node in self.NEED]
+        ## nodes TO CLEAN UP THIS FUNCTION, After I better understand it 
+        print "done with plotallNodeGroups"
         
-        
-## Next code is for ref, possibly canibalize
-        # def plotNodeGroups(self, nYears):
-    #     '''Plot the population sizes of node and groups in node'''
-    #     self.nYears = nYears 
-    #     fig, ax = plt.subplots()
-    #     ax.plot(np.arange(0, self.nYears + 1, 1),  self.nodePop)
-    #     for grp in self.groups:
-    #         ax.plot( np.arange(0, self.nYears + 1, 1), grp.popSize)      
-    #     plt.title("Population size through time for all groups at " + self.nodeName)
-    #     plt.xlabel("Time (years)")
-    #     plt.ylabel("Population of node (all lengths)")
-    #     plt.show()
 
         
     ## LONG TERM, have networkNode function population all nodes from parameter table, look into useing Pandas for this.
