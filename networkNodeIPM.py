@@ -268,7 +268,6 @@ class node:
 
     def calculateNodePopulaiton(self):
         self.nodePop =  np.sum([ grp.popLenDist.sum(1) for grp in self.groups], 0)
-        return self.nodePop
 
     def plotNodePop(self, nYears):
         '''Plot the total population size of fish through time'''
@@ -280,9 +279,6 @@ class node:
         plt.ylabel("Population of node (all lengths)")
         plt.show()
 
-    # def addToNodeGroups(self, pathIn):
-    #     if len(self.group)
-    #     self.group
     
     def plotNodeGroups(self, nYears):
         '''Plot the population sizes of node and groups in node'''
@@ -355,38 +351,17 @@ class networkModel:
         self.offspringViabilityReduction = np.ones(self.nYears)
 
         for year in range(0, self.nYears):
-            for node in self.nodes:
-                ## add up sum of egg producing groups
-                self.eggProducingGroupLenDist[ year, :] = np.sum([ grp.popLenDist[ year, :] for grp in node.groups if grp.showGroupProduceEggs()], 0)
-                
-                ## Check if any groups have YY-male like treatments              
-                if all([grp.showGroupImpactSexRatio() is False for grp in node.groups]) is False:
-                    self.pReferenceGroupBirth[year]  = ( np.sum([grp.groupOffspringPfemale * grp.popLenDist[ year, :].sum() for
-                                                                 grp in node.groups if grp.showGroupImpactSexRatio()]) /
-                                                         np.sum([ grp.popLenDist[ year, :].sum() for grp in node.groups if
-                                                                  grp.showGroupImpactSexRatio()]) ) 
-                ## Check if any groups have non-viable offspring 
-                if all([grp.showGroupImpactViability() is False for grp in node.groups]) is False:
-                    self.offspringViabilityReduction[year]  = ( np.sum([grp.groupOffspringViability * grp.popLenDist[ year, :].sum() for
-                                                                        grp in node.groups if grp.showGroupImpactViability()]) /
-                                                                np.sum([ grp.popLenDist[ year, :].sum() for grp in node.groups if
-                                                                         grp.showGroupImpactViability()]) )
-                        
-                self.popLenDistbiomass[ year, :] = np.sum([ grp.popLenDist[ year, :] for grp in node.groups], 0)
-                    
-                [grp.timeStepGroup(year,
-                                   pReferenceGroupBirth = self.pReferenceGroupBirth[year],
-                                   recruitGroup = self.eggProducingGroupLenDist,
-                                   offspringViability = self.offspringViabilityReduction[year],
-                                   popLenDistbiomass = self.popLenDistbiomass) for grp in node.groups ]
-
             #####################
             ## Run migraiton in three steps
             ## First, copy individuals onto a path
             for p in self.paths:
                 for nodeStart in self.nodes:
                     if nodeStart.showNodeName() is p.showStart():
-                        p.groups = [ nodeStart.pathsOut[p.showEnd()] * grp.popLenDist[ year + 1, :] for grp in  nodeStart.groups]
+                        print  nodeStart.pathsOut[p.showEnd()]
+                        print [grp.showGroupSex() for grp in nodeStart.groups]
+                        p.groups = [ nodeStart.pathsOut[p.showEnd()] * grp.popLenDist[ year, :] for grp in nodeStart.groups]
+                        for grp in p.groups:
+                            print grp.sum()
 
             # ## Second, unload paths
             for p in self.paths:
@@ -396,22 +371,54 @@ class networkModel:
                             sys.exit("There are not the same number of groups in the node as there is in the pathway")
                         else:
                             for index in range(0, len(nodeEnd.groups)):
-                                nodeEnd.groups[index].popLenDist[ year + 1, :] += p.groups[index] 
+                                nodeEnd.groups[index].popLenDist[ year, :] += p.groups[index] 
             
-            # # ## Third, remove migrants from their original nodes 
+            # ## Third, remove migrants from their original nodes 
             for p in self.paths:
                 for nodeStart in self.nodes:
                     if nodeStart.showNodeName() is p.showStart():
                         if len(nodeStart.groups) != len(p.groups):
                             sys.exit("There are not the same number of groups in the node as there is in the pathway")
                         else:
-                            if nodeStart.pathsOut[p.showEnd()] < 0.001:                              
-                                for index in range(0, len(nodeStart.groups)):
-                                    nodeStart.groups[index].popLenDist[ year + 1, :] = 0
-                            else:
-                                for index in range(0, len(nodeStart.groups)):
-                                    nodeStart.groups[index].popLenDist[ year + 1, :] += -1.0 * p.groups[index] 
+                            for index in range(0, len(nodeStart.groups)):
+                                nodeStart.groups[index].popLenDist[ year, :] += -1.0 * p.groups[index] 
+            
+            for node in self.nodes:
+                ## add up sum of egg producing groups
+                self.eggProducingGroupLenDist[ year, :] = np.sum([ grp.popLenDist[ year, :] for grp in node.groups if grp.showGroupProduceEggs()], 0)
+                
+                ## Check if any groups have YY-male like treatments              
+                if all([grp.showGroupImpactSexRatio() is False for grp in node.groups]) is False:
+                    if  np.sum([ grp.popLenDist[ year, :].sum() for grp in node.groups if
+                                 grp.showGroupImpactSexRatio()])  > 0:
+                        self.pReferenceGroupBirth[year]  = ( np.sum([grp.groupOffspringPfemale * grp.popLenDist[ year, :].sum() for
+                                                                     grp in node.groups if grp.showGroupImpactSexRatio()]) /
+                                                             np.sum([ grp.popLenDist[ year, :].sum() for grp in node.groups if
+                                                                      grp.showGroupImpactSexRatio()]) )
+                    else:
+                        self.pReferenceGroupBirth[year] = 0
+                        
+                ## Check if any groups have non-viable offspring 
+                if all([grp.showGroupImpactViability() is False for grp in node.groups]) is False:
+                    if np.sum([ grp.popLenDist[ year, :].sum() for grp in node.groups if
+                            grp.showGroupImpactViability()]) > 0:
+                        self.offspringViabilityReduction[year]  = ( np.sum([grp.groupOffspringViability *
+                                                                            grp.popLenDist[ year, :].sum() for
+                                                                            grp in node.groups if grp.showGroupImpactViability()]) /
+                                                                    np.sum([ grp.popLenDist[ year, :].sum() for grp in node.groups if
+                                                                             grp.showGroupImpactViability()]) )
+                    else: 
+                        self.offspringViabilityReduction[year]  = 0
+                        
+                self.popLenDistbiomass[ year, :] = np.sum([ grp.popLenDist[ year, :] for grp in node.groups], 0)
+
+                [ grp.timeStepGroup(year,
+                                    pReferenceGroupBirth = self.pReferenceGroupBirth[year],
+                                    recruitGroup = self.eggProducingGroupLenDist,
+                                    offspringViability = self.offspringViabilityReduction[year],
+                                    popLenDistbiomass = self.popLenDistbiomass) for grp in node.groups ]
     
+
                 
     # NEED TO FIGURE OUT HOW TO plot all nodes/allgroups
     # Look at http://matplotlib.org/1.4.0/users/gridspec.html

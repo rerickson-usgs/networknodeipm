@@ -81,7 +81,7 @@ recruitment0 = nnIPM.linearRecruitment(omega = omega,
                                        muJ = muJ, sigmaJ = sigmaJ)
 
 ## Simulation parameters
-nYears = 5
+nYears = 50
 
 ## Specify stocking of YY-males
 
@@ -110,7 +110,7 @@ node1group1male =   nnIPM.group(groupName = "Node 1, males",
                                 growth = growth,
                                 recruitment = recruitment,
                                 density = density,
-                                groupImpactSexRatio = True,
+                                groupImpactSexRatio = False,
                                 lengthWeight = lengthWeightUse)
 
 
@@ -152,6 +152,7 @@ node1group1female = nnIPM.group(groupName = "Node 1, females",
                                 density = density,
                                 lengthWeight = lengthWeightUse)
 
+
 node1group1male =   nnIPM.group(groupName = "Node 1, males",
                                 groupSex =  "male",
                                 groupProduceEggs = False, 
@@ -163,7 +164,7 @@ node1group1male =   nnIPM.group(groupName = "Node 1, males",
                                 growth = growth,
                                 recruitment = recruitment,
                                 density = density,
-                                groupImpactSexRatio = False,
+                                groupImpactSexRatio = True,
                                 lengthWeight = lengthWeightUse)
 
 
@@ -191,7 +192,7 @@ node2group1male =   nnIPM.group(groupName = "Node 2, males",
                                 growth = growth,
                                 recruitment = recruitment,
                                 density = density,
-                                groupImpactSexRatio = False,
+                                groupImpactSexRatio = True,
                                 lengthWeight = lengthWeightUse)
 
 
@@ -203,13 +204,13 @@ node1.addGroupList( [node1group1male, node1group1female] )
 node2.addGroupList( [node2group1male, node2group1female] )
 
 ## Add in paths to nodes
-node1PathsOut = {"node 2": 1.00}
+node1PathsOut = {"node 2": 1.0}
 node1PathsIn = ["node 1"]
 
 node1.addPathsOut(node1PathsOut)
 node1.addPathsIn(node1PathsIn)
 
-node2PathsOut = {"node 1": 0.1}
+node2PathsOut = {"node 1": 0.0}
 node2PathsIn = ["node 2"]
 
 node2.addPathsOut(node2PathsOut)
@@ -227,7 +228,7 @@ twoNodeSystem.describePaths()
 twoNodeSystem.runNetworkSimulation()
 
 [node.calculateNodePopulaiton() for node in twoNodeSystem.nodes]
-dummy = [node.plotNodePop(nYears) for node in twoNodeSystem.nodes]
+dummy = [node.plotNodeGroups(nYears = nYears) for node in twoNodeSystem.nodes]
 
 print "Done"
 
