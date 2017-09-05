@@ -1,6 +1,7 @@
 import numpy as np
 import scipy.stats as stats
 import matplotlib.pyplot as plt
+import sys
 
 class densityNegExp:
     '''Define a function where density has a negative exponential impact on the system.'''
@@ -168,21 +169,21 @@ class group:
         self.popSize[t + 1] =  self.popLenDist[ t + 1, :].sum()
 
 
-    def movement(self, immigration, emigration):
-        ## This function wil require work and thought into the time step 
+    def movement(self, immigration, emigration, t):        
         if immigration is None:
-            self.immigration = np.zeros( (nYears + 1, len(omega)))
+            self.immigration = np.zeros( (1, len(self.omega)))
         else:
             self.immigration = immigration
 
         if emigration is None:
-            self.emigration = np.zeros( (nYears + 1, len(omega)))
+            self.emigration = np.zeros( ( 1, len(self.omega)))
         else:
-            self.emigration = emigration          
-
-        self.popLenDist[t + 1, : ] = popLenDist[t + 1, : ] + self.immigration[t, :] - self.emigration[t, :]  
+            self.emigration = emigration
             
+        self.popLenDist[t, : ] = self.popLenDist[t, : ] + self.immigration - self.emigration              
+        print self.popLenDist[t, : ].sum()
 
+        
     def showGroupPopSize(self):
         return self.popSize
     
@@ -229,7 +230,6 @@ class node:
     ''' 
     The node class is a collection of groups that use the same spatial habitat (i.e., "node") at the same time.
     '''
-
     ## I think I will want to include omega, nYears, nSizeBins, and sizeBins from the network
     ## Also, I might want to include checks to make sure the popSize0 and popLenDist0 are in the correct format
     def __init__(self, nodeName):
@@ -244,7 +244,7 @@ class node:
         
     def describeNodes(self):
         print self.nodeName + "contains the following groups:"
-        print "Group name \t Node sex"
+        print "Group name \t\t Node sex"
         for grp in self.groups:
             print grp.showGroupName() + "\t\t" + grp.showGroupSex()
         
@@ -280,6 +280,10 @@ class node:
         plt.ylabel("Population of node (all lengths)")
         plt.show()
 
+    # def addToNodeGroups(self, pathIn):
+    #     if len(self.group)
+    #     self.group
+    
     def plotNodeGroups(self, nYears):
         '''Plot the population sizes of node and groups in node'''
         self.nYears = nYears 
@@ -293,7 +297,25 @@ class node:
         plt.show()
 
 
-    
+class path:
+    '''
+    Paths are used in nodes to hold transitory popualtions.
+    '''
+    def __init__(self, start, end, timeTransition = "All"):
+        self.start = start
+        self.end = end
+        self.groups = []
+        self.timeTransition = "All"
+
+    def showEnd(self):
+        return self.end
+
+    def showStart(self):
+        return self.start
+
+    def describePath(self):
+        print "This path starts at " + self.start + " and ends at " + self.end + ". The season is " + self.timeTransition 
+        
 class networkModel:
     ''' 
     The networkModel class is a collection of nodes and their interactions through time. 
@@ -304,11 +326,23 @@ class networkModel:
         self.omega = omega
         self.networkName = networkName
         self.nodes = []
-        self.timePeriods = [] # need to be in order, enter as a tuple ()
-        self.nTimePeriods = []
+        self.paths = []
+        # self.timePeriods = () # need to be in order, enter as a tuple ()
+        # self.nTimePeriods = []
         self.nYears = nYears
         self.popLenDistbiomass = np.zeros(( nYears, len(omega)))
         self.eggProducingGroupLenDist = np.zeros(( nYears, len(omega)))
+
+    def initializePaths(self):
+        for nodeStart in self.nodes:
+            for pathOut in nodeStart.pathsOut:
+                for nodeEnd in self.nodes:
+                    if pathOut is nodeEnd.showNodeName():
+                        self.paths.append( path( start = nodeStart.showNodeName(),
+                                          end = nodeEnd.showNodeName()))
+
+    def describePaths(self):
+        [p.describePath() for p in self.paths]
         
     def addNodeList(self,  nodeList):
         [ self.nodes.append( node ) for node in nodeList]
@@ -325,7 +359,7 @@ class networkModel:
                 ## add up sum of egg producing groups
                 self.eggProducingGroupLenDist[ year, :] = np.sum([ grp.popLenDist[ year, :] for grp in node.groups if grp.showGroupProduceEggs()], 0)
                 
-                ## Check if any groups have YY-male like treatments on
+                ## Check if any groups have YY-male like treatments              
                 if all([grp.showGroupImpactSexRatio() is False for grp in node.groups]) is False:
                     self.pReferenceGroupBirth[year]  = ( np.sum([grp.groupOffspringPfemale * grp.popLenDist[ year, :].sum() for
                                                                  grp in node.groups if grp.showGroupImpactSexRatio()]) /
@@ -346,7 +380,38 @@ class networkModel:
                                    offspringViability = self.offspringViabilityReduction[year],
                                    popLenDistbiomass = self.popLenDistbiomass) for grp in node.groups ]
 
-                ## Next step, run movement, then figureo out how to force migration into the system 
+            #####################
+            ## Run migraiton in three steps
+            ## First, copy individuals onto a path
+            for p in self.paths:
+                for nodeStart in self.nodes:
+                    if nodeStart.showNodeName() is p.showStart():
+                        p.groups = [ nodeStart.pathsOut[p.showEnd()] * grp.popLenDist[ year + 1, :] for grp in  nodeStart.groups]
+
+            # ## Second, unload paths
+            for p in self.paths:
+                for nodeEnd in self.nodes:
+                    if nodeEnd.showNodeName() is p.showEnd():
+                        if len(nodeEnd.groups) != len(p.groups):
+                            sys.exit("There are not the same number of groups in the node as there is in the pathway")
+                        else:
+                            for index in range(0, len(nodeEnd.groups)):
+                                nodeEnd.groups[index].popLenDist[ year + 1, :] += p.groups[index] 
+            
+            # # ## Third, remove migrants from their original nodes 
+            for p in self.paths:
+                for nodeStart in self.nodes:
+                    if nodeStart.showNodeName() is p.showStart():
+                        if len(nodeStart.groups) != len(p.groups):
+                            sys.exit("There are not the same number of groups in the node as there is in the pathway")
+                        else:
+                            if nodeStart.pathsOut[p.showEnd()] < 0.001:                              
+                                for index in range(0, len(nodeStart.groups)):
+                                    nodeStart.groups[index].popLenDist[ year + 1, :] = 0
+                            else:
+                                for index in range(0, len(nodeStart.groups)):
+                                    nodeStart.groups[index].popLenDist[ year + 1, :] += -1.0 * p.groups[index] 
+    
                 
     # NEED TO FIGURE OUT HOW TO plot all nodes/allgroups
     # Look at http://matplotlib.org/1.4.0/users/gridspec.html

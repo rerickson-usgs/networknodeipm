@@ -1,5 +1,14 @@
-## NEXT STEP IS TO PROGAM IN MIGRATION INTO THE CODE. I HAVE the parts,
-## But I just need to program in the matching loop and movement code
+## The first part of this code enters parameter values that are used for all node.
+## Next, a simple one node system is created to make sure the network functions work (which currently do not).
+## The third section creates a 2 node system.
+
+## Projection to dos:
+## 0) Get migraiton working
+## 1) Write a function to load a csv of possible parameter values
+## 2) Get plotting working correctly (less important, but still usefull
+
+## add in checker to make sure all groups are in the same order in all nodes
+
 import numpy as np
 import scipy.stats as stats
 import networkNodeIPM  as nnIPM
@@ -72,7 +81,7 @@ recruitment0 = nnIPM.linearRecruitment(omega = omega,
                                        muJ = muJ, sigmaJ = sigmaJ)
 
 ## Simulation parameters
-nYears = 100
+nYears = 5
 
 ## Specify stocking of YY-males
 
@@ -104,63 +113,28 @@ node1group1male =   nnIPM.group(groupName = "Node 1, males",
                                 groupImpactSexRatio = True,
                                 lengthWeight = lengthWeightUse)
 
-## Pulse introdcution details 
-pulseIntroduction = np.zeros( (nYears + 1, len(omega)))
 
-releaseYearYYmale =  30
-releaseYearStopYYmale = 50
-releaseNumberYYmale = 5e2
 
-## Assume same release disrtiubtion as intial population, 
-pulseIntroduction[ (releaseYearYYmale - 1):releaseYearStopYYmale, :] = popLenDist0 * releaseNumberYYmale
-
-# pulseIntroduction.sum(1) ## Prints out total stocking numbers per year 
-node1group1YYmale =   nnIPM.group(groupName = "Node 1, yy-males",
-                                  groupSex =  "YY-male",
-                                  groupProduceEggs = False, 
-                                  popSize0 = 0, 
-                                  popLenDist0 = popLenDist0, 
-                                  omega = omega,
-                                  nYears = nYears, 
-                                  survival = survival, 
-                                  growth = growth,
-                                  recruitment = recruitment0,
-                                  density = density,
-                                  groupOffspringPfemale = 0.0,
-                                  groupImpactSexRatio = True,
-                                  pulseIntroduction = pulseIntroduction,
-                                  lengthWeight = lengthWeightUse)
 
 node1 = nnIPM.node("node 1")
 
 ## Add in groups to nodes 
-node1.addGroup( node1group1YYmale)
 node1.addGroupList( [node1group1male, node1group1female] )
 
 
-# ## Make sure nodes present in the group 
-# print node1.describeNodes()
+## Make sure nodes present in the group 
+node1.describeNodes()
 
-# oneNodeSystem = nnIPM.networkModel("one node", nYears = nYears, omega = omega)
-
-# nodesIn = [node1]
-# # print oneNodeSystem.nNodes()
-# oneNodeSystem.addNodeList(nodesIn)
-# # print oneNodeSystem.nNodes()    
-
+oneNodeSystem = nnIPM.networkModel("one node", nYears = nYears, omega = omega)
+nodesIn = [node1]
+oneNodeSystem.addNodeList(nodesIn)
 
 # oneNodeSystem.runNetworkSimulation()
 
-# out = [node.calculateNodePopulaiton() for node in oneNodeSystem.nodes]
-# [node.plotNodeGroups(nYears) for node in oneNodeSystem.nodes]
-
-
-# oneNodeSystem.plotAllNodeGroups()
+# onenodesystem.plotAllNodeGroups()
 # oneNodeSystem.nodes
 ## use https://stackoverflow.com/questions/1358977/how-to-make-several-plots-on-a-single-page-using-matplotlib
 ## to plot multiple subplots of all nodes in one pane 
-
-
 
 ## Setup system with one full and one empy node, no YY-males
 
@@ -189,9 +163,8 @@ node1group1male =   nnIPM.group(groupName = "Node 1, males",
                                 growth = growth,
                                 recruitment = recruitment,
                                 density = density,
-                                groupImpactSexRatio = True,
+                                groupImpactSexRatio = False,
                                 lengthWeight = lengthWeightUse)
-
 
 
 node2group1female = nnIPM.group(groupName = "Node 2, females",
@@ -230,7 +203,7 @@ node1.addGroupList( [node1group1male, node1group1female] )
 node2.addGroupList( [node2group1male, node2group1female] )
 
 ## Add in paths to nodes
-node1PathsOut = {"node 2": 0.1}
+node1PathsOut = {"node 2": 1.00}
 node1PathsIn = ["node 1"]
 
 node1.addPathsOut(node1PathsOut)
@@ -242,25 +215,21 @@ node2PathsIn = ["node 2"]
 node2.addPathsOut(node2PathsOut)
 node2.addPathsIn(node2PathsIn)
 
-
-## Add nodes to network
+# ## Add nodes to network
 twoNodeSystem = nnIPM.networkModel("two nodes, one empty", nYears = nYears, omega = omega)
-
-
-
 nodesIn2 = [node1, node2]
 twoNodeSystem.addNodeList(nodesIn2)
 print twoNodeSystem.nNodes()    
 
+twoNodeSystem.initializePaths()
+twoNodeSystem.describePaths()
+
 twoNodeSystem.runNetworkSimulation()
 
-out = [node.calculateNodePopulaiton() for node in twoNodeSystem.nodes]
-print out 
+[node.calculateNodePopulaiton() for node in twoNodeSystem.nodes]
+dummy = [node.plotNodePop(nYears) for node in twoNodeSystem.nodes]
 
-# twoNodeSystem.plotAllNodeGroups()
-[node.plotNodeGroups(nYears) for node in twoNodeSystem.nodes]
-
-print "Done" 
+print "Done"
 
 
 
