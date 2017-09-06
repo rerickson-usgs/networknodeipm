@@ -357,11 +357,7 @@ class networkModel:
             for p in self.paths:
                 for nodeStart in self.nodes:
                     if nodeStart.showNodeName() is p.showStart():
-                        print  nodeStart.pathsOut[p.showEnd()]
-                        print [grp.showGroupSex() for grp in nodeStart.groups]
                         p.groups = [ nodeStart.pathsOut[p.showEnd()] * grp.popLenDist[ year, :] for grp in nodeStart.groups]
-                        for grp in p.groups:
-                            print grp.sum()
 
             # ## Second, unload paths
             for p in self.paths:
