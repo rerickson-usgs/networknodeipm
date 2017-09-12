@@ -107,10 +107,11 @@ pulseIntroduction = np.zeros( (nYears + 1, len(omega)))
 
 releaseYearYYmale =  30
 releaseYearStopYYmale = 50
-releaseNumberYYmale = 5e2
+releaseNumberYYmale = 500
 
 ## Assume same release disrtiubtion as intial population, 
 pulseIntroduction[ (releaseYearYYmale - 1):releaseYearStopYYmale, :] = popLenDist0 * releaseNumberYYmale
+
 
 # pulseIntroduction.sum(1) ## Prints out total stocking numbers per year 
 

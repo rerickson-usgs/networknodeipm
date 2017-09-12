@@ -1,7 +1,22 @@
 import numpy as np
 import scipy.stats as stats
 import matplotlib.pyplot as plt
+import pandas as pd
 import sys
+
+
+def pathOutListFunction( pathsOut, pathsOutProb):
+    '''Funciton used to convert path names and probabilities from lists (e.g., from CSV files) into a dictionary for the model.'''
+    pathsOutTemp = dict()
+    if isinstance(pathsOutProb, float):
+        pathsOutTemp[pathsOut] = pathsOutProb
+    else:
+        pathsOut2 = pathsOut.strip().split(",")
+        pathsOutProb2 = [x for x in pathsOutProb.strip().split(",")]
+        for index, pth in enumerate(pathsOut2):
+            pathsOutTemp[pth] = pathsOutProb2[index]
+    return pathsOutTemp
+
 
 class densityNegExp:
     '''Define a function where density has a negative exponential impact on the system.'''
@@ -95,9 +110,11 @@ class group:
                  groupImpactViability = False,
                  groupOffspringViability = 1.0, 
                  pulseIntroduction = None,
+                 pulseIntroductionString = "No",
                  adultSurvivalMultiplier = None,
                  groupSex = None):
 
+        self.popLenDist0 = popLenDist0
         self.groupProduceEggs = groupProduceEggs
         self.groupImpactSexRatio = groupImpactSexRatio
         self.groupImpactViability = groupImpactViability
@@ -107,7 +124,7 @@ class group:
         self.popSize = np.zeros(nYears + 1)
         self.popSize[0] = popSize0
         self.popLenDist = np.zeros( (nYears + 1, len(omega)))
-        self.popLenDist[0, :] = popLenDist0 * popSize0
+        self.popLenDist[0, :] = self.popLenDist0 * popSize0
         self.survival = survival
         self.growth = growth
         self.recruitment = recruitment
@@ -117,14 +134,25 @@ class group:
         self.groupOffspringViability = groupOffspringViability
         self.omega = omega
         self.hWidth = self.omega[1] - self.omega[0]      
+        self.pulseIntroductionString = pulseIntroductionString
 
-        if pulseIntroduction is None:
-            self.pulseIntroduction = np.zeros( (nYears + 1, len(omega)))
-        else:
+        
+        ## Go through options for pulse introduction
+        ## Neither method is used, use all zeros
+        if self.pulseIntroductionString == "No" and pulseIntroduction is None:           
+            self.pulseIntroduction = np.zeros( (nYears + 1, len(self.omega)))
+        ## String not used, use pulseIntroduction value
+        elif pulseIntroductionString == "No":          
             self.pulseIntroduction = pulseIntroduction
+        ## input no specified, used string
+        elif pulseIntroduction is None:
+            nRelease, startRelease, stopRelease = [int(x) for x in  self.pulseIntroductionString.split(',')]
+            self.pulseIntroduction = np.zeros( (nYears + 1, len(self.omega)))
+            self.pulseIntroduction[ (startRelease - 1):stopRelease, :] = nRelease * self.popLenDist0
 
+        ## Go include adult mortality
         if adultSurvivalMultiplier is None:
-            self.adultSurvivalMultiplier = np.ones( (nYears + 1, len(omega)))
+            self.adultSurvivalMultiplier = np.ones( (nYears + 1, len(self.omega)))
         else:
             self.adultSurvivalMultiplier = adultSurvivalMultiplier
 
@@ -141,11 +169,11 @@ class group:
         self.offspringViability = offspringViability
         ## Hard wire function to calcuate pGroupBirth based upon sex,
         ## remember that pGroupBirth, by defult, referes to females 
-        if self.groupSex is referenceSex:
+        if self.groupSex == referenceSex:
             self.pGroupBirth = pReferenceGroupBirth
         else:
             self.pGroupBirth = 1 - pReferenceGroupBirth
-        
+
         if recruitGroup is None:
             self.recruitGroup = self.popLenDist
         else:
@@ -166,7 +194,7 @@ class group:
                                                self.recruitGroup[t, :]) * decrease * self.pGroupBirth  * self.offspringViability + 
                                        self.pulseIntroduction[t, :]) ## Stocking numbers for group 
 
-        self.popSize[t + 1] =  self.popLenDist[ t + 1, :].sum()
+        self.popSize[t + 1] =  self.popLenDist[ t + 1, :].sum() ## May need to move this at some point
 
 
     def movement(self, immigration, emigration, t):        
@@ -181,7 +209,7 @@ class group:
             self.emigration = emigration
             
         self.popLenDist[t, : ] = self.popLenDist[t, : ] + self.immigration - self.emigration              
-        print self.popLenDist[t, : ].sum()
+        
 
         
     def showGroupPopSize(self):
@@ -237,13 +265,13 @@ class node:
         self.groups = []
         self.pathsOut = {}
         self.pathsIn = []
-        self.nodeBiomass = 0
+        self.nodeBiomass = 0.0
     
     def listGroups(self):
         return [grp for grp in self.groups]
-        
+   
     def describeNodes(self):
-        print self.nodeName + "contains the following groups:"
+        print self.nodeName + " contains the following groups:"
         print "Group name \t\t Node sex"
         for grp in self.groups:
             print grp.showGroupName() + "\t\t" + grp.showGroupSex()
@@ -310,7 +338,7 @@ class path:
         return self.start
 
     def describePath(self):
-        print "This path starts at " + self.start + " and ends at " + self.end + ". The season is " + self.timeTransition 
+        print "This path starts at " + self.start + " and ends at " + self.end + ". The time period (e.g., season) is " + self.timeTransition 
         
 class networkModel:
     ''' 
@@ -333,7 +361,7 @@ class networkModel:
         for nodeStart in self.nodes:
             for pathOut in nodeStart.pathsOut:
                 for nodeEnd in self.nodes:
-                    if pathOut is nodeEnd.showNodeName():
+                    if pathOut == nodeEnd.showNodeName():
                         self.paths.append( path( start = nodeStart.showNodeName(),
                                           end = nodeEnd.showNodeName()))
 
@@ -347,7 +375,7 @@ class networkModel:
         return len(self.nodes)
         
     def runNetworkSimulation(self):
-        self.pReferenceGroupBirth = np.zeros(self.nYears)
+        self.pReferenceGroupBirth = np.zeros(self.nYears) + 0.5
         self.offspringViabilityReduction = np.ones(self.nYears)
 
         for year in range(0, self.nYears):
@@ -378,33 +406,26 @@ class networkModel:
                         else:
                             for index in range(0, len(nodeStart.groups)):
                                 nodeStart.groups[index].popLenDist[ year, :] += -1.0 * p.groups[index] 
-            
+
+            ## Run through each node for population projection
             for node in self.nodes:
                 ## add up sum of egg producing groups
                 self.eggProducingGroupLenDist[ year, :] = np.sum([ grp.popLenDist[ year, :] for grp in node.groups if grp.showGroupProduceEggs()], 0)
-                
-                ## Check if any groups have YY-male like treatments              
+                    
+                ## Check if any groups have YY-male like treatments
                 if all([grp.showGroupImpactSexRatio() is False for grp in node.groups]) is False:
-                    if  np.sum([ grp.popLenDist[ year, :].sum() for grp in node.groups if
-                                 grp.showGroupImpactSexRatio()])  > 0:
-                        self.pReferenceGroupBirth[year]  = ( np.sum([grp.groupOffspringPfemale * grp.popLenDist[ year, :].sum() for
-                                                                     grp in node.groups if grp.showGroupImpactSexRatio()]) /
-                                                             np.sum([ grp.popLenDist[ year, :].sum() for grp in node.groups if
-                                                                      grp.showGroupImpactSexRatio()]) )
-                    else:
-                        self.pReferenceGroupBirth[year] = 0
+                    self.pReferenceGroupBirth[year]  = ( np.sum([grp.groupOffspringPfemale * grp.popLenDist[ year, :].sum() for
+                                                                 grp in node.groups if grp.showGroupImpactSexRatio()]) /
+                                                         np.sum([ grp.popLenDist[ year, :].sum() for grp in node.groups if
+                                                                  grp.showGroupImpactSexRatio()]) )
                         
-                ## Check if any groups have non-viable offspring 
+                # ## Check if any groups have non-viable offspring
                 if all([grp.showGroupImpactViability() is False for grp in node.groups]) is False:
-                    if np.sum([ grp.popLenDist[ year, :].sum() for grp in node.groups if
-                            grp.showGroupImpactViability()]) > 0:
-                        self.offspringViabilityReduction[year]  = ( np.sum([grp.groupOffspringViability *
-                                                                            grp.popLenDist[ year, :].sum() for
-                                                                            grp in node.groups if grp.showGroupImpactViability()]) /
-                                                                    np.sum([ grp.popLenDist[ year, :].sum() for grp in node.groups if
-                                                                             grp.showGroupImpactViability()]) )
-                    else: 
-                        self.offspringViabilityReduction[year]  = 0
+                    self.offspringViabilityReduction[year]  = ( np.sum([grp.groupOffspringViability *
+                                                                        grp.popLenDist[ year, :].sum() for
+                                                                        grp in node.groups if grp.showGroupImpactViability()]) /
+                                                                np.sum([ grp.popLenDist[ year, :].sum() for grp in node.groups if
+                                                                         grp.showGroupImpactViability()]) )
                         
                 self.popLenDistbiomass[ year, :] = np.sum([ grp.popLenDist[ year, :] for grp in node.groups], 0)
 
@@ -415,6 +436,16 @@ class networkModel:
                                     popLenDistbiomass = self.popLenDistbiomass) for grp in node.groups ]
     
 
+    def describeNetwork(self):
+        print str(self.networkName) + ' is a network with ' + str(self.nNodes()) + ' nodes.'
+        print 'The network nodes include:'
+        for node in self.nodes:
+            node.describeNodes()
+            if all([grp.showGroupImpactSexRatio() is False for grp in node.groups]) is False:
+                print "Groups impact on sex ratio (first True/False), second impact:"
+                print [grp.showGroupImpactSexRatio() is False for grp in node.groups]       
+                print [grp.groupOffspringPfemale for grp in node.groups]
+                
                 
     # NEED TO FIGURE OUT HOW TO plot all nodes/allgroups
     # Look at http://matplotlib.org/1.4.0/users/gridspec.html
@@ -430,13 +461,98 @@ class networkModel:
         print "done with plotallNodeGroups"
         
 
-        
-    ## LONG TERM, have networkNode function population all nodes from parameter table, look into useing Pandas for this.
-    ## Possibly as a wrapper function for this funciton 
+def initalizeModelFromCSVs( dfNetwork, dfNode, dfGroups):
+    ''' 
+    This function reads in 3 CSVs and creates a network model using their parameter values.
+    '''
 
+    ## Create Network
+    omegaIn = np.linspace( start = dfNetwork['minLength'],
+                           stop = dfNetwork['maxLength'],
+                           num = dfNetwork['nPoints'] +2)[1:-1]
+    networkOut = networkModel(dfNetwork['networkName'][0], nYears = dfNetwork['nYears'][0],
+                                    omega = omegaIn)
+
+    ## Extract out nodes from the network we are using
+    ## (this allows a yet to be implement function for generating multiple networks from one set of files)
+    nodes = []
+    dfNodeUse = dfNode.query(str('network == ' + "'" + networkOut.networkName + "'"))
+
+    ## Loop through each node in the network and generate it
+    for nodeRow in dfNodeUse.iterrows():
+        nodeTemp =  node( nodeName = nodeRow[1]['nodeName'])
+        pathsOutTemp = pathOutListFunction( pathsOut = nodeRow[1]['pathsOut'],
+                                            pathsOutProb = float(nodeRow[1]['pathsOutProb']))
+        nodeTemp.addPathsOut(pathsOutTemp)
+        nodeTemp.addPathsIn( nodeRow[1]['pathsIn'].split(","))
+        dfGroupsUse = dfGroups.query(str('network == ' + "'" +
+                                         networkOut.networkName + "'" + 
+                                         ' & node == ' + "'" + 
+                                         nodeRow[1]['nodeName'] + "'" ))
+        groupsForNodeTemp = []
+        ## Loop through each group in a node and generate it
+        for groupRow in dfGroupsUse.iterrows():        
+            lengthWeightUseTemp = lengthWeight(groupRow[1]['alphaLW'], groupRow[1]['betaLW'])
+            densityTemp = densityNegExp(a = groupRow[1]['densityA'], b = groupRow[1]['densityB'])
+            survivalTemp = logestic( alphaL = groupRow[1]['alphaS'], betaL = groupRow[1]['betaS'],
+                                           minL = groupRow[1]['minS'], maxL = groupRow[1]['maxS'])
+            popLenDist0Temp = (stats.lognorm.pdf(omegaIn, loc = 0, s = groupRow[1]['initS'], scale = groupRow[1]['initMean']) /
+                               stats.lognorm.pdf(omegaIn, loc = 0, s = groupRow[1]['initS'], scale = groupRow[1]['initMean']).sum() )
+            growthTemp = growthVB(aG = groupRow[1]['aG'], kG = groupRow[1]['kG'], sigmaG = groupRow[1]['sigmaG'])
+            probabilityReproducingTemp = logestic( alphaL =  groupRow[1]['alphaR'], betaL =  groupRow[1]['betaR'],
+                                                         minL =  groupRow[1]['minR'], maxL = groupRow[1]['maxR'])
+            recruitmentTemp = linearRecruitment(omega = omegaIn,
+                                                      lengthWeight = lengthWeightUseTemp,
+                                                      probabilityReproducing = probabilityReproducingTemp,
+                                                      survival = survivalTemp,
+                                                      eggTransition = groupRow[1]['eggTransition'],
+                                                      eggPerkg = groupRow[1]['eggPerkg'],
+                                                      muJ = np.log(groupRow[1]['muJ']), sigmaJ = np.log(groupRow[1]['sigmaJ']))
+            try:
+                pulseIntro = groupRow[1][ 'pulseIntro']
+            except:
+                pulseIntro = None
+
+
+            if 'groupOffspringPfemale' in groupRow[1]:
+                groupOffspringPfemale = float(groupRow[1]['groupOffspringPfemale'])
+            else:
+                groupOffspringPfemale = 0.5
+
+            if 'groupImpactSexRatio' in groupRow[1]:
+                groupImpactSexRatio =  groupRow[1]['groupImpactSexRatio']
+                if not isinstance(groupImpactSexRatio, bool):
+                    print groupImpactSexRatio
+                    sys.exit("groupImpactSexRatio must be True or False")
+            else:
+               groupImpactSexRatio = Flase
+
+            groupTemp = group(groupName = groupRow[1][ 'groupName'],
+                              groupSex =  groupRow[1][ 'groupSex'],
+                              groupOffspringPfemale = groupOffspringPfemale,
+                              groupProduceEggs = groupRow[1][ 'groupProduceEggs'], 
+                              popSize0 = groupRow[1][ 'popSize0'], 
+                              popLenDist0 = popLenDist0Temp, 
+                              omega = omegaIn,
+                              nYears = dfNetwork['nYears'][0], 
+                              survival = survivalTemp, 
+                              growth = growthTemp,
+                              recruitment = recruitmentTemp,
+                              density = densityTemp,
+                              lengthWeight = lengthWeightUseTemp,
+                              pulseIntroductionString = pulseIntro,
+                              groupImpactSexRatio = groupImpactSexRatio)
+            groupsForNodeTemp.append(groupTemp)
+        ## Add groups to each node and then add nodes to temp node list
+        nodeTemp.addGroupList(groupsForNodeTemp)
+        nodes.append( nodeTemp)
+    ## Add nodes to the network and then create the paths 
+    networkOut.addNodeList(nodes)
+    networkOut.initializePaths()
+    
+    return networkOut
+                           
     ## Next steps:
-    ## Get one node system working
-    ## Add in annual time step movement
     ## Add in seasonaility
     ## While doing above, add in helper functions such as plot results, etc 
 

@@ -204,13 +204,14 @@ node1.addGroupList( [node1group1male, node1group1female] )
 node2.addGroupList( [node2group1male, node2group1female] )
 
 ## Add in paths to nodes
-node1PathsOut = {"node 2": 1.0}
+node1PathsOut = {"node 2": 0.95}
+## Try 1.0 to make sure it works here and 0.0 for the other one. 
 node1PathsIn = ["node 1"]
 
 node1.addPathsOut(node1PathsOut)
 node1.addPathsIn(node1PathsIn)
 
-node2PathsOut = {"node 1": 0.0}
+node2PathsOut = {"node 1": 0.1}
 node2PathsIn = ["node 2"]
 
 node2.addPathsOut(node2PathsOut)

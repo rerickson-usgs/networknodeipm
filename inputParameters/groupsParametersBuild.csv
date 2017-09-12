@@ -1,0 +1,5 @@
+network,node,groupName,groupSex,groupProduceEggs,groupImpactSexRatio,popSize0,initMean,initS,alphaS,betaS,minS,maxS,aG,kG,sigmaG,alphaLW,betaLW,eggTransition,eggPerkg,muJ,sigmaJ,alphaR,betaR,minR,maxR,densityA,densityB
+twoNodeNetwork,node 1,"node 1, females",female,TRUE,FALSE,30000,150,0.2,40,-5,0.1,0.9,180,0.16,10,-4.33,2.77,3.00E-03,5.00E+06,10,2,40,-4,0,1,1,1.00E-06
+twoNodeNetwork,node 1,"node 1, males",male,FALSE,TRUE,30000,150,0.2,40,-5,0.1,0.9,180,0.16,10,-4.33,2.77,3.00E-03,5.00E+06,10,2,40,-4,0,1,1,1.00E-06
+twoNodeNetwork,node 2,"node 2, females",female,TRUE,FALSE,0,150,0.2,40,-5,0.1,0.9,180,0.16,10,-4.33,2.77,3.00E-03,5.00E+06,10,2,40,-4,0,1,1,1.00E-06
+twoNodeNetwork,node 2,"node 2, males",male,FALSE,TRUE,0,150,0.2,40,-5,0.1,0.9,180,0.16,10,-4.33,2.77,3.00E-03,5.00E+06,10,2,40,-4,0,1,1,1.00E-06

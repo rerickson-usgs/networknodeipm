@@ -1,0 +1,2 @@
+network,nodeName,pathsOut,pathsOutProb,pathsIn
+oneNodeYY,node 1,node 2,0.05,node 2
