@@ -1,0 +1,7 @@
+network,node,groupName,groupSex,groupProduceEggs,groupImpactSexRatio,groupOffspringPfemale,groupImpactViability,groupOffspringViability,popSize0,initMean,initS,alphaS,betaS,minS,maxS,aG,kG,sigmaG,alphaLW,betaLW,eggTransition,eggPerkg,muJ,sigmaJ,alphaR,betaR,minR,maxR,densityA,densityB,pulseIntro
+twoNodeNetwork,node 1,"node 1, females",female,TRUE,FALSE,0.5,FALSE,1,3000,150,0.2,40,-5,0.1,0.9,180,0.16,10,-4.33,2.77,0.003,5000000,10,2,40,-4,0,1,1,1E-06,No
+twoNodeNetwork,node 1,"node 1, males",male,FALSE,FALSE,0.5,TRUE,1,3000,150,0.2,40,-5,0.1,0.9,180,0.16,10,-4.33,2.77,0.003,5000000,10,2,40,-4,0,1,1,1E-06,No
+twoNodeNetwork,node 1,"node 1, sterile-males",sterile-male,FALSE,FALSE,0,TRUE,0,0,150,0.2,40,-5,0.1,0.9,180,0.16,10,-4.33,2.77,0,0,10,2,40,-4,0,0,1,1E-06,"4000, 20, 50"
+twoNodeNetwork,node 2,"node 2, females",female,TRUE,FALSE,0.5,FALSE,1,0,150,0.2,40,-5,0.1,0.9,180,0.16,10,-4.33,2.77,0.003,5000000,10,2,40,-4,0,1,1,1E-06,No
+twoNodeNetwork,node 2,"node 2, males",male,FALSE,FALSE,0.5,TRUE,1,0,150,0.2,40,-5,0.1,0.9,180,0.16,10,-4.33,2.77,0.003,5000000,10,2,40,-4,0,1,1,1E-06,No
+twoNodeNetwork,node 2,"node 2, sterile-males",sterile-male,FALSE,FALSE,0,TRUE,0,0,150,0.2,40,-5,0.1,0.9,180,0.16,10,-4.33,2.77,0,0,10,2,40,-4,0,0,1,1E-06,No

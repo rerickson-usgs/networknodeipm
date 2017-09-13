@@ -415,7 +415,8 @@ class networkModel:
                     
                 ## Check if any groups have YY-male like treatments
                 if all([grp.showGroupImpactSexRatio() is False for grp in node.groups]) is False:
-                    self.pReferenceGroupBirth[year]  = ( np.sum([grp.groupOffspringPfemale * grp.popLenDist[ year, :].sum() for
+                    self.pReferenceGroupBirth[year]  = ( np.sum([grp.groupOffspringPfemale *
+                                                                 grp.popLenDist[ year, :].sum() for
                                                                  grp in node.groups if grp.showGroupImpactSexRatio()]) /
                                                          np.sum([ grp.popLenDist[ year, :].sum() for grp in node.groups if
                                                                   grp.showGroupImpactSexRatio()]) )
@@ -537,6 +538,16 @@ def initalizeModelFromCSVs( dfNetwork, dfNode, dfGroups):
             except:
                 pulseIntro = "No"
 
+            try:
+                groupImpactViability = groupRow[1][ 'groupImpactViability']
+            except:
+                groupImpactViability = False
+
+            try:
+                groupOffspringViability = float(groupRow[1]['groupOffspringViability'])
+            except:
+                groupOffspringViability = 1.0
+                
 
             if 'groupOffspringPfemale' in groupRow[1]:
                 groupOffspringPfemale = float(groupRow[1]['groupOffspringPfemale'])
@@ -555,7 +566,9 @@ def initalizeModelFromCSVs( dfNetwork, dfNode, dfGroups):
                               groupSex =  groupRow[1][ 'groupSex'],
                               groupOffspringPfemale = groupOffspringPfemale,
                               groupProduceEggs = groupRow[1][ 'groupProduceEggs'], 
-                              popSize0 = groupRow[1][ 'popSize0'], 
+                              popSize0 = groupRow[1][ 'popSize0'],
+                              groupImpactViability = groupImpactViability,
+                              groupOffspringViability = groupOffspringViability,
                               popLenDist0 = popLenDist0Temp, 
                               omega = omegaIn,
                               nYears = dfNetwork['nYears'][0], 
@@ -575,14 +588,3 @@ def initalizeModelFromCSVs( dfNetwork, dfNode, dfGroups):
     networkOut.initializePaths()
     
     return networkOut
-                           
-    ## Next steps:
-    ## Add in seasonaility
-    ## While doing above, add in helper functions such as plot results, etc 
-
-
-    ## pseudo code for migration
-    ## if nodeOut.pathOut == nodefor nodesIn in all Nodes 
-
-
-    ## ADD in function to calc total population at a node 
