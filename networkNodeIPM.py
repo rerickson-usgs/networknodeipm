@@ -1,6 +1,7 @@
 import numpy as np
 import scipy.stats as stats
 import matplotlib.pyplot as plt
+import matplotlib.gridspec 
 import pandas as pd
 import sys
 
@@ -445,10 +446,33 @@ class networkModel:
                 print "Groups impact on sex ratio (first True/False), second impact:"
                 print [grp.showGroupImpactSexRatio() is False for grp in node.groups]       
                 print [grp.groupOffspringPfemale for grp in node.groups]
-                
-                
-    # NEED TO FIGURE OUT HOW TO plot all nodes/allgroups
-    # Look at http://matplotlib.org/1.4.0/users/gridspec.html
+
+    def plotAllNode(self, outName = None, showPlot = True, showGroups = False):
+        self.runNetworkSimulation()      
+        nCol =  np.ceil(np.sqrt(self.nNodes()))
+        nRow = np.floor(np.sqrt(self.nNodes()))
+
+        tPlot, ax = plt.subplots(
+            nrows=1, ncols= 2, sharex=True, sharey=True
+        )
+
+        for index in xrange(self.nNodes()):
+            self.nodes[index].calculateNodePopulaiton()
+            ax[index].plot(np.arange(0,  self.nYears + 1, 1),  self.nodes[index].nodePop)
+            if showGroups:
+                for grp in self.nodes[index].groups:
+                    ax[index].plot( np.arange(0, self.nYears + 1, 1), grp.popSize)      
+            ax[index].set_title(self.nodes[index].nodeName)
+            ax[index].set_xlabel("Time (years)")
+            ax[index].set_ylabel("Population")    
+
+        if showPlot:
+            plt.show()
+
+        if outName is not None:
+            plt.savefig( outName )
+
+        
     def plotAllNodeGroups(self):
         '''plot all groups in all nodes'''
         ## Calculate the populaiton at each node
@@ -511,7 +535,7 @@ def initalizeModelFromCSVs( dfNetwork, dfNode, dfGroups):
             try:
                 pulseIntro = groupRow[1][ 'pulseIntro']
             except:
-                pulseIntro = None
+                pulseIntro = "No"
 
 
             if 'groupOffspringPfemale' in groupRow[1]:
@@ -525,7 +549,7 @@ def initalizeModelFromCSVs( dfNetwork, dfNode, dfGroups):
                     print groupImpactSexRatio
                     sys.exit("groupImpactSexRatio must be True or False")
             else:
-               groupImpactSexRatio = Flase
+               groupImpactSexRatio = False
 
             groupTemp = group(groupName = groupRow[1][ 'groupName'],
                               groupSex =  groupRow[1][ 'groupSex'],
