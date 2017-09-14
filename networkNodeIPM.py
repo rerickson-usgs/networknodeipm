@@ -195,7 +195,8 @@ class group:
         self.popLenDist[ tPlusOne, : ] = ( np.dot( self.hWidth * self.growth( self.omega, self.omega),  ## The first dot product is maturation
                                                self.survival( self.omega) * self.popLenDist[t, :]) * self.adultSurvivalMultiplier[t, :] +
                                        np.dot( self.hWidth * self.recruitment( self.omega, self.omega), ## The second dod product is reruitment
-                                               self.recruitGroup[t, :]) * decrease * self.pGroupBirth  * self.offspringViability + 
+                                               self.recruitGroup[t, :]) *
+                                           decrease * self.pGroupBirth  * self.offspringViability + ## These are density, sex ratio, and viablity of offspring (e.g., impact of sterile males)  
                                        self.pulseIntroduction[t, :]) ## Stocking numbers for group 
 
         self.popSize[ tPlusOne ] =  self.popLenDist[ tPlusOne, :].sum() ## May need to move this at some point
@@ -272,6 +273,9 @@ class node:
         self.nodeBiomass = 0.0
         self.timePeriod = timePeriod
 
+    def createNodePop(self, nYears):
+        self.nodePop = np.zeros( nYears + 1)
+        
     def showTimePeriod(self):
         return self.timePeriod
     
@@ -304,7 +308,7 @@ class node:
 
     def calculateNodePopulaiton(self):
         self.nodePop =  np.sum([ grp.popLenDist.sum(1) for grp in self.groups], 0)
-
+            
     def plotNodePop(self, nYears):
         '''Plot the total population size of fish through time'''
         self.nYears = nYears
@@ -314,8 +318,7 @@ class node:
         plt.xlabel("Time (years)")
         plt.ylabel("Population of node (all lengths)")
         plt.show()
-
-    
+   
     def plotNodeGroups(self, nYears):
         '''Plot the population sizes of node and groups in node'''
         self.nYears = nYears 
@@ -395,15 +398,16 @@ class networkModel:
         self.pReferenceGroupBirth = np.zeros(self.nYears) + 0.5
         self.offspringViabilityReduction = np.ones(self.nYears)
 
+        [node.createNodePop( self.nYears) for node in self.nodes]
+        
         ## Loop through all years
-        for year in range(0, self.nYears):
+        for year in xrange(self.nYears):
 
             ## Loop through time periods (e.g., seasons)
             for tpIndex, tp in enumerate(self.timePeriods):
-                print "year " + str(year) + " season " + tp
                 pathsUse = [p for p in self.paths if p.showEndTimePeriod() == tp] ## Only use thats that end in current season
-                for p in self.paths:
-                    print p.showEndTimePeriod() == tp
+                nodesEnd = [node for node in self.nodes if node.showTimePeriod() == tp ] ## End where individuals end up at
+
                 #####################
                 ## Run migraiton in three steps
                 ## First, copy individuals onto a path
@@ -411,10 +415,13 @@ class networkModel:
                     for nodeStart in self.nodes:
                         if nodeStart.showNodeName() is p.showStart():
                             p.groups = [ nodeStart.pathsOut[p.showEnd()] * grp.popLenDist[ year, :] for grp in nodeStart.groups]
-                            
+                            # for grpIndex, grp in enumerate(nodeStart.groups):
+                            #     p.groups[grpIndex] = nodeStart.pathsOut[p.showEnd()] * grp.popLenDist[ year, :] 
+                            #     print p.groups[grpIndex].sum()
+                                
                 # ## Second, unload paths
                 for p in pathsUse:
-                    for nodeEnd in self.nodes:
+                    for nodeEnd in nodesEnd:
                         if nodeEnd.showNodeName() is p.showEnd():
                             if len(nodeEnd.groups) != len(p.groups):
                                 sys.exit("There are not the same number of groups in the node as there is in the pathway")
@@ -433,7 +440,7 @@ class networkModel:
                                     nodeStart.groups[index].popLenDist[ year, :] += -1.0 * p.groups[index] 
 
                 ## Run through each node for population projection
-                for node in self.nodes:
+                for node in nodesEnd:
                     ## add up sum of egg producing groups
                     self.eggProducingGroupLenDist[ year, :] = np.sum([ grp.popLenDist[ year, :] for grp in node.groups if grp.showGroupProduceEggs()], 0)
                     
@@ -459,14 +466,16 @@ class networkModel:
                         tPlusOne = year + 1
                     else:
                         tPlusOne = year
-                    
+                        
                     [ grp.timeStepGroup(t = year,
                                         tPlusOne = tPlusOne,
                                         pReferenceGroupBirth = self.pReferenceGroupBirth[year],
                                         recruitGroup = self.eggProducingGroupLenDist,
                                         offspringViability = self.offspringViabilityReduction[year],
                                         popLenDistbiomass = self.popLenDistbiomass) for grp in node.groups ]
-    
+                    
+                
+                
 
     def describeNetwork(self):
         print str(self.networkName) + ' is a network with ' + str(self.nNodes()) + ' nodes.'
@@ -480,7 +489,7 @@ class networkModel:
         print "The network includes the following paths"
         self.describePaths()
 
-    def plotAllNode(self, outName = None, showPlot = True, showGroups = False):
+    def plotAllNode(self, outName = None, showPlot = True, showGroups = False, saveData = None):
         self.runNetworkSimulation()      
         nCol =  np.ceil(np.sqrt(self.nNodes()))
         nRow = np.floor(np.sqrt(self.nNodes()))
@@ -489,9 +498,11 @@ class networkModel:
             nrows=1, ncols= 2, sharex=True, sharey=True
         )
 
+        plotNodePop = np.zeros( (self.nYears + 1, self.nNodes()))
         for index in xrange(self.nNodes()):
-            self.nodes[index].calculateNodePopulaiton()
-            ax[index].plot(np.arange(0,  self.nYears + 1, 1),  self.nodes[index].nodePop)
+
+            plotNodePop[ : , index] = np.sum([ grp.popSize for grp in self.nodes[index].groups], 0)
+            ax[index].plot(np.arange(0,  self.nYears + 1, 1),  plotNodePop[ :, index])
             if showGroups:
                 for grp in self.nodes[index].groups:
                     ax[index].plot( np.arange(0, self.nYears + 1, 1), grp.popSize)      
@@ -505,25 +516,16 @@ class networkModel:
         if outName is not None:
             plt.savefig( outName )
 
-        
-    def plotAllNodeGroups(self):
-        '''plot all groups in all nodes'''
-        ## Calculate the populaiton at each node
-        # [ node.calculateNodePopulaiton() for node in self.nodes]
-        ncols, nrows =  [ np.ceil(np.sqrt(self.nNodes())), np.floor(np.sqrt(self.nNodes()))]
-        print ncols
-        fig, axs = plt.subplots(nrows = self.nNodes(), sharex=True, sharey=True)
-        # axs = [node.plotNodeGroups(self.nYears) for node in self.NEED]
-        ## nodes TO CLEAN UP THIS FUNCTION, After I better understand it 
-        print "done with plotallNodeGroups"
-        
+        if saveData is not None:
+            nodeNames = [node.showNodeName() for node in self.nodes]
+            popDF = pd.DataFrame( plotNodePop, columns = nodeNames)
+            popDF.to_csv(saveData, index = False)
+            
 
 def initalizeModelFromCSVs( dfNetwork, dfNode, dfGroups):
     ''' 
     This function reads in 3 CSVs and creates a network model using their parameter values.
-    '''
-
-   
+    '''  
     ## Create Network
     omegaIn = np.linspace( start = dfNetwork['minLength'],
                            stop = dfNetwork['maxLength'],
