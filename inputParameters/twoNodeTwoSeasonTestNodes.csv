@@ -1,0 +1,3 @@
+network,nodeName,pathsOut,pathsOutProb,pathsIn,timePeriod
+twoNodeNetwork,node 1,node 2,1,node 2,Spring
+twoNodeNetwork,node 2,node 1,1,node 1,Fall

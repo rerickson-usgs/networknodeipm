@@ -1,0 +1,3 @@
+networkName,nYears,minLength,maxLength,nPoints,timePeriods
+twoNodeNetwork,100,0,300,200,"Spring,Fall"
+, ,,,,
