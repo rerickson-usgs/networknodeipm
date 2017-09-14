@@ -113,8 +113,8 @@ print "done with YY-male test"
 
 
 
-include stocking of sterile males
-Test two nodes with three groups 
+### include stocking of sterile males
+### Test two nodes with three groups 
 
 ## Read in parameter CSV files 
 inputFolder = "./inputParameters/"

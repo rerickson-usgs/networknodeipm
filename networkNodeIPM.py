@@ -159,6 +159,7 @@ class group:
 
             
     def timeStepGroup(self, t,
+                      tPlusOne = None,
                       pReferenceGroupBirth = 0.5,
                       offspringViability = 1.0,
                       recruitGroup = None,
@@ -167,6 +168,9 @@ class group:
         ''' The annual time step dynamically changes the group's size through time.'''
         ## Kevin, is this the best way to do this?
 
+        if tPlusOne is None:
+            tPlusOne = t + 1
+            
         self.offspringViability = offspringViability
         ## Hard wire function to calcuate pGroupBirth based upon sex,
         ## remember that pGroupBirth, by defult, referes to females 
@@ -188,14 +192,13 @@ class group:
         biomass = np.sum(self.popLenDistBiomass[ t, :] * self.lengthWeight(self.omega))
         decrease = self.density(biomass)
 
-        ## Does adult mortality from treatment occur before or after movement? Also, before or after birth?
-        self.popLenDist[t + 1, : ] = ( np.dot( self.hWidth * self.growth( self.omega, self.omega),  ## The first dot product is maturation
+        self.popLenDist[ tPlusOne, : ] = ( np.dot( self.hWidth * self.growth( self.omega, self.omega),  ## The first dot product is maturation
                                                self.survival( self.omega) * self.popLenDist[t, :]) * self.adultSurvivalMultiplier[t, :] +
                                        np.dot( self.hWidth * self.recruitment( self.omega, self.omega), ## The second dod product is reruitment
                                                self.recruitGroup[t, :]) * decrease * self.pGroupBirth  * self.offspringViability + 
                                        self.pulseIntroduction[t, :]) ## Stocking numbers for group 
 
-        self.popSize[t + 1] =  self.popLenDist[ t + 1, :].sum() ## May need to move this at some point
+        self.popSize[ tPlusOne ] =  self.popLenDist[ tPlusOne, :].sum() ## May need to move this at some point
 
 
     def movement(self, immigration, emigration, t):        
@@ -261,12 +264,16 @@ class node:
     '''
     ## I think I will want to include omega, nYears, nSizeBins, and sizeBins from the network
     ## Also, I might want to include checks to make sure the popSize0 and popLenDist0 are in the correct format
-    def __init__(self, nodeName):
+    def __init__(self, nodeName, timePeriod = "All"):
         self.nodeName = nodeName
         self.groups = []
         self.pathsOut = {}
         self.pathsIn = []
         self.nodeBiomass = 0.0
+        self.timePeriod = timePeriod
+
+    def showTimePeriod(self):
+        return self.timePeriod
     
     def listGroups(self):
         return [grp for grp in self.groups]
@@ -276,7 +283,7 @@ class node:
         print "Group name \t\t Node sex"
         for grp in self.groups:
             print grp.showGroupName() + "\t\t" + grp.showGroupSex()
-        
+            
     def addPathsOut(self, pathsOut):
         self.pathsOut.update(pathsOut)
 
@@ -326,20 +333,27 @@ class path:
     '''
     Paths are used in nodes to hold transitory popualtions.
     '''
-    def __init__(self, start, end, timeTransition = "All"):
+    def __init__(self, start, end, startTimePeriod = "All", endTimePeriod = "All"):
         self.start = start
         self.end = end
         self.groups = []
-        self.timeTransition = "All"
-
+        self.startTimePeriod = startTimePeriod 
+        self.endTimePeriod   = endTimePeriod
+        
     def showEnd(self):
         return self.end
+
+    def showEndTimePeriod(self):
+        return self.endTimePeriod
 
     def showStart(self):
         return self.start
 
+    def showStartTimePeriod(self):
+        return self.startTimePeriod
+
     def describePath(self):
-        print "This path starts at " + self.start + " and ends at " + self.end + ". The time period (e.g., season) is " + self.timeTransition 
+        print "This path starts at " + self.start + " and ends at " + self.end + ". The time period transition (e.g., season) is " + self.showStartTimePeriod() + " to " + self.showEndTimePeriod()
         
 class networkModel:
     ''' 
@@ -347,13 +361,13 @@ class networkModel:
     '''
     ## I think I will want to include omega, nYears, nSizeBins, and sizeBins from the network
     ## Also, I might want to include checks to make sure the popSize0 and popLenDist0 are in the correct format
-    def __init__(self, networkName, nYears, omega):
+    def __init__(self, networkName, nYears, omega, timePeriods = ["All"]):
         self.omega = omega
         self.networkName = networkName
         self.nodes = []
         self.paths = []
-        # self.timePeriods = () # need to be in order, enter as a tuple ()
-        # self.nTimePeriods = []
+        self.timePeriods = timePeriods 
+        self.nTimePeriods = len(self.timePeriods)
         self.nYears = nYears
         self.popLenDistbiomass = np.zeros(( nYears, len(omega)))
         self.eggProducingGroupLenDist = np.zeros(( nYears, len(omega)))
@@ -364,7 +378,9 @@ class networkModel:
                 for nodeEnd in self.nodes:
                     if pathOut == nodeEnd.showNodeName():
                         self.paths.append( path( start = nodeStart.showNodeName(),
-                                          end = nodeEnd.showNodeName()))
+                                                 end = nodeEnd.showNodeName(),
+                                                 startTimePeriod = nodeStart.showTimePeriod(),
+                                                 endTimePeriod   = nodeEnd.showTimePeriod()))
 
     def describePaths(self):
         [p.describePath() for p in self.paths]
@@ -379,63 +395,77 @@ class networkModel:
         self.pReferenceGroupBirth = np.zeros(self.nYears) + 0.5
         self.offspringViabilityReduction = np.ones(self.nYears)
 
+        ## Loop through all years
         for year in range(0, self.nYears):
-            #####################
-            ## Run migraiton in three steps
-            ## First, copy individuals onto a path
-            for p in self.paths:
-                for nodeStart in self.nodes:
-                    if nodeStart.showNodeName() is p.showStart():
-                        p.groups = [ nodeStart.pathsOut[p.showEnd()] * grp.popLenDist[ year, :] for grp in nodeStart.groups]
 
-            # ## Second, unload paths
-            for p in self.paths:
-                for nodeEnd in self.nodes:
-                    if nodeEnd.showNodeName() is p.showEnd():
-                        if len(nodeEnd.groups) != len(p.groups):
-                            sys.exit("There are not the same number of groups in the node as there is in the pathway")
-                        else:
-                            for index in range(0, len(nodeEnd.groups)):
-                                nodeEnd.groups[index].popLenDist[ year, :] += p.groups[index] 
+            ## Loop through time periods (e.g., seasons)
+            for tpIndex, tp in enumerate(self.timePeriods):
+                print "year " + str(year) + " season " + tp
+                pathsUse = [p for p in self.paths if p.showEndTimePeriod() == tp] ## Only use thats that end in current season
+                for p in self.paths:
+                    print p.showEndTimePeriod() == tp
+                #####################
+                ## Run migraiton in three steps
+                ## First, copy individuals onto a path
+                for p in pathsUse:
+                    for nodeStart in self.nodes:
+                        if nodeStart.showNodeName() is p.showStart():
+                            p.groups = [ nodeStart.pathsOut[p.showEnd()] * grp.popLenDist[ year, :] for grp in nodeStart.groups]
+                            
+                # ## Second, unload paths
+                for p in pathsUse:
+                    for nodeEnd in self.nodes:
+                        if nodeEnd.showNodeName() is p.showEnd():
+                            if len(nodeEnd.groups) != len(p.groups):
+                                sys.exit("There are not the same number of groups in the node as there is in the pathway")
+                            else:
+                                for index in range(0, len(nodeEnd.groups)):
+                                    nodeEnd.groups[index].popLenDist[ year, :] += p.groups[index] 
             
-            # ## Third, remove migrants from their original nodes 
-            for p in self.paths:
-                for nodeStart in self.nodes:
-                    if nodeStart.showNodeName() is p.showStart():
-                        if len(nodeStart.groups) != len(p.groups):
-                            sys.exit("There are not the same number of groups in the node as there is in the pathway")
-                        else:
-                            for index in range(0, len(nodeStart.groups)):
-                                nodeStart.groups[index].popLenDist[ year, :] += -1.0 * p.groups[index] 
+                # ## Third, remove migrants from their original nodes 
+                for p in pathsUse:
+                    for nodeStart in self.nodes:
+                        if nodeStart.showNodeName() is p.showStart():
+                            if len(nodeStart.groups) != len(p.groups):
+                                sys.exit("There are not the same number of groups in the node as there is in the pathway")
+                            else:
+                                for index in range(0, len(nodeStart.groups)):
+                                    nodeStart.groups[index].popLenDist[ year, :] += -1.0 * p.groups[index] 
 
-            ## Run through each node for population projection
-            for node in self.nodes:
-                ## add up sum of egg producing groups
-                self.eggProducingGroupLenDist[ year, :] = np.sum([ grp.popLenDist[ year, :] for grp in node.groups if grp.showGroupProduceEggs()], 0)
+                ## Run through each node for population projection
+                for node in self.nodes:
+                    ## add up sum of egg producing groups
+                    self.eggProducingGroupLenDist[ year, :] = np.sum([ grp.popLenDist[ year, :] for grp in node.groups if grp.showGroupProduceEggs()], 0)
                     
-                ## Check if any groups have YY-male like treatments
-                if all([grp.showGroupImpactSexRatio() is False for grp in node.groups]) is False:
-                    self.pReferenceGroupBirth[year]  = ( np.sum([grp.groupOffspringPfemale *
-                                                                 grp.popLenDist[ year, :].sum() for
-                                                                 grp in node.groups if grp.showGroupImpactSexRatio()]) /
-                                                         np.sum([ grp.popLenDist[ year, :].sum() for grp in node.groups if
-                                                                  grp.showGroupImpactSexRatio()]) )
+                    ## Check if any groups have YY-male like treatments
+                    if all([grp.showGroupImpactSexRatio() is False for grp in node.groups]) is False:
+                        self.pReferenceGroupBirth[year]  = ( np.sum([grp.groupOffspringPfemale *
+                                                                     grp.popLenDist[ year, :].sum() for
+                                                                     grp in node.groups if grp.showGroupImpactSexRatio()]) /
+                                                             np.sum([ grp.popLenDist[ year, :].sum() for grp in node.groups if
+                                                                      grp.showGroupImpactSexRatio()]) )
                         
-                # ## Check if any groups have non-viable offspring
-                if all([grp.showGroupImpactViability() is False for grp in node.groups]) is False:
-                    self.offspringViabilityReduction[year]  = ( np.sum([grp.groupOffspringViability *
-                                                                        grp.popLenDist[ year, :].sum() for
-                                                                        grp in node.groups if grp.showGroupImpactViability()]) /
-                                                                np.sum([ grp.popLenDist[ year, :].sum() for grp in node.groups if
-                                                                         grp.showGroupImpactViability()]) )
+                    # ## Check if any groups have non-viable offspring
+                    if all([grp.showGroupImpactViability() is False for grp in node.groups]) is False:
+                        self.offspringViabilityReduction[year]  = ( np.sum([grp.groupOffspringViability *
+                                                                            grp.popLenDist[ year, :].sum() for
+                                                                            grp in node.groups if grp.showGroupImpactViability()]) /
+                                                                    np.sum([ grp.popLenDist[ year, :].sum() for grp in node.groups if
+                                                                             grp.showGroupImpactViability()]) )
                         
-                self.popLenDistbiomass[ year, :] = np.sum([ grp.popLenDist[ year, :] for grp in node.groups], 0)
+                    self.popLenDistbiomass[ year, :] = np.sum([ grp.popLenDist[ year, :] for grp in node.groups], 0)
 
-                [ grp.timeStepGroup(year,
-                                    pReferenceGroupBirth = self.pReferenceGroupBirth[year],
-                                    recruitGroup = self.eggProducingGroupLenDist,
-                                    offspringViability = self.offspringViabilityReduction[year],
-                                    popLenDistbiomass = self.popLenDistbiomass) for grp in node.groups ]
+                    if tp == self.timePeriods[-1]:
+                        tPlusOne = year + 1
+                    else:
+                        tPlusOne = year
+                    
+                    [ grp.timeStepGroup(t = year,
+                                        tPlusOne = tPlusOne,
+                                        pReferenceGroupBirth = self.pReferenceGroupBirth[year],
+                                        recruitGroup = self.eggProducingGroupLenDist,
+                                        offspringViability = self.offspringViabilityReduction[year],
+                                        popLenDistbiomass = self.popLenDistbiomass) for grp in node.groups ]
     
 
     def describeNetwork(self):
@@ -447,6 +477,8 @@ class networkModel:
                 print "Groups impact on sex ratio (first True/False), second impact:"
                 print [grp.showGroupImpactSexRatio() is False for grp in node.groups]       
                 print [grp.groupOffspringPfemale for grp in node.groups]
+        print "The network includes the following paths"
+        self.describePaths()
 
     def plotAllNode(self, outName = None, showPlot = True, showGroups = False):
         self.runNetworkSimulation()      
@@ -491,12 +523,21 @@ def initalizeModelFromCSVs( dfNetwork, dfNode, dfGroups):
     This function reads in 3 CSVs and creates a network model using their parameter values.
     '''
 
+   
     ## Create Network
     omegaIn = np.linspace( start = dfNetwork['minLength'],
                            stop = dfNetwork['maxLength'],
                            num = dfNetwork['nPoints'] +2)[1:-1]
-    networkOut = networkModel(dfNetwork['networkName'][0], nYears = dfNetwork['nYears'][0],
-                                    omega = omegaIn)
+
+    try:
+        timePeriods = dfNetwork[ 'timePeriods'][0].split(",")
+    except:
+        timePeriods = ["All"]
+
+    networkOut = networkModel(dfNetwork['networkName'][0],
+                              nYears = dfNetwork['nYears'][0],
+                              timePeriods = timePeriods,
+                              omega = omegaIn)
 
     ## Extract out nodes from the network we are using
     ## (this allows a yet to be implement function for generating multiple networks from one set of files)
@@ -505,7 +546,15 @@ def initalizeModelFromCSVs( dfNetwork, dfNode, dfGroups):
 
     ## Loop through each node in the network and generate it
     for nodeRow in dfNodeUse.iterrows():
-        nodeTemp =  node( nodeName = nodeRow[1]['nodeName'])
+        nodeName = nodeRow[1]['nodeName']
+
+        try:
+            timePeriod = nodeRow[1]['timePeriod']
+        except:
+            timePeriod = "All"
+
+        nodeTemp =  node( nodeName = nodeName,
+                          timePeriod = timePeriod)
         pathsOutTemp = pathOutListFunction( pathsOut = nodeRow[1]['pathsOut'],
                                             pathsOutProb = float(nodeRow[1]['pathsOutProb']))
         nodeTemp.addPathsOut(pathsOutTemp)
