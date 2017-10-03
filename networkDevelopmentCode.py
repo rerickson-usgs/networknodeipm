@@ -228,7 +228,7 @@ twoNodeSystem.describePaths()
 
 twoNodeSystem.runNetworkSimulation()
 
-[node.calculateNodePopulaiton() for node in twoNodeSystem.nodes]
+[node.calculateNodePopulation() for node in twoNodeSystem.nodes]
 dummy = [node.plotNodeGroups(nYears = nYears) for node in twoNodeSystem.nodes]
 
 print "Done"

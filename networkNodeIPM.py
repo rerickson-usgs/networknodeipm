@@ -6,8 +6,8 @@ import pandas as pd
 import sys
 
 
-def pathOutListFunction( pathsOut, pathsOutProb):
-    '''Funciton used to convert path names and probabilities from lists (e.g., from CSV files) into a dictionary for the model.'''
+def pat OutListFunction( pathsOut, pathsOutProb):
+    '''Function used to convert path names and probabilities from lists (e.g., from CSV files) into a dictionary for the model.'''
     pathsOutTemp = dict()
     if isinstance(pathsOutProb, float):
         pathsOutTemp[pathsOut] = pathsOutProb
@@ -306,7 +306,7 @@ class node:
     def showNodeName(self):
         return self.nodeName
 
-    def calculateNodePopulaiton(self):
+    def calculateNodePopulation(self):
         self.nodePop =  np.sum([ grp.popLenDist.sum(1) for grp in self.groups], 0)
             
     def plotNodePop(self, nYears):
@@ -521,8 +521,7 @@ class networkModel:
             popDF = pd.DataFrame( plotNodePop, columns = nodeNames)
             popDF.to_csv(saveData, index = False)
             
-
-def initalizeModelFromCSVs( dfNetwork, dfNode, dfGroups):
+def initialize ModelFromCSVs( dfNetwork, dfNode, dfGroups):
     ''' 
     This function reads in 3 CSVs and creates a network model using their parameter values.
     '''  

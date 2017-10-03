@@ -20,7 +20,7 @@ dfNetwork = pd.read_csv(networkFile)
 
 
 ## create network from CSV
-oneGroupTest = nnIPM.initalizeModelFromCSVs( dfNetwork = dfNetwork, dfNode = dfNode, dfGroups = dfGroups)
+oneGroupTest = nnIPM.initializeModelFromCSVs( dfNetwork = dfNetwork, dfNode = dfNode, dfGroups = dfGroups)
 
 print oneGroupTest.nNodes()
 oneGroupTest.runNetworkSimulation()
@@ -49,7 +49,7 @@ dfNetwork = pd.read_csv(networkFile)
 
 ## create network from CSV
 
-twoNodeSystem = nnIPM.initalizeModelFromCSVs( dfNetwork = dfNetwork, dfNode = dfNode, dfGroups = dfGroups)
+twoNodeSystem = nnIPM.initializeModelFromCSVs( dfNetwork = dfNetwork, dfNode = dfNode, dfGroups = dfGroups)
 
 print twoNodeSystem.nNodes()
 twoNodeSystem.runNetworkSimulation()
@@ -77,11 +77,11 @@ dfNodeOneYY = pd.read_csv(nodeFileOneYY)
 networkFileOneYY = inputFolder + "oneNodeYYmaleTestNetwork.csv"
 dfNetworkOneYY = pd.read_csv(networkFileOneYY)
 
-oneNodeSystemYYmales = nnIPM.initalizeModelFromCSVs( dfNetwork = dfNetworkOneYY, dfNode = dfNodeOneYY, dfGroups = dfGroupsOneYY)
+oneNodeSystemYYmales = nnIPM.initializeModelFromCSVs( dfNetwork = dfNetworkOneYY, dfNode = dfNodeOneYY, dfGroups = dfGroupsOneYY)
 
 oneNodeSystemYYmales.runNetworkSimulation()
 
-[node.calculateNodePopulaiton() for node in oneNodeSystemYYmales.nodes]
+[node.calculateNodePopulation() for node in oneNodeSystemYYmales.nodes]
 [node.plotNodeGroups(nYears = oneNodeSystemYYmales.nYears) for node in oneNodeSystemYYmales.nodes]
 
 ######################################
@@ -101,7 +101,7 @@ dfNetwork = pd.read_csv(networkFile)
 
 ## create network from CSV
 
-twoNodeSystemYYmales = nnIPM.initalizeModelFromCSVs( dfNetwork = dfNetwork, dfNode = dfNode, dfGroups = dfGroups)
+twoNodeSystemYYmales = nnIPM.initializeModelFromCSVs( dfNetwork = dfNetwork, dfNode = dfNode, dfGroups = dfGroups)
 
 twoNodeSystemYYmales.plotAllNode()
 
@@ -129,7 +129,7 @@ dfNetwork = pd.read_csv(networkFile)
 
 ## create network from CSV
 
-twoNodeSystemSterilemales = nnIPM.initalizeModelFromCSVs( dfNetwork = dfNetwork, dfNode = dfNode, dfGroups = dfGroups)
+twoNodeSystemSterilemales = nnIPM.initializeModelFromCSVs( dfNetwork = dfNetwork, dfNode = dfNode, dfGroups = dfGroups)
 
 twoNodeSystemSterilemales.plotAllNode( showGroups = True)
 

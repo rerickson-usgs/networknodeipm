@@ -183,7 +183,7 @@ for year in range(0, nYears):
     
 
 ## Use node plot functions
-node1.calculateNodePopulaiton()
+node1.calculateNodePopulation()
 node1.plotNodePop(nYears = nYears)
 node1.plotNodeGroups(nYears = nYears)
 
