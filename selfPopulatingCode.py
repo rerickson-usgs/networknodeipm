@@ -26,7 +26,8 @@ print oneGroupTest.nNodes()
 oneGroupTest.runNetworkSimulation()
 oneGroupTest.describePaths()
 
-[node.calculateNodePopulaiton() for node in oneGroupTest.nodes]
+
+[node.calculateNodePopulation() for node in oneGroupTest.nodes]
 [node.plotNodeGroups(nYears = oneGroupTest.nYears) for node in oneGroupTest.nodes]
 
 print "done with one group test"
@@ -55,7 +56,7 @@ print twoNodeSystem.nNodes()
 twoNodeSystem.runNetworkSimulation()
 twoNodeSystem.describePaths()
 
-[node.calculateNodePopulaiton() for node in twoNodeSystem.nodes]
+[node.calculateNodePopulation() for node in twoNodeSystem.nodes]
 [node.plotNodeGroups(nYears = twoNodeSystem.nYears) for node in twoNodeSystem.nodes]
 
 

@@ -6,7 +6,7 @@ import pandas as pd
 import sys
 
 
-def pat OutListFunction( pathsOut, pathsOutProb):
+def pathOutListFunction( pathsOut, pathsOutProb):
     '''Function used to convert path names and probabilities from lists (e.g., from CSV files) into a dictionary for the model.'''
     pathsOutTemp = dict()
     if isinstance(pathsOutProb, float):
@@ -42,7 +42,7 @@ class lengthWeight:
                      np.log10(omega) * self.betaLW)
         return out
 
-class logestic:
+class logistic:
     '''Defines a logistic function.''' 
     def __init__(self, alphaL, betaL, minL, maxL):
         self.alphaL = alphaL
@@ -521,7 +521,7 @@ class networkModel:
             popDF = pd.DataFrame( plotNodePop, columns = nodeNames)
             popDF.to_csv(saveData, index = False)
             
-def initialize ModelFromCSVs( dfNetwork, dfNode, dfGroups):
+def initializeModelFromCSVs( dfNetwork, dfNode, dfGroups):
     ''' 
     This function reads in 3 CSVs and creates a network model using their parameter values.
     '''  
@@ -569,12 +569,12 @@ def initialize ModelFromCSVs( dfNetwork, dfNode, dfGroups):
         for groupRow in dfGroupsUse.iterrows():        
             lengthWeightUseTemp = lengthWeight(groupRow[1]['alphaLW'], groupRow[1]['betaLW'])
             densityTemp = densityNegExp(a = groupRow[1]['densityA'], b = groupRow[1]['densityB'])
-            survivalTemp = logestic( alphaL = groupRow[1]['alphaS'], betaL = groupRow[1]['betaS'],
+            survivalTemp = logistic( alphaL = groupRow[1]['alphaS'], betaL = groupRow[1]['betaS'],
                                            minL = groupRow[1]['minS'], maxL = groupRow[1]['maxS'])
             popLenDist0Temp = (stats.lognorm.pdf(omegaIn, loc = 0, s = groupRow[1]['initS'], scale = groupRow[1]['initMean']) /
                                stats.lognorm.pdf(omegaIn, loc = 0, s = groupRow[1]['initS'], scale = groupRow[1]['initMean']).sum() )
             growthTemp = growthVB(aG = groupRow[1]['aG'], kG = groupRow[1]['kG'], sigmaG = groupRow[1]['sigmaG'])
-            probabilityReproducingTemp = logestic( alphaL =  groupRow[1]['alphaR'], betaL =  groupRow[1]['betaR'],
+            probabilityReproducingTemp = logistic( alphaL =  groupRow[1]['alphaR'], betaL =  groupRow[1]['betaR'],
                                                          minL =  groupRow[1]['minR'], maxL = groupRow[1]['maxR'])
             recruitmentTemp = linearRecruitment(omega = omegaIn,
                                                       lengthWeight = lengthWeightUseTemp,

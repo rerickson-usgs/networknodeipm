@@ -20,7 +20,7 @@ maxS = 0.9
 alphaS = 40 # inflection point
 betaS  =  -5 # slope
 
-survival = nnIPM.logestic( alphaL = alphaS, betaL = betaS, minL = minS, maxL = maxS)
+survival = nnIPM.logistic( alphaL = alphaS, betaL = betaS, minL = minS, maxL = maxS)
 
 ## Initial population length and size 
 initMean = 150
@@ -39,7 +39,7 @@ minR = 0
 maxR = 1.0
 alphaR = 40
 betaR  = -4
-probabilityReproducing = nnIPM.logestic( alphaL = alphaR, betaL = betaR, minL = minR, maxL = maxR)
+probabilityReproducing = nnIPM.logistic( alphaL = alphaR, betaL = betaR, minL = minR, maxL = maxR)
 
 ## Age-1 length dist
 muJ = np.log(10)

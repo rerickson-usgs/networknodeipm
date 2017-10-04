@@ -1,0 +1,223 @@
+\documentclass[tikz, border = 1in]{standalone}
+
+\usepackage{ geometry}
+
+%\geometry{margin=1.0in}
+
+\usepackage{tikz-uml}
+
+
+\begin{document}
+\pagenumbering{gobble}
+
+%\pdfpagewidth 22in
+%\pdfpageheight 16in
+
+\begin{tikzpicture}
+
+
+
+\umlclass[x = 12, y = 22]{networkModel}{
++ omega: np.array\\
++ networkName: str\\
++ nodes: list \\
++ paths: list \\
++ timePeriods: list\\
++ nTimePeriods:  int \\
++ nYears: int \\
++ popLenDistbiomass: np.array \\
++ eggProducingGroupLenDist: np.array 
+}{
++ \_\_init\_\_(self, networkName, nYears, omega, timePeriods): self\\
++ initializePaths(self): self\\
++ describePaths(self): print paths\\
++ addNodeList(self, nodeList): self \\
++ nNodes(self): nNodes \\
++ runNetworkSimulation(self): self \\
++ describeNetwork(self): print about network \\
+ }
+
+
+\umlclass[x = 12, y = 13]{node}{
++ nodeName: str \\
++ groups: list \\ 
++ pathsOut: dict\\ 
++ pathsIn: list\\
++ nodeBiomass: float \\
++ timePeriod: str
+}{
++ \_\_init\_\_(self, nodeName, timePeriod): self\\
++ createNodePop(self, nYears): self.nodePop \\
++ showTimePeriod(self): timePeriod\\
++ listGroups(self): groups \\
++ describeNodes(self): list of nodes \\
++ addPathsOut(self, pathsOut): self.pathsOut \\
++ addPathsInt(self, pathsIn): self.pathsIn \\
++ addGroups(self, groupName): self.groupName)\\
++ nGroups(self): len(nGroups)\\
++ showNodeName(self): nodeName\\
++ calculateNodePopulation(self): self.NodePop\\
++ plotNodePop(self, nYears): plot \\
++ plotNodeGroups(self, nYears): plot 
+}
+
+\umlclass[x = 12, y = 0]{group}{
++ popLenDist: np.array \\
++ groupProduceEggs: Bool\\
++ groupImpactSexRatio: Bool\\
++ groupImpactViability: Bool\\
++ nYears: int\\
++ groupSex: str\\
++ groupName: str\\
++ popSize:np.array\\
++ popLenDist: np.array\\
++ survival: np.array or float\\
++ growth: np.array \\
++ recruitment: np.array \\
++ density: np.array\\
++ lengthWeight: np.array\\
++ groupOffspringPfemale: float\\
++ groupOffspringViability = float\\
++ omega: np.array\\
++ hWidth: float\\
++ pulseIntroductionString: np.array 
+}{
++ \_\_init\_\_(self, groupName, popSize0, popLengDist0, omega, \\ nYears, survival, growth, \\recruitment, density, lengthweight): self \\
++ timeStepGroup(self, t, tPlusOne, pReferenceGroupBirth, \\offspringViability, recruitGroup,\\ popLenDistbiomass, referenceSex): self \\
++ movement(self, immigration, emigration, t): self \\ 
++ showGroupPopSize(self): popSize\\
++ showGroupProduceEggs(self): groupProduceEggs\\
++ showGroupName(self): groupName\\
++ showGroupSex(self): groupSex\\
++ plotLengthTime(self): plots\\
++ plotPop(self): plot
+}
+
+
+\umlclass[x = 0, y = 22]{path}{
++ start: str\\
++ end: str\\ 
++ groups: list\\
++ startTimePeriod: str\\
++ endTimePeriod: str
+}{
++ \_\_init\_\_(self, start, end, \\startTimePeriod, endTimePeriod): self\\
++ showEnd(self): end\\
++ showEndTimePeriod(self): endTimePeriod\\
++ showStart(self): start \\
++ showStartTimePeriod(self):  startTimePeriod \\
++ describePaths(self): print out path details 
+ }
+
+\umlclass[x = 38, y = 5]{logistic}{
++ alphaL: float \\ 
++ betaL: float\\ 
++ minL: float\\ 
++ maxL: float
+}{
++\_\_init\_\_(self, aG, kG, sigmaG): self \\ 
++ \_\_call\_\_(z): float
+}
+
+
+\umlclass[x = 30, y = 6]{survival}{
++ alphaS: float \\ 
++ betaS: float\\ 
++ minS: float\\ 
++ maxS: float
+}{
++ \_\_call\_\_(self, z): float
+}
+
+\umlclass[x = 40, y = 12]{probabilityOfReproducing}{
++ alphaL: float \\ 
++ betaL: float\\ 
++ minL: float\\ 
++ maxL: float
+}{
++ \_\_call\_\_(self, z): float
+}
+
+\umlclass[x = 32, y = 12]{linearRecruitment}{
++ juvenile: np.array \\
++ lenghtWeight: np.array\\
++ survival: float or np.array \\
++ probabilityReproducing: float or np.array\\
++ eggTransition: float\\
++ eggPerkg: float 
+}{
++ \_\_init\_\_(self, omega, lengthWeight, \\ probabilityReproducing, \\ eggTransition, eggPerkg, muJ, sigmaJ): self \\
++ \_\_self\_\_(self, omega, omegaPrime): np.array \\
+}
+
+\umlclass[x = 24, y = 10]{lengthWeight}{
++ alphaLW: float\\
++ betaLW: float
+}{
++ \_\_init\_\_(self, alphaLW, betaLW): self \\
++ \_\_call\_\_(self, omega): float
+}
+
+
+\umlclass[x = 0, y = 1]{growthVB}{
++ aG: float \\
++ kG: float \\
++ sigmaG: float \\
+}{
++ \_\_init\_\_(self, aG, kG, sigmaG): self \\
++ \_\_call\_\_(self, tzIn, zPrimeIn): float
+}
+
+
+\umlclass[x = 30, y = 22]{helpers}{
+}{
++ pathOutListFunction( pathsOut, pathsOutProb): dict\\
++ initializeModelFromCSVs(dfNetwork, dfNode, dfGroups): networkModel 
+}
+
+
+\umlclass[x = 0, y = 6]{densityNegExp}{
++ a: float \\ 
++ b: float
+}{
++ \_\_init\_\_(self, a, b): self \\ 
++ \_\_call\_\_(self, biomass): float
+}
+
+
+\umlclass[x = 0, y = 10]{densityNone}{
+}{
++ \_\_call\_\_(self, biomass): 1
+}
+
+\umlunicompo{group}{node}
+\umlunicompo{node}{networkModel}
+\umlunicompo{path}{networkModel}
+
+
+\umlimpl{survival}{logistic}
+\umlimpl{probabilityOfReproducing}{logistic}
+
+
+\umlunicompo{survival}{linearRecruitment}
+\umlunicompo{probabilityOfReproducing}{linearRecruitment}
+\umlunicompo{lengthWeight}{linearRecruitment}
+
+
+
+\umlunicompo{survival}{group}
+\umlunicompo{lengthWeight}{group}
+\umlunicompo{linearRecruitment}{group}
+
+
+\umlunicompo{growthVB}{group}
+\umlunicompo{densityNegExp}{group}
+
+
+\umlimpl{densityNone}{densityNegExp}
+
+\umlreal[stereo = builds]{helpers}{networkModel}
+
+\end{tikzpicture}
+
+\end{document}
