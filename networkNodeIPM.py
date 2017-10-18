@@ -79,7 +79,7 @@ class growthVB:
         return(out)
 
 class linearRecruitment:
-    '''Define a function that models the recruitment asa function of fish length.x'''
+    '''Define a function that models the recruitment as a function of fish length.'''
     def __init__( self, omega, lengthWeight, survival, probabilityReproducing, eggTransition, eggPerkg, muJ, sigmaJ):
         self.juvenile = (stats.lognorm.pdf(omega, loc = 0, s = sigmaJ, scale = muJ) / 
                          stats.lognorm.pdf(omega, loc = 0, s = sigmaJ, scale = muJ).sum())

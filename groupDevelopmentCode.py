@@ -4,7 +4,7 @@ import networkNodeIPM  as nnIPM
 
 ## Setup numerical mesh
 minLength = 0
-maxLength = 240,
+maxLength = 240
 nPoints = 200
 omega = np.linspace( start = minLength, stop = maxLength, num = nPoints +2)[1:-1]
 
@@ -80,6 +80,6 @@ for year in range(0, nYears):
 ## Plot results
 testGroup.plotPop()
 testGroup.plotLengthTime()
-print "Done" 
+print("Done" )
 
 
