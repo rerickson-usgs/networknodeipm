@@ -60,7 +60,7 @@ recruitment = nnIPM.linearRecruitment(omega = omega,
                                       eggTransition = eggTransition, eggPerkg = eggPerkg, muJ = muJ, sigmaJ = sigmaJ)
 
 ## Simulation parameters
-nYears = 1
+nYears = 200
 
 ## Define node 
 testGroup = nnIPM.group(groupName = "node 1", 
@@ -78,34 +78,11 @@ for year in range(0, nYears):
     testGroup.timeStepGroup(year)
 
 
-    
+## Plot results
+testGroup.plotPop()
+testGroup.plotLengthTime()
 
-testGroup.movement( testGroup.popLenDist[0 , :] * 0.5, None, 0)
-popSize0 * 1.5
-testGroup.popLenDist[0 , :].sum()
-# print (testGroup.popLenDist[0 , :].sum())
 
-# ## Plot results
-# testGroup.plotPop()
-# testGroup.plotLengthTime()
-
-## Test pulse introduction 
-
-testGroup = nnIPM.group(groupName = "node 1", 
-                        popSize0 = popSize0, 
-                        popLenDist0 = popLenDist0, 
-                        omega = omega,
-                        nYears = nYears, 
-                        survival = survival, 
-                        growth = growth,
-                        recruitment = recruitment,
-                        density = density,
-                        lengthWeight = lengthWeightUse,
-                        pulseIntroductionString = '1000,1,2',
-                        pulseIntroduction = None)
-
-# print testGroup.pulseIntroductionString
-print testGroup.pulseIntroduction.sum()
 print("Done" )
 
 
