@@ -2,9 +2,19 @@ import unittest
 import numpy as np
 import scipy.stats as stats
 import networkNodeIPM as nnIPM
+import pandas as pd 
 
-## Functions that I Need to test
-# pathOutListFunction             
+class test_pathOutListFunction( unittest.TestCase):
+
+    def test_float(self):
+        self.assertEqual(nnIPM.pathOutListFunction('bob', 0.5), {'bob': 0.5})
+
+
+    def test_string(self):
+        self.paths = 'bob,fred'
+        self.probs = '0.5,0.25'
+        self.assertEqual(nnIPM.pathOutListFunction( self.paths, self.probs), {'bob': 0.5, 'fred': 0.25})
+
 
 class test_densityNegExp(unittest.TestCase):
 
@@ -305,6 +315,37 @@ class test_group(unittest.TestCase):
         self.testGroup.movement( None, self.testGroup.popLenDist[0 , :] * 0.5, 0)
         self.assertEqual(self.popSize0 * 1.5 - (self.popSize0 * 1.5 * 0.5),
                          self.testGroup.popLenDist[0 , :].sum())
+
+
+class test_network_and_nodes_and_selfpopulate(unittest.TestCase):
+
+    def testNodeCreation(self):
+        self.inputFolder = "./inputParameters/"
+        self.groupsFile = self.inputFolder + "oneGroupTestGroups.csv"
+        self.dfGroups = pd.read_csv(self.groupsFile)
+
+        self.nodeFile = self.inputFolder + "oneGroupTestNodes.csv"
+        self.dfNode = pd.read_csv(self.nodeFile)
+
+        self.networkFile = self.inputFolder + "oneGroupTestNetwork.csv"
+        self.dfNetwork = pd.read_csv(self.networkFile)
+
+        
+        ## create network from CSV
+        self.oneGroupTest = nnIPM.initializeModelFromCSVs( dfNetwork = self.dfNetwork, dfNode = self.dfNode,
+                                                           dfGroups = self.dfGroups)
+
+        ## Test some specific functions 
+        self.assertEqual( self.oneGroupTest.networkName, 'oneGroupTest')
+        self.assertEqual( self.oneGroupTest.nNodes(), 1.0)
+        self.assertEqual( self.oneGroupTest.nYears, self.dfNetwork["nYears"][0])
+
+        # ## Run the model and test node functions
+        # self.oneGroupTest.runNetworkSimulation()
+
+        # self.oneGroupTest
+        # ## Test many functions by running the network model 
+        # # self.assertEqual( self.)
 
         
 if __name__ == '__main__':
