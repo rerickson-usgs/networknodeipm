@@ -4,7 +4,7 @@ import networkNodeIPM  as nnIPM
 
 ## Setup numerical mesh
 minLength = 0
-maxLength = 240
+maxLength = 430
 nPoints = 200
 omega = np.linspace( start = minLength, stop = maxLength, num = nPoints +2)[1:-1]
 
@@ -15,8 +15,8 @@ b = 3e-7 # 1e-3
 density = nnIPM.densityNegExp(a = a, b = b)
 
 ## Node's survival parameters and function
-minS = 0.1
-maxS = 0.9
+minS =  0.1
+maxS =   0.9
 alphaS = 40 # inflection point
 betaS  =  -5 # slope
 
@@ -60,7 +60,7 @@ recruitment = nnIPM.linearRecruitment(omega = omega,
                                       eggTransition = eggTransition, eggPerkg = eggPerkg, muJ = muJ, sigmaJ = sigmaJ)
 
 ## Simulation parameters
-nYears = 300
+nYears = 1
 
 ## Define node 
 testGroup = nnIPM.group(groupName = "node 1", 
@@ -77,9 +77,36 @@ testGroup = nnIPM.group(groupName = "node 1",
 for year in range(0, nYears):
     testGroup.timeStepGroup(year)
 
-## Plot results
-testGroup.plotPop()
-testGroup.plotLengthTime()
+
+    
+
+testGroup.movement( testGroup.popLenDist[0 , :] * 0.5, None, 0)
+popSize0 * 1.5
+testGroup.popLenDist[0 , :].sum()
+# print (testGroup.popLenDist[0 , :].sum())
+
+# ## Plot results
+# testGroup.plotPop()
+# testGroup.plotLengthTime()
+
+## Test pulse introduction 
+
+testGroup = nnIPM.group(groupName = "node 1", 
+                        popSize0 = popSize0, 
+                        popLenDist0 = popLenDist0, 
+                        omega = omega,
+                        nYears = nYears, 
+                        survival = survival, 
+                        growth = growth,
+                        recruitment = recruitment,
+                        density = density,
+                        lengthWeight = lengthWeightUse,
+                        pulseIntroductionString = '1000,1,2',
+                        pulseIntroduction = None)
+
+# print testGroup.pulseIntroductionString
+print testGroup.pulseIntroduction.sum()
 print("Done" )
+
 
 

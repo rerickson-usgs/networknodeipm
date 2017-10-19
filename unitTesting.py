@@ -150,7 +150,7 @@ class test_group(unittest.TestCase):
         self.nYears = 1
 
         
-        ## Define node 
+        ## Define group
         self.testGroup = nnIPM.group(groupName = "node 1", 
                                      popSize0 = self.popSize0, 
                                      popLenDist0 = self.popLenDist0, 
@@ -174,13 +174,85 @@ class test_group(unittest.TestCase):
         self.assertEqual( self.testGroup.showGroupImpactViability(),  False)
         self.assertEqual( self.testGroup.showGroupPopSize()[0], self.popSize0)
 
+
         ## Make sure population stays constant with no births or deaths
         self.assertAlmostEqual( self.testGroup.showGroupPopSize()[0], self.testGroup.showGroupPopSize()[1], 7)
 
         ## Make sure projection matrix is all zeros
         self.assertEqual(self.recruitment(self.omega, self.omega).max(), 0.0)
+
+
+        ## Check pluse introduction using array method     
+
+        self.pulseIntro = np.zeros( (self.nYears + 1, len(self.omega)) ) 
+        self.pulseIntro[ 0, :] = self.popSize0 * self.popLenDist0
         
+        self.testGroup = nnIPM.group(groupName = "node 1", 
+                                     popSize0 = self.popSize0, 
+                                     popLenDist0 = self.popLenDist0, 
+                                     omega = self.omega,
+                                     nYears = self.nYears, 
+                                     survival = self.survival, 
+                                     growth = self.growth,
+                                     recruitment = self.recruitment,
+                                     density = self.density,
+                                     lengthWeight = self.lengthWeightUse,
+                                     pulseIntroduction = self.pulseIntro)
+
+        for year in range(0, self.nYears):
+            self.testGroup.timeStepGroup(year)
+
+        self.assertAlmostEqual( self.testGroup.showGroupPopSize()[1], self.testGroup.showGroupPopSize()[0] * 2)
+
+
+        ## Check pluse introduction using string method 
+
+        self.pulseIntroString = '6000, 1, 2'
         
+        self.testGroup = nnIPM.group(groupName = "node 1", 
+                                     popSize0 = self.popSize0, 
+                                     popLenDist0 = self.popLenDist0, 
+                                     omega = self.omega,
+                                     nYears = self.nYears, 
+                                     survival = self.survival, 
+                                     growth = self.growth,
+                                     recruitment = self.recruitment,
+                                     density = self.density,
+                                     lengthWeight = self.lengthWeightUse,
+                                     pulseIntroductionString = self.pulseIntroString)
+
+        self.assertAlmostEqual( self.testGroup.pulseIntroduction.sum(), 6000.0 + self.popSize0 )
+        
+        for year in range(0, self.nYears):
+            self.testGroup.timeStepGroup(year)
+
+        self.assertAlmostEqual( self.testGroup.showGroupPopSize()[1], self.testGroup.showGroupPopSize()[0] * 2)
+
+
+        ## Check adult mortality
+        self.adultSurvivalMultiplier = np.zeros( (self.nYears + 1, len(self.omega)) )
+        self.adultSurvivalMultiplier[0, :] = np.repeat(0.5, len(self.omega))
+
+        
+        self.testGroup = nnIPM.group(groupName = "node 1", 
+                                     popSize0 = self.popSize0, 
+                                     popLenDist0 = self.popLenDist0, 
+                                     omega = self.omega,
+                                     nYears = self.nYears, 
+                                     survival = self.survival, 
+                                     growth = self.growth,
+                                     recruitment = self.recruitment,
+                                     density = self.density,
+                                     lengthWeight = self.lengthWeightUse,
+                                     adultSurvivalMultiplier = self.adultSurvivalMultiplier)
+
+        for year in range(0, self.nYears):
+            self.testGroup.timeStepGroup(year)
+
+        
+        self.assertAlmostEqual( self.testGroup.showGroupPopSize()[1], self.testGroup.showGroupPopSize()[0] * 0.5)
+        
+        #==========================#
         ## Check time step with deaths and births
 
         ## Groups's survival parameters and function

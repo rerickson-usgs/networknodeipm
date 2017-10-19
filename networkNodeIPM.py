@@ -142,15 +142,18 @@ class group:
         ## Neither method is used, use all zeros
         if self.pulseIntroductionString == "No" and pulseIntroduction is None:           
             self.pulseIntroduction = np.zeros( (nYears + 1, len(self.omega)))
+
         ## String not used, use pulseIntroduction value
         elif pulseIntroductionString == "No":          
             self.pulseIntroduction = pulseIntroduction
+
         ## input no specified, used string
         elif pulseIntroduction is None:
             nRelease, startRelease, stopRelease = [int(x) for x in  self.pulseIntroductionString.split(',')]
             self.pulseIntroduction = np.zeros( (nYears + 1, len(self.omega)))
             self.pulseIntroduction[ (startRelease - 1):stopRelease, :] = nRelease * self.popLenDist0
 
+            
         ## Go include adult mortality
         if adultSurvivalMultiplier is None:
             self.adultSurvivalMultiplier = np.ones( (nYears + 1, len(self.omega)))
