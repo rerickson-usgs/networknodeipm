@@ -87,7 +87,7 @@ class test_group(unittest.TestCase):
         #============ Create group so that I can test it ========================#
         ## Setup numerical mesh
         self.minLength = 0
-        self.maxLength = 240
+        self.maxLength = 500
         self.nPoints = 200
         self.omega = np.linspace( start = self.minLength, stop = self.maxLength, num = self.nPoints +2)[1:-1]
         
@@ -98,8 +98,8 @@ class test_group(unittest.TestCase):
         self.density = nnIPM.densityNegExp(a = self.a, b = self.b)
         
         ## Node's survival parameters and function
-        self.minS = 0.1
-        self.maxS = 0.9
+        self.minS = 1.0 # 0.1
+        self.maxS = 1.0 # 1.0
         self.alphaS = 40 # inflection point
         self.betaS  =  -5 # slope
         
@@ -136,7 +136,7 @@ class test_group(unittest.TestCase):
         self.lengthWeightUse = nnIPM.lengthWeight( self.alphaLW, self.betaLW)
         
         ## Recruitment function and required parameter not previously defined
-        self.eggPerkg = 5e3 # default is 5e3
+        self.eggPerkg = 0.0 # default is 5e3
         self.eggTransition = 9e-1  # 3e-3
         self.recruitment = nnIPM.linearRecruitment(omega = self.omega,
                                                    lengthWeight = self.lengthWeightUse,
@@ -144,10 +144,11 @@ class test_group(unittest.TestCase):
                                                    survival = self.survival,
                                                    eggTransition = self.eggTransition,
                                                    eggPerkg = self.eggPerkg, muJ = self.muJ,
-        sigmaJ = self.sigmaJ)
+                                                   sigmaJ = self.sigmaJ)
         
         ## Simulation parameters
-        self.nYears = 300
+        self.nYears = 1
+
         
         ## Define node 
         self.testGroup = nnIPM.group(groupName = "node 1", 
@@ -160,15 +161,79 @@ class test_group(unittest.TestCase):
                                      recruitment = self.recruitment,
                                      density = self.density,
                                      lengthWeight = self.lengthWeightUse)
-        
+
+
+        for year in range(0, self.nYears):
+            self.testGroup.timeStepGroup(year)
+
+            
+        ## Run checks on functions
         self.assertEqual( self.testGroup.showGroupName(),  "node 1")
         self.assertEqual( self.testGroup.showGroupProduceEggs(),  False)
         self.assertEqual( self.testGroup.showGroupImpactSexRatio(),  False)
         self.assertEqual( self.testGroup.showGroupImpactViability(),  False)
+        self.assertEqual( self.testGroup.showGroupPopSize()[0], self.popSize0)
 
-        ## Don't know hwo to check
-        ## group.movement
-        ## group.timeStepGroup
+        ## Make sure population stays constant with no births or deaths
+        self.assertAlmostEqual( self.testGroup.showGroupPopSize()[0], self.testGroup.showGroupPopSize()[1], 7)
 
+        ## Make sure projection matrix is all zeros
+        self.assertEqual(self.recruitment(self.omega, self.omega).max(), 0.0)
+        
+        
+        ## Check time step with deaths and births
+
+        ## Groups's survival parameters and function
+        self.minS = 0.1
+        self.maxS = 0.9
+        self.alphaS = 40 # inflection point
+        self.betaS  =  -5 # slope
+        self.survival = nnIPM.logistic( alphaL = self.alphaS, betaL = self.betaS,
+                                        minL = self.minS, maxL = self.maxS)
+
+        ## Group's recruitment 
+        self.eggPerkg = 5e3 # default is 5e3
+      
+        self.recruitment = nnIPM.linearRecruitment(omega = self.omega,
+                                                   lengthWeight = self.lengthWeightUse,
+                                                   probabilityReproducing = self.probabilityReproducing,
+                                                   survival = self.survival,
+                                                   eggTransition = self.eggTransition,
+                                                   eggPerkg = self.eggPerkg, muJ = self.muJ,
+                                                   sigmaJ = self.sigmaJ)
+
+        ## Define group
+        self.testGroup = nnIPM.group(groupName = "node 1", 
+                                     popSize0 = self.popSize0, 
+                                     popLenDist0 = self.popLenDist0, 
+                                     omega = self.omega,
+                                     nYears = self.nYears, 
+                                     survival = self.survival, 
+                                     growth = self.growth,
+                                     recruitment = self.recruitment,
+                                     density = self.density,
+                                     lengthWeight = self.lengthWeightUse)
+
+        ## run through two years
+        for year in range(0, self.nYears):
+            self.testGroup.timeStepGroup(year)
+
+        
+        ## Make sure projection matrix is all zeros
+        self.assertEqual(self.recruitment(self.omega, self.omega).max(), 0.013391728398220301)
+
+        ## Make sure population stays constant with no births or deaths
+        self.assertAlmostEqual( 6747.405034513492, self.testGroup.showGroupPopSize()[1], 7)
+
+        ## Check imigration
+        self.testGroup.movement( self.testGroup.popLenDist[0 , :] * 0.5, None, 0)
+        self.assertEqual(self.popSize0 * 1.5, self.testGroup.popLenDist[0 , :].sum())
+        
+        ## Check emigration 
+        self.testGroup.movement( None, self.testGroup.popLenDist[0 , :] * 0.5, 0)
+        self.assertEqual(self.popSize0 * 1.5 - (self.popSize0 * 1.5 * 0.5),
+                         self.testGroup.popLenDist[0 , :].sum())
+
+        
 if __name__ == '__main__':
     unittest.main()
