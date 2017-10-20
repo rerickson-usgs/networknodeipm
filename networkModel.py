@@ -53,3 +53,29 @@ class network:
 
     def showNetworkName(self):
         return self.networkName            
+
+    def showNetworkName(self):
+        return self.networkName            
+
+    def addNodes(self, nodesIn):
+        [ self.nodes.append( n ) for n in nodesIn]
+
+    def nNodes(self):
+        return len(self.nodes)    
+    
+    def addPaths(self, pathsIn):
+        [ self.paths.append( n ) for n in pathsIn]
+
+    def nPaths(self):
+        return len(self.paths)    
+
+    def selfPopulatePaths(self):
+        for nodeStart in self.nodes:
+            for pathOut in nodeStart.showPathsOut():
+                for nodeEnd in self.nodes:
+                    for pathIn in nodeEnd.showPathsOut():
+                        if pathIn is pathOut:
+                            self.pathTemp = path( pathOut)
+                            self.pathTemp.addStartNode( nodeStart)
+                            self.pathTemp.addEndNode( nodeEnd)
+                            self.addPaths( [self.pathTemp])

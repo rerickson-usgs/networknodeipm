@@ -45,12 +45,40 @@ class test_node( unittest.TestCase):
         self.node = nm.node('test node')
         self.assertEqual( self.node.showNodeName(), 'test node')
 
-class test_network:
+class test_network( unittest.TestCase):
     
     def test_networkName(self):
-        self.netowrk = nm.network('test network')
+        self.network = nm.network('test network')
         self.assertEqual( self.network.showNetworkName(), 'test network')
 
+    def test_networknNodes(self):
+        self.network = nm.network('test network')
+        self.node = nm.node('test node')
+        self.network.addNodes( [self.node])
+        self.assertEqual( self.network.nNodes(), 1)
+
+    def test_networknPaths(self):
+        self.network = nm.network('test network')
+        self.path = nm.path('test path')
+        self.network.addPaths( [self.path])
+        self.assertEqual( self.network.nPaths(), 1)
+
+    def test_selfPopulatePaths(self):
+        self.network = nm.network('test network')
+        self.node1 = nm.node( 'node 1')
+        self.node1.addPathsIn( ['path 1'])
+        self.node1.addPathsOut( ['path 3'] )
+        
+        self.node2 = nm.node('node 2')
+        self.node1.addPathsOut( ['path 1'])
+        self.node1.addPathsIn( ['path 3'])
+        
+        self.network.addNodes( [ self.node1, self.node2])
+        self.network.selfPopulatePaths()
+
+        self.assertEqual( self.network.nNodes(), 2)     
+        self.assertEqual( self.network.nPaths(), 2)
+        
         
 if __name__ == '__main__':
     unittest.main()
