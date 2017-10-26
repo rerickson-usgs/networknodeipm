@@ -16,18 +16,6 @@ class test_pathOutListFunction( unittest.TestCase):
         self.assertEqual(nnIPM.pathOutListFunction( self.paths, self.probs), {'bob': 0.5, 'fred': 0.25})
 
 
-class test_densityNegExp(unittest.TestCase):
-
-    def test_zeros(self):
-        """Constructor"""
-        a = 10.0
-        b = 11.0
-        biomass = 0.0
-        zeroFunc = nnIPM.densityNegExp(a = a, b = b)
-
-        self.assertEqual( zeroFunc(biomass = biomass), 10.0)
-
-
 class test_densityNone(unittest.TestCase):
 
     def test_zero(self):
@@ -47,7 +35,6 @@ class test_lengthWeight(unittest.TestCase):
         self.lengthWeight = nnIPM.lengthWeight(alphaLW = 1.0,
                                                betaLW  = 2.0)
         self.assertEqual( self.lengthWeight(10.0), 1000.0)
-
 
 
 class test_logistic(unittest.TestCase):

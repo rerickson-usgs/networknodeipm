@@ -4,7 +4,7 @@ import networkNodeIPM  as nnIPM
 
 ## Setup numerical mesh, currently uses midpoint rule
 minLength = 0
-maxLength = 300
+maxLength = 430
 nPoints = 200
 omega = np.linspace( start = minLength, stop = maxLength, num = nPoints +2)[1:-1]
 

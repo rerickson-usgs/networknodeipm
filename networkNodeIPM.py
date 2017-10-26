@@ -13,7 +13,7 @@ def pathOutListFunction( pathsOut, pathsOutProb):
         pathsOutTemp[pathsOut] = pathsOutProb
     else:
         pathsOut2 = pathsOut.strip().split(",")
-        pathsOutProb2 = [x for x in pathsOutProb.strip().split(",")]
+        pathsOutProb2 = [float(x) for x in pathsOutProb.strip().split(",")]
         for index, pth in enumerate(pathsOut2):
             pathsOutTemp[pth] = pathsOutProb2[index]
     return pathsOutTemp
