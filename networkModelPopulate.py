@@ -163,18 +163,8 @@ class populatedNode( nm.node, populatedHelpers):
     
 class linearRecruitment:
     '''Define a function that models the recruitment as a function of fish length.'''
-    def __init__( self, lengthWeight, survival, probabilityReproducing,
-                  eggTransition, eggPerkg, muJ, sigmaJ):
-
-        self.muJ = muJ
-        self.sigmaJ = sigmaJ     
-        self.lengthWeight = lengthWeight
-        self.survival = survival
-        self.probabilityReproducing = probabilityReproducing
-        self.eggTransition = eggTransition
-        self.eggPerkg = eggPerkg
-        
-    def __call__(self, omega, omegaPrime):
+    
+    def recruitment(self, omega, omegaPrime):
         omega      = np.atleast_1d(omega)
         omegaPrime = np.atleast_1d(omegaPrime)
 
@@ -184,7 +174,7 @@ class linearRecruitment:
             out[ :, index] = ( self.eggTransition *
                                self.eggPerkg *
                                self.survival( val ) *
-                               self.probabilityReproducing( val ) * 
+                               self.probabilityOfReproducing( val ) * 
                                self.lengthWeight( val) *
                                (stats.lognorm.pdf(omegaPrime,
                                                   loc = 0,
@@ -199,7 +189,7 @@ class linearRecruitment:
         return(out)
 
     
-class group( populatedHelpers ):
+class group( populatedHelpers, linearRecruitment):
     def __init__(self, groupName):
         self.groupName = groupName
         
@@ -227,8 +217,8 @@ class group( populatedHelpers ):
     def setSigmaJ(self, sigmaJ):
         self.sigmaJ = sigmaJ
 
-    def setRecruitment(self, recruitment):
-        self.recruitment = recruitment
+    # def setRecruitment(self, recruitment):
+    #     self.recruitment = recruitment
         
     def setDensity(self, density):
         self.density = density 
@@ -422,7 +412,13 @@ class createNetworkFromCSV:
                 grpTemp.setGrowth( growthVB(aG = groupRow[1]['aG'],
                                             kG = groupRow[1]['kG'],
                                             sigmaG = groupRow[1]['sigmaG']) )
-                #########==========
+                grpTemp.setProbabilityOfReproducing(
+                    logistic( alphaL =  groupRow[1]['alphaR'],
+                              betaL =  groupRow[1]['betaR'],
+                              minL =  groupRow[1]['minR'],
+                              maxL = groupRow[1]['maxR']) )
+                # grpTemp.setRecruitment( 
+    #########==========
     ## AM HERE EDITING CODE
     ## Next steps are to add in all of groups attributes to group
     ## And then update linear recruitment to function to call internally rather than need inputs
@@ -431,9 +427,9 @@ class createNetworkFromCSV:
                 
                 n.addGroups( [ grpTemp])
 
-    #         probabilityReproducingTemp = logistic( alphaL =  groupRow[1]['alphaR'], betaL =  groupRow[1]['betaR'],
-    #                                                      minL =  groupRow[1]['minR'], maxL = groupRow[1]['maxR'])
-    #         recruitmentTemp = linearRecruitment(omega = omegaIn,
+
+                                                               
+                #         recruitmentTemp = linearRecruitment(omega = omegaIn,
     #                                                   lengthWeight = lengthWeightUseTemp,
     #                                                   probabilityReproducing = probabilityReproducingTemp,
     #                                                   survival = survivalTemp,
@@ -493,5 +489,3 @@ class createNetworkFromCSV:
     # ## Add nodes to the network and then create the paths 
     # networkOut.addNodeList(nodes)
     # networkOut.initializePaths()
-
-    

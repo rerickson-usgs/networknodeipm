@@ -92,7 +92,7 @@ class test_populatedNode( unittest.TestCase):
         self.assertEqual(  self.node.showNodePopulation()[0], 299)
         
     def test_projectionWithinNode(self):
-        self.omega = range(1, 300)
+        self.omega = range(1, 340)
         self.node = nmp.populatedNode('test node')
         self.group = nmp.group('test group')
         self.group.createPopDist( nYears = 3, nPoints = len(self.omega), popDist0 = np.ones( len(self.omega)))
@@ -108,15 +108,7 @@ class test_populatedNode( unittest.TestCase):
         self.group.setDensity( nmp.densityNegExp(a = 10.0,
                                                  b = 11.0) )
         
-        self.group.recruitment = nmp.linearRecruitment(
-            lengthWeight = self.group.lengthWeight,
-            survival = self.group.survival,
-            probabilityReproducing = self.group.probabilityOfReproducing,
-            eggTransition = self.group.eggTransition,
-            eggPerkg = self.group.eggPerkg,
-            muJ = self.group.muJ,
-            sigmaJ = self.group.sigmaJ)
-
+        # self.group.recruitment = self.group.linearRecruitment
         
         self.node.addGroups([ self.group ])
 
@@ -124,42 +116,35 @@ class test_populatedNode( unittest.TestCase):
         self.node.projectGroups( year = 0, omega = self.omega, hWidth = self.omega[1] - self.omega[0],
                                  nodeBiomass = 0.0)
         self.node.calculateNodePop()
-        self.assertAlmostEqual(self.node.showNodePopulation()[0], 299)
-        self.assertAlmostEqual(self.node.showNodePopulation()[1], 177771069.98259112)
+        self.assertAlmostEqual(self.node.showNodePopulation()[0], 339.0)
+        self.assertAlmostEqual(self.node.showNodePopulation()[1], 259536847.24350038)
 
         ## test with density
         self.group.createPopDist( nYears = 3, nPoints = len(self.omega), popDist0 = np.ones( len(self.omega)))
         self.node.projectGroups( year = 0, omega = self.omega, hWidth = self.omega[1] - self.omega[0],
                                  nodeBiomass = 1e4)
         self.node.calculateNodePop()
-        self.assertAlmostEqual( self.node.showNodePopulation()[0], 299)
-        self.assertAlmostEqual( self.node.showNodePopulation()[1], 256.6178009967002)
+        self.assertAlmostEqual( self.node.showNodePopulation()[0], 339.0)
+        self.assertAlmostEqual( self.node.showNodePopulation()[1], 296.72339679535963)
         
         
 class test_linearRecruitment( unittest.TestCase):
 
     def test_linRec(self):
-        self.lengthWeight = nmp.lengthWeight(alphaLW = 1.0,
+        self.group = nmp.group('test')
+        self.group.lengthWeight = nmp.lengthWeight(alphaLW = 1.0,
                                              betaLW  = 2.0)
-        self.survival = nmp.logistic( 40.0, -5.0, 0.0, 1.0)
-        self.probabilityReproducing = nmp.logistic( 40.0, -5.0, 0.0, 1.0)
-        self.eggTransition = 1.0e-3
-        self.eggPerkg = 200.0
-        self.muJ = np.log(10.0)
-        self.sigmaJ = 1.1
-
-        self.recruitment = nmp.linearRecruitment(
-            lengthWeight = self.lengthWeight,
-            survival = self.survival,
-            probabilityReproducing = self.probabilityReproducing,
-            eggTransition = self.eggTransition,
-            eggPerkg = self.eggPerkg,
-            muJ = self.muJ,
-            sigmaJ = self.sigmaJ)
-
-        self.assertAlmostEqual( self.recruitment( 180.0, 10.0), 64729.82385407)
-        self.assertEqual(self.recruitment( omega = range(197, 200), omegaPrime = range( 196, 200)).shape,
-                         ( 4, 3) )
+        self.group.survival = nmp.logistic( 40.0, -5.0, 0.0, 1.0)
+        self.group.setProbabilityOfReproducing( nmp.logistic( 40.0, -5.0, 0.0, 1.0))
+        self.group.eggTransition = 1.0e-3
+        self.group.eggPerkg = 200.0
+        self.group.muJ = np.log(10.0)
+        self.group.sigmaJ = 1.1
+        
+        self.assertAlmostEqual( self.group.recruitment( 180.0, 10.0), 64729.82385407)
+        self.assertEqual(
+            self.group.recruitment( omega = range(197, 200),
+                                    omegaPrime = range( 196, 200)).shape, ( 4, 3) )
             
 class test_group( unittest.TestCase):
 
@@ -301,7 +286,7 @@ class test_populatedNetwork( unittest.TestCase):
         
         self.network.moveGroups( startYear = 0, endYear = 0)
 
-        ## Check to make sure 1/2 of population is at start and half is at end
+        ## Check to make sur population is at start and end
         self.network.calculateNetworkPop()
         self.assertEqual(self.network.showNetworkPop()[0], 24.0)
         self.assertEqual(self.network.nodes[0].showNodePopulation()[0], 6.0)
@@ -335,13 +320,7 @@ class test_populatedNetwork( unittest.TestCase):
         self.group1.setSigmaJ( 1.1)
         self.group1.setLengthWeight( nmp.lengthWeight(alphaLW = 1.0,
                                                       betaLW  = 2.0) )
-        self.group1.setRecruitment( nmp.linearRecruitment( lengthWeight = self.group1.lengthWeight,
-                                                           survival = self.group1.survival,
-                                                           probabilityReproducing = self.group1.probabilityOfReproducing,
-                                                           eggTransition = self.group1.eggTransition,
-                                                           eggPerkg = self.group1.eggPerkg,
-                                                           muJ = self.group1.muJ,
-                                                           sigmaJ = self.group1.sigmaJ) )
+
         self.group1.setDensity( nmp.densityNegExp(a = 1.0,
                                                   b = 1e-6) )
         self.node1.addGroups( [self.group1 ])
@@ -360,13 +339,7 @@ class test_populatedNetwork( unittest.TestCase):
         self.group2.setSigmaJ( 1.1)
         self.group2.setLengthWeight( nmp.lengthWeight(alphaLW = 1.0,
                                                       betaLW  = 2.0) )
-        self.group2.setRecruitment( nmp.linearRecruitment( lengthWeight = self.group2.lengthWeight,
-                                                           survival = self.group2.survival,
-                                                           probabilityReproducing = self.group2.probabilityOfReproducing,
-                                                           eggTransition = self.group2.eggTransition,
-                                                           eggPerkg = self.group2.eggPerkg,
-                                                           muJ = self.group2.muJ,
-                                                           sigmaJ = self.group2.sigmaJ) )
+
         self.group2.setDensity( nmp.densityNegExp(a = 1.0,
                                                   b = 1e-6) )
 
@@ -440,6 +413,7 @@ class test_csvPopulate( unittest.TestCase):
         self.assertEqual( self.network.nodes[1].showPathsIn(), ['path 1', 'path 4'])
 
 
+        self.assertEqual( self.network.nodes[0].groups[0].groupName, 'test group 1') 
         self.assertEqual( self.network.nodes[0].groups[0].groupName, 'test group 1') 
 
         
