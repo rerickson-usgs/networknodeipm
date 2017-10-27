@@ -414,7 +414,8 @@ class test_csvPopulate( unittest.TestCase):
 
 
         self.assertEqual( self.network.nodes[0].groups[0].groupName, 'test group 1') 
-        self.assertEqual( self.network.nodes[0].groups[0].groupName, 'test group 1') 
+        self.assertEqual( self.network.nodes[0].groups[0].groupName, 'test group 1')
+        self.assertEqual( self.network.nodes[0].groups[0].eggTransition,  0.003 ) 
 
         
 if __name__ == '__main__':

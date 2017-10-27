@@ -71,7 +71,7 @@ class lengthWeight:
         self.betaLW  = betaLW
 
     def __call__(self, omega):
-        out = 10 ** (self.alphaLW +
+        out = 10.0 ** (self.alphaLW +
                      np.log10(omega) * self.betaLW)
         return out
 
@@ -216,9 +216,6 @@ class group( populatedHelpers, linearRecruitment):
 
     def setSigmaJ(self, sigmaJ):
         self.sigmaJ = sigmaJ
-
-    # def setRecruitment(self, recruitment):
-    #     self.recruitment = recruitment
         
     def setDensity(self, density):
         self.density = density 
@@ -321,16 +318,20 @@ class populatedNetwork( nm.network):
 
         
     def runSimulation(self):
-        ''' This function runs the network simulation and assumes movement occures before spawning.'''
+        ''' 
+        This function runs the network simulation and assumes 
+        movement occures before spawning.
+        '''
 
         for yearIndex in xrange(self.nYears):
             ## Step 1, move groups 
             self.moveGroups( yearIndex, yearIndex)
             ## Step 2, update popualtions within nodes
             for n in self.nodes:
-                ## Step 2a: calculate biomass in each node and density effect 
-                n.calculateNodeBiomass( omega = self.omega, year = yearIndex)
-                n.projectGroups(yearIndex, self.omega, self.hWidth, nodeBiomass = n.showNodeBiomass())
+                ## Step 2a: calculate biomass in each node and density effect
+                n.calculateNodeBiomass( omega = self.omega, year = yearIndex )
+                n.projectGroups(yearIndex, self.omega,
+                                self.hWidth, nodeBiomass = n.showNodeBiomass())
 
 
 class createNetworkFromCSV:
@@ -377,13 +378,10 @@ class createNetworkFromCSV:
             nodeTemp.addPathsIn( nodeRow[1]['pathsIn'].split(";"))           
             self.network.addNodes([ nodeTemp])
 
-
-
     def standarizedLogNormal(self, omega,  sIn, scaleIn):                     
-        ( stats.lognorm.pdf( omega, loc = 0, s = sIn, scale = scaleIn) /
-          stats.lognorm.pdf( omega, loc = 0, s = sIn, scale = scaleIn).sum() )
+        return ( stats.lognorm.pdf( omega, loc = 0, s = sIn, scale = scaleIn) /
+                 stats.lognorm.pdf( omega, loc = 0, s = sIn, scale = scaleIn).sum() )
                              
-    
     def addGroupsFromCSV( self, dfGroups):
         ## Loop through nodes and add in groups
         for n in self.network.nodes:
@@ -394,6 +392,10 @@ class createNetworkFromCSV:
             ## Loop through each group in a node and generate it
             for groupRow in dfGroupsUse.iterrows():
                 grpTemp = group( groupRow[1]['groupName'] )
+                grpTemp.setEggTransition( groupRow[1]['eggTransition'] )
+                grpTemp.setEggPerkg( groupRow[1]['eggPerkg'] )
+                grpTemp.setSigmaJ( groupRow[1]['sigmaJ'] )
+                grpTemp.setMuJ( groupRow[1]['muJ'] )
                 grpTemp.setLengthWeight( lengthWeight(groupRow[1]['alphaLW'],
                                                       groupRow[1]['betaLW']) )
                 grpTemp.setDensity( densityNegExp(a = groupRow[1]['densityA'],
@@ -402,13 +404,15 @@ class createNetworkFromCSV:
                                                betaL = groupRow[1]['betaS'],
                                                minL = groupRow[1]['minS'],
                                                maxL = groupRow[1]['maxS']) )
+
+                popSize0temp = self.standarizedLogNormal(
+                    self.network.omega,
+                    sIn = groupRow[1]['initS'], 
+                    scaleIn = groupRow[1]['initMean'])  * groupRow[1]['popSize0'] 
+                                       
                 grpTemp.createPopDist( nYears = self.network.nYears,
                                        nPoints = self.network.nPoints,
-                                       popDist0 =
-                                       self.standarizedLogNormal(
-                                           self.network.omega,
-                                           sIn = groupRow[1]['initS'], 
-                                           scaleIn = groupRow[1]['initMean']) )
+                                       popDist0 = popSize0temp)
                 grpTemp.setGrowth( growthVB(aG = groupRow[1]['aG'],
                                             kG = groupRow[1]['kG'],
                                             sigmaG = groupRow[1]['sigmaG']) )
@@ -417,72 +421,14 @@ class createNetworkFromCSV:
                               betaL =  groupRow[1]['betaR'],
                               minL =  groupRow[1]['minR'],
                               maxL = groupRow[1]['maxR']) )
-                # grpTemp.setRecruitment( 
-    #########==========
-    ## AM HERE EDITING CODE
-    ## Next steps are to add in all of groups attributes to group
-    ## And then update linear recruitment to function to call internally rather than need inputs
-    ## probably use if statements for input arguments 
-            
                 
                 n.addGroups( [ grpTemp])
 
-
+    #########==========
+    ## AM HERE EDITING CODE
+    ## Need to develop initializtion funciton better create paths  
+    ## Also, need to update non-unittest file.
                                                                
-                #         recruitmentTemp = linearRecruitment(omega = omegaIn,
-    #                                                   lengthWeight = lengthWeightUseTemp,
-    #                                                   probabilityReproducing = probabilityReproducingTemp,
-    #                                                   survival = survivalTemp,
-    #                                                   eggTransition = groupRow[1]['eggTransition'],
-    #                                                   eggPerkg = groupRow[1]['eggPerkg'],
-    #                                                   muJ = np.log(groupRow[1]['muJ']), sigmaJ = np.log(groupRow[1]['sigmaJ']))
-    #         try:
-    #             pulseIntro = groupRow[1][ 'pulseIntro']
-    #         except:
-    #             pulseIntro = "No"
-
-    #         try:
-    #             groupImpactViability = groupRow[1][ 'groupImpactViability']
-    #         except:
-    #             groupImpactViability = False
-
-    #         try:
-    #             groupOffspringViability = float(groupRow[1]['groupOffspringViability'])
-    #         except:
-    #             groupOffspringViability = 1.0
-                
-
-    #         if 'groupOffspringPfemale' in groupRow[1]:
-    #             groupOffspringPfemale = float(groupRow[1]['groupOffspringPfemale'])
-    #         else:
-    #             groupOffspringPfemale = 0.5
-
-    #         if 'groupImpactSexRatio' in groupRow[1]:
-    #             groupImpactSexRatio =  groupRow[1]['groupImpactSexRatio']
-    #             if not isinstance(groupImpactSexRatio, bool):
-    #                 print groupImpactSexRatio
-    #                 sys.exit("groupImpactSexRatio must be True or False")
-    #         else:
-    #            groupImpactSexRatio = False
-
-    #         groupTemp = group(groupName = groupRow[1][ 'groupName'],
-    #                           groupSex =  groupRow[1][ 'groupSex'],
-    #                           groupOffspringPfemale = groupOffspringPfemale,
-    #                           groupProduceEggs = groupRow[1][ 'groupProduceEggs'], 
-    #                           popSize0 = groupRow[1][ 'popSize0'],
-    #                           groupImpactViability = groupImpactViability,
-    #                           groupOffspringViability = groupOffspringViability,
-    #                           popLenDist0 = popLenDist0Temp, 
-    #                           omega = omegaIn,
-    #                           nYears = dfNetwork['nYears'][0], 
-    #                           survival = survivalTemp, 
-    #                           growth = growthTemp,
-    #                           recruitment = recruitmentTemp,
-    #                           density = densityTemp,
-    #                           lengthWeight = lengthWeightUseTemp,
-    #                           pulseIntroductionString = pulseIntro,
-    #                           groupImpactSexRatio = groupImpactSexRatio)
-    #         groupsForNodeTemp.append(groupTemp)
     #     ## Add groups to each node and then add nodes to temp node list
     #     nodeTemp.addGroupList(groupsForNodeTemp)
     #     nodes.append( nodeTemp)
