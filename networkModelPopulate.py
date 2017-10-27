@@ -18,7 +18,7 @@ class populatedHelpers:
 
     def setLengthWeight(self, lengthWeight):
         self.lengthWeight = lengthWeight
-
+        
     def createPopDist(self, nYears, nPoints, popDist0 = None):
         if popDist0 is None:
             self.popDist0 = np.zeros(nPoints)
@@ -385,6 +385,13 @@ class createNetworkFromCSV:
             self.nodeTemp.addPathsIn( nodeRow[1]['pathsIn'].split(";"))           
             self.network.addNodes([ self.nodeTemp])
 
+
+
+    def standarizedLogNormal(self, omega,  sIn, scaleIn):                     
+        ( stats.lognorm.pdf( omega, loc = 0, s = sIn, scale = scaleIn) /
+          stats.lognorm.pdf( omega, loc = 0, s = sIn, scale = scaleIn).sum() )
+                             
+    
     def addGroupsFromCSV( self, dfGroups):
         self.dfGroups = dfGroups 
         ## Loop through nodes and add in groups
@@ -396,6 +403,23 @@ class createNetworkFromCSV:
             ## Loop through each group in a node and generate it
             for groupRow in self.dfGroupsUse.iterrows():
                 self.grpTemp = group( groupRow[1]['groupName'] )
+                self.grpTemp.setLengthWeight( lengthWeight(groupRow[1]['alphaLW'],
+                                                           groupRow[1]['betaLW'])
+                                              )
+                self.grpTemp.setDensity( densityNegExp(a = groupRow[1]['densityA'],
+                                                       b = groupRow[1]['densityB']) )
+                self.grpTemp.setSurvival( logistic( alphaL = groupRow[1]['alphaS'],
+                                                    betaL = groupRow[1]['betaS'],
+                                                    minL = groupRow[1]['minS'],
+                                                    maxL = groupRow[1]['maxS']) )
+                self.grpTemp.createPopDist( nYears = self.network.nYears,
+                                            nPoints = self.network.nPoints,
+                                            popDist0 =
+                                            self.standarizedLogNormal(
+                                                self.network.omega,
+                                                sIn = groupRow[1]['initS'], 
+                                                scaleIn = groupRow[1]['initMean']))
+
     #########==========
     ## AM HERE EDITING CODE
     ## Next steps are to add in all of groups attributes to group
@@ -404,12 +428,6 @@ class createNetworkFromCSV:
             
                 
                 n.addGroups( [ self.grpTemp])
-    #         lengthWeightUseTemp = lengthWeight(groupRow[1]['alphaLW'], groupRow[1]['betaLW'])
-    #         densityTemp = densityNegExp(a = groupRow[1]['densityA'], b = groupRow[1]['densityB'])
-    #         survivalTemp = logistic( alphaL = groupRow[1]['alphaS'], betaL = groupRow[1]['betaS'],
-    #                                        minL = groupRow[1]['minS'], maxL = groupRow[1]['maxS'])
-    #         popLenDist0Temp = (stats.lognorm.pdf(omegaIn, loc = 0, s = groupRow[1]['initS'], scale = groupRow[1]['initMean']) /
-    #                            stats.lognorm.pdf(omegaIn, loc = 0, s = groupRow[1]['initS'], scale = groupRow[1]['initMean']).sum() )
     #         growthTemp = growthVB(aG = groupRow[1]['aG'], kG = groupRow[1]['kG'], sigmaG = groupRow[1]['sigmaG'])
     #         probabilityReproducingTemp = logistic( alphaL =  groupRow[1]['alphaR'], betaL =  groupRow[1]['betaR'],
     #                                                      minL =  groupRow[1]['minR'], maxL = groupRow[1]['maxR'])
