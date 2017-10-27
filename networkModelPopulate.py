@@ -354,7 +354,7 @@ class createNetworkFromCSV:
     def showNetwork(self):
         return self.network 
     
-    def pathOutListFunction( pathsOut, pathsOutProb):
+    def pathOutListFunction( self, pathsOut, pathsOutProb):
         '''
         Function used to convert path names and probabilities from lists 
         (e.g., from CSV files) into a dictionary for the model.
@@ -363,8 +363,8 @@ class createNetworkFromCSV:
         if isinstance(pathsOutProb, float):
             pathsOutTemp[pathsOut] = pathsOutProb
         else:
-            pathsOut2 = pathsOut.strip().split(",")
-            pathsOutProb2 = [float(x) for x in pathsOutProb.strip().split(",")]
+            pathsOut2 = pathsOut.strip().split(";")
+            pathsOutProb2 = [float(x) for x in pathsOutProb.strip().split(";")]
             for index, pth in enumerate(pathsOut2):
                 pathsOutTemp[pth] = pathsOutProb2[index]
         return pathsOutTemp
@@ -377,24 +377,33 @@ class createNetworkFromCSV:
      
         ## Loop through each node in the network and generate it
         for nodeRow in self.dfNodeUse.iterrows():
+            ## Add in node's name
             self.nodeTemp =  populatedNode( nodeName = nodeRow[1]['nodeName'])
-#########==========
-## AM HERE EDITING CODE 
-            
+            self.pathsOutTemp = self.pathOutListFunction( nodeRow[1]['pathsOut'],
+                                                          nodeRow[1]['pathsOutProb'])
+            self.nodeTemp.addPathsOut( self.pathsOutTemp)
+            self.nodeTemp.addPathsIn( nodeRow[1]['pathsIn'].split(";"))           
             self.network.addNodes([ self.nodeTemp])
-            # self.pathsOutTemp = pathOutListFunction( pathsOut = nodeRow[1]['pathsOut'],
-            #                                          pathsOutProb = float(nodeRow[1]['pathsOutProb']))
 
+    def addGroupsFromCSV( self, dfGroups):
+        self.dfGroups = dfGroups 
+        ## Loop through nodes and add in groups
+        for n in self.network.nodes:
+            self.dfGroupsUse = self.dfGroups.query(str('network == ' + "'" +
+                                                  self.network.networkName + "'" + 
+                                                  ' & node == ' + "'" + 
+                                                  n.showNodeName() + "'" ))
+            ## Loop through each group in a node and generate it
+            for groupRow in self.dfGroupsUse.iterrows():
+                self.grpTemp = group( groupRow[1]['groupName'] )
+    #########==========
+    ## AM HERE EDITING CODE
+    ## Next steps are to add in all of groups attributes to group
+    ## And then update linear recruitment to function to call internally rather than need inputs
+    ## probably use if statements for input arguments 
             
-    #     nodeTemp.addPathsOut(pathsOutTemp)
-    #     nodeTemp.addPathsIn( nodeRow[1]['pathsIn'].split(","))
-    #     dfGroupsUse = dfGroups.query(str('network == ' + "'" +
-    #                                      networkOut.networkName + "'" + 
-    #                                      ' & node == ' + "'" + 
-    #                                      nodeRow[1]['nodeName'] + "'" ))
-    #     groupsForNodeTemp = []
-    #     ## Loop through each group in a node and generate it
-    #     for groupRow in dfGroupsUse.iterrows():        
+                
+                n.addGroups( [ self.grpTemp])
     #         lengthWeightUseTemp = lengthWeight(groupRow[1]['alphaLW'], groupRow[1]['betaLW'])
     #         densityTemp = densityNegExp(a = groupRow[1]['densityA'], b = groupRow[1]['densityB'])
     #         survivalTemp = logistic( alphaL = groupRow[1]['alphaS'], betaL = groupRow[1]['betaS'],

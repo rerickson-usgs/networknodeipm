@@ -421,15 +421,27 @@ class test_csvPopulate( unittest.TestCase):
         ## Test creation of network 
         self.createNetwork = nmp.createNetworkFromCSV( self.dfNetwork)
 
-        ## Test addition of nodesl
+        ## Test addition of nodes
         self.createNetwork.addNodesFromCSV( self.dfNode)
+
+        ## Test addition of groups 
+        self.createNetwork.addGroupsFromCSV( self.dfGroups)
         
         ## Export and test network 
         self.network = self.createNetwork.showNetwork()
+        
         self.assertEqual( self.network.showNetworkName(), 'twoNodeNetwork')
         self.assertEqual( self.network.nYears, 50)
         self.assertEqual( len(self.network.omega), 200)
         self.assertEqual( len(self.network.nodes), 2)
+        self.assertEqual( self.network.nodes[0].pathsOut, {'path 1': 0.05})
+        self.assertEqual( self.network.nodes[1].pathsOut, {'path 2': 0.05, 'path 3': 0.0})
+        self.assertEqual( self.network.nodes[0].showPathsIn(), ['path 2'])
+        self.assertEqual( self.network.nodes[1].showPathsIn(), ['path 1', 'path 4'])
+
+
+        self.assertEqual( self.network.nodes[0].groups[0].groupName, 'test group 1') 
+
         
 if __name__ == '__main__':
     unittest.main()

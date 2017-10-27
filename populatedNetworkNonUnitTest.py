@@ -18,7 +18,26 @@ networkFile = inputFolder + 'twoNodeTestNetwork.csv'
 dfNetwork = pd.read_csv(networkFile)
 
 
+'0.05; 0.0'.split(";")
 
+
+def pathOutListFunction( pathsOut, pathsOutProb):
+    '''
+    Function used to convert path names and probabilities from lists 
+        (e.g., from CSV files) into a dictionary for the model.
+    '''
+    pathsOutTemp = dict()
+    if isinstance(pathsOutProb, float):
+        pathsOutTemp[pathsOut] = pathsOutProb
+    else:
+        pathsOut2 = pathsOut.strip().split(";")
+        pathsOutProb2 = [float(x) for x in pathsOutProb.strip().split(";")]
+        for index, pth in enumerate(pathsOut2):
+            pathsOutTemp[pth] = pathsOutProb2[index]
+    return pathsOutTemp
+
+pathOutListFunction('fred', 0.5)
+pathOutListFunction('fred; joe', '0.5; 0.0')
 
 ## NEXT AREA WILL BE REPLACED BY READ FROM CSV FILES
 
