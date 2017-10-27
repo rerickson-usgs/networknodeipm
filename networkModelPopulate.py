@@ -69,6 +69,7 @@ class lengthWeight:
     def __init__(self, alphaLW, betaLW):
         self.alphaLW = alphaLW
         self.betaLW  = betaLW
+
     def __call__(self, omega):
         out = 10 ** (self.alphaLW +
                      np.log10(omega) * self.betaLW)
@@ -131,20 +132,20 @@ class populatedNode( nm.node, populatedHelpers):
              First dotproduct is growth/maturation.
              Second dotproduct is recruitment.
         '''
-        self.year = year
-        self.omega = omega
-        self.hWidth = hWidth
-        self.nodeBiomass = nodeBiomass
+        year = year
+        omega = omega
+        hWidth = hWidth
+        nodeBiomass = nodeBiomass
         for grp in self.groups:
-            self.popAdd = ( np.dot( self.hWidth * grp.growth( self.omega, self.omega), 
-                                    grp.showPopDistYear( self.year) *
-                                    grp.survival( self.omega) ) +
-                            np.dot(hWidth * grp.recruitment( self.omega, self.omega),
-                                   grp.showPopDistYear( self.year)) *  grp.density(self.nodeBiomass)
+            popAdd = ( np.dot( hWidth * grp.growth( omega, omega), 
+                                    grp.showPopDistYear( year) *
+                                    grp.survival( omega) ) +
+                            np.dot(hWidth * grp.recruitment( omega, omega),
+                                   grp.showPopDistYear( year)) *  grp.density(nodeBiomass)
             )
 
 
-            grp.updatePopDistYear( year + 1, self.popAdd)
+            grp.updatePopDistYear( year + 1, popAdd)
             
                 
             
@@ -180,7 +181,8 @@ class linearRecruitment:
         out = np.zeros( (len(omegaPrime), len(omega) ))
 
         for index, val in enumerate(omega):
-            out[ :, index] = ( self.eggTransition * self.eggPerkg *
+            out[ :, index] = ( self.eggTransition *
+                               self.eggPerkg *
                                self.survival( val ) *
                                self.probabilityReproducing( val ) * 
                                self.lengthWeight( val) *
@@ -373,17 +375,17 @@ class createNetworkFromCSV:
 
         ## Extract out nodes from the network we are using
         ## (this allows a yet to be implement function for generating multiple networks from one set of files)
-        self.dfNodeUse = dfNode.query(str('network == ' + "'" + self.network.showNetworkName() + "'"))
+        dfNodeUse = dfNode.query(str('network == ' + "'" + self.network.showNetworkName() + "'"))
      
         ## Loop through each node in the network and generate it
-        for nodeRow in self.dfNodeUse.iterrows():
+        for nodeRow in dfNodeUse.iterrows():
             ## Add in node's name
-            self.nodeTemp =  populatedNode( nodeName = nodeRow[1]['nodeName'])
-            self.pathsOutTemp = self.pathOutListFunction( nodeRow[1]['pathsOut'],
+            nodeTemp =  populatedNode( nodeName = nodeRow[1]['nodeName'])
+            pathsOutTemp = self.pathOutListFunction( nodeRow[1]['pathsOut'],
                                                           nodeRow[1]['pathsOutProb'])
-            self.nodeTemp.addPathsOut( self.pathsOutTemp)
-            self.nodeTemp.addPathsIn( nodeRow[1]['pathsIn'].split(";"))           
-            self.network.addNodes([ self.nodeTemp])
+            nodeTemp.addPathsOut( pathsOutTemp)
+            nodeTemp.addPathsIn( nodeRow[1]['pathsIn'].split(";"))           
+            self.network.addNodes([ nodeTemp])
 
 
 
@@ -393,42 +395,42 @@ class createNetworkFromCSV:
                              
     
     def addGroupsFromCSV( self, dfGroups):
-        self.dfGroups = dfGroups 
         ## Loop through nodes and add in groups
         for n in self.network.nodes:
-            self.dfGroupsUse = self.dfGroups.query(str('network == ' + "'" +
-                                                  self.network.networkName + "'" + 
-                                                  ' & node == ' + "'" + 
-                                                  n.showNodeName() + "'" ))
+            dfGroupsUse = dfGroups.query(str('network == ' + "'" +
+                                             self.network.networkName + "'" + 
+                                             ' & node == ' + "'" + 
+                                             n.showNodeName() + "'" ))
             ## Loop through each group in a node and generate it
-            for groupRow in self.dfGroupsUse.iterrows():
-                self.grpTemp = group( groupRow[1]['groupName'] )
-                self.grpTemp.setLengthWeight( lengthWeight(groupRow[1]['alphaLW'],
-                                                           groupRow[1]['betaLW'])
-                                              )
-                self.grpTemp.setDensity( densityNegExp(a = groupRow[1]['densityA'],
-                                                       b = groupRow[1]['densityB']) )
-                self.grpTemp.setSurvival( logistic( alphaL = groupRow[1]['alphaS'],
-                                                    betaL = groupRow[1]['betaS'],
-                                                    minL = groupRow[1]['minS'],
-                                                    maxL = groupRow[1]['maxS']) )
-                self.grpTemp.createPopDist( nYears = self.network.nYears,
-                                            nPoints = self.network.nPoints,
-                                            popDist0 =
-                                            self.standarizedLogNormal(
-                                                self.network.omega,
-                                                sIn = groupRow[1]['initS'], 
-                                                scaleIn = groupRow[1]['initMean']))
-
-    #########==========
+            for groupRow in dfGroupsUse.iterrows():
+                grpTemp = group( groupRow[1]['groupName'] )
+                grpTemp.setLengthWeight( lengthWeight(groupRow[1]['alphaLW'],
+                                                      groupRow[1]['betaLW']) )
+                grpTemp.setDensity( densityNegExp(a = groupRow[1]['densityA'],
+                                                  b = groupRow[1]['densityB']) )
+                grpTemp.setSurvival( logistic( alphaL = groupRow[1]['alphaS'],
+                                               betaL = groupRow[1]['betaS'],
+                                               minL = groupRow[1]['minS'],
+                                               maxL = groupRow[1]['maxS']) )
+                grpTemp.createPopDist( nYears = self.network.nYears,
+                                       nPoints = self.network.nPoints,
+                                       popDist0 =
+                                       self.standarizedLogNormal(
+                                           self.network.omega,
+                                           sIn = groupRow[1]['initS'], 
+                                           scaleIn = groupRow[1]['initMean']) )
+                grpTemp.setGrowth( growthVB(aG = groupRow[1]['aG'],
+                                            kG = groupRow[1]['kG'],
+                                            sigmaG = groupRow[1]['sigmaG']) )
+                #########==========
     ## AM HERE EDITING CODE
     ## Next steps are to add in all of groups attributes to group
     ## And then update linear recruitment to function to call internally rather than need inputs
     ## probably use if statements for input arguments 
             
                 
-                n.addGroups( [ self.grpTemp])
-    #         growthTemp = growthVB(aG = groupRow[1]['aG'], kG = groupRow[1]['kG'], sigmaG = groupRow[1]['sigmaG'])
+                n.addGroups( [ grpTemp])
+
     #         probabilityReproducingTemp = logistic( alphaL =  groupRow[1]['alphaR'], betaL =  groupRow[1]['betaR'],
     #                                                      minL =  groupRow[1]['minR'], maxL = groupRow[1]['maxR'])
     #         recruitmentTemp = linearRecruitment(omega = omegaIn,
