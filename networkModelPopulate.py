@@ -286,12 +286,13 @@ class populatedNetwork( nm.network):
         for index in xrange(self.nNodes()):
             plotNodePop[ : , index] = self.nodes[index].showNodePopulation()
             ax[index].plot(np.arange(0,  self.nYears +1 , 1),  plotNodePop[ :, index])
-        if showGroups:
-            for grp in self.nodes[index].groups:
-                ax[index].plot( np.arange(0, self.nYears +1, 1), grp.showPop())      
-                ax[index].set_title(self.nodes[index].nodeName)
-                ax[index].set_xlabel("Time (years)")
-                ax[index].set_ylabel("Population")
+            ax[index].set_title( self.nodes[index].showNodeName())
+            if showGroups:
+                for grp in self.nodes[index].groups:
+                    ax[index].plot( np.arange(0, self.nYears +1, 1), grp.showPop())      
+                    ax[index].set_title(self.nodes[index].nodeName)
+                    ax[index].set_xlabel("Time (years)")
+                    ax[index].set_ylabel("Population")
             
         if showPlot:
             plt.show()
