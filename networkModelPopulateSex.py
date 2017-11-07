@@ -2,7 +2,7 @@ import networkModelPopulate as nmp
 import numpy as np
 import scipy.stats as stats
 import sys 
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import pandas as pd
 
 
@@ -68,7 +68,6 @@ class populatedNodeWithSex( nmp.populatedNode):
         self.pathsIn = []
         self.pathsOut = {}
 
-
     def projectGroups(self, year, omega, hWidth, nodeBiomass):
         '''  projects population using midpoint rule.
              First dotproduct is growth/maturation.
@@ -86,11 +85,6 @@ class populatedNodeWithSex( nmp.populatedNode):
                             np.dot(hWidth * grp.recruitment( omega, omega),
                                    reproducingPopulation *  grp.density(nodeBiomass) *
                                    grp.showRecruitmentProportion() )
-                            )
+                            ) 
 
             grp.updatePopDistYear( year + 1, popAdd)
-
-        
-    ## sum up recruitmentGroup groups
-
-    ## update linear recruitment function to include recruitment groups 

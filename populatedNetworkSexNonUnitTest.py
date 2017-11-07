@@ -14,10 +14,10 @@ inputFolder = "./inputParameters/"
 groupsFile = inputFolder + 'twoNodeTestGroupsSex.csv'
 dfGroups = pd.read_csv(groupsFile)
 
-nodeFile = inputFolder + 'twoNodeTestNodesSex.csv'
+nodeFile = inputFolder + 'twoNodeTestNodes.csv'
 dfNode = pd.read_csv(nodeFile)
 
-networkFile = inputFolder + 'twoNodeTestNetworkSex.csv'
+networkFile = inputFolder + 'twoNodeTestNetwork.csv'
 dfNetwork = pd.read_csv(networkFile)
 
 createNetwork = nmps.createNetworkFromCSVwithSex( dfNetwork)
@@ -35,7 +35,7 @@ network.runSimulation()
 # ## Check plot 
 network.calculateNetworkPop()
 # print network.showNetworkPop()
-network.plotAllNodes()
+network.plotAllNodes(showGroups = True)
 
 
 
