@@ -39,13 +39,20 @@ class test_populatedNodeWithSex( unittest.TestCase):
         self.createNetwork = nmps.createNetworkFromCSVwithSex( self.dfNetwork)
         
         ## Test addition of nodes
-        self.createNetwork.addNodesFromCSV( self.dfNode)
+        self.createNetwork.addNodesFromCSV( self.dfNode, nodeIn = nmps.populatedNodeWithSex)
 
         ## Add in group's sex
         self.createNetwork.addGroupSexFromCSV( self.dfGroups, groupInIn =  nmps.groupWithSex)
+
         ## export and test network 
         self.network = self.createNetwork.showNetwork()
+
+
+        ## Check projection with sex
+        self.network.runSimulation()
+        self.network.calculateNetworkPop()
         
+        ## Run tests
         self.assertEqual( self.network.showNetworkName(), 'twoNodeNetwork')
         self.assertEqual( self.network.nYears, 25)
         self.assertEqual( len(self.network.omega), 200)
@@ -64,6 +71,10 @@ class test_populatedNodeWithSex( unittest.TestCase):
 
         self.assertEqual( self.network.nodes[0].groups[1].showSex(), 'female')
         self.assertEqual( self.network.nodes[0].groups[0].showSex(), 'male')
+
+        self.assertEqual( self.network.nodes[0].groups[1].showRecruitmentProportion(), 0.5)
+
+        self.assertAlmostEqual( self.network.showNetworkPop()[25], 70427.424211979087)
         
 if __name__ == '__main__':
     unittest.main()

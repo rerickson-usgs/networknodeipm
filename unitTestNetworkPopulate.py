@@ -108,12 +108,12 @@ class test_populatedNode( unittest.TestCase):
         self.group.setDensity( nmp.densityNegExp(a = 10.0,
                                                  b = 11.0) )
         
-        # self.group.recruitment = self.group.linearRecruitment
         
         self.node.addGroups([ self.group ])
 
         ## test without density
-        self.node.projectGroups( year = 0, omega = self.omega, hWidth = self.omega[1] - self.omega[0],
+        self.node.projectGroups( year = 0, omega = self.omega,
+                                 hWidth = self.omega[1] - self.omega[0],
                                  nodeBiomass = 0.0)
         self.node.calculateNodePop()
         self.assertAlmostEqual(self.node.showNodePopulation()[0], 339.0)
@@ -139,8 +139,7 @@ class test_linearRecruitment( unittest.TestCase):
         self.group.eggTransition = 1.0e-3
         self.group.eggPerkg = 200.0
         self.group.muJ = np.log(10.0)
-        self.group.sigmaJ = 1.1
-        
+        self.group.sigmaJ = 1.1        
         self.assertAlmostEqual( self.group.recruitment( 180.0, 10.0), 64729.82385407)
         self.assertEqual(
             self.group.recruitment( omega = range(197, 200),
@@ -374,9 +373,12 @@ class test_populatedNetwork( unittest.TestCase):
         self.network.setYears( self.nYears)
         self.network.addPaths( [ self.populatedPath1, self.populatedPath2 ])        
         self.network.addNodes( [ self.node1, self.node2] )
-        self.network.calculateNetworkPop()
-        self.assertEqual( self.network.showNetworkPop()[0], 102.08333333333333)
 
+        self.network.runSimulation()
+        self.network.calculateNetworkPop()
+        self.assertAlmostEqual( self.network.showNetworkPop()[0], 102.08333333333333)
+        self.assertAlmostEqual( self.network.showNetworkPop()[3], 101.1455407640648)
+        
 class test_csvPopulate( unittest.TestCase):
 
     def test_networkCreation(self):

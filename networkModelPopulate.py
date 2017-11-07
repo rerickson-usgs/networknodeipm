@@ -132,10 +132,6 @@ class populatedNode( nm.node, populatedHelpers):
              First dotproduct is growth/maturation.
              Second dotproduct is recruitment.
         '''
-        year = year
-        omega = omega
-        hWidth = hWidth
-        nodeBiomass = nodeBiomass
         for grp in self.groups:
             popAdd = ( np.dot( hWidth * grp.growth( omega, omega), 
                                     grp.showPopDistYear( year) *
@@ -161,35 +157,35 @@ class populatedNode( nm.node, populatedHelpers):
     def showNodePopulationDist(self):
         return self.populationDist
     
-# class linearRecruitment:
-#     '''Define a function that models the recruitment as a function of fish length.'''
+class linearRecruitment:
+    '''Define a function that models the recruitment as a function of fish length.'''
     
-#     def recruitment(self, omega, omegaPrime):
-#         omega      = np.atleast_1d(omega)
-#         omegaPrime = np.atleast_1d(omegaPrime)
+    def recruitment(self, omega, omegaPrime):
+        omega      = np.atleast_1d(omega)
+        omegaPrime = np.atleast_1d(omegaPrime)
 
-#         out = np.zeros( (len(omegaPrime), len(omega) ))
+        out = np.zeros( (len(omegaPrime), len(omega) ))
 
-#         for index, val in enumerate(omega):
-#             out[ :, index] = ( self.eggTransition *
-#                                self.eggPerkg *
-#                                self.survival( val ) *
-#                                self.probabilityOfReproducing( val ) * 
-#                                self.lengthWeight( val) *
-#                                (stats.lognorm.pdf(omegaPrime,
-#                                                   loc = 0,
-#                                                   s = self.sigmaJ,
-#                                                   scale = self.muJ) / 
-#                                 stats.lognorm.pdf(omegaPrime,
-#                                                   loc = 0,
-#                                                   s = self.sigmaJ,
-#                                                   scale = self.muJ).sum())
-#             )
+        for index, val in enumerate(omega):
+            out[ :, index] = ( self.eggTransition *
+                               self.eggPerkg *
+                               self.survival( val ) *
+                               self.probabilityOfReproducing( val ) * 
+                               self.lengthWeight( val) *
+                               (stats.lognorm.pdf(omegaPrime,
+                                                  loc = 0,
+                                                  s = self.sigmaJ,
+                                                  scale = self.muJ) / 
+                                stats.lognorm.pdf(omegaPrime,
+                                                  loc = 0,
+                                                  s = self.sigmaJ,
+                                                  scale = self.muJ).sum())
+            )
             
-#         return(out)
+        return(out)
 
     
-class group( populatedHelpers):
+class group( populatedHelpers, linearRecruitment):
     def __init__(self, groupName):
         self.groupName = groupName
         
@@ -362,8 +358,8 @@ class createNetworkFromCSV:
                 pathsOutTemp[pth] = pathsOutProb2[index]
         return pathsOutTemp
 
-    def addNodesFromCSV( self, dfNode ):
-
+    def addNodesFromCSV( self, dfNode, nodeIn = populatedNode):
+        
         ## Extract out nodes from the network we are using
         ## (this allows a yet to be implement function for generating multiple networks from one set of files)
         dfNodeUse = dfNode.query(str('network == ' + "'" + self.network.showNetworkName() + "'"))
@@ -371,7 +367,7 @@ class createNetworkFromCSV:
         ## Loop through each node in the network and generate it
         for nodeRow in dfNodeUse.iterrows():
             ## Add in node's name
-            nodeTemp =  populatedNode( nodeName = nodeRow[1]['nodeName'])
+            nodeTemp =  nodeIn( nodeName = nodeRow[1]['nodeName'])
             pathsOutTemp = self.pathOutListFunction( nodeRow[1]['pathsOut'],
                                                           nodeRow[1]['pathsOutProb'])
             nodeTemp.addPathsOut( pathsOutTemp)
@@ -420,7 +416,5 @@ class createNetworkFromCSV:
                     logistic( alphaL =  groupRow[1]['alphaR'],
                               betaL =  groupRow[1]['betaR'],
                               minL =  groupRow[1]['minR'],
-                              maxL = groupRow[1]['maxR']) )
-                
+                              maxL = groupRow[1]['maxR']) )                
                 n.addGroups( [ grpTemp])
-
