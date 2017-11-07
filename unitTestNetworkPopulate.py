@@ -404,7 +404,7 @@ class test_csvPopulate( unittest.TestCase):
         self.network = self.createNetwork.showNetwork()
         
         self.assertEqual( self.network.showNetworkName(), 'twoNodeNetwork')
-        self.assertEqual( self.network.nYears, 50)
+        self.assertEqual( self.network.nYears, 25)
         self.assertEqual( len(self.network.omega), 200)
         self.assertEqual( len(self.network.nodes), 2)
         self.assertEqual( self.network.nodes[0].pathsOut, {'path 1': 0.05})
@@ -415,7 +415,7 @@ class test_csvPopulate( unittest.TestCase):
 
         self.assertEqual( self.network.nodes[0].groups[0].groupName, 'test group 1') 
         self.assertEqual( self.network.nodes[0].groups[0].groupName, 'test group 1')
-        self.assertEqual( self.network.nodes[0].groups[0].eggTransition,  0.003 ) 
+        self.assertEqual( self.network.nodes[0].groups[0].eggTransition,  7e-5 ) 
 
         
 if __name__ == '__main__':

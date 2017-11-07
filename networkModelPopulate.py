@@ -161,35 +161,35 @@ class populatedNode( nm.node, populatedHelpers):
     def showNodePopulationDist(self):
         return self.populationDist
     
-class linearRecruitment:
-    '''Define a function that models the recruitment as a function of fish length.'''
+# class linearRecruitment:
+#     '''Define a function that models the recruitment as a function of fish length.'''
     
-    def recruitment(self, omega, omegaPrime):
-        omega      = np.atleast_1d(omega)
-        omegaPrime = np.atleast_1d(omegaPrime)
+#     def recruitment(self, omega, omegaPrime):
+#         omega      = np.atleast_1d(omega)
+#         omegaPrime = np.atleast_1d(omegaPrime)
 
-        out = np.zeros( (len(omegaPrime), len(omega) ))
+#         out = np.zeros( (len(omegaPrime), len(omega) ))
 
-        for index, val in enumerate(omega):
-            out[ :, index] = ( self.eggTransition *
-                               self.eggPerkg *
-                               self.survival( val ) *
-                               self.probabilityOfReproducing( val ) * 
-                               self.lengthWeight( val) *
-                               (stats.lognorm.pdf(omegaPrime,
-                                                  loc = 0,
-                                                  s = self.sigmaJ,
-                                                  scale = self.muJ) / 
-                                stats.lognorm.pdf(omegaPrime,
-                                                  loc = 0,
-                                                  s = self.sigmaJ,
-                                                  scale = self.muJ).sum())
-            )
+#         for index, val in enumerate(omega):
+#             out[ :, index] = ( self.eggTransition *
+#                                self.eggPerkg *
+#                                self.survival( val ) *
+#                                self.probabilityOfReproducing( val ) * 
+#                                self.lengthWeight( val) *
+#                                (stats.lognorm.pdf(omegaPrime,
+#                                                   loc = 0,
+#                                                   s = self.sigmaJ,
+#                                                   scale = self.muJ) / 
+#                                 stats.lognorm.pdf(omegaPrime,
+#                                                   loc = 0,
+#                                                   s = self.sigmaJ,
+#                                                   scale = self.muJ).sum())
+#             )
             
-        return(out)
+#         return(out)
 
     
-class group( populatedHelpers, linearRecruitment):
+class group( populatedHelpers):
     def __init__(self, groupName):
         self.groupName = groupName
         
@@ -382,7 +382,7 @@ class createNetworkFromCSV:
         return ( stats.lognorm.pdf( omega, loc = 0, s = sIn, scale = scaleIn) /
                  stats.lognorm.pdf( omega, loc = 0, s = sIn, scale = scaleIn).sum() )
                              
-    def addGroupsFromCSV( self, dfGroups):
+    def addGroupsFromCSV( self, dfGroups, groupIn = group):
         ## Loop through nodes and add in groups
         for n in self.network.nodes:
             dfGroupsUse = dfGroups.query(str('network == ' + "'" +
@@ -391,7 +391,7 @@ class createNetworkFromCSV:
                                              n.showNodeName() + "'" ))
             ## Loop through each group in a node and generate it
             for groupRow in dfGroupsUse.iterrows():
-                grpTemp = group( groupRow[1]['groupName'] )
+                grpTemp = groupIn( groupRow[1]['groupName'] )
                 grpTemp.setEggTransition( groupRow[1]['eggTransition'] )
                 grpTemp.setEggPerkg( groupRow[1]['eggPerkg'] )
                 grpTemp.setSigmaJ( groupRow[1]['sigmaJ'] )
@@ -424,14 +424,3 @@ class createNetworkFromCSV:
                 
                 n.addGroups( [ grpTemp])
 
-    #########==========
-    ## AM HERE EDITING CODE
-    ## Need to develop initializtion funciton better create paths  
-    ## Also, need to update non-unittest file.
-                                                               
-    #     ## Add groups to each node and then add nodes to temp node list
-    #     nodeTemp.addGroupList(groupsForNodeTemp)
-    #     nodes.append( nodeTemp)
-    # ## Add nodes to the network and then create the paths 
-    # networkOut.addNodeList(nodes)
-    # networkOut.initializePaths()
