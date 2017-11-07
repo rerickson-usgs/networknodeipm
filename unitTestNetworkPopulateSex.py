@@ -29,10 +29,10 @@ class test_populatedNodeWithSex( unittest.TestCase):
         self.groupsFile = self.inputFolder + 'twoNodeTestGroupsSex.csv'
         self.dfGroups = pd.read_csv(self.groupsFile)
         
-        self.nodeFile = self.inputFolder + 'twoNodeTestNodesSex.csv'
+        self.nodeFile = self.inputFolder + 'twoNodeTestNodes.csv'
         self.dfNode = pd.read_csv(self.nodeFile)
         
-        self.networkFile = self.inputFolder + 'twoNodeTestNetworkSex.csv'
+        self.networkFile = self.inputFolder + 'twoNodeTestNetwork.csv'
         self.dfNetwork = pd.read_csv(self.networkFile)
         
         ## Test creation of network 
