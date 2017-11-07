@@ -39,7 +39,11 @@ class createNetworkFromCSVwithSex( nmp.createNetworkFromCSV):
                                        dfNetwork['maxLength'][0])
 
     def addGroupSexFromCSV( self, dfGroups, groupInIn):
-
+        '''
+        First, we use the old function to add in groups from a CSV.
+        Second, we update the groups to include the sex attributes.
+        '''
+        
         self.addGroupsFromCSV( dfGroups, groupIn = groupInIn )
 
         # ## Loop through nodes and add in groups

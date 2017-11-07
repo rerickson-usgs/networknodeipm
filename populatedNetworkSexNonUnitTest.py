@@ -1,4 +1,5 @@
 import networkModelPopulate as nmp
+import networkModelPopulateSex as nmps
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -19,21 +20,9 @@ dfNode = pd.read_csv(nodeFile)
 networkFile = inputFolder + 'twoNodeTestNetworkSex.csv'
 dfNetwork = pd.read_csv(networkFile)
 
-
-### Temp test code
-dfGroupUse = dfGroups.query(
-    str( 'network == "twoNodeNetwork" &  node == "node 1" &  groupName == "test group 1 male" '))
-
-
-grp.addSex( dfGroupUse[1]['groupSex'] ) ## check this line and next
-grp.addRecruitmentGroup( dfGroupUse[1]['recruitmentGroup'] )
- 
-dfGroupUse[1]['groupSex']
-
-### AM HERE EDITING CODE 
-createNetwork = nmp.createNetworkFromCSV( dfNetwork)
-createNetwork.addNodesFromCSV( dfNode)
-createNetwork.addGroupsFromCSV( dfGroups)
+createNetwork = nmps.createNetworkFromCSVwithSex( dfNetwork)
+createNetwork.addNodesFromCSV( dfNode, nodeIn = nmps.populatedNodeWithSex)
+createNetwork.addGroupSexFromCSV( dfGroups, groupInIn = nmps.groupWithSex)
 
 network = createNetwork.showNetwork()
 network.selfPopulatePaths()
@@ -45,7 +34,7 @@ network.runSimulation()
         
 # ## Check plot 
 network.calculateNetworkPop()
-print network.showNetworkPop()
+# print network.showNetworkPop()
 network.plotAllNodes()
 
 
