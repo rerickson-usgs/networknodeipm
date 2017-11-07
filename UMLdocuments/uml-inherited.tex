@@ -223,8 +223,8 @@
 + recruitmentProportion: real \\ 
 }{
 + \_\_init\_\_(self, nodeName): self \\
-+ add(sex): self \\
-+ show(sex): self.sex \\
++ addSex(sex): self \\
++ showSex(sex): self.sex \\
 + addRecruitmentGroup(self):  \\
 + showRecruitmentGroup(self):  \\
 + addRecruitmentProportion(self):  \\
@@ -234,6 +234,21 @@
   \umlimpl{groupWithSex}{group}
 
 
+ \umlclass[x = 20, y = -8]{groupWithSexImpact}{
++ sex: str\\
++ impactGroup: str\\
++ impactFunction: function\\ 
++ impactParameterName: str\\ 
++ stockingDistribution: array of size by year\\
+}{
++ \_\_init\_\_(self, nodeName): self \\
++ addImpactGroup(impactGroup): self \\
++ showImpactGroup(impactGroup): self \\
++ addImpactParameterName(impactParameterName): self \\
++ showImpactParameterName(impactParameterName): self \\
+ }
+ 
+  \umlimpl{groupWithSexImpact}{groupWithSex}
 
 \umlclass[x = 12, y = 6]{populatedNodeWithSex}{
 // Multiple groups per node possible \\
