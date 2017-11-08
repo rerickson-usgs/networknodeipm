@@ -112,7 +112,7 @@
 \umlunicompo[geometry=-|]{populatedNode}{populatedNetwork}
 \umlunicompo[geometry=|-, anchor1 = 120]{populatedPath}{populatedNetwork}
 
-\umlclass[x = 22, y = 6]{group}{
+\umlclass[x = 22, y = 5]{group}{
 + name: str\\
 + popDist: np.array \\ 
 + popDist0: np.array \\
@@ -120,7 +120,9 @@
 + growth: array or float\\
 + probability: array or float\\
 + lengthWeight: array or float\\
-+ density: array or float
++ density: array or float \\
++ stocking: Bool \\
++ stockingPop: array \\
 }{
 + \_\_init\_\_(self, nodeName): self\\
 + showGroupName(name): name \\ 
@@ -128,6 +130,11 @@
 + showPopDist(self): self.popDist\\
 + showPopDistYear(year): self.popDist[ year, :] \\
 + updatePopDistYear(year, popAdd): self \\
++ setStocking(self, Bool): self \\
++ showStocking(self): stocking \\
++ setStockingDistribution ( self, startStockingYear,\\
+ endStockingYear, nStock, nPoints\\
+ omega, nYears, muS, simgaS) \\
  }
  
   
@@ -217,7 +224,7 @@
 
 \umlunicompo[anchor1 = 160, anchor2= 0, geometry = |-]{linearRecruitment}{group}
  
- \umlclass[x = 22, y = -2]{groupWithSex}{
+ \umlclass[x = 22, y = -3]{groupWithSex}{
 + sex: str\\
 + recruitmentGroup: Bool \\
 + recruitmentProportion: real \\ 
@@ -234,7 +241,7 @@
   \umlimpl{groupWithSex}{group}
 
 
- \umlclass[x = 20, y = -8]{groupWithSexImpact}{
+ \umlclass[x = 20, y = -10]{groupWithSexImpact}{
 + sex: str\\
 + impactGroup: str\\
 + impactFunction: function\\ 
