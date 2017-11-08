@@ -90,7 +90,7 @@ class growthVB:
         zPrime = np.atleast_1d(zPrimeIn)
 
         out = np.zeros( ( len(zPrime), len(z) ))
-        
+
         for index in range(0, len(z)):
             out[ : , index ] = stats.norm.pdf(x = zPrime, 
                                             loc = (1 - self.kG) * z[index] + self.kG * self.aG,
@@ -131,7 +131,7 @@ class populatedNode( nm.node, populatedHelpers):
         '''  projects population using midpoint rule.
              First dotproduct is growth/maturation.
              Second dotproduct is recruitment.
-        '''
+        '''            
         for grp in self.groups:
             popAdd = ( np.dot( hWidth * grp.growth( omega, omega), 
                                     grp.showPopDistYear( year) *
@@ -139,9 +139,11 @@ class populatedNode( nm.node, populatedHelpers):
                             np.dot(hWidth * grp.recruitment( omega, omega),
                                    grp.showPopDistYear( year)) *  grp.density(nodeBiomass)
             )
-
-
-            grp.updatePopDistYear( year + 1, popAdd)
+            
+            if grp.showStocking():
+                grp.updatePopDistYear( year + 1, popAdd + grp.showStockingPopYear(year))
+            else:
+                grp.updatePopDistYear( year + 1, popAdd)
             
                 
             
@@ -188,6 +190,7 @@ class linearRecruitment:
 class group( populatedHelpers, linearRecruitment):
     def __init__(self, groupName):
         self.groupName = groupName
+        self.stocking = False
         
     def showGroupName(self):
         return self.groupName
@@ -217,9 +220,46 @@ class group( populatedHelpers, linearRecruitment):
         self.density = density 
 
     def setLengthWeight(self, lengthWeight):
-        self.lengthWeight = lengthWeight 
+        self.lengthWeight = lengthWeight
 
+    def setStockingDistribution( self,
+                                 startStockingYear,
+                                 endStockingYear,
+                                 nStock, 
+                                 nPoints,
+                                 omega,
+                                 nYears,                                 
+                                 muS,
+                                 sigmaS):
         
+        if nYears > endStockingYear:
+            lastYear = nYears
+        else:
+            lastYear = endStockingYear
+
+        self.stockingPop = np.zeros( (lastYear + 1, nPoints) )
+        self.stockingPop[ startStockingYear:endStockingYear, :] = (
+            stats.lognorm.pdf(omega,
+                              loc = 0,
+                              s = sigmaS,
+                              scale = muS) / 
+            stats.lognorm.pdf(omega,
+                              loc = 0,
+                              s = sigmaS,
+                              scale = muS).sum()) * nStock
+
+    def showStockingPop(self):
+        return self.stockingPop
+
+    def showStockingPopYear(self, year):
+        return self.stockingPop[ year, :]
+
+    def setStocking(self, stck):
+        self.stocking = stck
+
+    def showStocking(self):
+        return self.stocking
+    
 class populatedNetwork( nm.network):
     def __init__(self, networkName):
         self.networkName = networkName
@@ -401,7 +441,6 @@ class createNetworkFromCSV:
                                                betaL = groupRow[1]['betaS'],
                                                minL = groupRow[1]['minS'],
                                                maxL = groupRow[1]['maxS']) )
-
                 popSize0temp = self.standarizedLogNormal(
                     self.network.omega,
                     sIn = groupRow[1]['initS'], 
@@ -417,5 +456,18 @@ class createNetworkFromCSV:
                     logistic( alphaL =  groupRow[1]['alphaR'],
                               betaL =  groupRow[1]['betaR'],
                               minL =  groupRow[1]['minR'],
-                              maxL = groupRow[1]['maxR']) )                
+                              maxL = groupRow[1]['maxR']) )
+                if 'stocking' in  dfGroups.columns:
+                    if groupRow[1]['stocking'] != 'None':
+                        grpTemp.setStocking( True)
+                        nStock, startStock, endStock = [int(x) for x in groupRow[1]['stocking'].split(",")]
+                        grpTemp.setStockingDistribution( startStockingYear = startStock,
+                                                         endStockingYear = endStock,
+                                                         nStock = nStock,
+                                                         omega = self.network.omega,
+                                                         nPoints= self.network.nPoints,
+                                                         nYears = self.network.nYears,
+                                                         muS = groupRow[1]['muS'],
+                                                         sigmaS = groupRow[1]['sigmaS'])
+
                 n.addGroups( [ grpTemp])

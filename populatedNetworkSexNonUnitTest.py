@@ -26,6 +26,8 @@ createNetwork.addGroupSexFromCSV( dfGroups, groupInIn = nmps.groupWithSex)
 
 network = createNetwork.showNetwork()
 network.selfPopulatePaths()
+if 'stocking' in dfGroups.columns:
+    print "yes"
 ## Check describe network function
 network.describeNetwork()
 

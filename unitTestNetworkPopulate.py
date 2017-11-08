@@ -95,7 +95,9 @@ class test_populatedNode( unittest.TestCase):
         self.omega = range(1, 340)
         self.node = nmp.populatedNode('test node')
         self.group = nmp.group('test group')
-        self.group.createPopDist( nYears = 3, nPoints = len(self.omega), popDist0 = np.ones( len(self.omega)))
+        self.group.createPopDist( nYears = 3,
+                                  nPoints = len(self.omega),
+                                  popDist0 = np.ones( len(self.omega)))
         self.group.setGrowth( nmp.growthVB( 180.0, 0.16, 10.0) )
         self.group.setSurvival(  nmp.logistic( 40.0, -5.0, 0.0, 1.0) )
         self.group.setProbabilityOfReproducing( nmp.logistic( 40.0, -5.0, 0.0, 1.0))
@@ -119,15 +121,17 @@ class test_populatedNode( unittest.TestCase):
         self.assertAlmostEqual(self.node.showNodePopulation()[0], 339.0)
         self.assertAlmostEqual(self.node.showNodePopulation()[1], 259536847.24350038)
 
+
         ## test with density
-        self.group.createPopDist( nYears = 3, nPoints = len(self.omega), popDist0 = np.ones( len(self.omega)))
-        self.node.projectGroups( year = 0, omega = self.omega, hWidth = self.omega[1] - self.omega[0],
+        self.group.createPopDist( nYears = 3, nPoints = len(self.omega),
+                                  popDist0 = np.ones( len(self.omega)))
+        self.node.projectGroups( year = 0, omega = self.omega,
+                                 hWidth = self.omega[1] - self.omega[0],
                                  nodeBiomass = 1e4)
         self.node.calculateNodePop()
         self.assertAlmostEqual( self.node.showNodePopulation()[0], 339.0)
         self.assertAlmostEqual( self.node.showNodePopulation()[1], 296.72339679535963)
-        
-        
+                
 class test_linearRecruitment( unittest.TestCase):
 
     def test_linRec(self):
@@ -170,7 +174,7 @@ class test_group( unittest.TestCase):
         self.group.showPopDistYear(1)
         self.assertEqual( self.group.showPopDistYear(1).sum(), 48)
 
-    def test_groupSurvivla(self):
+    def test_groupSurvival(self):
         self.group = nmp.group( "test group")
         self.group.setSurvival( 'sur')
         self.assertEqual( self.group.survival, 'sur')
@@ -185,7 +189,6 @@ class test_group( unittest.TestCase):
         self.group.setProbabilityOfReproducing( 'repo')
         self.assertEqual( self.group.probabilityOfReproducing, 'repo')
 
-
     def test_groupLengthWeigth(self):
         self.group = nmp.group( "test group")
         self.group.setLengthWeight( 1.0)
@@ -195,7 +198,28 @@ class test_group( unittest.TestCase):
         self.group = nmp.group("test group")
         self.group.setDensity( 2.0)
         self.assertEqual( self.group.density, 2.0)
-    
+
+    def test_groupStock(self):
+        self.group = nmp.group("test group")
+        self.assertFalse( self.group.showStocking())
+        self.group.setStocking( True)
+        self.assertTrue( self.group.showStocking())
+        self.group.setStockingDistribution( startStockingYear = 0,
+                                            endStockingYear = 11,
+                                            nStock = 100,
+                                            nPoints = 100,
+                                            omega = range(0, 100),
+                                            nYears = 20,
+                                            muS = 20,
+                                            sigmaS = 4)
+        self.assertEqual( self.group.showStockingPop().shape, (21, 100))
+        self.assertEqual( self.group.showStockingPop()[ 12, :].sum(), 0)
+        self.assertEqual( self.group.showStockingPopYear(12).sum(), 0)
+        self.assertEqual( self.group.showStockingPop()[ 10, :].sum(), 100)
+
+        
+
+        
 class test_logistic(unittest.TestCase):
     
     def test_one(self):
@@ -419,6 +443,13 @@ class test_csvPopulate( unittest.TestCase):
         self.assertEqual( self.network.nodes[0].groups[0].groupName, 'test group 1')
         self.assertEqual( self.network.nodes[0].groups[0].eggTransition,  7e-5 ) 
 
+        self.assertTrue(  self.network.nodes[1].groups[0].showStocking())
+        self.assertFalse(  self.network.nodes[0].groups[0].showStocking())
+
+
+        self.assertEqual( self.network.nodes[1].groups[0].showStockingPopYear(55).sum(), 0.0)
+        self.assertAlmostEqual( self.network.nodes[1].groups[0].showStockingPopYear(56).sum(),
+                                100000.0)
         
 if __name__ == '__main__':
     unittest.main()
