@@ -8,7 +8,6 @@ Ths file tests functions that do now work with unit testing
 such as plots and print to screen functions 
 '''
 
-
 ## Read in CSV files and create network 
 inputFolder = "./inputParameters/"
 groupsFile = inputFolder + 'twoNodeTestGroupsSex.csv'

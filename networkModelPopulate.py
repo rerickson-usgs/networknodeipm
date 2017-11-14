@@ -120,7 +120,6 @@ class populatedNode( nm.node, populatedHelpers):
         return [pthOut for pthOut in self.pathsOut.keys()]
      
     def addPathsOut(self, pathsOutInput):
-        print pathsOutInput
         if type(pathsOutInput) is dict:
             self.pathsOut.update( pathsOutInput)
         elif type(pathsOutInput) is list:
@@ -292,7 +291,6 @@ class populatedNetwork( nm.network):
                             self.addPaths( [pathTemp])
 
     def moveGroups( self, startYear, endYear):
-        # print [n.showNodeName() for n in self.nodes]
         #####################
         ## Run movement in three steps
         ## First, copy individuals onto a path
@@ -310,7 +308,6 @@ class populatedNetwork( nm.network):
                     else:
                         for index in range(0, len(nodeEnd.showGroups())):
                             nodeEnd.groups[index].popDist[ endYear, :] += p.groups[index] 
-            # print nodeEnd.showNodeName()
             
         # ## Third, remove migrants from their original nodes 
         for p in self.paths:
@@ -334,7 +331,8 @@ class populatedNetwork( nm.network):
         return self.population
 
     def describeNetwork(self):
-        print str(self.networkName) + ' is a network with ' + str(self.nNodes()) + ' nodes.'
+        print( str(self.networkName) + ' is a network with ' +
+               str(self.nNodes()) + ' nodes.' )
 
 
     def plotAllNodes(self, outName = None, showPlot = True, showGroups = False, saveData = None):
@@ -435,7 +433,6 @@ class createNetworkFromCSV:
             nodeTemp =  nodeIn( nodeName = nodeRow[1]['nodeName'])
             pathsOutTemp = self.pathOutListFunction( nodeRow[1]['pathsOut'],
                                                      nodeRow[1]['pathsOutProb'])
-            print pathsOutTemp
             nodeTemp.addPathsOut( pathsOutTemp)
             nodeTemp.addPathsIn( nodeRow[1]['pathsIn'].split(";"))           
             self.network.addNodes([ nodeTemp])

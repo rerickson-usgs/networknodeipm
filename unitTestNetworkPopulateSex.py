@@ -74,7 +74,7 @@ class test_populatedNodeWithSex( unittest.TestCase):
 
         self.assertEqual( self.network.nodes[0].groups[1].showRecruitmentProportion(), 0.5)
 
-        self.assertAlmostEqual( self.network.showNetworkPop()[25], 70427.424211979087)
+        self.assertAlmostEqual( self.network.showNetworkPop()[25], 55957138216.041512)
         
 if __name__ == '__main__':
     unittest.main()

@@ -9,6 +9,7 @@ import pandas as pd
 class groupWithSex( nmp.group):
     def __init__(self, groupName):
         self.groupName = groupName
+        self.stocking = False
         self.recruitmentGroup = False
         
     def addSex( self, inputSex):
@@ -77,14 +78,16 @@ class populatedNodeWithSex( nmp.populatedNode):
         for grp in self.groups:
             if grp.showRecruitmentGroup():
                 reproducingPopulation += grp.showPopDistYear( year)
-            
         for grp in self.groups:
             popAdd = ( np.dot( hWidth * grp.growth( omega, omega), 
-                                    grp.showPopDistYear( year) *
-                                    grp.survival( omega) ) +
+                               grp.showPopDistYear( year) *
+                               grp.survival( omega)  )  +
                             np.dot(hWidth * grp.recruitment( omega, omega),
                                    reproducingPopulation *  grp.density(nodeBiomass) *
                                    grp.showRecruitmentProportion() )
                             ) 
 
-            grp.updatePopDistYear( year + 1, popAdd)
+            if grp.showStocking():
+                grp.updatePopDistYear( year + 1, popAdd + grp.showStockingPopYear(year))
+            else:
+                grp.updatePopDistYear( year + 1, popAdd)

@@ -1,5 +1,3 @@
-
-
 class path:
     ''' paths contains the names of the start and end nodes'''
     def __init__(self, pathName):
@@ -21,6 +19,7 @@ class path:
     
     def showEndNode(self):
         return self.endNode
+
 
 class node:
     ''' nodes contain the names of paths that go in and out '''
@@ -69,7 +68,7 @@ class network:
     def nPaths(self):
         return len(self.paths)    
 
-    def selfPopulatePaths(self):
+    def selfPopulatePaths(self, path = path):
         for nodeStart in self.nodes:
             for pathOut in nodeStart.showPathsOut():
                 for nodeEnd in self.nodes:
@@ -79,3 +78,4 @@ class network:
                             self.pathTemp.addStartNode( nodeStart)
                             self.pathTemp.addEndNode( nodeEnd)
                             self.addPaths( [self.pathTemp])
+

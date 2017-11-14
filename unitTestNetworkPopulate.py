@@ -16,7 +16,6 @@ class test_populatedPath( unittest.TestCase):
     def test_startNode(self):
         self.populatedPath = nmp.populatedPath('test path')
         self.populatedPath.addStartNode('startNode')
-        
         self.assertEqual( self.populatedPath.showStartNode(), 'startNode')
 
     def test_endNode(self):
@@ -450,6 +449,60 @@ class test_csvPopulate( unittest.TestCase):
         self.assertEqual( self.network.nodes[1].groups[0].showStockingPopYear(55).sum(), 0.0)
         self.assertAlmostEqual( self.network.nodes[1].groups[0].showStockingPopYear(56).sum(),
                                 100000.0)
+
+
+class test_csvPopulateMovement( unittest.TestCase):
+
+    def test_networkCreation(self):
+        ## Load files 
+        self.inputFolder = "./inputParameters/"
+        self.groupsFile = self.inputFolder + 'twoNodeTestGroupsMovement.csv'
+        self.dfGroups = pd.read_csv(self.groupsFile)
+        
+        self.nodeFile = self.inputFolder + 'twoNodeTestNodes.csv'
+        self.dfNode = pd.read_csv(self.nodeFile)
+        
+        self.networkFile = self.inputFolder + 'twoNodeTestNetwork.csv'
+        self.dfNetwork = pd.read_csv(self.networkFile)
+        
+        ## Test creation of network 
+        self.createNetwork = nmp.createNetworkFromCSV( self.dfNetwork)
+
+        ## Test addition of nodes
+        self.createNetwork.addNodesFromCSV( self.dfNode)
+
+        ## Test addition of groups 
+        self.createNetwork.addGroupsFromCSV( self.dfGroups)
+        
+        ## Export and test network 
+        self.network = self.createNetwork.showNetwork()
+        
+        self.assertEqual( self.network.showNetworkName(), 'twoNodeNetwork')
+        self.assertEqual( self.network.nYears, 25)
+        self.assertEqual( len(self.network.omega), 200)
+        self.assertEqual( len(self.network.nodes), 2)
+        self.assertEqual( self.network.nodes[0].pathsOut, {'path 1': 0.05})
+        self.assertEqual( self.network.nodes[1].pathsOut, {'path 2': 0.05, 'path 3': 0.0})
+        self.assertEqual( self.network.nodes[0].showPathsIn(), ['path 2'])
+        self.assertEqual( self.network.nodes[1].showPathsIn(), ['path 1', 'path 4'])
+
+
+        self.assertEqual( self.network.nodes[0].groups[0].groupName, 'test group 1') 
+        self.assertEqual( self.network.nodes[0].groups[0].groupName, 'test group 1')
+        self.assertEqual( self.network.nodes[0].groups[0].eggTransition,  7e-5 ) 
+
+        self.assertTrue(  self.network.nodes[1].groups[0].showStocking())
+        self.assertFalse(  self.network.nodes[0].groups[0].showStocking())
+
+        self.assertEqual( self.network.nodes[0].groups[0].showPopYear(0).sum(), 3000.0)
+        self.assertEqual( self.network.nodes[1].groups[0].showPopYear(0).sum(), 0000.0)
+
+        self.network.selfPopulatePaths( path = nmp.populatedPath)
+
+        self.network.runSimulation()
+        self.network.calculateNetworkPop()
+        
+        self.assertAlmostEqual( self.network.nodes[1].showNodePopulation()[0], 150.0)
         
 if __name__ == '__main__':
     unittest.main()

@@ -268,9 +268,10 @@
  \umlimpl{populatedNodeWithSex}{populatedNode}
 
 \umlclass[x = 12, y =0]{populatedNodeWithSexSpecificParameter}{
-+ impactedParametersBySex: dict \\ 
++ impactedParameter: str \\ 
 }{
-+ updateGroup(self): self \\ 
++ addImpactedParameter(self) impactedParameter \\
++ showImpactedParameter(self) impactedParameter \\
  }
  
  \umlimpl{populatedNodeWithSexSpecificParameter}{populatedNodeWithSex}
