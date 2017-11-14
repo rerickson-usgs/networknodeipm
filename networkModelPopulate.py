@@ -30,7 +30,10 @@ class populatedHelpers:
 
     def showPop(self):
         return self.popDist.sum(1)
-        
+
+    def showPopYear(self, year):
+        return self.popDist[ year, :].sum()
+
     def showPopDist(self):
         return self.popDist
 
@@ -102,9 +105,9 @@ class populatedPath( nm.path, populatedHelpers):
     def __init__(self, pathName):
         self.pathName = pathName
         self.groups = []
-        self.startNode = ''
-        self.endNode = ''
-
+        self.groupPopDist = {}
+        self.startNodeName = ''
+        self.endNodeName = ''
 
 class populatedNode( nm.node, populatedHelpers):
     def __init__(self, nodeName):
@@ -113,7 +116,11 @@ class populatedNode( nm.node, populatedHelpers):
         self.pathsIn = []
         self.pathsOut = {}
 
+    def showPathsOut(self):
+        return [pthOut for pthOut in self.pathsOut.keys()]
+     
     def addPathsOut(self, pathsOutInput):
+        print pathsOutInput
         if type(pathsOutInput) is dict:
             self.pathsOut.update( pathsOutInput)
         elif type(pathsOutInput) is list:
@@ -122,7 +129,8 @@ class populatedNode( nm.node, populatedHelpers):
     def calculateNodeBiomass(self, omega, year):
         self.nodeBiomass  = 0.0
         for grp in self.groups:
-            self.nodeBiomass += np.sum( grp.showPopDistYear( year) * grp.lengthWeight( omega) )
+            self.nodeBiomass += np.sum( grp.showPopDistYear( year) *
+                                        grp.lengthWeight( omega) )
 
     def showNodeBiomass(self):
         return self.nodeBiomass
@@ -131,15 +139,15 @@ class populatedNode( nm.node, populatedHelpers):
         '''  projects population using midpoint rule.
              First dotproduct is growth/maturation.
              Second dotproduct is recruitment.
-        '''            
+        '''
         for grp in self.groups:
             popAdd = ( np.dot( hWidth * grp.growth( omega, omega), 
-                                    grp.showPopDistYear( year) *
-                                    grp.survival( omega) ) +
-                            np.dot(hWidth * grp.recruitment( omega, omega),
-                                   grp.showPopDistYear( year)) *  grp.density(nodeBiomass)
+                               grp.showPopDistYear( year) *
+                               grp.survival( omega) ) +
+                       np.dot(hWidth * grp.recruitment( omega, omega),
+                              grp.showPopDistYear( year)) *  grp.density(nodeBiomass)
             )
-            
+
             if grp.showStocking():
                 grp.updatePopDistYear( year + 1, popAdd + grp.showStockingPopYear(year))
             else:
@@ -268,8 +276,23 @@ class populatedNetwork( nm.network):
 
     def setYears(self, nYears):
         self.nYears = nYears
-        
-    def moveGroups( self, startYear, endYear):    
+
+    def selfPopulatePaths(self, path = populatedPath):
+        ## Loop through starter nodes
+        for nodeStart in self.nodes:
+            ## loop through pathsOut of starter nodes
+            for pathOut in nodeStart.showPathsOut():
+                ## make sure pathsOut mathch paths in
+                for nodeEnd in self.nodes:
+                    for pathIn in nodeEnd.showPathsIn():
+                        if pathIn == pathOut:
+                            pathTemp = path( pathOut)
+                            pathTemp.addStartNode( nodeStart.showNodeName())
+                            pathTemp.addEndNode( nodeEnd.showNodeName())
+                            self.addPaths( [pathTemp])
+
+    def moveGroups( self, startYear, endYear):
+        # print [n.showNodeName() for n in self.nodes]
         #####################
         ## Run movement in three steps
         ## First, copy individuals onto a path
@@ -277,8 +300,7 @@ class populatedNetwork( nm.network):
             for nodeStart in self.nodes:
                 if nodeStart.showNodeName() is p.showStartNode():
                     p.groups = [ nodeStart.pathsOut[ p.showPathName() ] *
-                                 grp.showPopDistYear( startYear) for grp in nodeStart.groups ]
-                                
+                                 grp.showPopDistYear( startYear) for grp in nodeStart.groups ]                
         ## Second, unload paths
         for p in self.paths:
             for nodeEnd in self.nodes:
@@ -288,6 +310,7 @@ class populatedNetwork( nm.network):
                     else:
                         for index in range(0, len(nodeEnd.showGroups())):
                             nodeEnd.groups[index].popDist[ endYear, :] += p.groups[index] 
+            # print nodeEnd.showNodeName()
             
         # ## Third, remove migrants from their original nodes 
         for p in self.paths:
@@ -329,7 +352,8 @@ class populatedNetwork( nm.network):
             ax[index].set_title( self.nodes[index].showNodeName())
             if showGroups:
                 for grp in self.nodes[index].groups:
-                    ax[index].plot( np.arange(0, self.nYears +1, 1), grp.showPop())      
+                    ax[index].plot( np.arange(0, self.nYears +1, 1),
+                                    grp.showPop())      
                     ax[index].set_title(self.nodes[index].nodeName)
                     ax[index].set_xlabel("Time (years)")
                     ax[index].set_ylabel("Population")
@@ -370,7 +394,7 @@ class populatedNetwork( nm.network):
                 n.projectGroups(yearIndex, self.omega,
                                 self.hWidth, nodeBiomass = n.showNodeBiomass())
 
-
+                
 class createNetworkFromCSV:
     '''contains functions to populate a network from csv files'''
     
@@ -380,7 +404,7 @@ class createNetworkFromCSV:
         self.network.setupNetworkMesh( dfNetwork['nPoints'][0],
                                        dfNetwork['minLength'][0],
                                        dfNetwork['maxLength'][0])
-
+        
     def showNetwork(self):
         return self.network 
     
@@ -389,7 +413,7 @@ class createNetworkFromCSV:
         Function used to convert path names and probabilities from lists 
         (e.g., from CSV files) into a dictionary for the model.
         '''
-        pathsOutTemp = dict()
+        pathsOutTemp = {}
         if isinstance(pathsOutProb, float):
             pathsOutTemp[pathsOut] = pathsOutProb
         else:
@@ -410,15 +434,18 @@ class createNetworkFromCSV:
             ## Add in node's name
             nodeTemp =  nodeIn( nodeName = nodeRow[1]['nodeName'])
             pathsOutTemp = self.pathOutListFunction( nodeRow[1]['pathsOut'],
-                                                          nodeRow[1]['pathsOutProb'])
+                                                     nodeRow[1]['pathsOutProb'])
+            print pathsOutTemp
             nodeTemp.addPathsOut( pathsOutTemp)
             nodeTemp.addPathsIn( nodeRow[1]['pathsIn'].split(";"))           
             self.network.addNodes([ nodeTemp])
 
+        # self.network.selfPopulatePaths()
+            
     def standarizedLogNormal(self, omega,  sIn, scaleIn):                     
         return ( stats.lognorm.pdf( omega, loc = 0, s = sIn, scale = scaleIn) /
                  stats.lognorm.pdf( omega, loc = 0, s = sIn, scale = scaleIn).sum() )
-                             
+   
     def addGroupsFromCSV( self, dfGroups, groupIn = group):
         ## Loop through nodes and add in groups
         for n in self.network.nodes:
@@ -471,3 +498,5 @@ class createNetworkFromCSV:
                                                          sigmaS = groupRow[1]['sigmaS'])
 
                 n.addGroups( [ grpTemp])
+
+    
