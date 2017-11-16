@@ -1,0 +1,3 @@
+network,nodeName,pathsOut,pathsOutProb,pathsIn
+twoNodeNetwork,node 1,path 1,0.05,path 2
+twoNodeNetwork,node 2,path 2;path 3,0.05;0.0,path 1;path 4

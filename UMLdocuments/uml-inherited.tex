@@ -206,7 +206,6 @@
 + \_\_call\_\_(self, tzIn, zPrimeIn): float
 }
 
-
 \umlunicompo{growthVB}{group}
 
 \umlclass[x = 33, y = -7]{linearRecruitment}{
@@ -241,21 +240,35 @@
   \umlimpl{groupWithSex}{group}
 
 
- \umlclass[x = 20, y = -10]{groupWithSexImpact}{
-+ sex: str\\
-+ impactGroup: str\\
-+ impactFunction: function\\ 
-+ impactParameterName: str\\ 
-+ stockingDistribution: array of size by year\\
+ \umlclass[x = 20, y = -10]{groupWithSexYY}{
++ recruitmentGroupProportionMod: float \\
++ impactOnFemaleRatio: float \\
++ impactOnMaleRatio: float \\
 }{
 + \_\_init\_\_(self, nodeName): self \\
-+ addImpactGroup(impactGroup): self \\
-+ showImpactGroup(impactGroup): self \\
-+ addImpactParameterName(impactParameterName): self \\
-+ showImpactParameterName(impactParameterName): self \\
++ addImpactOnFemaleRatio(impact): self\\
++ showImpactOnFemaleRatio(self): impactOnFemaleRatio\\
++ showImpactonMaleRatio( self): impactOnMaleRatio\\
++ addRecruitmentProportionMod( rpm): self\\
++ showRecruitmentProporitonMod( self): recrutimentProportionMod \\
  }
  
-  \umlimpl{groupWithSexImpact}{groupWithSex}
+  \umlimpl{groupWithSexYY}{groupWithSex}
+
+
+
+ \umlclass[x = 20, y = -15]{groupWithSterileMale}{
++ recruitmentGroupProportionMod: float \\
++ impactOnRecruitSurvival : float \\
+}{
++ \_\_init\_\_(self, nodeName): self \\
++ addImpactOnRecruitSurvival(impact): self\\
++ showImpactOnRecruitSurvival(self): impactOnRecruitSurvival\\
++ showRecruitmentGroupProportionMod( self): recruitmentGroupProportionMod \\
+ }
+ 
+  \umlimpl[geometry = |-, anchor1 = 180, anchor2 = 180]{groupWithSterileMale}{groupWithSex}
+
 
 \umlclass[x = 12, y = 6]{populatedNodeWithSex}{
 // Multiple groups per node possible \\
@@ -267,14 +280,21 @@
  
  \umlimpl{populatedNodeWithSex}{populatedNode}
 
-\umlclass[x = 12, y =0]{populatedNodeWithSexSpecificParameter}{
-+ impactedParameter: str \\ 
+\umlclass[x = 12, y =2]{populatedNodeWithSexYY}{
 }{
-+ addImpactedParameter(self) impactedParameter \\
-+ showImpactedParameter(self) impactedParameter \\
++ projectGroups(self): self\\
  }
  
- \umlimpl{populatedNodeWithSexSpecificParameter}{populatedNodeWithSex}
+ \umlimpl{populatedNodeWithSexYY}{populatedNodeWithSex}
+
+
+\umlclass[x = 12, y =0]{populatedNodeWithSexSterileMales}{
+}{
++ projectGroups(self): self\\
+ }
+ 
+ \umlimpl[geometry = -|, anchor1 = 0, anchor2= -20]{populatedNodeWithSexSterileMales}{populatedNodeWithSex}
+
 
 
 \umlclass[x = 0, y = 08]{createNetworkFromCSVs}{
@@ -297,8 +317,28 @@
 + addGroupsFromCSVwithSex( dfGroups, groupInIn): self\\
  }
 
-
  \umlimpl{createNetworkFromCSVwithSex}{createNetworkFromCSVs}
+
+\umlclass[x = 1, y = 0]{createNetworkFromCSVwithSexYY}{
++ network: networkObject \\
+}{
++ \_\_init\_\_(self, dfNetwork): self  \\
++ addGroupsFromCSVwithSexYY( dfGroups, groupInIn): self\\
+ }
+
+ \umlimpl[geometry = |-, anchor1 = 10, anchor2 = 10]{createNetworkFromCSVwithSexYY}{createNetworkFromCSVwithSex}
+
+
+
+\umlclass[x = -1, y = -3]{createNetworkFromCSVwithSexSterileMale}{
++ network: networkObject \\
+}{
++ \_\_init\_\_(self, dfNetwork): self  \\
++ addGroupsFromCSVwithSterileMale( dfGroups, groupInIn): self\\
+ }
+
+ \umlimpl[geometry = |-, anchor1 = 180, anchor2 = 180]{createNetworkFromCSVwithSexSterileMale}{createNetworkFromCSVwithSex}
+
 
 
 

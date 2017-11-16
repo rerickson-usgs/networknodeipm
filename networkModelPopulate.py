@@ -322,7 +322,6 @@ class populatedNetwork( nm.network):
     def calculateNetworkPop(self):
 
         self.population = 0.0
-        
         for n in self.nodes:
             n.calculateNodePop()
             self.population += n.showNodePopulation()
@@ -343,10 +342,10 @@ class populatedNetwork( nm.network):
             nrows = nRow, ncols= nCol, sharex=True, sharey=True
         )
 
-        plotNodePop = np.zeros( (self.nYears + 1, self.nNodes()))
+        # plotNodePop = np.zeros( (self.nYears + 1, self.nNodes()))
         for index in xrange(self.nNodes()):
-            plotNodePop[ : , index] = self.nodes[index].showNodePopulation()
-            ax[index].plot(np.arange(0,  self.nYears +1 , 1),  plotNodePop[ :, index])
+            # plotNodePop[ : , index] = self.nodes[index].showNodePopulation()
+            ax[index].plot(np.arange(0,  self.nYears +1 , 1),  self.nodes[index].showNodePopulation())
             ax[index].set_title( self.nodes[index].showNodeName())
             if showGroups:
                 for grp in self.nodes[index].groups:

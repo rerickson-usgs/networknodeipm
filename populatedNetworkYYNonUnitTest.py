@@ -1,3 +1,5 @@
+## NEED TO DEBUG BECAUSE THERE ARE 6 groups per node BUT SHOULD ONLY HAVE 3!!!!
+
 import networkModelPopulate as nmp
 import networkModelPopulateSex as nmps
 import networkModelPopulateYYmale as nmpsy
@@ -29,10 +31,10 @@ network.selfPopulatePaths()
 network.describeNetwork()
 
 
-groupsPop = np.array([grp.showPopYear(0) for grp in network.nodes[0].groups])
-groupsMale = [grp.showSex() == 'male'  for grp in network.nodes[0].groups]
-groupsMale
-groupsPop[groupsMale]
+# groupsPop = np.array([grp.showPopYear(0) for grp in network.nodes[0].groups])
+# groupsMale = [grp.showSex() == 'male'  for grp in network.nodes[0].groups]
+# groupsMale
+# groupsPop[groupsMale]
 # ## Check simulate network here 
 network.runSimulation()
         
@@ -41,9 +43,18 @@ network.calculateNetworkPop()
 network.plotAllNodes(showGroups = True)
 
 
-network.nodes[0].groups[2].showPop()
-network.nodes[1].groups[2].showPop()
-network.nodes[1].groups[2].showRecruitmentProportion()
+# network.nodes[0].showNodePopulation() 
+# network.nodes[0].groups[2].showPop()
+# network.nodes[1].groups[2].showPop() 
+# network.nodes[1].groups[2].showRecruitmentProportion()
 
-network.nodes[0].groups[1].showPop()
-network.nodes[0].groups[0].showPop()
+for nd in network.nodes:
+    nd.showNodePopulation()
+
+((network.nodes[0].groups[2].showPop() + 
+  network.nodes[0].groups[1].showPop() + 
+  network.nodes[0].groups[0].showPop() ) * 2 -
+ network.nodes[0].showNodePopulation()
+ )
+
+len(network.nodes[0].groups)

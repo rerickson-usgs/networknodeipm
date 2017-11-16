@@ -1,0 +1,7 @@
+network,node,groupName,groupSex,recruitmentGroup,recruitmentProportion,impactOnFemales,stocking,muS,sigmaS,popSize0,initMean,initS,alphaS,betaS,minS,maxS,aG,kG,sigmaG,alphaLW,betaLW,eggTransition,eggPerkg,muJ,sigmaJ,alphaR,betaR,minR,maxR,densityA,densityB
+twoNodeNetwork,node 1,test group 1 male,male,FALSE,0.5,0.5,None,,,3000,150,0.2,40,-5,0.1,0.9,180,0.16,10,-4.33,2.77,7E-05,500,10,2,40,-4,0,1,1,1E-06
+twoNodeNetwork,node 1,test group 1 female,female,TRUE,0.5,0.5,None,,,3100,150,0.2,40,-5,0.1,0.9,180,0.16,10,-4.33,2.77,7E-05,500,10,2,40,-4,0,1,1,1E-06
+twoNodeNetwork,node 1,test group 1 YY-male,male,FALSE,0,0,"10000, 10, 15",40,5,0,150,0.2,40,-5,0.1,0.9,180,0.16,10,-4.33,2.77,7E-05,500,10,2,40,-4,0,1,1,1E-06
+twoNodeNetwork,node 2,test group 1 male,male,FALSE,0.5,0.5,None,,,4000,150,0.2,40,-5,0.1,0.9,180,0.16,10,-4.33,2.77,7E-05,500,10,2,40,-4,0,1,1,1E-06
+twoNodeNetwork,node 2,test group 1 female,female,TRUE,0.5,0.5,None,,,4100,150,0.2,40,-5,0.1,0.9,180,0.16,10,-4.33,2.77,7E-05,500,10,2,40,-4,0,1,1,1E-06
+twoNodeNetwork,node 2,test group 1 YY-male,male,FALSE,0,0,None,,,0,150,0.2,40,-5,0.1,0.9,180,0.16,10,-4.33,2.77,7E-05,500,10,2,40,-4,0,1,1,1E-06
