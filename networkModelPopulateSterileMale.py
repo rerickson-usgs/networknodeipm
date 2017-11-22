@@ -25,7 +25,6 @@ class groupWithSexSterileMale( nmps.groupWithSex):
 
     def showRecruitmentViabilityMod(self):
         return self.recruitmentViabilityMod
-
         
 class populatedNodeWithSexSterileMale( nmps.populatedNodeWithSex):
     def __init__( self, nodeName):
@@ -40,9 +39,6 @@ class populatedNodeWithSexSterileMale( nmps.populatedNodeWithSex):
              Second dotproduct is recruitment.
         '''
         reproducingPopulation  = 0.0
-
-        # groupsMale   = [grp.showSex() == "male"  for grp in self.groups]
-        # groupsPop    = np.array([grp.showPopYear(year)  for grp in self.groups])
 
         maleContribution   = np.array([grp.showRecruitmentViabilityMod() for grp in self.groups if grp.showSex() == 'male'])
     
@@ -78,8 +74,8 @@ class populatedNodeWithSexSterileMale( nmps.populatedNodeWithSex):
 
 class createNetworkFromCSVwithSterileMale( nmps.createNetworkFromCSVwithSex):
 
-    def __init__(self, dfNetwork):
-        self.network = nmp.populatedNetwork( dfNetwork['networkName'][0] )
+    def __init__(self, dfNetwork, networkIn = nmp.populatedNetwork):
+        self.network = networkIn( dfNetwork['networkName'][0] )
         self.network.setYears( dfNetwork['nYears'][0] )
         self.network.setupNetworkMesh( dfNetwork['nPoints'][0],
                                        dfNetwork['minLength'][0],

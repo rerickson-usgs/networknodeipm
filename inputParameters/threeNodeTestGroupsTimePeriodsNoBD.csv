@@ -1,0 +1,4 @@
+network,node,groupName,popSize0,initMean,initS,alphaS,betaS,minS,maxS,aG,kG,sigmaG,alphaLW,betaLW,eggTransition,eggPerkg,muJ,sigmaJ,alphaR,betaR,minR,maxR,densityA,densityB
+threeNodeNetwork,node 1,test group 1,0,150,0.2,40,-5,1,1,160,0.16,10,-4.33,2.77,0,500,10,2,40,-4,0,1,1,1E-06
+threeNodeNetwork,node 2,test group 1,0,150,0.2,40,-5,1,1,160,0.16,10,-4.33,2.77,0,0,10,2,40,-4,0,1,1,1E-06
+threeNodeNetwork,node 3,test group 1,3000,150,0.2,40,-5,1,1,160,0.16,10,-4.33,2.77,0,0,10,2,40,-4,0,1,1,1E-06

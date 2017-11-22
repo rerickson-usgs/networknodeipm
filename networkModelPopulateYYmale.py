@@ -45,11 +45,6 @@ class populatedNodeWithSexYY( nmps.populatedNodeWithSex):
         '''
         reproducingPopulation  = 0.0
 
-
-        ## NEED TO FIX THIS AREA
-
-        ## Specifically, create a modified recruitment proportion
-        ## That is the the recruitmentProportion * group Pop / total pop
         groupsMale   = [grp.showSex() == "male"  for grp in self.groups]
         groupsFemale = [grp.showSex() == "female"  for grp in self.groups]
         groupsPop    = np.array([grp.showPopYear(year)  for grp in self.groups])
@@ -96,8 +91,8 @@ class populatedNodeWithSexYY( nmps.populatedNodeWithSex):
 
 class createNetworkFromCSVwithYY( nmps.createNetworkFromCSVwithSex):
 
-    def __init__(self, dfNetwork):
-        self.network = nmp.populatedNetwork( dfNetwork['networkName'][0] )
+    def __init__(self, dfNetwork, networkIn = nmp.populatedNetwork):
+        self.network = networkIn( dfNetwork['networkName'][0] )
         self.network.setYears( dfNetwork['nYears'][0] )
         self.network.setupNetworkMesh( dfNetwork['nPoints'][0],
                                        dfNetwork['minLength'][0],

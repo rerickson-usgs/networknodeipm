@@ -32,8 +32,8 @@ class groupWithSex( nmp.group):
 
 class createNetworkFromCSVwithSex( nmp.createNetworkFromCSV):
 
-    def __init__(self, dfNetwork):
-        self.network = nmp.populatedNetwork( dfNetwork['networkName'][0] )
+    def __init__(self, dfNetwork, networkIn = nmp.populatedNetwork):
+        self.network = networkIn( dfNetwork['networkName'][0] )
         self.network.setYears( dfNetwork['nYears'][0] )
         self.network.setupNetworkMesh( dfNetwork['nPoints'][0],
                                        dfNetwork['minLength'][0],

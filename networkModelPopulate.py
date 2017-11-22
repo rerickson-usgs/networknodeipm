@@ -41,7 +41,7 @@ class populatedHelpers:
         return self.popDist[ year, :]
     
     def updatePopDistYear(self, year, popAdd):
-        self.popDist[ year, :] += popAdd
+        self.popDist[ year, :] = popAdd
 
 class logistic:
     '''Defines a logistic function.''' 
@@ -134,11 +134,14 @@ class populatedNode( nm.node, populatedHelpers):
     def showNodeBiomass(self):
         return self.nodeBiomass
                
-    def projectGroups(self, year, omega, hWidth, nodeBiomass):
+    def projectGroups(self, year, omega, hWidth, nodeBiomass, nextYear = None):
         '''  projects population using midpoint rule.
              First dotproduct is growth/maturation.
              Second dotproduct is recruitment.
         '''
+        if nextYear is None:
+            nextYear = year + 1
+            
         for grp in self.groups:
             popAdd = ( np.dot( hWidth * grp.growth( omega, omega), 
                                grp.showPopDistYear( year) *
@@ -148,12 +151,11 @@ class populatedNode( nm.node, populatedHelpers):
             )
 
             if grp.showStocking():
-                grp.updatePopDistYear( year + 1, popAdd + grp.showStockingPopYear(year))
+                grp.updatePopDistYear( nextYear, popAdd + grp.showStockingPopYear(year))
             else:
-                grp.updatePopDistYear( year + 1, popAdd)
+                grp.updatePopDistYear( nextYear, popAdd)
             
-                
-            
+
     def calculateNodePop(self):
         self.populationDistribution = 0.0
         for grp in self.groups:
@@ -287,9 +289,10 @@ class populatedNetwork( nm.network):
                         if pathIn == pathOut:
                             pathTemp = path( pathOut)
                             pathTemp.addStartNode( nodeStart.showNodeName())
-                            pathTemp.addEndNode( nodeEnd.showNodeName())
+                            pathTemp.addEndNode( nodeEnd.showNodeName()) 
                             self.addPaths( [pathTemp])
 
+        
     def moveGroups( self, startYear, endYear):
         #####################
         ## Run movement in three steps
@@ -380,7 +383,6 @@ class populatedNetwork( nm.network):
         This function runs the network simulation and assumes 
         movement occures before spawning.
         '''
-
         for yearIndex in xrange(self.nYears):
             ## Step 1, move groups 
             self.moveGroups( yearIndex, yearIndex)
@@ -411,7 +413,7 @@ class createNetworkFromCSV:
         (e.g., from CSV files) into a dictionary for the model.
         '''
         pathsOutTemp = {}
-        if isinstance(pathsOutProb, float):
+        if isinstance(pathsOutProb, float) or isinstance(pathsOutProb, int):
             pathsOutTemp[pathsOut] = pathsOutProb
         else:
             pathsOut2 = pathsOut.strip().split(";")
@@ -429,7 +431,8 @@ class createNetworkFromCSV:
         ## Loop through each node in the network and generate it
         for nodeRow in dfNodeUse.iterrows():
             ## Add in node's name
-            nodeTemp =  nodeIn( nodeName = nodeRow[1]['nodeName'])
+            nodeTemp =  nodeIn( nodeName = nodeRow[1]['node'])
+
             pathsOutTemp = self.pathOutListFunction( nodeRow[1]['pathsOut'],
                                                      nodeRow[1]['pathsOutProb'])
             nodeTemp.addPathsOut( pathsOutTemp)

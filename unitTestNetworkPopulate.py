@@ -9,7 +9,6 @@ class test_populatedPath( unittest.TestCase):
 
     def test_showPopulatedPathName(self):
         self.populatedPath = nmp.populatedPath('test populatedPath')
-
         self.assertEqual( self.populatedPath.showPathName(),
                           'test populatedPath')
         
@@ -399,7 +398,7 @@ class test_populatedNetwork( unittest.TestCase):
 
         self.network.runSimulation()
         self.network.calculateNetworkPop()
-        self.assertAlmostEqual( self.network.showNetworkPop()[0], 102.08333333333333)
+        self.assertAlmostEqual( self.network.showNetworkPop()[0], 102.08333333333334)
         self.assertAlmostEqual( self.network.showNetworkPop()[3], 101.1455407640648)
         
 class test_csvPopulate( unittest.TestCase):
@@ -450,6 +449,8 @@ class test_csvPopulate( unittest.TestCase):
         self.assertAlmostEqual( self.network.nodes[1].groups[0].showStockingPopYear(56).sum(),
                                 100000.0)
 
+
+        
 
 class test_csvPopulateMovement( unittest.TestCase):
 
@@ -502,7 +503,8 @@ class test_csvPopulateMovement( unittest.TestCase):
         self.network.runSimulation()
         self.network.calculateNetworkPop()
         
-        self.assertAlmostEqual( self.network.nodes[1].showNodePopulation()[0], 150.0)
+        self.assertAlmostEqual( self.network.nodes[1].showNodePopulation()[0],
+                                150.0)
         
 if __name__ == '__main__':
     unittest.main()

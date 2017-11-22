@@ -1,3 +1,4 @@
+import networkModelPopulateYYmale as nmpsy
 import networkModelPopulateSex as nmps
 import unittest
 import numpy as np
@@ -6,18 +7,15 @@ import networkModelPopulate as nmp
 import pandas as pd 
 
 
-class test_groupWithSex( unittest.TestCase ):
+# class test_groupWithSex( unittest.TestCase ):
 
-    def test_addSex(self):
-        grp = nmps.groupWithSex("test group")
-        grp.addSex("male")
-        self.assertEqual( grp.showSex(), "male")
+class test_groupWithSexYY( unittest.TestCase):
+    def test_impactedParameter( self):
+        grp = nmpsy.groupWithSexYY( "test group")
+        grp.addImpactOnFemaleRatio( 0.75)
+        self.assertEqual( grp.showImpactOnFemaleRatio(), 0.75)
+        self.assertEqual( grp.showImpactOnMaleRatio(), 0.25)
 
-    def test_recruitmentGroup(self):
-        grp = nmps.groupWithSex("test group")
-        self.assertEqual( grp.showRecruitmentGroup(), False)
-        grp.addRecruitmentGroup( True)
-        self.assertEqual( grp.showRecruitmentGroup(), True)
 
 class test_populatedNodeWithSex( unittest.TestCase):
     ''' 
@@ -26,7 +24,7 @@ class test_populatedNodeWithSex( unittest.TestCase):
     def test_networkCreation(self):
         ## Load files 
         self.inputFolder = "./inputParameters/"
-        self.groupsFile = self.inputFolder + 'twoNodeTestGroupsSex.csv'
+        self.groupsFile = self.inputFolder + 'twoNodeTestGroupsYY.csv'
         self.dfGroups = pd.read_csv(self.groupsFile)
         
         self.nodeFile = self.inputFolder + 'twoNodeTestNodes.csv'
@@ -36,22 +34,22 @@ class test_populatedNodeWithSex( unittest.TestCase):
         self.dfNetwork = pd.read_csv(self.networkFile)
         
         ## Test creation of network 
-        self.createNetwork = nmps.createNetworkFromCSVwithSex( self.dfNetwork)
+        self.createNetwork = nmpsy.createNetworkFromCSVwithYY( self.dfNetwork)
         
         ## Test addition of nodes
         self.createNetwork.addNodesFromCSV( self.dfNode, nodeIn = nmps.populatedNodeWithSex)
 
         ## Add in group's sex
-        self.createNetwork.addGroupSexFromCSV( self.dfGroups, groupInIn =  nmps.groupWithSex)
+        self.createNetwork.addGroupSexFromCSV( self.dfGroups, groupInIn =  nmpsy.groupWithSexYY)
 
         ## export and test network 
         self.network = self.createNetwork.showNetwork()
 
-
         ## Check projection with sex
         self.network.runSimulation()
         self.network.calculateNetworkPop()
-        
+
+
         ## Run tests
         self.assertEqual( self.network.showNetworkName(), 'twoNodeNetwork')
         self.assertEqual( self.network.nYears, 25)
@@ -74,7 +72,10 @@ class test_populatedNodeWithSex( unittest.TestCase):
 
         self.assertEqual( self.network.nodes[0].groups[1].showRecruitmentProportion(), 0.5)
 
-        self.assertAlmostEqual( self.network.showNetworkPop()[25], 70427.424211979087)
-        
+        self.assertAlmostEqual( self.network.showNetworkPop()[25], 63504.567277205584)
+
+        self.assertAlmostEqual( self.network.nodes[0].groups[2].showStockingPopYear(11).sum(),
+                                10000.0)
+        self.assertEqual( self.network.nodes[0].groups[2].showStockingPopYear(9).sum(), 0.0)
 if __name__ == '__main__':
     unittest.main()
