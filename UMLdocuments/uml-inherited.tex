@@ -106,11 +106,41 @@
 + plotAllNodes: print to screen \\
 + setupNetworkMesh(nPoints, minLength, maxLength): self.omega \\
  }
- 
+  
  \umlimpl[anchor1 = 120, anchor2 = -120]{populatedNetwork}{network}
 
 \umlunicompo[geometry=-|]{populatedNode}{populatedNetwork}
 \umlunicompo[geometry=|-, anchor1 = 120]{populatedPath}{populatedNetwork}
+
+
+
+\umlclass[x = -10, y = 18]{networkWithTimePeriod}{
++ timePeriods: list\\
+}{
++ runSimulation(self): self \\
++ addTimePeriods(self): self\\
++ showTimePeriods(self): timePeriods \\
+ }
+
+
+% \umlimpl[anchor1 = 0, anchor2 = 180]{populatedNetworkWithTimePeriod}{populatedNetwork}
+
+
+\umlclass[x = -10, y = 14]{addNodeHarvestCSV}{
+}{
++ addHarvestIntoNodes( dfHarvest): self \\
+ }
+
+
+\umlclass[x = -10, y = 10]{nodeHarvest}{
++ harvest: np.array \\
+}{
++ setHarvest( harvestLevel): self \\
++ showNodeHarvest( self): harvest \\
++ showNodeHarvestYear( self, year): harvest[ year, :] \\
++ nodeHarvest(self): self \\
+ }
+
 
 \umlclass[x = 22, y = 5]{group}{
 + name: str\\

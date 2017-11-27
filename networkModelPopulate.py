@@ -174,7 +174,6 @@ class linearRecruitment:
     def recruitment(self, omega, omegaPrime):
         omega      = np.atleast_1d(omega)
         omegaPrime = np.atleast_1d(omegaPrime)
-
         out = np.zeros( (len(omegaPrime), len(omega) ))
 
         for index, val in enumerate(omega):
@@ -195,7 +194,6 @@ class linearRecruitment:
             
         return(out)
 
-    
 class group( populatedHelpers, linearRecruitment):
     def __init__(self, groupName):
         self.groupName = groupName
@@ -268,6 +266,7 @@ class group( populatedHelpers, linearRecruitment):
 
     def showStocking(self):
         return self.stocking
+
     
 class populatedNetwork( nm.network):
     def __init__(self, networkName):
