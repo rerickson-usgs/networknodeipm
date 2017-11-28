@@ -16,6 +16,15 @@ A [Unified Modeling Language (UML) Diagram](https://en.wikipedia.org/wiki/Unifie
 There are also several "non-unit" tests that check the plotting functions and allow for visual checks for the models results. 
 These files also demonstrate how the model may be used. 
 
+
+**Prerequisite knowledge:** This code is written for advanced Python users. 
+The [Python homepage](https://www.python.org/doc/) contains links to tutorials and references for learning Python. 
+A non-spatially explicit version of this model has been published as an [R package](https://my.usgs.gov/bitbucket/projects/UMESC/repos/carpipm/browse).
+This R package would be more friendly for beginners.
+A Python beginner could likely adapt existing models by changing the input CSV files, but adapting the model requires an understanding of multiple inheritance and class construction in Python.
+We have included a brief tutorial covering these two topics. 
+
+
 ## Description of files and folders 
 
 0. `README.md`: this file
