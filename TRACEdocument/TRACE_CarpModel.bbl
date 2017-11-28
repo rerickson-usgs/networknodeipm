@@ -1,0 +1,416 @@
+\begin{thebibliography}{47}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\href}[2]{#2}
+\providecommand{\path}[1]{#1}
+\providecommand{\DOIprefix}{doi:}
+\providecommand{\ArXivprefix}{arXiv:}
+\providecommand{\URLprefix}{URL: }
+\providecommand{\Pubmedprefix}{pmid:}
+\providecommand{\doi}[1]{\href{http://dx.doi.org/#1}{\path{#1}}}
+\providecommand{\Pubmed}[1]{\href{pmid:#1}{\path{#1}}}
+\providecommand{\bibinfo}[2]{#2}
+\ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
+%Type = Article
+\bibitem[{Ashraf and Fairgrieve(1998)}]{ashraf1998effects}
+\bibinfo{author}{Ashraf, M.}, \bibinfo{author}{Fairgrieve, W.},
+  \bibinfo{year}{1998}.
+\newblock \bibinfo{title}{Effects of artificial feeds on the spawning success,
+  fecundity and egg fertilization rate in chinese and indian major carps}.
+\newblock \bibinfo{journal}{Pakistan Journal of Zoology} \bibinfo{volume}{30},
+  \bibinfo{pages}{185--189}.
+%Type = Article
+\bibitem[{Augusiak et~al.(2014)Augusiak, Van~den Brink and
+  Grimm}]{augusiak2014merging}
+\bibinfo{author}{Augusiak, J.}, \bibinfo{author}{Van~den Brink, P.J.},
+  \bibinfo{author}{Grimm, V.}, \bibinfo{year}{2014}.
+\newblock \bibinfo{title}{Merging validation and evaluation of ecological
+  models to ‘evaludation’: a review of terminology and a practical
+  approach}.
+\newblock \bibinfo{journal}{Ecological Modelling} \bibinfo{volume}{280},
+  \bibinfo{pages}{117--128}.
+%Type = Article
+\bibitem[{Bain(1993)}]{bain1993assessing}
+\bibinfo{author}{Bain, M.B.}, \bibinfo{year}{1993}.
+\newblock \bibinfo{title}{Assessing impacts of introduced aquatic species:
+  grass carp in large systems}.
+\newblock \bibinfo{journal}{Environmental Management} \bibinfo{volume}{17},
+  \bibinfo{pages}{211--224}.
+%Type = Article
+\bibitem[{Birkeland and Dayton(2005)}]{birkeland2005importance}
+\bibinfo{author}{Birkeland, C.}, \bibinfo{author}{Dayton, P.K.},
+  \bibinfo{year}{2005}.
+\newblock \bibinfo{title}{The importance in fishery management of leaving the
+  big ones}.
+\newblock \bibinfo{journal}{Trends in Ecology \& Evolution}
+  \bibinfo{volume}{20}, \bibinfo{pages}{356--358}.
+%Type = Book
+\bibitem[{Bolker(2008)}]{bolker2008ecological}
+\bibinfo{author}{Bolker, B.M.}, \bibinfo{year}{2008}.
+\newblock \bibinfo{title}{{Ecological Models and Data in R}}.
+\newblock \bibinfo{publisher}{Princeton University Press},
+  \bibinfo{address}{Prinecton}.
+%Type = Book
+\bibitem[{Burden and Faires(2005)}]{burden2005numerical}
+\bibinfo{author}{Burden, R.}, \bibinfo{author}{Faires, J.},
+  \bibinfo{year}{2005}.
+\newblock \bibinfo{title}{Numerical Analysis}.
+\newblock \bibinfo{edition}{8th} ed., \bibinfo{publisher}{Thomson/Brooks Cole},
+  \bibinfo{address}{Belmont, CA}.
+%Type = Article
+\bibitem[{Cassani and Caton(1986)}]{cassani1986efficient}
+\bibinfo{author}{Cassani, J.}, \bibinfo{author}{Caton, W.},
+  \bibinfo{year}{1986}.
+\newblock \bibinfo{title}{{Efficient production of triploid grass carp
+  (\textit{Ctenopharyngodon idella}) utilizing hydrostatic pressure}}.
+\newblock \bibinfo{journal}{Aquaculture} \bibinfo{volume}{55},
+  \bibinfo{pages}{43--50}.
+%Type = Book
+\bibitem[{Caswell(2001)}]{caswell_matrix_2001}
+\bibinfo{author}{Caswell, H.}, \bibinfo{year}{2001}.
+\newblock \bibinfo{title}{Matrix Populations Models}.
+\newblock \bibinfo{publisher}{Sinauer Associates},
+  \bibinfo{address}{Sunderland, Massachusetts, USA}.
+%Type = Article
+\bibitem[{Chapman et~al.(2013)Chapman, Davis, Jenkins, Kocovsky, Miner, Farver
+  and Jackson}]{chapman2013first}
+\bibinfo{author}{Chapman, D.C.}, \bibinfo{author}{Davis, J.J.},
+  \bibinfo{author}{Jenkins, J.A.}, \bibinfo{author}{Kocovsky, P.M.},
+  \bibinfo{author}{Miner, J.G.}, \bibinfo{author}{Farver, J.},
+  \bibinfo{author}{Jackson, P.R.}, \bibinfo{year}{2013}.
+\newblock \bibinfo{title}{First evidence of grass carp recruitment in the great
+  lakes basin}.
+\newblock \bibinfo{journal}{Journal of Great Lakes Research}
+  \bibinfo{volume}{39}, \bibinfo{pages}{547--554}.
+%Type = Article
+\bibitem[{Chilton~II and Muoneke(1992)}]{chilton1992biology}
+\bibinfo{author}{Chilton~II, E.W.}, \bibinfo{author}{Muoneke, M.I.},
+  \bibinfo{year}{1992}.
+\newblock \bibinfo{title}{{Biology and management of grass carp
+  (\textit{Ctenopharyngodon idella, Cyprinidae}) for vegetation control: a
+  North American perspective}}.
+\newblock \bibinfo{journal}{Reviews in fish biology and fisheries}
+  \bibinfo{volume}{2}, \bibinfo{pages}{283--320}.
+%Type = Article
+\bibitem[{Colvin et~al.(2012)Colvin, Pierce, Stewart and
+  Grummer}]{colvin2012strategies}
+\bibinfo{author}{Colvin, M.E.}, \bibinfo{author}{Pierce, C.L.},
+  \bibinfo{author}{Stewart, T.W.}, \bibinfo{author}{Grummer, S.E.},
+  \bibinfo{year}{2012}.
+\newblock \bibinfo{title}{Strategies to control a common carp population by
+  pulsed commercial harvest}.
+\newblock \bibinfo{journal}{North American Journal of Fisheries Management}
+  \bibinfo{volume}{32}, \bibinfo{pages}{1251--1264}.
+%Type = Article
+\bibitem[{Cross(1969)}]{cross1969aquatic}
+\bibinfo{author}{Cross, D.}, \bibinfo{year}{1969}.
+\newblock \bibinfo{title}{Aquatic weed control using grass carp}.
+\newblock \bibinfo{journal}{Journal of Fish Biology} \bibinfo{volume}{1},
+  \bibinfo{pages}{27--30}.
+%Type = Article
+\bibitem[{Cuddington et~al.(2014)Cuddington, Currie and
+  Koops}]{cuddington2014could}
+\bibinfo{author}{Cuddington, K.}, \bibinfo{author}{Currie, W.},
+  \bibinfo{author}{Koops, M.}, \bibinfo{year}{2014}.
+\newblock \bibinfo{title}{{Could an Asian carp population establish in the
+  Great Lakes from a small introduction?}}
+\newblock \bibinfo{journal}{Biological invasions} \bibinfo{volume}{16},
+  \bibinfo{pages}{903--917}.
+%Type = Article
+\bibitem[{Dhanze and Dhanse(1997)}]{dhanze1997biology}
+\bibinfo{author}{Dhanze, R.}, \bibinfo{author}{Dhanse, J.},
+  \bibinfo{year}{1997}.
+\newblock \bibinfo{title}{Biology of scale carp and grass carp. 1.
+  length-weight relationship and growth performance under the agroclimatic zone
+  1 of himachal pradesh}.
+\newblock \bibinfo{journal}{Indian Journal of Fisheries} \bibinfo{volume}{44},
+  \bibinfo{pages}{255--263}.
+%Type = Article
+\bibitem[{Dibble and Kovalenko(2009)}]{dibble2009ecological}
+\bibinfo{author}{Dibble, E.D.}, \bibinfo{author}{Kovalenko, K.},
+  \bibinfo{year}{2009}.
+\newblock \bibinfo{title}{Ecological impact of grass carp: a review of the
+  available data}.
+\newblock \bibinfo{journal}{Journal of Aquatic Plant Management}
+  \bibinfo{volume}{47}, \bibinfo{pages}{1--15}.
+%Type = Article
+\bibitem[{Easterling et~al.(2000)Easterling, Ellner and
+  Dixon}]{easterling2000size}
+\bibinfo{author}{Easterling, M.R.}, \bibinfo{author}{Ellner, S.P.},
+  \bibinfo{author}{Dixon, P.M.}, \bibinfo{year}{2000}.
+\newblock \bibinfo{title}{Size-specific sensitivity: applying a new structured
+  population model}.
+\newblock \bibinfo{journal}{Ecology} \bibinfo{volume}{81},
+  \bibinfo{pages}{694--708}.
+%Type = Article
+\bibitem[{Ellner and Rees(2006)}]{ellner2006integral}
+\bibinfo{author}{Ellner, S.P.}, \bibinfo{author}{Rees, M.},
+  \bibinfo{year}{2006}.
+\newblock \bibinfo{title}{Integral projection models for species with complex
+  demography}.
+\newblock \bibinfo{journal}{The American Naturalist} \bibinfo{volume}{167},
+  \bibinfo{pages}{410--428}.
+%Type = Article
+\bibitem[{Erickson et~al.(2017)Erickson, Gray and
+  Eager}]{EricksonAcceptedEcoInd}
+\bibinfo{author}{Erickson, R.A.}, \bibinfo{author}{Gray, B.R.},
+  \bibinfo{author}{Eager, E.A.}, \bibinfo{year}{2017}.
+\newblock \bibinfo{title}{Estimating linear temporal trends from aggregated
+  environmental monitoring data}.
+\newblock \bibinfo{journal}{Ecological Indicators} , \bibinfo{pages}{62--72}.
+%Type = Book
+\bibitem[{Gotelli(2008)}]{Gotelli:2008}
+\bibinfo{author}{Gotelli, N.J.}, \bibinfo{year}{2008}.
+\newblock \bibinfo{title}{A Primer of Ecology}.
+\newblock \bibinfo{edition}{Fourth} ed., \bibinfo{publisher}{Sinauer},
+  \bibinfo{address}{Sunderland}.
+%Type = Techreport
+\bibitem[{Ickes et~al.(2014)Ickes, Sauer and Rogala}]{Ickes:2014}
+\bibinfo{author}{Ickes, B.}, \bibinfo{author}{Sauer, J.},
+  \bibinfo{author}{Rogala, J.}, \bibinfo{year}{2014}.
+\newblock \bibinfo{title}{{Monitoring rationale, strategy, issues, and methods:
+  UMRR-EMP LTRMP Fish Component. A program report submitted to the U.S. Army
+  Corps of Engineers’ Upper Mississippi River Restoration-Environmental
+  Management Program, Program Report LTRMP 2014–P001a}}.
+\newblock \bibinfo{type}{Technical Report}. {US Geological Survey}.
+  \bibinfo{address}{La Crosse, WI}.
+%Type = Article
+\bibitem[{Kilambi and Robison(1979)}]{kilambi1979effects}
+\bibinfo{author}{Kilambi, R.}, \bibinfo{author}{Robison, W.},
+  \bibinfo{year}{1979}.
+\newblock \bibinfo{title}{{Effects of temperature and stocking density on food
+  consumption and growth of grass carp \textit{Ctenopharyngodon idella}, Val.}}
+\newblock \bibinfo{journal}{Journal of Fish Biology} \bibinfo{volume}{15},
+  \bibinfo{pages}{337--342}.
+%Type = Article
+\bibitem[{Kilambi(1980)}]{kilambi1980food}
+\bibinfo{author}{Kilambi, R.V.}, \bibinfo{year}{1980}.
+\newblock \bibinfo{title}{{Food consumption, growth and survival of grass carp
+  \textit{Ctenopharyngodon idella} Val at four salinities}}.
+\newblock \bibinfo{journal}{Journal of Fish Biology} \bibinfo{volume}{17},
+  \bibinfo{pages}{613--618}.
+%Type = Article
+\bibitem[{Kirk et~al.(2000)Kirk, Morrow, Killgore, Kozlowski and
+  Preacher}]{kirk2000population}
+\bibinfo{author}{Kirk, J.P.}, \bibinfo{author}{Morrow, J.V.},
+  \bibinfo{author}{Killgore, K.J.}, \bibinfo{author}{Kozlowski, S.J.D.},
+  \bibinfo{author}{Preacher, J.W.}, \bibinfo{year}{2000}.
+\newblock \bibinfo{title}{Population response of triploid grass carp to
+  declining levels of hydrilla in the santee cooper reservoirs, south
+  carolina}.
+\newblock \bibinfo{journal}{Journal of Aquatic Plant Management}
+  \bibinfo{volume}{38}, \bibinfo{pages}{14--17}.
+%Type = Article
+\bibitem[{Kirk and Socha(2003)}]{kirk2003longevity}
+\bibinfo{author}{Kirk, J.P.}, \bibinfo{author}{Socha, R.C.},
+  \bibinfo{year}{2003}.
+\newblock \bibinfo{title}{Longevity and persistence of triploid grass carp
+  stocked into the santee cooper reservoirs of south carolina}.
+\newblock \bibinfo{journal}{Journal of Aquatic Plant Management}
+  \bibinfo{volume}{41}, \bibinfo{pages}{90--92}.
+%Type = Book
+\bibitem[{Lagler et~al.(1962)Lagler, Bardach and Ichthyology}]{lagler1962john}
+\bibinfo{author}{Lagler, K.}, \bibinfo{author}{Bardach, J.},
+  \bibinfo{author}{Ichthyology, R.M.}, \bibinfo{year}{1962}.
+\newblock \bibinfo{title}{Ichthology}.
+\newblock \bibinfo{publisher}{John Wiley}.
+%Type = Book
+\bibitem[{Lenhart and Workman(2007)}]{lenhart2007optimal}
+\bibinfo{author}{Lenhart, S.}, \bibinfo{author}{Workman, J.T.},
+  \bibinfo{year}{2007}.
+\newblock \bibinfo{title}{Optimal control applied to biological models}.
+\newblock \bibinfo{publisher}{CRC Press}.
+%Type = Article
+\bibitem[{Lorenzen(1995)}]{lorenzen1995population}
+\bibinfo{author}{Lorenzen, K.}, \bibinfo{year}{1995}.
+\newblock \bibinfo{title}{Population dynamics and management of culture-based
+  fisheries}.
+\newblock \bibinfo{journal}{Fisheries Management and Ecology}
+  \bibinfo{volume}{2}, \bibinfo{pages}{61--73}.
+%Type = Article
+\bibitem[{Martyn et~al.(1986)Martyn, Noble, Bettoli, Maggio
+  et~al.}]{martyn1986mapping}
+\bibinfo{author}{Martyn, R.}, \bibinfo{author}{Noble, R.},
+  \bibinfo{author}{Bettoli, P.}, \bibinfo{author}{Maggio, R.}, et~al.,
+  \bibinfo{year}{1986}.
+\newblock \bibinfo{title}{Mapping aquatic weeds with aerial color infrared
+  photography and evaluating their control by grass carp}.
+\newblock \bibinfo{journal}{Journal of Aquatic Plant Management}
+  \bibinfo{volume}{24}, \bibinfo{pages}{46--56}.
+%Type = Article
+\bibitem[{Merow et~al.(2014)Merow, Dahlgren, Metcalf, Childs, Evans, Jongejans,
+  Record, Rees, Salguero-G{\'o}mez and McMahon}]{merow2014advancing}
+\bibinfo{author}{Merow, C.}, \bibinfo{author}{Dahlgren, J.P.},
+  \bibinfo{author}{Metcalf, C.J.E.}, \bibinfo{author}{Childs, D.Z.},
+  \bibinfo{author}{Evans, M.E.}, \bibinfo{author}{Jongejans, E.},
+  \bibinfo{author}{Record, S.}, \bibinfo{author}{Rees, M.},
+  \bibinfo{author}{Salguero-G{\'o}mez, R.}, \bibinfo{author}{McMahon, S.M.},
+  \bibinfo{year}{2014}.
+\newblock \bibinfo{title}{Advancing population ecology with integral projection
+  models: a practical guide}.
+\newblock \bibinfo{journal}{Methods in Ecology and Evolution}
+  \bibinfo{volume}{5}, \bibinfo{pages}{99--110}.
+%Type = Article
+\bibitem[{Mitzner(1978)}]{mitzner1978evaluation}
+\bibinfo{author}{Mitzner, L.}, \bibinfo{year}{1978}.
+\newblock \bibinfo{title}{Evaluation of biological control of nuisance aquatic
+  vegetation by grass carp}.
+\newblock \bibinfo{journal}{Transactions of the American Fisheries Society}
+  \bibinfo{volume}{107}, \bibinfo{pages}{135--145}.
+%Type = Book
+\bibitem[{Morris and Doak(2002)}]{morris2002quantitative}
+\bibinfo{author}{Morris, W.F.}, \bibinfo{author}{Doak, D.F.},
+  \bibinfo{year}{2002}.
+\newblock \bibinfo{title}{Quantitative Conservation Biology}.
+\newblock \bibinfo{publisher}{Sinauer Associates},
+  \bibinfo{address}{Sunderland, Massachusetts, USA}.
+%Type = Article
+\bibitem[{Putnam et~al.(2017)Putnam, Nelson, Leis, Erickson, Hubert and
+  Amberg}]{putnam2017using}
+\bibinfo{author}{Putnam, J.G.}, \bibinfo{author}{Nelson, J.E.},
+  \bibinfo{author}{Leis, E.M.}, \bibinfo{author}{Erickson, R.A.},
+  \bibinfo{author}{Hubert, T.D.}, \bibinfo{author}{Amberg, J.J.},
+  \bibinfo{year}{2017}.
+\newblock \bibinfo{title}{Using silver and bighead carp cell lines for the
+  identification of a unique metabolite fingerprint from thiram-specific
+  chemical exposure}.
+\newblock \bibinfo{journal}{Chemosphere} \bibinfo{volume}{168},
+  \bibinfo{pages}{1477--1485}.
+%Type = Article
+\bibitem[{Ramula et~al.(2009)Ramula, Rees and Buckley}]{ramula2009integral}
+\bibinfo{author}{Ramula, S.}, \bibinfo{author}{Rees, M.},
+  \bibinfo{author}{Buckley, Y.M.}, \bibinfo{year}{2009}.
+\newblock \bibinfo{title}{Integral projection models perform better for small
+  demographic data sets than matrix population models: a case study of two
+  perennial herbs}.
+\newblock \bibinfo{journal}{Journal of Applied Ecology} \bibinfo{volume}{46},
+  \bibinfo{pages}{1048--1053}.
+%Type = Article
+\bibitem[{Rottmann et~al.(1991)Rottmann, Shireman and
+  Lincoln}]{rottmann1991comparison}
+\bibinfo{author}{Rottmann, R.}, \bibinfo{author}{Shireman, J.},
+  \bibinfo{author}{Lincoln, E.}, \bibinfo{year}{1991}.
+\newblock \bibinfo{title}{Comparison of three live foods and two dry diets for
+  intensive culture of grass carp and bighead carp larvae}.
+\newblock \bibinfo{journal}{Aquaculture} \bibinfo{volume}{96},
+  \bibinfo{pages}{269--280}.
+%Type = Article
+\bibitem[{Schill et~al.(2016)Schill, Heindel, Campbell, Meyer and
+  Mamer}]{schill2016production}
+\bibinfo{author}{Schill, D.J.}, \bibinfo{author}{Heindel, J.A.},
+  \bibinfo{author}{Campbell, M.R.}, \bibinfo{author}{Meyer, K.A.},
+  \bibinfo{author}{Mamer, E.R.}, \bibinfo{year}{2016}.
+\newblock \bibinfo{title}{Production of a yy male brook trout broodstock for
+  potential eradication of undesired brook trout populations}.
+\newblock \bibinfo{journal}{North American journal of aquaculture}
+  \bibinfo{volume}{78}, \bibinfo{pages}{72--83}.
+%Type = Article
+\bibitem[{Schmolke et~al.(2010)Schmolke, Thorbek, DeAngelis and
+  Grimm}]{schmolke2010ecological}
+\bibinfo{author}{Schmolke, A.}, \bibinfo{author}{Thorbek, P.},
+  \bibinfo{author}{DeAngelis, D.L.}, \bibinfo{author}{Grimm, V.},
+  \bibinfo{year}{2010}.
+\newblock \bibinfo{title}{Ecological models supporting environmental decision
+  making: a strategy for the future}.
+\newblock \bibinfo{journal}{Trends in Ecology \& Evolution}
+  \bibinfo{volume}{25}, \bibinfo{pages}{479--486}.
+%Type = Article
+\bibitem[{Shelton et~al.(1981)Shelton, Smitherman and
+  Jensen}]{shelton1981density}
+\bibinfo{author}{Shelton, W.}, \bibinfo{author}{Smitherman, R.},
+  \bibinfo{author}{Jensen, G.}, \bibinfo{year}{1981}.
+\newblock \bibinfo{title}{{Density related growth of grass carp,
+  \textit{Ctenopharyngodon idella} (Val.) in managed small impoundments in
+  Alabama}}.
+\newblock \bibinfo{journal}{Journal of Fish Biology} \bibinfo{volume}{18},
+  \bibinfo{pages}{45--51}.
+%Type = Article
+\bibitem[{Shireman et~al.(1978)Shireman, Colle and Rottmann}]{shireman1978size}
+\bibinfo{author}{Shireman, J.V.}, \bibinfo{author}{Colle, D.E.},
+  \bibinfo{author}{Rottmann, R.W.}, \bibinfo{year}{1978}.
+\newblock \bibinfo{title}{Size limits to predation on grass carp by largemouth
+  bass}.
+\newblock \bibinfo{journal}{Transactions of the American Fisheries Society}
+  \bibinfo{volume}{107}, \bibinfo{pages}{213--215}.
+%Type = Techreport
+\bibitem[{Shireman and Smith(1983)}]{shireman1983synopsis}
+\bibinfo{author}{Shireman, J.V.}, \bibinfo{author}{Smith, C.R.},
+  \bibinfo{year}{1983}.
+\newblock \bibinfo{title}{{Synopsis of biological data on the grass carp,
+  \textit{Ctenopharyngodon idella} (Cuvier and Valenciennes, 1844)}}.
+\newblock \bibinfo{type}{Technical Report}. Food and Agriculture Organization
+  of the United Nations. \bibinfo{address}{Rome}.
+%Type = Article
+\bibitem[{Sloan et~al.(2013)Sloan, Cordo and Mensinger}]{sloan2013acoustical}
+\bibinfo{author}{Sloan, J.L.}, \bibinfo{author}{Cordo, E.B.},
+  \bibinfo{author}{Mensinger, A.F.}, \bibinfo{year}{2013}.
+\newblock \bibinfo{title}{Acoustical conditioning and retention in the common
+  carp (cyprinus carpio)}.
+\newblock \bibinfo{journal}{Journal of Great Lakes Research}
+  \bibinfo{volume}{39}, \bibinfo{pages}{507--512}.
+%Type = Article
+\bibitem[{Stott and Cross(1973)}]{stott1973note}
+\bibinfo{author}{Stott, B.}, \bibinfo{author}{Cross, D.}, \bibinfo{year}{1973}.
+\newblock \bibinfo{title}{{A note on the effect of lowered temperatures on the
+  survival of eggs and fry of the grass carp \textit{Ctenopharyngodon idella}
+  (Valenciennes)}}.
+\newblock \bibinfo{journal}{Journal of Fish Biology} \bibinfo{volume}{5},
+  \bibinfo{pages}{649--658}.
+%Type = Inproceedings
+\bibitem[{Swingle(1957)}]{swingle:1957}
+\bibinfo{author}{Swingle}, \bibinfo{year}{1957}.
+\newblock \bibinfo{title}{Control of pond weeds by herbirvorous fishes}, in:
+  \bibinfo{booktitle}{Proceedings of teh Souther Weed Conference}, pp.
+  \bibinfo{pages}{11--17}.
+%Type = Article
+\bibitem[{Tsehaye et~al.(2013)Tsehaye, Catalano, Sass, Glover and
+  Roth}]{tsehaye2013prospects}
+\bibinfo{author}{Tsehaye, I.}, \bibinfo{author}{Catalano, M.},
+  \bibinfo{author}{Sass, G.}, \bibinfo{author}{Glover, D.},
+  \bibinfo{author}{Roth, B.}, \bibinfo{year}{2013}.
+\newblock \bibinfo{title}{{Prospects for fishery-induced collapse of invasive
+  Asian carp in the Illinois River}}.
+\newblock \bibinfo{journal}{Fisheries} \bibinfo{volume}{38},
+  \bibinfo{pages}{445--454}.
+%Type = Techreport
+\bibitem[{{US Fish and Wildlife Serivce}(2014)}]{USFWS2014grass}
+\bibinfo{author}{{US Fish and Wildlife Serivce}}, \bibinfo{year}{2014}.
+\newblock \bibinfo{title}{{Grass carp (\textit{Ctenopharyngodon idella}):
+  Ecological Risk Screening Summary}}.
+\newblock \bibinfo{type}{Technical Report}. {US Fish and Wildlife Serivce}.
+  \bibinfo{address}{Washington, DC}.
+%Type = Article
+\bibitem[{Wanner and Klumb(2009)}]{wanner2009length}
+\bibinfo{author}{Wanner, G.A.}, \bibinfo{author}{Klumb, R.A.},
+  \bibinfo{year}{2009}.
+\newblock \bibinfo{title}{Length-weight relationships for three asian carp
+  species in the missouri river}.
+\newblock \bibinfo{journal}{Journal of Freshwater Ecology}
+  \bibinfo{volume}{24}, \bibinfo{pages}{489--495}.
+%Type = Article
+\bibitem[{Williamson and Garvey(2005)}]{williamson2005growth}
+\bibinfo{author}{Williamson, C.J.}, \bibinfo{author}{Garvey, J.E.},
+  \bibinfo{year}{2005}.
+\newblock \bibinfo{title}{Growth, fecundity, and diets of newly established
+  silver carp in the middle mississippi river}.
+\newblock \bibinfo{journal}{Transactions of the American Fisheries Society}
+  \bibinfo{volume}{134}, \bibinfo{pages}{1423--1430}.
+%Type = Article
+\bibitem[{Wittmann et~al.(2014)Wittmann, Jerde, Howeth, Maher, Deines, Jenkins,
+  Whitledge, Burbank, Chadderton, Mahon, Tyson, Gantz, Keller, Drake and
+  Lodge}]{wittmann2014grass}
+\bibinfo{author}{Wittmann, M.E.}, \bibinfo{author}{Jerde, C.L.},
+  \bibinfo{author}{Howeth, J.G.}, \bibinfo{author}{Maher, S.P.},
+  \bibinfo{author}{Deines, A.M.}, \bibinfo{author}{Jenkins, J.A.},
+  \bibinfo{author}{Whitledge, G.W.}, \bibinfo{author}{Burbank, S.R.},
+  \bibinfo{author}{Chadderton, W.L.}, \bibinfo{author}{Mahon, A.R.},
+  \bibinfo{author}{Tyson, J.T.}, \bibinfo{author}{Gantz, G.A.},
+  \bibinfo{author}{Keller, R.P.}, \bibinfo{author}{Drake, J.M.},
+  \bibinfo{author}{Lodge, D.M.}, \bibinfo{year}{2014}.
+\newblock \bibinfo{title}{Grass carp in the great lakes region: establishment
+  potential, expert perceptions, and re-evaluation of experimental evidence of
+  ecological impact}.
+\newblock \bibinfo{journal}{Canadian Journal of Fisheries and Aquatic Sciences}
+  \bibinfo{volume}{71}, \bibinfo{pages}{992--999}.
+
+\end{thebibliography}
