@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.10.4)  28 NOV 2017 13:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.10.4)  28 NOV 2017 14:27
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -473,41 +473,42 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 631.
 
 [15]
-<../../Figure/FlowChart.pdf, id=74, pagebox=cropbox, 184.94295pt x 241.84856pt>
-
-File: ../../Figure/FlowChart.pdf Graphic file (type pdf)
-<use ../../Figure/FlowChart.pdf>
-Package pdftex.def Info: ../../Figure/FlowChart.pdf  used on input line 693. on
- input line 693.
+<../../../Figure/FlowChart.pdf, id=74, pagebox=cropbox, 184.94295pt x 241.84856
+pt>
+File: ../../../Figure/FlowChart.pdf Graphic file (type pdf)
+<use ../../../Figure/FlowChart.pdf>
+Package pdftex.def Info: ../../../Figure/FlowChart.pdf  used on input line 693.
+ on input line 693.
 Package pdftex.def Info: Requested size: 187.89914pt x 245.71909pt on input lin
 e 693.
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 708.
  [16]
-<../../model/carpipm/testOutputs/constantSurvival.pdf, id=78, pagebox=cropbox, 
-289.08pt x 289.08pt>
-File: ../../model/carpipm/testOutputs/constantSurvival.pdf Graphic file (type p
-df)
-<use ../../model/carpipm/testOutputs/constantSurvival.pdf>
-Package pdftex.def Info: ../../model/carpipm/testOutputs/constantSurvival.pdf  
-used on input line 727. on input line 727.
+<../../../model/carpipm/testOutputs/constantSurvival.pdf, id=78, pagebox=cropbo
+x, 289.08pt x 289.08pt>
+File: ../../../model/carpipm/testOutputs/constantSurvival.pdf Graphic file (typ
+e pdf)
+<use ../../../model/carpipm/testOutputs/constantSurvival.pdf>
+Package pdftex.def Info: ../../../model/carpipm/testOutputs/constantSurvival.pd
+f  used on input line 727. on input line 727.
 Package pdftex.def Info: Requested size: 93.94957pt x 93.94987pt on input line 
 727.
-<../../model/carpipm/testOutputs/growthKernal.pdf, id=79, pagebox=cropbox, 433.
-62pt x 289.08pt>
-File: ../../model/carpipm/testOutputs/growthKernal.pdf Graphic file (type pdf)
-<use ../../model/carpipm/testOutputs/growthKernal.pdf>
-Package pdftex.def Info: ../../model/carpipm/testOutputs/growthKernal.pdf  used
- on input line 733. on input line 733.
+<../../../model/carpipm/testOutputs/growthKernal.pdf, id=79, pagebox=cropbox, 4
+33.62pt x 289.08pt>
+File: ../../../model/carpipm/testOutputs/growthKernal.pdf Graphic file (type pd
+f)
+<use ../../../model/carpipm/testOutputs/growthKernal.pdf>
+Package pdftex.def Info: ../../../model/carpipm/testOutputs/growthKernal.pdf  u
+sed on input line 733. on input line 733.
 Package pdftex.def Info: Requested size: 140.92793pt x 93.94987pt on input line
  733.
-<../../model/carpipm/testOutputs/initialPopulation.pdf, id=80, pagebox=cropbox,
- 289.08pt x 289.08pt>
-File: ../../model/carpipm/testOutputs/initialPopulation.pdf Graphic file (type 
-pdf)
-<use ../../model/carpipm/testOutputs/initialPopulation.pdf>
-Package pdftex.def Info: ../../model/carpipm/testOutputs/initialPopulation.pdf 
- used on input line 739. on input line 739.
+<../../../model/carpipm/testOutputs/initialPopulation.pdf, id=80, pagebox=cropb
+ox, 289.08pt x 289.08pt>
+File: ../../../model/carpipm/testOutputs/initialPopulation.pdf Graphic file (ty
+pe pdf)
+<use ../../../model/carpipm/testOutputs/initialPopulation.pdf>
+Package pdftex.def Info: ../../../model/carpipm/testOutputs/initialPopulation.p
+df  used on input line 739. on input line 739.
 Package pdftex.def Info: Requested size: 93.94957pt x 93.94987pt on input line 
 739.
 
@@ -515,304 +516,316 @@ Underfull \hbox (badness 2197) in paragraph at lines 740--740
 []\OT1/cmr/m/n/9 (c) |Ini-tial pop-u-la-tion
  []
 
-[17 <../../Figure/FlowChart.pdf> <../../model/carpipm/testOutputs/constantSurvi
-val.pdf> <../../model/carpipm/testOutputs/growthKernal.pdf> <../../model/carpip
-m/testOutputs/initialPopulation.pdf>]
-<../../model/carpipm/testOutputs/popOut1.pdf, id=127, pagebox=cropbox, 289.08pt
- x 289.08pt>
-File: ../../model/carpipm/testOutputs/popOut1.pdf Graphic file (type pdf)
-<use ../../model/carpipm/testOutputs/popOut1.pdf>
-Package pdftex.def Info: ../../model/carpipm/testOutputs/popOut1.pdf  used on i
-nput line 759. on input line 759.
+[17 <../../../Figure/FlowChart.pdf> <../../../model/carpipm/testOutputs/constan
+tSurvival.pdf> <../../../model/carpipm/testOutputs/growthKernal.pdf> <../../../
+model/carpipm/testOutputs/initialPopulation.pdf>]
+<../../../model/carpipm/testOutputs/popOut1.pdf, id=127, pagebox=cropbox, 289.0
+8pt x 289.08pt>
+File: ../../../model/carpipm/testOutputs/popOut1.pdf Graphic file (type pdf)
+<use ../../../model/carpipm/testOutputs/popOut1.pdf>
+Package pdftex.def Info: ../../../model/carpipm/testOutputs/popOut1.pdf  used o
+n input line 759. on input line 759.
 Package pdftex.def Info: Requested size: 211.38832pt x 211.38834pt on input lin
 e 759.
-<../../model/carpipm/testOutputs/sizeOut1.pdf, id=128, pagebox=cropbox, 289.08p
-t x 289.08pt>
-File: ../../model/carpipm/testOutputs/sizeOut1.pdf Graphic file (type pdf)
-<use ../../model/carpipm/testOutputs/sizeOut1.pdf>
-Package pdftex.def Info: ../../model/carpipm/testOutputs/sizeOut1.pdf  used on 
-input line 765. on input line 765.
+<../../../model/carpipm/testOutputs/sizeOut1.pdf, id=128, pagebox=cropbox, 289.
+08pt x 289.08pt>
+File: ../../../model/carpipm/testOutputs/sizeOut1.pdf Graphic file (type pdf)
+<use ../../../model/carpipm/testOutputs/sizeOut1.pdf>
+Package pdftex.def Info: ../../../model/carpipm/testOutputs/sizeOut1.pdf  used 
+on input line 765. on input line 765.
 Package pdftex.def Info: Requested size: 211.38832pt x 211.38834pt on input lin
 e 765.
-<../../model/carpipm/testOutputs/varySurvival.pdf, id=129, pagebox=cropbox, 289
-.08pt x 289.08pt>
-File: ../../model/carpipm/testOutputs/varySurvival.pdf Graphic file (type pdf)
-<use ../../model/carpipm/testOutputs/varySurvival.pdf>
-Package pdftex.def Info: ../../model/carpipm/testOutputs/varySurvival.pdf  used
- on input line 782. on input line 782.
+<../../../model/carpipm/testOutputs/varySurvival.pdf, id=129, pagebox=cropbox, 
+289.08pt x 289.08pt>
+File: ../../../model/carpipm/testOutputs/varySurvival.pdf Graphic file (type pd
+f)
+<use ../../../model/carpipm/testOutputs/varySurvival.pdf>
+Package pdftex.def Info: ../../../model/carpipm/testOutputs/varySurvival.pdf  u
+sed on input line 782. on input line 782.
 Package pdftex.def Info: Requested size: 211.38832pt x 211.38834pt on input lin
 e 782.
-<../../model/carpipm/testOutputs/popOut2.pdf, id=130, pagebox=cropbox, 289.08pt
- x 289.08pt>
-File: ../../model/carpipm/testOutputs/popOut2.pdf Graphic file (type pdf)
-<use ../../model/carpipm/testOutputs/popOut2.pdf>
-Package pdftex.def Info: ../../model/carpipm/testOutputs/popOut2.pdf  used on i
-nput line 798. on input line 798.
+<../../../model/carpipm/testOutputs/popOut2.pdf, id=130, pagebox=cropbox, 289.0
+8pt x 289.08pt>
+File: ../../../model/carpipm/testOutputs/popOut2.pdf Graphic file (type pdf)
+<use ../../../model/carpipm/testOutputs/popOut2.pdf>
+Package pdftex.def Info: ../../../model/carpipm/testOutputs/popOut2.pdf  used o
+n input line 798. on input line 798.
 Package pdftex.def Info: Requested size: 140.92793pt x 140.92703pt on input lin
 e 798.
-<../../model/carpipm/testOutputs/sizeOut2.pdf, id=131, pagebox=cropbox, 289.08p
-t x 289.08pt>
-File: ../../model/carpipm/testOutputs/sizeOut2.pdf Graphic file (type pdf)
-<use ../../model/carpipm/testOutputs/sizeOut2.pdf>
-Package pdftex.def Info: ../../model/carpipm/testOutputs/sizeOut2.pdf  used on 
-input line 804. on input line 804.
+<../../../model/carpipm/testOutputs/sizeOut2.pdf, id=131, pagebox=cropbox, 289.
+08pt x 289.08pt>
+File: ../../../model/carpipm/testOutputs/sizeOut2.pdf Graphic file (type pdf)
+<use ../../../model/carpipm/testOutputs/sizeOut2.pdf>
+Package pdftex.def Info: ../../../model/carpipm/testOutputs/sizeOut2.pdf  used 
+on input line 804. on input line 804.
 Package pdftex.def Info: Requested size: 140.92793pt x 140.92703pt on input lin
 e 804.
-<../../model/carpipm/testOutputs/JuvenileSize.pdf, id=132, pagebox=cropbox, 289
-.08pt x 289.08pt>
-File: ../../model/carpipm/testOutputs/JuvenileSize.pdf Graphic file (type pdf)
-<use ../../model/carpipm/testOutputs/JuvenileSize.pdf>
-Package pdftex.def Info: ../../model/carpipm/testOutputs/JuvenileSize.pdf  used
- on input line 825. on input line 825.
+<../../../model/carpipm/testOutputs/JuvenileSize.pdf, id=132, pagebox=cropbox, 
+289.08pt x 289.08pt>
+File: ../../../model/carpipm/testOutputs/JuvenileSize.pdf Graphic file (type pd
+f)
+<use ../../../model/carpipm/testOutputs/JuvenileSize.pdf>
+Package pdftex.def Info: ../../../model/carpipm/testOutputs/JuvenileSize.pdf  u
+sed on input line 825. on input line 825.
 Package pdftex.def Info: Requested size: 211.38832pt x 211.38834pt on input lin
 e 825.
-<../../model/carpipm/testOutputs/probSpawning.pdf, id=133, pagebox=cropbox, 289
-.08pt x 289.08pt>
-File: ../../model/carpipm/testOutputs/probSpawning.pdf Graphic file (type pdf)
-<use ../../model/carpipm/testOutputs/probSpawning.pdf>
-Package pdftex.def Info: ../../model/carpipm/testOutputs/probSpawning.pdf  used
- on input line 831. on input line 831.
+<../../../model/carpipm/testOutputs/probSpawning.pdf, id=133, pagebox=cropbox, 
+289.08pt x 289.08pt>
+File: ../../../model/carpipm/testOutputs/probSpawning.pdf Graphic file (type pd
+f)
+<use ../../../model/carpipm/testOutputs/probSpawning.pdf>
+Package pdftex.def Info: ../../../model/carpipm/testOutputs/probSpawning.pdf  u
+sed on input line 831. on input line 831.
 Package pdftex.def Info: Requested size: 211.38832pt x 211.38834pt on input lin
 e 831.
-<../../model/carpipm/testOutputs/eggSize.pdf, id=134, pagebox=cropbox, 289.08pt
- x 289.08pt>
-File: ../../model/carpipm/testOutputs/eggSize.pdf Graphic file (type pdf)
-<use ../../model/carpipm/testOutputs/eggSize.pdf>
-Package pdftex.def Info: ../../model/carpipm/testOutputs/eggSize.pdf  used on i
-nput line 837. on input line 837.
+<../../../model/carpipm/testOutputs/eggSize.pdf, id=134, pagebox=cropbox, 289.0
+8pt x 289.08pt>
+File: ../../../model/carpipm/testOutputs/eggSize.pdf Graphic file (type pdf)
+<use ../../../model/carpipm/testOutputs/eggSize.pdf>
+Package pdftex.def Info: ../../../model/carpipm/testOutputs/eggSize.pdf  used o
+n input line 837. on input line 837.
 Package pdftex.def Info: Requested size: 211.38832pt x 211.38834pt on input lin
 e 837.
-<../../model/carpipm/testOutputs/popOut3.pdf, id=135, pagebox=cropbox, 289.08pt
- x 289.08pt>
-File: ../../model/carpipm/testOutputs/popOut3.pdf Graphic file (type pdf)
-<use ../../model/carpipm/testOutputs/popOut3.pdf>
-Package pdftex.def Info: ../../model/carpipm/testOutputs/popOut3.pdf  used on i
-nput line 853. on input line 853.
+<../../../model/carpipm/testOutputs/popOut3.pdf, id=135, pagebox=cropbox, 289.0
+8pt x 289.08pt>
+File: ../../../model/carpipm/testOutputs/popOut3.pdf Graphic file (type pdf)
+<use ../../../model/carpipm/testOutputs/popOut3.pdf>
+Package pdftex.def Info: ../../../model/carpipm/testOutputs/popOut3.pdf  used o
+n input line 853. on input line 853.
 Package pdftex.def Info: Requested size: 211.38832pt x 211.38834pt on input lin
 e 853.
-<../../model/carpipm/testOutputs/sizeOut3.pdf, id=136, pagebox=cropbox, 289.08p
-t x 289.08pt>
-File: ../../model/carpipm/testOutputs/sizeOut3.pdf Graphic file (type pdf)
-<use ../../model/carpipm/testOutputs/sizeOut3.pdf>
-Package pdftex.def Info: ../../model/carpipm/testOutputs/sizeOut3.pdf  used on 
-input line 859. on input line 859.
+<../../../model/carpipm/testOutputs/sizeOut3.pdf, id=136, pagebox=cropbox, 289.
+08pt x 289.08pt>
+File: ../../../model/carpipm/testOutputs/sizeOut3.pdf Graphic file (type pdf)
+<use ../../../model/carpipm/testOutputs/sizeOut3.pdf>
+Package pdftex.def Info: ../../../model/carpipm/testOutputs/sizeOut3.pdf  used 
+on input line 859. on input line 859.
 Package pdftex.def Info: Requested size: 211.38832pt x 211.38834pt on input lin
 e 859.
- [18 <../../model/carpipm/testOutputs/popOut1.pdf> <../../model/carpipm/testOut
-puts/sizeOut1.pdf>] [19 <../../model/carpipm/testOutputs/varySurvival.pdf> <../
-../model/carpipm/testOutputs/popOut2.pdf> <../../model/carpipm/testOutputs/size
-Out2.pdf>] [20 <../../model/carpipm/testOutputs/JuvenileSize.pdf> <../../model/
-carpipm/testOutputs/probSpawning.pdf> <../../model/carpipm/testOutputs/eggSize.
-pdf>]
-<../../model/carpipm/testOutputs/LW.pdf, id=190, pagebox=cropbox, 289.08pt x 28
-9.08pt>
-File: ../../model/carpipm/testOutputs/LW.pdf Graphic file (type pdf)
-<use ../../model/carpipm/testOutputs/LW.pdf>
-Package pdftex.def Info: ../../model/carpipm/testOutputs/LW.pdf  used on input 
-line 885. on input line 885.
+ [18 <../../../model/carpipm/testOutputs/popOut1.pdf> <../../../model/carpipm/t
+estOutputs/sizeOut1.pdf>]
+[19 <../../../model/carpipm/testOutputs/varySurvival.pdf> <../../../model/carpi
+pm/testOutputs/popOut2.pdf> <../../../model/carpipm/testOutputs/sizeOut2.pdf>]
+[20 <../../../model/carpipm/testOutputs/JuvenileSize.pdf> <../../../model/carpi
+pm/testOutputs/probSpawning.pdf> <../../../model/carpipm/testOutputs/eggSize.pd
+f>]
+<../../../model/carpipm/testOutputs/LW.pdf, id=190, pagebox=cropbox, 289.08pt x
+ 289.08pt>
+File: ../../../model/carpipm/testOutputs/LW.pdf Graphic file (type pdf)
+<use ../../../model/carpipm/testOutputs/LW.pdf>
+Package pdftex.def Info: ../../../model/carpipm/testOutputs/LW.pdf  used on inp
+ut line 885. on input line 885.
 Package pdftex.def Info: Requested size: 211.38832pt x 211.38834pt on input lin
 e 885.
-<../../model/carpipm/testOutputs/biomass.pdf, id=191, pagebox=cropbox, 289.08pt
- x 289.08pt>
-File: ../../model/carpipm/testOutputs/biomass.pdf Graphic file (type pdf)
-<use ../../model/carpipm/testOutputs/biomass.pdf>
-Package pdftex.def Info: ../../model/carpipm/testOutputs/biomass.pdf  used on i
-nput line 891. on input line 891.
+<../../../model/carpipm/testOutputs/biomass.pdf, id=191, pagebox=cropbox, 289.0
+8pt x 289.08pt>
+File: ../../../model/carpipm/testOutputs/biomass.pdf Graphic file (type pdf)
+<use ../../../model/carpipm/testOutputs/biomass.pdf>
+Package pdftex.def Info: ../../../model/carpipm/testOutputs/biomass.pdf  used o
+n input line 891. on input line 891.
 Package pdftex.def Info: Requested size: 211.38832pt x 211.38834pt on input lin
 e 891.
-<../../model/carpipm/testOutputs/popOut4.pdf, id=192, pagebox=cropbox, 289.08pt
- x 289.08pt>
-File: ../../model/carpipm/testOutputs/popOut4.pdf Graphic file (type pdf)
-<use ../../model/carpipm/testOutputs/popOut4.pdf>
-Package pdftex.def Info: ../../model/carpipm/testOutputs/popOut4.pdf  used on i
-nput line 906. on input line 906.
+<../../../model/carpipm/testOutputs/popOut4.pdf, id=192, pagebox=cropbox, 289.0
+8pt x 289.08pt>
+File: ../../../model/carpipm/testOutputs/popOut4.pdf Graphic file (type pdf)
+<use ../../../model/carpipm/testOutputs/popOut4.pdf>
+Package pdftex.def Info: ../../../model/carpipm/testOutputs/popOut4.pdf  used o
+n input line 906. on input line 906.
 Package pdftex.def Info: Requested size: 187.89914pt x 187.89977pt on input lin
 e 906.
-<../../model/carpipm/testOutputs/sizeOut4.pdf, id=193, pagebox=cropbox, 289.08p
-t x 289.08pt>
-File: ../../model/carpipm/testOutputs/sizeOut4.pdf Graphic file (type pdf)
-<use ../../model/carpipm/testOutputs/sizeOut4.pdf>
-Package pdftex.def Info: ../../model/carpipm/testOutputs/sizeOut4.pdf  used on 
-input line 912. on input line 912.
+<../../../model/carpipm/testOutputs/sizeOut4.pdf, id=193, pagebox=cropbox, 289.
+08pt x 289.08pt>
+File: ../../../model/carpipm/testOutputs/sizeOut4.pdf Graphic file (type pdf)
+<use ../../../model/carpipm/testOutputs/sizeOut4.pdf>
+Package pdftex.def Info: ../../../model/carpipm/testOutputs/sizeOut4.pdf  used 
+on input line 912. on input line 912.
 Package pdftex.def Info: Requested size: 187.89914pt x 187.89977pt on input lin
 e 912.
-<../../model/carpipm/testOutputs/popOut5.pdf, id=194, pagebox=cropbox, 289.08pt
- x 289.08pt>
-File: ../../model/carpipm/testOutputs/popOut5.pdf Graphic file (type pdf)
-<use ../../model/carpipm/testOutputs/popOut5.pdf>
-Package pdftex.def Info: ../../model/carpipm/testOutputs/popOut5.pdf  used on i
-nput line 918. on input line 918.
+<../../../model/carpipm/testOutputs/popOut5.pdf, id=194, pagebox=cropbox, 289.0
+8pt x 289.08pt>
+File: ../../../model/carpipm/testOutputs/popOut5.pdf Graphic file (type pdf)
+<use ../../../model/carpipm/testOutputs/popOut5.pdf>
+Package pdftex.def Info: ../../../model/carpipm/testOutputs/popOut5.pdf  used o
+n input line 918. on input line 918.
 Package pdftex.def Info: Requested size: 187.89914pt x 187.89977pt on input lin
 e 918.
-<../../model/carpipm/testOutputs/popOutHist5.pdf, id=195, pagebox=cropbox, 289.
-08pt x 289.08pt>
-File: ../../model/carpipm/testOutputs/popOutHist5.pdf Graphic file (type pdf)
-<use ../../model/carpipm/testOutputs/popOutHist5.pdf>
-Package pdftex.def Info: ../../model/carpipm/testOutputs/popOutHist5.pdf  used 
-on input line 924. on input line 924.
+<../../../model/carpipm/testOutputs/popOutHist5.pdf, id=195, pagebox=cropbox, 2
+89.08pt x 289.08pt>
+File: ../../../model/carpipm/testOutputs/popOutHist5.pdf Graphic file (type pdf
+)
+<use ../../../model/carpipm/testOutputs/popOutHist5.pdf>
+Package pdftex.def Info: ../../../model/carpipm/testOutputs/popOutHist5.pdf  us
+ed on input line 924. on input line 924.
 Package pdftex.def Info: Requested size: 187.89914pt x 187.89977pt on input lin
 e 924.
-<../../model/carpipm/testOutputs/sizeOut5.pdf, id=196, pagebox=cropbox, 289.08p
-t x 289.08pt>
-File: ../../model/carpipm/testOutputs/sizeOut5.pdf Graphic file (type pdf)
-<use ../../model/carpipm/testOutputs/sizeOut5.pdf>
-Package pdftex.def Info: ../../model/carpipm/testOutputs/sizeOut5.pdf  used on 
-input line 930. on input line 930.
+<../../../model/carpipm/testOutputs/sizeOut5.pdf, id=196, pagebox=cropbox, 289.
+08pt x 289.08pt>
+File: ../../../model/carpipm/testOutputs/sizeOut5.pdf Graphic file (type pdf)
+<use ../../../model/carpipm/testOutputs/sizeOut5.pdf>
+Package pdftex.def Info: ../../../model/carpipm/testOutputs/sizeOut5.pdf  used 
+on input line 930. on input line 930.
 Package pdftex.def Info: Requested size: 187.89914pt x 187.89977pt on input lin
 e 930.
- [21 <../../model/carpipm/testOutputs/popOut3.pdf> <../../model/carpipm/testOut
-puts/sizeOut3.pdf>] [22 <../../model/carpipm/testOutputs/LW.pdf> <../../model/c
-arpipm/testOutputs/biomass.pdf>]
-[23 <../../model/carpipm/testOutputs/popOut4.pdf> <../../model/carpipm/testOutp
-uts/sizeOut4.pdf> <../../model/carpipm/testOutputs/popOut5.pdf> <../../model/ca
-rpipm/testOutputs/popOutHist5.pdf> <../../model/carpipm/testOutputs/sizeOut5.pd
-f>]
-<../../model/carpipm/sensOut/eggTransition.pdf, id=254, pagebox=cropbox, 433.62
-pt x 289.08pt>
-File: ../../model/carpipm/sensOut/eggTransition.pdf Graphic file (type pdf)
-<use ../../model/carpipm/sensOut/eggTransition.pdf>
-Package pdftex.def Info: ../../model/carpipm/sensOut/eggTransition.pdf  used on
- input line 1024. on input line 1024.
+ [21 <../../../model/carpipm/testOutputs/popOut3.pdf> <../../../model/carpipm/t
+estOutputs/sizeOut3.pdf>] [22 <../../../model/carpipm/testOutputs/LW.pdf> <../.
+./../model/carpipm/testOutputs/biomass.pdf>] [23 <../../../model/carpipm/testOu
+tputs/popOut4.pdf> <../../../model/carpipm/testOutputs/sizeOut4.pdf> <../../../
+model/carpipm/testOutputs/popOut5.pdf> <../../../model/carpipm/testOutputs/popO
+utHist5.pdf> <../../../model/carpipm/testOutputs/sizeOut5.pdf>]
+<../../../model/carpipm/sensOut/eggTransition.pdf, id=254, pagebox=cropbox, 433
+.62pt x 289.08pt>
+File: ../../../model/carpipm/sensOut/eggTransition.pdf Graphic file (type pdf)
+<use ../../../model/carpipm/sensOut/eggTransition.pdf>
+Package pdftex.def Info: ../../../model/carpipm/sensOut/eggTransition.pdf  used
+ on input line 1024. on input line 1024.
 Package pdftex.def Info: Requested size: 211.38832pt x 140.92703pt on input lin
 e 1024.
-<../../model/carpipm/sensOut/eggkg.pdf, id=255, pagebox=cropbox, 433.62pt x 289
-.08pt>
-File: ../../model/carpipm/sensOut/eggkg.pdf Graphic file (type pdf)
-<use ../../model/carpipm/sensOut/eggkg.pdf>
-Package pdftex.def Info: ../../model/carpipm/sensOut/eggkg.pdf  used on input l
-ine 1029. on input line 1029.
+<../../../model/carpipm/sensOut/eggkg.pdf, id=255, pagebox=cropbox, 433.62pt x 
+289.08pt>
+File: ../../../model/carpipm/sensOut/eggkg.pdf Graphic file (type pdf)
+<use ../../../model/carpipm/sensOut/eggkg.pdf>
+Package pdftex.def Info: ../../../model/carpipm/sensOut/eggkg.pdf  used on inpu
+t line 1029. on input line 1029.
 Package pdftex.def Info: Requested size: 211.38832pt x 140.92703pt on input lin
 e 1029.
-<../../model/carpipm/sensOut/maxS.pdf, id=256, pagebox=cropbox, 433.62pt x 289.
-08pt>
-File: ../../model/carpipm/sensOut/maxS.pdf Graphic file (type pdf)
-<use ../../model/carpipm/sensOut/maxS.pdf>
-Package pdftex.def Info: ../../model/carpipm/sensOut/maxS.pdf  used on input li
-ne 1035. on input line 1035.
+<../../../model/carpipm/sensOut/maxS.pdf, id=256, pagebox=cropbox, 433.62pt x 2
+89.08pt>
+File: ../../../model/carpipm/sensOut/maxS.pdf Graphic file (type pdf)
+<use ../../../model/carpipm/sensOut/maxS.pdf>
+Package pdftex.def Info: ../../../model/carpipm/sensOut/maxS.pdf  used on input
+ line 1035. on input line 1035.
 Package pdftex.def Info: Requested size: 211.38832pt x 140.92703pt on input lin
 e 1035.
-<../../model/carpipm/sensOut/minS.pdf, id=257, pagebox=cropbox, 433.62pt x 289.
-08pt>
-File: ../../model/carpipm/sensOut/minS.pdf Graphic file (type pdf)
-<use ../../model/carpipm/sensOut/minS.pdf>
-Package pdftex.def Info: ../../model/carpipm/sensOut/minS.pdf  used on input li
-ne 1040. on input line 1040.
+<../../../model/carpipm/sensOut/minS.pdf, id=257, pagebox=cropbox, 433.62pt x 2
+89.08pt>
+File: ../../../model/carpipm/sensOut/minS.pdf Graphic file (type pdf)
+<use ../../../model/carpipm/sensOut/minS.pdf>
+Package pdftex.def Info: ../../../model/carpipm/sensOut/minS.pdf  used on input
+ line 1040. on input line 1040.
 Package pdftex.def Info: Requested size: 211.38832pt x 140.92703pt on input lin
 e 1040.
-<../../model/carpipm/sensOut/aG.pdf, id=258, pagebox=cropbox, 433.62pt x 289.08
-pt>
-File: ../../model/carpipm/sensOut/aG.pdf Graphic file (type pdf)
-<use ../../model/carpipm/sensOut/aG.pdf>
-Package pdftex.def Info: ../../model/carpipm/sensOut/aG.pdf  used on input line
- 1056. on input line 1056.
+<../../../model/carpipm/sensOut/aG.pdf, id=258, pagebox=cropbox, 433.62pt x 289
+.08pt>
+File: ../../../model/carpipm/sensOut/aG.pdf Graphic file (type pdf)
+<use ../../../model/carpipm/sensOut/aG.pdf>
+Package pdftex.def Info: ../../../model/carpipm/sensOut/aG.pdf  used on input l
+ine 1056. on input line 1056.
 Package pdftex.def Info: Requested size: 211.38832pt x 140.92703pt on input lin
 e 1056.
-<../../model/carpipm/sensOut/kG.pdf, id=259, pagebox=cropbox, 433.62pt x 289.08
-pt>
-File: ../../model/carpipm/sensOut/kG.pdf Graphic file (type pdf)
-<use ../../model/carpipm/sensOut/kG.pdf>
-Package pdftex.def Info: ../../model/carpipm/sensOut/kG.pdf  used on input line
- 1061. on input line 1061.
+<../../../model/carpipm/sensOut/kG.pdf, id=259, pagebox=cropbox, 433.62pt x 289
+.08pt>
+File: ../../../model/carpipm/sensOut/kG.pdf Graphic file (type pdf)
+<use ../../../model/carpipm/sensOut/kG.pdf>
+Package pdftex.def Info: ../../../model/carpipm/sensOut/kG.pdf  used on input l
+ine 1061. on input line 1061.
 Package pdftex.def Info: Requested size: 211.38832pt x 140.92703pt on input lin
 e 1061.
-<../../model/carpipm/sensOut/sigmaG.pdf, id=260, pagebox=cropbox, 433.62pt x 28
-9.08pt>
-File: ../../model/carpipm/sensOut/sigmaG.pdf Graphic file (type pdf)
-<use ../../model/carpipm/sensOut/sigmaG.pdf>
-Package pdftex.def Info: ../../model/carpipm/sensOut/sigmaG.pdf  used on input 
-line 1066. on input line 1066.
+<../../../model/carpipm/sensOut/sigmaG.pdf, id=260, pagebox=cropbox, 433.62pt x
+ 289.08pt>
+File: ../../../model/carpipm/sensOut/sigmaG.pdf Graphic file (type pdf)
+<use ../../../model/carpipm/sensOut/sigmaG.pdf>
+Package pdftex.def Info: ../../../model/carpipm/sensOut/sigmaG.pdf  used on inp
+ut line 1066. on input line 1066.
 Package pdftex.def Info: Requested size: 211.38832pt x 140.92703pt on input lin
 e 1066.
-<../../model/carpipm/sensOut/birthSexRatioFemales.pdf, id=261, pagebox=cropbox,
- 433.62pt x 289.08pt>
-File: ../../model/carpipm/sensOut/birthSexRatioFemales.pdf Graphic file (type p
-df)
-<use ../../model/carpipm/sensOut/birthSexRatioFemales.pdf>
-Package pdftex.def Info: ../../model/carpipm/sensOut/birthSexRatioFemales.pdf  
-used on input line 1071. on input line 1071.
+<../../../model/carpipm/sensOut/birthSexRatioFemales.pdf, id=261, pagebox=cropb
+ox, 433.62pt x 289.08pt>
+File: ../../../model/carpipm/sensOut/birthSexRatioFemales.pdf Graphic file (typ
+e pdf)
+<use ../../../model/carpipm/sensOut/birthSexRatioFemales.pdf>
+Package pdftex.def Info: ../../../model/carpipm/sensOut/birthSexRatioFemales.pd
+f  used on input line 1071. on input line 1071.
 Package pdftex.def Info: Requested size: 211.38832pt x 140.92703pt on input lin
 e 1071.
- [24] [25 <../../model/carpipm/sensOut/eggTransition.pdf> <../../model/carpipm/
-sensOut/eggkg.pdf> <../../model/carpipm/sensOut/maxS.pdf> <../../model/carpipm/
-sensOut/minS.pdf>] [26 <../../model/carpipm/sensOut/aG.pdf> <../../model/carpip
-m/sensOut/kG.pdf> <../../model/carpipm/sensOut/sigmaG.pdf> <../../model/carpipm
-/sensOut/birthSexRatioFemales.pdf>]
-<../../model/carpipm/sensOut/recoverTimeEggT.pdf, id=324, pagebox=cropbox, 433.
-62pt x 289.08pt>
-File: ../../model/carpipm/sensOut/recoverTimeEggT.pdf Graphic file (type pdf)
-<use ../../model/carpipm/sensOut/recoverTimeEggT.pdf>
-Package pdftex.def Info: ../../model/carpipm/sensOut/recoverTimeEggT.pdf  used 
-on input line 1122. on input line 1122.
+ [24]
+[25 <../../../model/carpipm/sensOut/eggTransition.pdf> <../../../model/carpipm/
+sensOut/eggkg.pdf> <../../../model/carpipm/sensOut/maxS.pdf> <../../../model/ca
+rpipm/sensOut/minS.pdf>] [26 <../../../model/carpipm/sensOut/aG.pdf> <../../../
+model/carpipm/sensOut/kG.pdf> <../../../model/carpipm/sensOut/sigmaG.pdf> <../.
+./../model/carpipm/sensOut/birthSexRatioFemales.pdf>]
+<../../../model/carpipm/sensOut/recoverTimeEggT.pdf, id=324, pagebox=cropbox, 4
+33.62pt x 289.08pt>
+File: ../../../model/carpipm/sensOut/recoverTimeEggT.pdf Graphic file (type pdf
+)
+<use ../../../model/carpipm/sensOut/recoverTimeEggT.pdf>
+Package pdftex.def Info: ../../../model/carpipm/sensOut/recoverTimeEggT.pdf  us
+ed on input line 1122. on input line 1122.
 Package pdftex.def Info: Requested size: 211.38832pt x 140.92703pt on input lin
 e 1122.
-<../../model/carpipm/sensOut/recoverTimeEggKg.pdf, id=325, pagebox=cropbox, 433
-.62pt x 289.08pt>
-File: ../../model/carpipm/sensOut/recoverTimeEggKg.pdf Graphic file (type pdf)
-<use ../../model/carpipm/sensOut/recoverTimeEggKg.pdf>
-Package pdftex.def Info: ../../model/carpipm/sensOut/recoverTimeEggKg.pdf  used
- on input line 1128. on input line 1128.
+<../../../model/carpipm/sensOut/recoverTimeEggKg.pdf, id=325, pagebox=cropbox, 
+433.62pt x 289.08pt>
+File: ../../../model/carpipm/sensOut/recoverTimeEggKg.pdf Graphic file (type pd
+f)
+<use ../../../model/carpipm/sensOut/recoverTimeEggKg.pdf>
+Package pdftex.def Info: ../../../model/carpipm/sensOut/recoverTimeEggKg.pdf  u
+sed on input line 1128. on input line 1128.
 Package pdftex.def Info: Requested size: 211.38832pt x 140.92703pt on input lin
 e 1128.
-<../../model/carpipm/sensOut/recoverTime_aG.pdf, id=326, pagebox=cropbox, 433.6
-2pt x 289.08pt>
-File: ../../model/carpipm/sensOut/recoverTime_aG.pdf Graphic file (type pdf)
-<use ../../model/carpipm/sensOut/recoverTime_aG.pdf>
-Package pdftex.def Info: ../../model/carpipm/sensOut/recoverTime_aG.pdf  used o
-n input line 1133. on input line 1133.
+<../../../model/carpipm/sensOut/recoverTime_aG.pdf, id=326, pagebox=cropbox, 43
+3.62pt x 289.08pt>
+File: ../../../model/carpipm/sensOut/recoverTime_aG.pdf Graphic file (type pdf)
+
+<use ../../../model/carpipm/sensOut/recoverTime_aG.pdf>
+Package pdftex.def Info: ../../../model/carpipm/sensOut/recoverTime_aG.pdf  use
+d on input line 1133. on input line 1133.
 Package pdftex.def Info: Requested size: 211.38832pt x 140.92703pt on input lin
 e 1133.
-<../../model/carpipm/sensOut/recoverTime_kG.pdf, id=327, pagebox=cropbox, 433.6
-2pt x 289.08pt>
-File: ../../model/carpipm/sensOut/recoverTime_kG.pdf Graphic file (type pdf)
-<use ../../model/carpipm/sensOut/recoverTime_kG.pdf>
-Package pdftex.def Info: ../../model/carpipm/sensOut/recoverTime_kG.pdf  used o
-n input line 1138. on input line 1138.
+<../../../model/carpipm/sensOut/recoverTime_kG.pdf, id=327, pagebox=cropbox, 43
+3.62pt x 289.08pt>
+File: ../../../model/carpipm/sensOut/recoverTime_kG.pdf Graphic file (type pdf)
+
+<use ../../../model/carpipm/sensOut/recoverTime_kG.pdf>
+Package pdftex.def Info: ../../../model/carpipm/sensOut/recoverTime_kG.pdf  use
+d on input line 1138. on input line 1138.
 Package pdftex.def Info: Requested size: 211.38832pt x 140.92703pt on input lin
 e 1138.
-<../../model/carpipm/sensOut/recoverTime_sigmaG.pdf, id=328, pagebox=cropbox, 4
-33.62pt x 289.08pt>
-File: ../../model/carpipm/sensOut/recoverTime_sigmaG.pdf Graphic file (type pdf
-)
-<use ../../model/carpipm/sensOut/recoverTime_sigmaG.pdf>
-Package pdftex.def Info: ../../model/carpipm/sensOut/recoverTime_sigmaG.pdf  us
-ed on input line 1143. on input line 1143.
+<../../../model/carpipm/sensOut/recoverTime_sigmaG.pdf, id=328, pagebox=cropbox
+, 433.62pt x 289.08pt>
+File: ../../../model/carpipm/sensOut/recoverTime_sigmaG.pdf Graphic file (type 
+pdf)
+<use ../../../model/carpipm/sensOut/recoverTime_sigmaG.pdf>
+Package pdftex.def Info: ../../../model/carpipm/sensOut/recoverTime_sigmaG.pdf 
+ used on input line 1143. on input line 1143.
 Package pdftex.def Info: Requested size: 211.38832pt x 140.92703pt on input lin
 e 1143.
-<../../model/carpipm/sensOut/recoverTime_birthSexRatioFemales.pdf, id=329, page
-box=cropbox, 433.62pt x 289.08pt>
-File: ../../model/carpipm/sensOut/recoverTime_birthSexRatioFemales.pdf Graphic 
-file (type pdf)
-<use ../../model/carpipm/sensOut/recoverTime_birthSexRatioFemales.pdf>
-Package pdftex.def Info: ../../model/carpipm/sensOut/recoverTime_birthSexRatioF
-emales.pdf  used on input line 1148. on input line 1148.
+<../../../model/carpipm/sensOut/recoverTime_birthSexRatioFemales.pdf, id=329, p
+agebox=cropbox, 433.62pt x 289.08pt>
+File: ../../../model/carpipm/sensOut/recoverTime_birthSexRatioFemales.pdf Graph
+ic file (type pdf)
+<use ../../../model/carpipm/sensOut/recoverTime_birthSexRatioFemales.pdf>
+Package pdftex.def Info: ../../../model/carpipm/sensOut/recoverTime_birthSexRat
+ioFemales.pdf  used on input line 1148. on input line 1148.
 Package pdftex.def Info: Requested size: 211.38832pt x 140.92703pt on input lin
 e 1148.
-<../../model/carpipm/sensOut/recoverTime_maxS.pdf, id=330, pagebox=cropbox, 433
-.62pt x 289.08pt>
-File: ../../model/carpipm/sensOut/recoverTime_maxS.pdf Graphic file (type pdf)
-<use ../../model/carpipm/sensOut/recoverTime_maxS.pdf>
-Package pdftex.def Info: ../../model/carpipm/sensOut/recoverTime_maxS.pdf  used
- on input line 1153. on input line 1153.
+<../../../model/carpipm/sensOut/recoverTime_maxS.pdf, id=330, pagebox=cropbox, 
+433.62pt x 289.08pt>
+File: ../../../model/carpipm/sensOut/recoverTime_maxS.pdf Graphic file (type pd
+f)
+<use ../../../model/carpipm/sensOut/recoverTime_maxS.pdf>
+Package pdftex.def Info: ../../../model/carpipm/sensOut/recoverTime_maxS.pdf  u
+sed on input line 1153. on input line 1153.
 Package pdftex.def Info: Requested size: 211.38832pt x 140.92703pt on input lin
 e 1153.
-<../../model/carpipm/sensOut/recoverTime_minS.pdf, id=331, pagebox=cropbox, 433
-.62pt x 289.08pt>
-File: ../../model/carpipm/sensOut/recoverTime_minS.pdf Graphic file (type pdf)
-<use ../../model/carpipm/sensOut/recoverTime_minS.pdf>
-Package pdftex.def Info: ../../model/carpipm/sensOut/recoverTime_minS.pdf  used
- on input line 1158. on input line 1158.
+<../../../model/carpipm/sensOut/recoverTime_minS.pdf, id=331, pagebox=cropbox, 
+433.62pt x 289.08pt>
+File: ../../../model/carpipm/sensOut/recoverTime_minS.pdf Graphic file (type pd
+f)
+<use ../../../model/carpipm/sensOut/recoverTime_minS.pdf>
+Package pdftex.def Info: ../../../model/carpipm/sensOut/recoverTime_minS.pdf  u
+sed on input line 1158. on input line 1158.
 Package pdftex.def Info: Requested size: 211.38832pt x 140.92703pt on input lin
 e 1158.
 
 
 LaTeX Warning: Float too large for page by 18.27812pt on input line 1164.
 
-[27] [28 <../../model/carpipm/sensOut/recoverTimeEggT.pdf> <../../model/carpipm
-/sensOut/recoverTimeEggKg.pdf> <../../model/carpipm/sensOut/recoverTime_aG.pdf>
- <../../model/carpipm/sensOut/recoverTime_kG.pdf> <../../model/carpipm/sensOut/
-recoverTime_sigmaG.pdf> <../../model/carpipm/sensOut/recoverTime_birthSexRatioF
-emales.pdf> <../../model/carpipm/sensOut/recoverTime_maxS.pdf> <../../model/car
-pipm/sensOut/recoverTime_minS.pdf>] (./TRACE_CarpModel.bbl
+[27] [28 <../../../model/carpipm/sensOut/recoverTimeEggT.pdf> <../../../model/c
+arpipm/sensOut/recoverTimeEggKg.pdf> <../../../model/carpipm/sensOut/recoverTim
+e_aG.pdf> <../../../model/carpipm/sensOut/recoverTime_kG.pdf> <../../../model/c
+arpipm/sensOut/recoverTime_sigmaG.pdf> <../../../model/carpipm/sensOut/recoverT
+ime_birthSexRatioFemales.pdf> <../../../model/carpipm/sensOut/recoverTime_maxS.
+pdf> <../../../model/carpipm/sensOut/recoverTime_minS.pdf>]
+(./TRACE_CarpModel.bbl
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ˜ in font cmr10!
@@ -830,15 +843,14 @@ Missing character: There is no “ in font cmr10!
 \tf@ptc=\write4
 \openout4 = `TRACE_CarpModel.ptc'.
 
-
-[32] (./TRACE_CarpModel.aux)
+ [32] (./TRACE_CarpModel.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
  5779 strings out of 492990
- 91275 string characters out of 6132636
+ 91728 string characters out of 6132636
  161197 words of memory out of 5000000
  9191 multiletter control sequences out of 15000+600000
  12013 words of font info for 46 fonts, out of 8000000 for 9000
@@ -864,7 +876,7 @@ ve/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/
 exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2017/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2017/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on TRACE_CarpModel.pdf (32 pages, 863885 bytes).
+Output written on TRACE_CarpModel.pdf (32 pages, 863994 bytes).
 PDF statistics:
  448 PDF objects out of 1000 (max. 8388607)
  300 compressed objects within 3 object streams
