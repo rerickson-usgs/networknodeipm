@@ -1,18 +1,62 @@
-## Spatially explicit integral projection model
+# Spatially explicit integral projection model
 
-This file contains the source code and script to run a spatially explicit integral projection (population)  model.
 
-The code has several "test" script files (sort of like a Unit Test, but only qualitative). Reading through these scripts allows for one to see how to use the model with different levels of complexity. 
+## Overview 
 
-The basic building blocks of the model are "groups". A group is a collection of fish based upon their sex that share a node. If sex-structure is ignored, there is only one group per node. In addition to females and males, the model currently support YY-males that bias the sex ratio and sterile males that decrease the offspring produced. In theory, the model allows for other groups, but their impact would need to be programmed into the model. 
+**Code purpose:** This file contains the source code and script to run a spatially explicit integral projection (population) model. The current model examples demonstrate the model for invasive carp, but could be applied to any species with spatially discrete populations. 
 
-The guts of the package are hosed in the `networkNodeIPM.py` file, which is loaded by the other scripts. The following test scripts increase in order of complexity:
+**Model documentation:** The model implemented with this code is described in a corresponding manuscript and TRACE documentation. 
 
-0. `groupDevelopmentCode.py` loads up a single group via code and runs it through time using a for loop.
-1. `nodeDevelopmentCode.py` loads up 3 single group into a node via code and runs it through time using a for loop. This code also includes YY-males.
-2. `networkDevelopmentCode.py` loads ups 2 node into a network via code and runs them using the network's functions. 
-3. `selfPopulatingCode.py` loads ups simple networks via CSV input files and uses the networks to run them. It also includes YY-male test cases and demonstrates the network's node plotting option.
-4. `timePeriodModel.py` loads up a simple 2 node mode that includes forced migration. 
+**Code software design:** The model was programmed using Python. 
+The most basic unit within the model are `groups`. 
+`Groups` occupy `nodes` and `nodes` are connected with `paths` to form `networks`. 
+A [Unified Modeling Language (UML) Diagram](https://en.wikipedia.org/wiki/Unified_Modeling_Language) is included in this [repository](./UMLdocuments/) to document the code architecture.
+
+**Software testing:** The code has several formal unit tests (i.e., files that start with `unitTest*`). 
+There are also several "non-unit" tests that check the plotting functions and allow for visual checks for the models results. 
+These files also demonstrate how the model may be used. 
+
+## Description of files and folders 
+
+0. `README.md`: this file
+1. `LICENSE`: USGS required license, also see Diesclaimer at the end of this page
+2. `UMLdocuments`: folder contains the UML Diagram for the model
+  - `uml-inherited.tex`: The LaTeX file used to generate the diagram
+  - `uml-inherited.pdf`: The PDF of the UML Diagram
+3. `inputParameters`: A folder with input parameter tables used for model testing. The column names are described in a `tutorial`.
+4. `modelFiles`: A folder with the Python source files
+   - `networkMode.py`: Contains files to build a basic network-node model
+   - `networkModelPopulated.py`: Adds in groups and populations to a network model
+   - `networkModelPopulateSex.py`: Adds in sex to groups model 
+   - `networkModelPopulateSterileMale.py`: Allows a class with sterile males to be inherited as a Python class 
+   - `networkModelPopulatedYYmale.py`: Allows a class with YY-males to be inheretited as a Python class
+   - `netowrkModelTimePeriods.py`: Allows within year time periods to be included within the model
+   - `nodeHarvest.py`: Allows nodes to include harvest
+5. `tutorial`: A placeholder folder for model tutorials
+   - `CSVinputFiles.md`: Describes how to populate models using csv files
+   - `OverviewOfModel.md`: Describes an overview of how use existing models that were presented within the paper
+   - `BuildingNewClasses.md`: Provides a high-level overview of how to build new classes with inheritance
+6. `testFiles`: Contains test files including unit tests and graphic tests that plot results (and are not formal unit tests)
+   - Formal unit tests:
+     - `unitTestNetwork.py`: Tests the `networkModel` module
+     - `unitTestNetworkPopulate.py`: Tests the `networkModelPopulate` module
+     - `unitTestNetworkPopulateSex.py`: Tests the `networkModelPopulateSex` module
+     - `unitTestNetworkPopulateYY.py`: Tests the `networkModelPopulateYY` module
+     - `unitTestNetworkPopulateSterile.py`: Tests the `networkModelPopulateSterileMale` module
+     - `unitTestNetworkPopulateProjectionFunction.py`: Tests the `networkModelPopulateProjectionFunction` module
+     - `unitTestNetworkTimePeriods.py`: Tests the `networkModelTimePeriods` module
+     - `unitTestNetworkHarvest.py`: Tests the `nodeHarvest` module
+   - Graphic test (non-unit tests, created to test plotting functions and visualize outputs from test cases)
+	 - `populatedMovementNetworkNonUnitTest.py`: Tests movement within the `networkModelPopulate` module
+	 - `populatedNetworkNonUnitTest.py`: Tests the `networkModelPopulate` module
+	 - `populatedNetworkSexNonUnitTest.py`: Tests the `networkModelPopulateSex` module
+	 - `populatedNetworkYYNonUnitTest.py`: Tests the `networkModelPopulateYYmale` module
+	 - `populatedNetworkSterileNonUntTest.py`: Tests the `networkModelPopulateSterileMale` module
+7. `simulationsDir`: Contains simulations used for the manuscript
+
+## Code contact
+
+This code was developed by Richard A. Erickson (rerickson@usgs.gov).
 
 ## Disclaimer
 

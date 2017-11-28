@@ -1,7 +1,10 @@
+import sys
+sys.path.append("../modelFiles")
 import networkModelPopulate as nmp
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+
 ''' 
 Ths file tests functions that do now work with unit testing
 such as plots and print to screen functions 
@@ -9,7 +12,7 @@ such as plots and print to screen functions
 
 
 ## Read in CSV files and create network 
-inputFolder = "./inputParameters/"
+inputFolder = "../inputParameters/"
 groupsFile = inputFolder + 'twoNodeTestGroupsMovement.csv'
 dfGroups = pd.read_csv(groupsFile)
 

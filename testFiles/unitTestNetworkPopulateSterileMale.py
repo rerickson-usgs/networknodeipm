@@ -1,10 +1,12 @@
-import networkModelPopulateSterileMale as nmpsm
-import networkModelPopulateSex as nmps
 import unittest
 import numpy as np
 import scipy.stats as stats
-import networkModelPopulate as nmp
 import pandas as pd 
+import sys
+sys.path.append("../modelFiles")
+import networkModelPopulate as nmp
+import networkModelPopulateSterileMale as nmpsm
+import networkModelPopulateSex as nmps
 
 
 # class test_groupWithSex( unittest.TestCase ):
@@ -27,7 +29,7 @@ class test_populatedNodeWithSex( unittest.TestCase):
     '''
     def test_networkCreation(self):
         ## Load files 
-        inputFolder = "./inputParameters/"
+        inputFolder = "../inputParameters/"
         groupsFile = inputFolder + 'twoNodeTestGroupsSterileMales.csv'
         dfGroups = pd.read_csv(groupsFile)
         

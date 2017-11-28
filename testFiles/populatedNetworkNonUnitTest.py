@@ -1,3 +1,5 @@
+import sys
+sys.path.append("../modelFiles")
 import networkModelPopulate as nmp
 import numpy as np
 import matplotlib.pyplot as plt
@@ -9,7 +11,7 @@ such as plots and print to screen functions
 
 
 ## Read in CSV files and create network 
-inputFolder = "./inputParameters/"
+inputFolder = "../inputParameters/"
 groupsFile = inputFolder + 'twoNodeTestGroups.csv'
 dfGroups = pd.read_csv(groupsFile)
 

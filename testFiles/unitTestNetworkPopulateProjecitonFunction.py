@@ -1,14 +1,16 @@
 import unittest
 import numpy as np
 import scipy.stats as stats
-import networkModelPopulate as nmp
 import pandas as pd
+import sys 
+sys.path.append("../modelFiles")
+import networkModelPopulate as nmp
 
 class test_csvPopulateNoGrowth( unittest.TestCase):
 
     def test_networkCreation(self):
         ## Load files 
-        inputFolder = "./inputParameters/"
+        inputFolder = "../inputParameters/"
         groupsFile = inputFolder + 'twoNodeTestGroupsNoBD.csv'
         dfGroups = pd.read_csv(groupsFile)
         

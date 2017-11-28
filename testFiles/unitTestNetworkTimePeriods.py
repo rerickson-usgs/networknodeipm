@@ -1,9 +1,12 @@
 import unittest
 import numpy as np
 import scipy.stats as stats
+import pandas as pd
+import sys 
+sys.path.append("../modelFiles")
 import networkModelPopulate as nmp
 import networkModelTimePeriods as nmtp
-import pandas as pd 
+
 
 class testNetworkTimePeriods( unittest.TestCase): 
 
@@ -25,7 +28,7 @@ class testMovementRun( unittest.TestCase):
     def testRunSim( self):
 
         ## Load files 
-        inputFolder = "./inputParameters/"
+        inputFolder = "../inputParameters/"
         groupsFile = inputFolder + 'threeNodeTestGroupsTimePeriodsNoBD.csv'
         dfGroups = pd.read_csv(groupsFile)
         
@@ -98,7 +101,7 @@ class testSimulationRun( unittest.TestCase):
     def testRunSim( self):
 
         ## Load files 
-        inputFolder = "./inputParameters/"
+        inputFolder = "../inputParameters/"
         groupsFile = inputFolder + 'threeNodeTestGroupsTimePeriodsNoBD.csv'
         dfGroups = pd.read_csv(groupsFile)
         
@@ -159,7 +162,7 @@ class testSimulationRunWithDeath( unittest.TestCase):
     def testRunSim( self):
 
         ## Load files 
-        inputFolder = "./inputParameters/"
+        inputFolder = "../inputParameters/"
         groupsFile = inputFolder + 'threeNodeTestGroupsTimePeriodsNoB.csv'
         dfGroups = pd.read_csv(groupsFile)
         

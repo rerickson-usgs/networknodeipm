@@ -1,8 +1,11 @@
 import unittest
 import numpy as np
 import scipy.stats as stats
-import networkModel as nm
 import pandas as pd 
+import sys
+sys.path.append("../modelFiles")
+import networkModel as nm
+
 
 
 class test_path( unittest.TestCase):

@@ -1,8 +1,11 @@
 import unittest
 import numpy as np
 import scipy.stats as stats
-import networkModelPopulate as nmp
 import pandas as pd 
+import sys
+sys.path.append("../modelFiles")
+import networkModelPopulate as nmp
+
 
 
 class test_populatedPath( unittest.TestCase):
@@ -405,7 +408,7 @@ class test_csvPopulate( unittest.TestCase):
 
     def test_networkCreation(self):
         ## Load files 
-        self.inputFolder = "./inputParameters/"
+        self.inputFolder = "../inputParameters/"
         self.groupsFile = self.inputFolder + 'twoNodeTestGroups.csv'
         self.dfGroups = pd.read_csv(self.groupsFile)
         
@@ -456,7 +459,7 @@ class test_csvPopulateMovement( unittest.TestCase):
 
     def test_networkCreation(self):
         ## Load files 
-        self.inputFolder = "./inputParameters/"
+        self.inputFolder = "../inputParameters/"
         self.groupsFile = self.inputFolder + 'twoNodeTestGroupsMovement.csv'
         self.dfGroups = pd.read_csv(self.groupsFile)
         
