@@ -158,6 +158,7 @@ class testSimulationRun( unittest.TestCase):
         self.assertAlmostEqual( network.nodes[2].showNodePopulation()[24], 3000.0)
 
 
+        
 class testSimulationRunWithDeath( unittest.TestCase):
     def testRunSim( self):
 

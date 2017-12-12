@@ -33,19 +33,29 @@ class populatedNodeWithSexSterileMale( nmps.populatedNodeWithSex):
         self.pathsIn = []
         self.pathsOut = {}
 
-    def projectGroups(self, year, omega, hWidth, nodeBiomass):
+    def projectGroups(self, year, omega, hWidth, nodeBiomass, nextYear = None):
         '''  projects population using midpoint rule.
              First dotproduct is growth/maturation.
              Second dotproduct is recruitment.
         '''
+
+        if nextYear is None:
+            nextYear = year+1
+            
         reproducingPopulation  = 0.0
 
         maleContribution   = np.array([grp.showRecruitmentViabilityMod() for grp in self.groups if grp.showSex() == 'male'])
-    
+
         malePop = np.array([grp.showPopYear(year)  for grp in self.groups
                             if grp.showSex() == 'male'])
 
-        maleViability = (maleContribution   * malePop / malePop.sum()).sum()
+        
+        if malePop.sum() == 0.0:
+            malePopSum = 1.0
+        else:
+            malePopSum = malePop.sum()
+        
+        maleViability = (maleContribution   * malePop / malePopSum ).sum()
         
         for grp in self.groups:
             ## First, sum up reruitment groups
@@ -67,9 +77,9 @@ class populatedNodeWithSexSterileMale( nmps.populatedNodeWithSex):
                             )
 
             if grp.showStocking():
-                grp.updatePopDistYear( year + 1, popAdd + grp.showStockingPopYear(year))
+                grp.updatePopDistYear( nextYear, popAdd + grp.showStockingPopYear(year))
             else:
-                grp.updatePopDistYear( year + 1, popAdd)
+                grp.updatePopDistYear( nextYear, popAdd)
 
 
 class createNetworkFromCSVwithSterileMale( nmps.createNetworkFromCSVwithSex):

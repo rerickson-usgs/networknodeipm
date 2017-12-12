@@ -64,7 +64,7 @@ class densityNegExp:
         self.a = a
         self.b = b
     def __call__(self, biomass):
-        out = self.a * np.exp( -1 *  self.b  * biomass)
+        out = self.a * np.exp( -1.0 *  self.b  * biomass)
         return out 
     
 class lengthWeight:
@@ -149,13 +149,11 @@ class populatedNode( nm.node, populatedHelpers):
                        np.dot(hWidth * grp.recruitment( omega, omega),
                               grp.showPopDistYear( year)) *  grp.density(nodeBiomass)
             )
-
             if grp.showStocking():
                 grp.updatePopDistYear( nextYear, popAdd + grp.showStockingPopYear(year))
             else:
                 grp.updatePopDistYear( nextYear, popAdd)
             
-
     def calculateNodePop(self):
         self.populationDistribution = 0.0
         for grp in self.groups:
@@ -333,9 +331,13 @@ class populatedNetwork( nm.network):
 
     def describeNetwork(self):
         print( str(self.networkName) + ' is a network with ' +
-               str(self.nNodes()) + ' nodes.' )
-
-
+               str(self.nNodes()) + ' nodes:')
+        for n in self.nodes:
+            print(n.showNodeName() + ' has the following paths out') 
+            print(n.showPathsOut() )
+            print( 'and the following paths in')
+            print(n.showPathsIn() )
+        
     def plotAllNodes(self, outName = None, showPlot = True, showGroups = False, saveData = None):
         nCol =  int(np.ceil(np.sqrt(self.nNodes())))
         nRow =  int(np.floor(np.sqrt(self.nNodes())))

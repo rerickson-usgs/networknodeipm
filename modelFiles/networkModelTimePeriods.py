@@ -25,12 +25,16 @@ class networkWithTimePeriod:
     to other netwowork classes. 
     '''
 
-    def __init__(self):
+    def __init__(self, networkName = "test network"):
         self.timePeriods = []
+        self.networkName = networkName
+        self.nodes = []
+        self.paths = []
+
         
     def addTimePeriods(self, timePeriodsIn):
         [ self.timePeriods.append( tp) for tp in timePeriodsIn ]
-
+        
     def showTimePeriods(self):
         return self.timePeriods
 
@@ -39,7 +43,6 @@ class networkWithTimePeriod:
         ## Run movement in two steps
         ## First, copy individuals onto a path
         pathUse = [p for p in self.paths if p.timePeriod == timePeriod]
-
         
         for p in pathUse:
             for nodeStart in self.nodes:
@@ -65,7 +68,7 @@ class networkWithTimePeriod:
         This function runs the network simulation and assumes 
         movement occures before spawning.
         '''
-        for yearIndex in range(1, self.nYears):            
+        for yearIndex in range(1, self.nYears):
             for tp in self.showTimePeriods():
                 ## Step 1, move groups 
                 self.moveGroups( yearIndex, yearIndex, tp)
@@ -78,17 +81,9 @@ class networkWithTimePeriod:
                         n.projectGroups(yearIndex, self.omega,
                                         self.hWidth, nodeBiomass = n.showNodeBiomass(),
                                         nextYear = yearIndex)
-        
-class createNetworkFromCSVwithTime( nmp.createNetworkFromCSV):
-    '''contains functions to populate a network from csv files'''
 
-    def __init__(self, dfNetwork, networkIn):
-        self.network = networkIn( dfNetwork['networkName'][0] )
-        self.network.setYears( dfNetwork['nYears'][0] )
-        self.network.setupNetworkMesh( dfNetwork['nPoints'][0],
-                                       dfNetwork['minLength'][0],
-                                       dfNetwork['maxLength'][0])
-        self.network.addTimePeriods( dfNetwork['timePeriods'][0].split(",") )
+class createNetworkFromCSVwithTimeBase:
+    '''contains functions to populate a network from csv files'''
 
     def addTimePeriodToPaths(self, pathIn):
         self.network.selfPopulatePaths( path = pathIn)
@@ -97,6 +92,7 @@ class createNetworkFromCSVwithTime( nmp.createNetworkFromCSV):
                 if pth.showEndNode() == nd.showNodeName():
                     pth.timePeriod = nd.timePeriod
 
+                    
     def addTimePeriodToNodes(self, dfNode):
 
         dfNodeUse = dfNode.query(str('network == ' + "'" +
@@ -107,3 +103,17 @@ class createNetworkFromCSVwithTime( nmp.createNetworkFromCSV):
             for n in self.network.nodes:
                 if n.showNodeName() == nodeRow[1]['node']:
                     n.addTimePeriod( nodeRow[1]['timePeriod'])    
+
+    def addNetworkTimePeriods( self, dfNetwork):
+        self.network.addTimePeriods( dfNetwork['timePeriods'][0].split(",") )
+        
+class createNetworkFromCSVwithTime( createNetworkFromCSVwithTimeBase, nmp.createNetworkFromCSV):
+    '''contains functions to populate a network from csv files'''
+
+    def __init__(self, dfNetwork, networkIn):
+        self.network = networkIn( dfNetwork['networkName'][0] )
+        self.network.setYears( dfNetwork['nYears'][0] )
+        self.network.setupNetworkMesh( dfNetwork['nPoints'][0],
+                                       dfNetwork['minLength'][0],
+                                       dfNetwork['maxLength'][0])
+        self.network.addTimePeriods( dfNetwork['timePeriods'][0].split(",") )
