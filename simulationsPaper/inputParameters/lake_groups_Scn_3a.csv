@@ -1,0 +1,13 @@
+network,node,groupName,groupSex,recruitmentGroup,recruitmentProportion,recruitmentViability,stocking,muS,sigmaS,popSize0,initMean,initS,alphaS,betaS,minS,maxS,aG,kG,sigmaG,alphaLW,betaLW,eggTransition,eggPerkg,muJ,sigmaJ,alphaR,betaR,minR,maxR,densityA,densityB
+fourNodeNetwork,"Lake, summer",female,female,TRUE,0.5,1,None,,,0,150,0.2,40,-5,0.1,0.9,180,0.15,10,-4.33,2.77,0.003,0,10,2,40,-4,0,1,1,1E-07
+fourNodeNetwork,"Lake, summer",male,male,FALSE,0.5,1,None,,,0,150,0.2,40,-5,0.1,0.9,180,0.15,10,-4.33,2.77,0.003,0,10,2,40,-4,0,1,1,1E-07
+fourNodeNetwork,"Lake, summer",sterile-male,male,FALSE,0,0,None,,,0,150,0.2,40,-5,0.1,0.45,180,0.15,10,-4.33,2.77,0.003,0,10,2,40,-4,0,1,1,1E-07
+fourNodeNetwork,"Lake, winter",female,female,TRUE,0.5,1,None,,,20000,150,0.2,40,-5,0.1,0.9,160,0.16,10,-4.33,2.77,0.003,0,10,2,40,-4,0,1,1,1E-07
+fourNodeNetwork,"Lake, winter",male,male,FALSE,0.5,1,None,,,20000,150,0.2,40,-5,0.1,0.9,180,0.15,10,-4.33,2.77,0.003,0,10,2,40,-4,0,1,1,1E-07
+fourNodeNetwork,"Lake, winter",sterile-male,male,FALSE,0,0,None,,,0,150,0.2,40,-5,0.1,0.45,180,0.15,10,-4.33,2.77,0.003,0,10,2,40,-4,0,1,1,1E-07
+fourNodeNetwork,Tributary 1,female,female,TRUE,0.5,1,None,,,0,150,0.2,40,-5,0.1,0.9,160,0.16,10,-4.33,2.77,0.003,5000,10,2,40,-4,0,1,1,1E-05
+fourNodeNetwork,Tributary 1,male,male,FALSE,0.5,1,None,,,0,150,0.2,40,-5,0.1,0.9,180,0.15,10,-4.33,2.77,0.003,0,10,2,40,-4,0,1,1,1E-05
+fourNodeNetwork,Tributary 1,sterile-male,male,FALSE,0,0,"10000, 30, 45 ",100,5,0,150,0.2,40,-5,0.1,0.45,180,0.15,10,-4.33,2.77,0.003,0,10,2,40,-4,0,1,1,1E-05
+fourNodeNetwork,Tributary 2,female,female,TRUE,0.5,1,None,,,0,150,0.2,40,-5,0.1,0.9,160,0.16,10,-4.33,2.77,0.003,5000,10,2,40,-4,0,1,1,1E-05
+fourNodeNetwork,Tributary 2,male,male,FALSE,0.5,1,None,,,0,150,0.2,40,-5,0.1,0.9,180,0.15,10,-4.33,2.77,0.003,0,10,2,40,-4,0,1,1,1E-05
+fourNodeNetwork,Tributary 2,sterile-male,male,FALSE,0,0,None,,,0,150,0.2,40,-5,0.1,0.45,180,0.15,10,-4.33,2.77,0.003,0,10,2,40,-4,0,1,1,1E-05

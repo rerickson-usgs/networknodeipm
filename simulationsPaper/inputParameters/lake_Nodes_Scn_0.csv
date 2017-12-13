@@ -1,0 +1,5 @@
+network,node,pathsOut,pathsOutProb,pathsIn,timePeriod
+fourNodeNetwork,"Lake, winter",path 1;path 2;path 3,0.15;0.75;0.10,path 4;path 5;path 6,winter
+fourNodeNetwork,"Lake, summer",path 4,1,path 1,summer
+fourNodeNetwork,Tributary 1,path 5,1,path 2,summer
+fourNodeNetwork,Tributary 2,path 6,1,path 3,summer

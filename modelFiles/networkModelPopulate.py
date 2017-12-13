@@ -341,19 +341,17 @@ class populatedNetwork( nm.network):
     def plotAllNodes(self, outName = None, showPlot = True, showGroups = False, saveData = None):
 
         
-        # nCol =  int(np.ceil(np.sqrt(self.nNodes())))
-        # nRow =  int(np.floor(np.sqrt(self.nNodes())))
+        # nCol =  int(np.ceil(  np.sqrt( self.nNodes() + 1)))
+        # nRow =  int(np.floor( np.sqrt( self.nNodes() ))
 
-        # if self.nNodes() > nCol * nRow:
-        #     nCol += 1 
             
-        tPlot, ax = plt.subplots(
-            self.nNodes(), sharex=True, sharey=True
+        tPlot, ax = plt.subplots( self.nNodes(), 
+                                 sharex=True, sharey=True
         )
 
-        # plotNodePop = np.zeros( (self.nYears + 1, self.nNodes()))
+        plotNodePop = np.zeros( (self.nYears + 1, self.nNodes()))
         for index in xrange(self.nNodes()):
-            # plotNodePop[ : , index] = self.nodes[index].showNodePopulation()
+            plotNodePop[ : , index] = self.nodes[index].showNodePopulation()
             ax[index].plot(np.arange(0,  self.nYears +1 , 1),  self.nodes[index].showNodePopulation())
             ax[index].set_title( self.nodes[index].showNodeName())
             if showGroups:
@@ -375,12 +373,28 @@ class populatedNetwork( nm.network):
             popDF = pd.DataFrame( plotNodePop, columns = nodeNames)
             popDF.to_csv(saveData, index = False)
 
+    def saveGroupData(self, saveGroupFile):
+        groupPopulations = np.zeros( (self.nYears + 1))
+        colNames =[]
+        for nd in self.nodes:
+            for grp in nd.groups:
+                colNames.append(nd.showNodeName() + "_" + grp.showGroupName())
+                groupPopulations = np.vstack( (groupPopulations,
+                                               grp.showPop() ) )
+
+        groupPopulations = np.delete(groupPopulations, 0, 0)
+        groupDF = pd.DataFrame( np.transpose(groupPopulations),
+                                columns = colNames)
+        groupDF.to_csv(saveGroupFile, index = False)
+            
     def setupNetworkMesh( self, nPoints, minLength, maxLength):
         self.nPoints = nPoints
         self.minLength = minLength
         self.maxLength = maxLength
 
-        self.omega = np.linspace( start = self.minLength, stop = self.maxLength, num = self.nPoints + 2)[1:-1]
+        self.omega = np.linspace( start = self.minLength,
+                                  stop = self.maxLength,
+                                  num = self.nPoints + 2)[1:-1]
         self.hWidth = self.omega[1] - self.omega[0]
 
         
