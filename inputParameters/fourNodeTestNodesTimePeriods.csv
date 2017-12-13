@@ -1,0 +1,5 @@
+network,node,pathsOut,pathsOutProb,pathsIn,timePeriod
+fourNodeNetwork,node 1,path 1,1,path 4;path 5,summer
+fourNodeNetwork,node 2,path 2;path 3, 0.55; 0.45,path 1,fall
+fourNodeNetwork,node 3,path 4,1,path 2,winter
+fourNodeNetwork,node 4,path 5,1,path 3,winter

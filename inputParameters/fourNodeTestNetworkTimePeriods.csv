@@ -1,0 +1,2 @@
+networkName,nYears,minLength,maxLength,nPoints,timePeriods
+fourNodeNetwork,25,0,450,200,"summer,fall,winter"

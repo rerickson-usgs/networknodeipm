@@ -93,8 +93,7 @@ class createNetworkFromCSVwithTimeBase:
                     pth.timePeriod = nd.timePeriod
 
                     
-    def addTimePeriodToNodes(self, dfNode):
-        print "adding time periods to nodes"
+    def addTimePeriodToNodes(self, dfNode):       
         dfNodeUse = dfNode.query(str('network == ' + "'" +
                                      self.network.showNetworkName() + "'"))
      

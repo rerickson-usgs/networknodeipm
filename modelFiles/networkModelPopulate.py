@@ -429,11 +429,9 @@ class createNetworkFromCSV:
         return pathsOutTemp
 
     def addNodesFromCSV( self, dfNode, nodeIn = populatedNode):
-        
         ## Extract out nodes from the network we are using
         ## (this allows a yet to be implement function for generating multiple networks from one set of files)
         dfNodeUse = dfNode.query(str('network == ' + "'" + self.network.showNetworkName() + "'"))
-     
         ## Loop through each node in the network and generate it
         for nodeRow in dfNodeUse.iterrows():
             ## Add in node's name
@@ -444,7 +442,7 @@ class createNetworkFromCSV:
             nodeTemp.addPathsOut( pathsOutTemp)
             nodeTemp.addPathsIn( nodeRow[1]['pathsIn'].split(";"))           
             self.network.addNodes([ nodeTemp])
-
+            
         # self.network.selfPopulatePaths()
             
     def standarizedLogNormal(self, omega,  sIn, scaleIn):                     
