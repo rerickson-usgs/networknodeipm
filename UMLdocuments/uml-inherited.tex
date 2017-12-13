@@ -102,8 +102,9 @@
 + moveGroups(self): self \\
 + showNetworkPop(sefl): array \\
 + calculateNetworkPop(self): self \\
-+ describeNetwork: print to screen\\
-+ plotAllNodes: print to screen \\
++ describeNetwork(self): print to screen\\
++ plotAllNodes(outName, showPlotTrue, showGroups, saveData): plot to screen, optionally writes files \\
++ saveGroupsData(saveGroupFile): csv file\\
 + setupNetworkMesh(nPoints, minLength, maxLength): self.omega \\
  }
   
@@ -369,6 +370,22 @@
 
  \umlimpl[geometry = |-, anchor1 = 180, anchor2 = 180]{createNetworkFromCSVwithSexSterileMale}{createNetworkFromCSVwithSex}
 
+
+\umlclass[x = -12, y = -7]{createNetworkFromCSVwithTimeBase}{
+}{
++ addTimePeriodsToPaths( pathIn): self\\
++ addTimePeriodToNodes( dfNode): self) \\
+ }
+
+
+\umlclass[x = -12, y = -10]{createNetworkFromCSVwithTime}{
+}{
++ \_\_init\_\_( dfNetwork, netowrkIn): self
+ }
+
+\umlimpl[geometry = |-, anchor1 = 180, anchor2 = 180]{createNetworkFromCSVwithTime}{createNetworkFromCSVwithTimeBase}
+
+\umlimpl[geometry = |-, anchor1 = 180, anchor2 = 180]{createNetworkFromCSVwithTime}{createNetworkFromCSVs}
 
 
 

@@ -61,7 +61,6 @@ print network.showNetworkPop()
 network.plotAllNodes(saveData = outputFolder + "out_" + scnName + "_" + scnNumber +  ".csv", showGroups = True)
 network.saveGroupData(saveGroupFile = outputFolder + "groups_" + scnName + "_" + scnNumber +  ".csv")
 
-
 print("Done")
 
 
