@@ -69,11 +69,15 @@ class populatedNodeWithSex( nmp.populatedNode):
         self.pathsIn = []
         self.pathsOut = {}
 
-    def projectGroups(self, year, omega, hWidth, nodeBiomass):
+    def projectGroups(self, year, omega, hWidth, nodeBiomass, nextYear = None):
         '''  projects population using midpoint rule.
              First dotproduct is growth/maturation.
              Second dotproduct is recruitment.
         '''
+
+        if nextYear is None:
+            nextYear = year + 1
+            
         reproducingPopulation  = 0.0
         for grp in self.groups:
             if grp.showRecruitmentGroup():

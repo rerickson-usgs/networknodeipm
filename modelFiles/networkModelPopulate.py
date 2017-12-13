@@ -339,11 +339,16 @@ class populatedNetwork( nm.network):
             print(n.showPathsIn() )
         
     def plotAllNodes(self, outName = None, showPlot = True, showGroups = False, saveData = None):
-        nCol =  int(np.ceil(np.sqrt(self.nNodes())))
-        nRow =  int(np.floor(np.sqrt(self.nNodes())))
 
+        
+        # nCol =  int(np.ceil(np.sqrt(self.nNodes())))
+        # nRow =  int(np.floor(np.sqrt(self.nNodes())))
+
+        # if self.nNodes() > nCol * nRow:
+        #     nCol += 1 
+            
         tPlot, ax = plt.subplots(
-            nrows = nRow, ncols= nCol, sharex=True, sharey=True
+            self.nNodes(), sharex=True, sharey=True
         )
 
         # plotNodePop = np.zeros( (self.nYears + 1, self.nNodes()))
