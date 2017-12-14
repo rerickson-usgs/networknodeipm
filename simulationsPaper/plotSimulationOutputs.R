@@ -118,7 +118,6 @@ for(rvScn in riverScenarios){
 }
 
 riverScenariosData <- copy(riverScenariosData[ Year != 51,])
-riverScenariosData
 
 riverScenariosData[, Barrier := factor(Barrier, labels = c("Baseline", "50%", "10%"))]
 riverScenariosData[ , Harvest := factor(Harvest,
@@ -142,11 +141,25 @@ t3[ , HarvestLocation := "Downriver"]
 
 riverScenariosDataPlot <- rbind(t1, t2, t3)
 
+unique(riverScenariosDataPlot$HarvestLocation)
+unique(riverScenariosDataPlot$HarvestLevel)
+
+riverScenariosDataPlot[ ,
+                       HarvestLevel := factor(HarvestLevel,
+                                              levels =
+                                                  unique(riverScenariosDataPlot$HarvestLevel)[c(4, 1:3)])]
+
+riverScenariosDataPlot[ , Barrier := factor(Barrier, levels = c("Baseline", "10%", "50%"))]
 
 
-ggplot(riverScenariosDataPlot, aes(x = Year,
-                                   y = Population,
-                                   color = HarvestLevel,
-                                   linetype = Barrier)) +
-    facet_grid(  HarvestLocation ~ Node) +
-    geom_line()
+riverPlotAll <- ggplot(riverScenariosDataPlot, aes(x = Year,
+                                                  y = Population,
+                                                  linetype = HarvestLocation,
+                                                  color = Barrier)) +
+    facet_grid(  Node ~ HarvestLevel, scales = "free_y") +
+    geom_line() +
+    scale_color_manual(values = c("red", "blue", "black")) +
+    scale_linetype("Harvest\nlocation")  +
+    theme_minimal()
+print(riverPlotAll)
+ggsave("riverPlotAll.pdf", riverPlotAll, width = 6, height = 6)
