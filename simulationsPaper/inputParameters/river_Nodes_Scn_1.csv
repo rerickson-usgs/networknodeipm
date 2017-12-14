@@ -1,0 +1,5 @@
+network,node,pathsOut,pathsOutProb,pathsIn
+fourNodeNetwork,Pool 1,path 1;path 2;path 3,0.30;0.10;0.025,path 4;path 7;path 10
+fourNodeNetwork,Pool 2,path 4; path 5;path 6,0.35;0.30;0.025,path 1;path 8;path 11
+fourNodeNetwork,Pool 3,path 7; path 8;path 9,0.20;0.30;0.125,path 2;path 5;path 12
+fourNodeNetwork,Pool 4,path 10; path 11;path 12,0.05;0.10;0.20,path 3;path 6;path 9

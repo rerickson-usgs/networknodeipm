@@ -1,0 +1,5 @@
+network,node,groupName,popSize0,initMean,initS,alphaS,betaS,minS,maxS,aG,kG,sigmaG,alphaLW,betaLW,eggTransition,eggPerkg,muJ,sigmaJ,alphaR,betaR,minR,maxR,densityA,densityB
+fourNodeNetwork,Pool 1,Pool 1 all,3000,150,0.2,40,-5,0.1,0.9,180,0.15,10,-4.33,2.77,0.0003,5000,10,2,40,-4,0,1,1,1.00E+06
+fourNodeNetwork,Pool 2,Pool 2 all,0,150,0.2,40,-5,0.1,0.9,180,0.15,10,-4.33,2.77,0.0003,300,10,2,40,-4,0,1,1,1.00E-05
+fourNodeNetwork,Pool 3,Pool 3 all,0,150,0.2,40,-5,0.1,0.9,180,0.15,10,-4.33,2.77,0,0,10,2,40,-4,0,1,1,1E-07
+fourNodeNetwork,Pool 4,Pool 4 all,0,150,0.2,40,-5,0.1,0.9,180,0.15,10,-4.33,2.77,0,0,10,2,40,-4,0,1,1,1E-07
