@@ -10,7 +10,7 @@ import riverHarvestWrapper as rhw
 '''
 Run river scnearios with harvest and barriersA
 '''
-harvestScn = ["noH", "H1", "H2", "H3", "H4", "H5", "H6", "H7", "H8"]
+harvestScn = ["noH", "H1", "H2", "H3", "H4", "H5", "H6"]
 scnNumber = ["Scn_0", "Scn_1", "Scn_2"]
 
 for hs in harvestScn:

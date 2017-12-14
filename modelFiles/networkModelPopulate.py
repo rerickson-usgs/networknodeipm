@@ -417,7 +417,7 @@ class populatedNetwork( nm.network):
 class createNetworkFromCSV:
     '''contains functions to populate a network from csv files'''
     
-    def __init__(self, dfNetwork):
+    def __init__(self, dfNetwork, populatedNetwork = populatedNetwork):
         self.network = populatedNetwork( dfNetwork['networkName'][0] )
         self.network.setYears( dfNetwork['nYears'][0] )
         self.network.setupNetworkMesh( dfNetwork['nPoints'][0],
