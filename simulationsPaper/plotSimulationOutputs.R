@@ -162,4 +162,4 @@ riverPlotAll <- ggplot(riverScenariosDataPlot, aes(x = Year,
     scale_linetype("Harvest\nlocation")  +
     theme_minimal()
 print(riverPlotAll)
-ggsave("riverPlotAll.pdf", riverPlotAll, width = 6, height = 6)
+ggsave("./summaryfigures/riverPlotAll.pdf", riverPlotAll, width = 6, height = 6)

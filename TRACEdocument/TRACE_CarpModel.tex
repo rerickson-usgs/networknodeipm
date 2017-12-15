@@ -108,7 +108,7 @@
 \pagestyle{fancy}
 \fancyhf{}
 
-\chead{TRACE document: Erickson et al. YY-male grass carp IPM}
+\chead{TRACE document: Erickson et al. Spatial IPM}
 \cfoot{\thepage}
 
 \begin{document}
@@ -117,10 +117,10 @@
 \textbf{{\huge TRACE document}}
 \end{center}
 
- This is a TRACE documentation (``TRAnsparent and Comprehensive model Evaludation''), 
+This is a TRACE documentation (``TRAnsparent and Comprehensive model Evaludation''), 
 which provides supporting evidence that our model presented in:
 \begin{center}
-\textbf{Erickson RA, Eager EA, Bray MK, Hansen MJ, and Kocovsky PM. An integral projection model with YY-males and application to evaluating grass carp control. Ecological Modelling.}
+\textbf{Erickson RA, Eager EA, Long, KR,  Kocovsky PM, Glover D, et al. A spatially discrete, integral projection model and its application to invasive carps. Interface.}
 \end{center}
 was thoughtfully designed, correctly implemented, thoroughly tested, well understood, and appropriately used for its intended purpose. 
 
@@ -149,78 +149,70 @@ Augusiak J, Van den Brink PJ, Grimm V. 2014. Merging validation and evaluation o
 
 \textbf{Summary:}
 \begin{verse}
-\textbf{
-Grass carp (\textit{Ctenopharyngodon idella}) are native to eastern Asia.
-The fish have been transported outside of their native range for weed control and have escaped into native habitats. 
-As an invasive species, grass carp disrupt native ecosystems and vegetation. 
-Controlling the species is important for conservation biology and fisheries management. 
-Population models are one tool for guiding carp control efforts and better understanding carp life history. 
-Possible management activities include containment through barriers, harvest, releasing YY-males, and developing carpicides.  
-All of these approaches would benefit from population models to guide management. 
-The objective of our model is assist in the control of grass carp. 
-The objective of the corresponding paper is to present and analyze our model.
-We also apply the model to compare different management scenarios with YY-males.
+\textbf{ Summary text goes here
+Resource managers and ecologists often seek to understand and model spatial dynamics of invasive species.
+These models can be applied to both the management of species (e.g., ``how many do we need to kill?'') and development new control methods (e.g., ``is approach \textit{X} a feasible tool that should be further developed?''). 
+We developed a spatially explicit, integral projection model that can be used to help managers. 
+We demonstrate the use of the modeling framework on a lake-tributary system and a series of river pools for grass carp.
+We did not parameterize our system to any specific system of grass carp.
+More broadly, our model could readily be adapted to other species (aquatic or terrestrial). 
 }
 \end{verse}
 
-Grass carp are native to castern Asian and range from the Amur River of eastern Russia to the West River of southern China \citep{shireman1983synopsis}.
-The range also gives it another common name, white Amur.
-The species feeds on aquatic vegetation and has been introduced around the world, including Malaysia, Taiwan, Japan, easter Europe, Holland, German, and the United States of America \citep{cross1969aquatic}.
-Although effective at weed control, the species has also escaped into the wild and disrupts native ecosystems \citep{chapman2013first}.
-The species decimates native macrophyte communities, which in turn alter ecosystem function, habitat structure, community process, and food web dynamics \citep{dibble2009ecological}.
-Within North America, grass carp were first proposed to be released in 1957 \citep{swingle:1957} and first released six years later \citep{bain1993assessing}.
-Grass carp quick spread from release sites and have dispersed to other  systems including the Mississippi River \citep{bain1993assessing} and Great Lakes \citep{chapman2013first} (Figure \ref{fig:carpMap}).
+\textit{Decision making context:}
+Resource managers use population models to guide management.
+For example, conservation biologists use population models to prevent the extinction of endangered species, fish and game biologists use population models to management fisheries and game species, ecotoxicologists use population models to assess population-level risks, and  invasion biologists use population models to control invasive species \citep{morris2002quantitative}.
+For invasive species, population models provide can provide guidance for the control of species.
+For example, how many fish of what size should be harvested when and where \citep[e.g.,][]{tsehaye2013prospects}?
+Also for invasive species, population models can guide the development of control tools.
+For example, would YY-males be a feasible control tool for a specific fish species \citep[e.g.,][]{Erickson:2017ecomod, schill2017simulated}?
+When the spatial dynamics of the populations are important, the models must consider these dynamics as well \citep{strasser2012contributions}. 
+We created our model specifically for resource managers seeking to compare control techniques and management scenarios for species that live in discrete spatial populations. 
+That being said, our model should apply to any species with discrete spatial populations that has either continuous growth (i.e., one can use an integral projection model to describe the species life history) or discrete size or age stages (i.e., ``matrix model'' style growth). 
+Although we do not consider the second life history within this presentation, our code is generalizable enough to include this situation because ``matrix models'' (i.e., difference equations) are a special case of integral projection models \citep{Ellner:2010IPM}.
 
+\textit{Model clients or stakeholders:}
+Our specific presentation of a spatially explicit integral projection model targets resource managers controlling invasive fish species.
+These clients would include state/provincial agencies (e.g., the Michigan or Illinois Department of Natural Resources), national agencies (e.g., the United States Fish and Wildlife Service or Environment Canada), NGO seeking to control invasive species, or private companies developing new control methods (e.g., YY-males or sterile male fish). 
+With our specific system, we assume the fish exhibit some form of spatially discrete habitat this use.
+This could be seasonal migration in and out of tributaries or discrete pools on a river due to dams or other impediments 
 
-\begin{figure}[htbp]
-   \centering  
-   \includegraphics[width=0.75\textwidth]{carpMap.pdf} % requires the graphicx package
-   \caption{Species distribution map of grass carp (\textit{Ctenopharyngodon idella}) in the continental United States. Map is was generated by the USGS on 22 December 2016 and accessed 23 January 2017 (\protect\url{https://nas.er.usgs.gov/queries/factsheet.aspx?SpeciesID=514}). The figure was created by Nico, L.G., P.L. Fuller, P.J. Schofield, M.E. Neilson, A.J. Benson, and J. Li while working for the US Government and is in the public domain.}
-   \label{fig:carpMap}
-\end{figure}
-
-Grass carp management has changed in the United States and North America through time. 
-Initial management of grass carp actually focused on increasing individual survival because the species was (and still is to some) a desirable aquatic weed control species \citep[e.g.,][]{cross1969aquatic, mitzner1978evaluation, kilambi1979effects, rottmann1991comparison}.
-Shortly after the first grass carp were introduced to North America, managers noted adverse effects of grass carp and the introduction of sterile individuals (e.g., triploids) were used to limit the impact of introduced carp \citep{chilton1992biology}.  
-Management of grass carp  in many areas of North America has now changed to focusing on limiting invasions, monitoring invasion, and controlling the species \citep{chapman2013first, wittmann2014grass}. 
-Several different species of carp have been introduced to North America and control techniques developed for these and other fishes may also be applicable to grass carp as well.
-Possible tools include acoustical conditioning \citep{sloan2013acoustical},
-new carpicides \citep{putnam2017using},
-commercial harvest \citep{colvin2012strategies},
-and the release of YY-males that only produce male offspring \citep{schill2016production}.
-Prior to the expensive development and implementations of these and other possible management options, managers and researchers may wish to evaluate the effectiveness of the approaches. 
-Mathematical models are one method for running ecological simulations \citep{bolker2008ecological}.
-Additionally, mathematical theory can be applied to ``optimize'' management \citep{lenhart2007optimal} or at a minimum, allow different management strategies to be compared \citep{caswell_matrix_2001, morris2002quantitative}.
-
-Mathematically, several population models have been developed for invasive carp \citep[e.g., silver carp, bighead carp, common carp;][]{lorenzen1995population, williamson2005growth, tsehaye2013prospects,cuddington2014could} including grass carp \citep{kirk2000population}.
-The life history of carps (family Cyprinidae) is likely conserved enough that these models could be re-parameterized for grass carp and \citet{lorenzen1995population} presents a generic fisheries model that includes carps.
-However, these models are not applicable to our management questions. 
-First, the models tend to be designed for specific locations and questions that differ from ours.
-Second, none of these models differentiate carp by sex nor do they include YY-males.
-Last, the grass carp model \citet{kirk2000population} does not include sufficient details to reproduce the model, highlighting the need for documentation such as TRACE and ODD \citep{schmolke2010ecological, augusiak2014merging}.
-These modeling gaps point to the need for a new carp model that can be readily adapted to new management scenarios. 
-Our model was designed to explore different population-level management options of grass carp by resource managers.
-Possible organizations that might use our model include international organizations (e.g., the Great Lakes Fisheries Commission), national management agencies (e.g., the US Army Corps of Engineers, the US Fish and Wildlife Service, Environment Canada), state/provincial agencies, and other groups (e.g., NGOs, local governments). 
-The model could also be used to help guide conservation of the species in its native range, where the species has declined due to overfishing \citep{shireman1983synopsis}
-
-As an additional modeling consideration, previous models have tended to be difference equations or differential equations that discretize carp size (e.g., matrix models) or ignore size/age structure. 
-However, carp, like most fish, grow continuously and change in size through time. 
-Hence an integral projection model would more accurately reflect the life history of the species \citep{ellner2006integral, ramula2009integral, merow2014advancing}. 
-
-
-Our model produces two state-variables for a population: the population number (e.g,. 1,000 carp at year 10) and the population size distribution (e.g., the length of the fish at year 10 was a binomial distribution with modes at\ldots).
-We specifically designed the model to answer the following question:
+\textit{Model questions:}
+We presented our model as a broad, theoretical framework. 
+With our case studies we examined two situations.
+First, we examined the use of modified fish as a control tool in a system with a lake and two tributaries.
+The broad management goal for this system is to eradicate the invasive fish species. 
+We specifically asked two questions:
 \begin{enumerate}
-\item How many YY-males must be released to cause quasi-extinction for a population? and
-\item How long will the stocked males persist in the environment?
-\end{enumerate} 
-Answering these questions will help managers evaluate the potential for using YY-males to control grass carp.  
+\item How many sterile males would need to be released to cause the population to go extinct?
+\item Would modifying the released sterile males to have a shorter lifespan decrease their population size while still producing similar control results as the above question? 
+\end{enumerate}
+Second, we examined a riparian system that was comprised of a series connected pools.
+The management goal for this system is to decrease the population in the uppermost node.
+For example, fisheries managers seek to prevent the spread of invasive carp from the Illinois/Mississippi Rivers system to the Great Lakes or fisheries managers week to prevent the spread of invasive carp from the Lower Mississippi River into the Upper Mississippi River or other waterways in Minnesota.
+We specifically ask three questions with this system:
+\begin{enumerate}
+\item What level of carp harvest is necessary to decrease the the population in the upper most pool?
+\item Where should this harvest occur? i.e., the upper pools or the lower pools? 
+\item What impact does including a barrier have on managing the population? 
+\end{enumerate}
+Our model tracks the population number and size distribution in each node and keeps track of the fish sex groups for the first objective.  
+We did not parameterize our model specifically for these systems because these parameterizations would be beyond the scope of this manuscript. 
 
-% \textbf{Summary contents \(<\)Optional table of contents\(>\)}
-% \startcontents[sections]
-% \printcontents[sections]{ }{2}{}
+\textit{Domain of applicability of the model:}
+As presented, our model directly applies to fisheries management.
+The case studies highlight  this specific application.
+Our model could readily be adapted to other aquatic species that are demographically similar to \textit{Cyprinids}. 
+More broadly, our model creates a framework for demographic, spatially explicit population models that account for the full-annual life cycle.
+We extend the full-annual cycle work for \citet{hostetler2015full}.
+We also extend the network-node framework developed by \citet{Taylor:2010}.
+The model also demonstrates population dynamics such as the ``knock-on-effect'', which was described by \citep{betini2015experimental}.
+Our work also ties into resent work for creating broad, spatially explicit models for migratory species that emerged from a NIMBioS Working group \citep[e.g.,][]{wiederholt2017estimating, sample2017general, erickson2017defining, bieriGuide2018}.
+Our model could be adapted to a wide range of species given minor adjustments. 
 
-% \stopcontents[sections]
+
+
+
 
 \section{Model description}\label{sec:md}
 \textbf{This TRACE element provides supporting information on:} The model. Provide a detailed written model description. For individual/agent-based and other simulation models, the ODD protocol is recommended as standard format. For complex submodels it should include concise explanations of the underlying rationale. Model users should learn what the model is, how it works, and what guided its design.
@@ -229,9 +221,10 @@ Answering these questions will help managers evaluate the potential for using YY
 \textbf{Summary:}
 \begin{verse}
 \textbf{
-Our model is an integral projection model.
-The model is designed to guide control of the species.
-This section describes the model's equations and lists the sources for the model's parameters.
+Stuff here
+%Our model is an integral projection model.
+%The model is designed to guide control of the species.
+%This section describes the model's equations and lists the sources for the model's parameters.
 }
 \end{verse}
 
@@ -245,29 +238,80 @@ This section describes the model's equations and lists the sources for the model
 
 \subsection{Purpose}
 
-Our model exists to allow managers and researchers to compare different grass carp management scenarios, specifically, the use of YY-males to control grass carp.
-However, the model could be applied to other carp species through reparameterization and other management scenarios by including those sources of mortality. 
-Additionally, our parameter values were chosen to reflect management of grass carp in Lake Erie, but the model could be adapted to other locations.
+We created this model to allow managers and researchers to compare different spatially explicit management approaches.
+We were specifically motivated by managers wanting to compare different management scenarios and new, theoretical technologies (e.g., YY-males, sterile-males, or other modified organisms) for invasive carps. 
+Our model allows for the comparison of different management strategies (e.g., harvest, barriers) and new control technologies to meet this need.
+We also sought to create a generalizable framework as we addressed these needs. 
 
 \subsection{Entities, state variables, and scales}
 
-Our model's entity is a single population of grass carp.
-The state variables are the number of carp in a population and their size distribution. 
-The population is broken down into three sub-populations: females, males, and YY-males.
-The model's scale is based upon the biomass capacity of the system.
-Different scenarios were examined because of uncertainty about the number of carp in Lake Erie. 
+Our model's entities are ``groups'' of carp. 
+Groups occupy nodes, which are connected via edges.
+These are roughly analogous to age- or stage-classes in a matrix model.
+We choose the term ``group'' because ``class'' has a special meaning in the Python programming language (and, more broadly, most Object Orientated programming languages). 
+The state variables are the number of carp in a group and their size distribution.
+The amount of biomass in each node scales the system (i.e., controls the population size). 
 
 \subsection{Process overview and scheduling}
 
 Mathematically, our model has an annual time step.
-First, the total biomass is calculated based upon the relationship between length and weight. 
-Next, the population from the previous year matures based upon the growth kernel (i.e., individuals grow or shrink in length). 
-The population from the previous year survives and produces recruits. 
-The number of recruits produced depends upon the probability of reproducing, which is a function of size; the number of eggs produced, which is a function of size; the adult survival for the current year; and the egg transition to age-1 fish parameter (this parameter includes successful spawning, fertilization, and first-year survival).
-The number of eggs produced is mapped to new individuals by a distribution of initial recruit length.
-The process can also include stochastic spawning pulses.
-The new recruits are divided into males and females based upon a sex ratio.
-The sex ratio is altered by the ratio of YY-males to XY-males in a linear relationship. 
+We present the model with two different process options.
+One model has time periods within each year (i.e., seasons).
+The second model does not have time periods within season. 
+Each of these models have similar process, with the seasonality introducing an extra step. 
+In pseudo-code, the two models have the following flow through: 
+
+\noindent \textit{Model with time periods}
+
+\begin{enumerate}
+\item Year loop
+	\begin{enumerate}
+	\item Time period loop
+		\begin{enumerate}
+		\item Move individuals among nodes 
+		\item Node loop
+			\begin{enumerate}
+			\item Calculate node biomass
+			\item Calculate sex-ratio or other relevant ratios for reproduction
+			\item Group loop
+				\begin{itemize}
+				\item Project group growth
+				\item Project group recruitment
+				\end{itemize}
+			\end{enumerate}
+		\end{enumerate}
+	\end{enumerate}
+\end{enumerate}
+
+
+
+\noindent \textit{Model without time periods}
+
+\begin{enumerate}
+\item Year loop
+	\begin{enumerate}
+	\item Move individuals among nodes 
+	\item Node loop
+		\begin{enumerate}
+		\item Calculate node biomass			\item Calculate sex-ratio or other relevant ratios for reproduction
+
+		\item Group loop
+			\begin{itemize}
+			\item Project group growth
+			\item Project group recruitment
+			\end{itemize}
+		\end{enumerate}
+	\end{enumerate}
+\end{enumerate}
+
+%First, the total biomass is calculated based upon the relationship between length and weight. 
+%Next, the population from the previous year matures based upon the growth kernel (i.e., individuals grow or shrink in length). 
+%The population from the previous year survives and produces recruits. 
+%The number of recruits produced depends upon the probability of reproducing, which is a function of size; the number of eggs produced, which is a function of size; the adult survival for the current year; and the egg transition to age-1 fish parameter (this parameter includes successful spawning, fertilization, and first-year survival).
+%The number of eggs produced is mapped to new individuals by a distribution of initial recruit length.
+%The process can also include stochastic spawning pulses.
+%The new recruits are divided into males and females based upon a sex ratio.
+%The sex ratio is altered by the ratio of YY-males to XY-males in a linear relationship. 
 
 
 
@@ -275,11 +319,11 @@ The sex ratio is altered by the ratio of YY-males to XY-males in a linear relati
 
 \subsubsection{Basic principles}\label{sec:bp}
 
-Fish experience asymptotic growth and continue to grow throughout their lives \citep{lagler1962john}.
-Integral projection models (IPMs) are a mathematical methods for describing this biological process \citep{ellner2006integral, merow2014advancing}.
-In turn, IPMs form the background of this model. 
-This also assumes that grass carp's life history is a function of their size. 
-Specifically, this means that the survival, eggs produced, and probability of spawning change as a function of size. 
+%Fish experience asymptotic growth and continue to grow throughout their lives \citep{lagler1962john}.
+%Integral projection models (IPMs) are a mathematical methods for describing this biological process \citep{ellner2006integral, merow2014advancing}.
+%In turn, IPMs form the background of this model. 
+%This also assumes that grass carp's life history is a function of their size. 
+%Specifically, this means that the survival, eggs produced, and probability of spawning change as a function of size. 
 
 \subsubsection{Emergence}
 
@@ -701,248 +745,249 @@ These individuals appear to have similar lifespans based upon research from rese
 
 \textbf{Summary:}
 \begin{verse}
-\textbf{
-The model was programmed as an R package.
-This was checked using the \texttt{R CMD check} and \texttt{R CMD build} functions. 
-Test functions were also used to  examine the model's output and verify the outputs behaved as expected.
+\textbf{ 
+Summary text goes here
+%The model was programmed as an R package.
+%This was checked using the \texttt{R CMD check} and \texttt{R CMD build} functions. 
+%Test functions were also used to  examine the model's output and verify the outputs behaved as expected.
 }
 \end{verse}
 
-Our model was coded as an R package.
-The first tests our code went through were the \texttt{R CMD check} and the \texttt{R CMD build} functions.
-These functions build the package and make sure it can pass the CRAN Tests for documentation.
-They also ensure the examples work.
-Our second round of verification examined the model's behavior under different test conditions.
-These conditions start simple and expand upon the simulations complexity. 
+%Our model was coded as an R package.
+%The first tests our code went through were the \texttt{R CMD check} and the \texttt{R CMD build} functions.
+%These functions build the package and make sure it can pass the CRAN Tests for documentation.
+%They also ensure the examples work.
+%Our second round of verification examined the model's behavior under different test conditions.
+%These conditions start simple and expand upon the simulations complexity. 
 
 
-\subsection{Examine growth without mortality}\label{egwm}
-
-The first scenario had no mortality (Figure \ref{fig:suv1}) or recruitment and examined how grass carp would grow through time (Figure \ref{fig:grow1}).
-The initial population size distribution was log normal (Figure \ref{fig:ip1}).
-
-\begin{figure}[htbp]
-	\centering
-	\begin{subfigure}[b]{0.2\textwidth}
-		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/constantSurvival.pdf} 
-		\caption{Survival function} 
-		\label{fig:suv1}
-	\end{subfigure}
-	\qquad
-	\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/growthKernal.pdf} 
-		\caption{Growth kernel} 
-		\label{fig:grow1}
-	\end{subfigure}
-	\qquad
-	\begin{subfigure}[b]{0.2\textwidth}
-		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/initialPopulation.pdf} 
-		\caption{Initial population distribution} 
-		\label{fig:ip1}
-	\end{subfigure}
-   \caption{Input functions for Scenario \ref{egwm}.}
-   \label{fig:scn1}
-\end{figure}
-
-The dominant eigenvalue of this system is 1.
-If it was not, then there might be problems with the numerical methods or the mesh size may need to be adjusted. 
-The output population is constant (Figure \ref{fig:pop1}). 
-If the population changed or the leading eigenvalue was not 1, there may be numerical problems or wrong parameters used.
-For example, when debugging the mid-point rule, individuals would be lost because the dominant eigenvalue was \texttt{0.998}.
-The size distribution grows until a stable distribution is reached (Figure \ref{fig:size1}).
-This is important because it indicates the growth function is behaving as expected.
-
-
-\begin{figure}[htbp]
-	\centering
-	\begin{subfigure}[b]{0.45\textwidth}
-		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/popOut1.pdf} 
-		\caption{Population size} 
-		\label{fig:pop1}
-	\end{subfigure}
-	\qquad
-	\begin{subfigure}[b]{0.45\textwidth}
-		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/sizeOut1.pdf} 
-		\caption{Fish length distribution} 
-		\label{fig:size1}
-	\end{subfigure}
-   \caption{Models outputs for Scenario \ref{egwm}.}
-   \label{fig:scn1out}
-\end{figure}
-
-
-\subsection{Examine growth with mortality}\label{egwim}
-
-Next, we build upon \S \ref{egwm} and include mortality as a function of length.
-All other parameters and functions were held constant and were the same as \S \ref{egwm} (Figure \ref{fig:scn1}).
-
-\begin{figure}[htbp]
-	\centering
-	\begin{subfigure}[b]{0.45\textwidth}
-		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/varySurvival.pdf} 
-		\caption{Survival function} 
-		\label{fig:suv1}
-	\end{subfigure}
-   \caption{Input functions for Scenario \ref{egwim}.}
-   \label{fig:scn1}
-\end{figure}
-
-In this scenario, the dominant eigenvalue is \texttt{0.909+0i }.
-The population size decreases through time (Figure \ref{fig:pop2}).
-The size of individuals in the population increase through time, but the population is shrinking through time (Figure \ref{fig:size2}).
-These are the expected outcomes for the model under these scenarios. 
-
-\begin{figure}[htbp]
-	\centering
-	\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/popOut2.pdf} 
-		\caption{Population size} 
-		\label{fig:pop2}
-	\end{subfigure}
-	\qquad
-	\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/sizeOut2.pdf} 
-		\caption{Fish length distribution} 
-		\label{fig:size2}
-	\end{subfigure}
-   \caption{Models outputs for Scenario \ref{egwim}.}
-   \label{fig:scn2out}
-\end{figure}
-
-
-\subsection{Examine linear model}\label{egwimb}
-
-
-Next, births are added into the model. 
-All other parameters and function are the same, but some new parameters are required. 
-An egg transition to recruits parameters is required.
-A value of \(1\times 10^{-4}\) was used for this parameter. 
-The initial size distribution of new recruits is required (Figure \ref{fig:suv3}). 
-
-\begin{figure}[htbp]
-	\centering
-	\begin{subfigure}[b]{0.45\textwidth}
-		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/JuvenileSize.pdf} 
-		\caption{Initial recruit size} 
-		\label{fig:suv3}
-	\end{subfigure}
-	\qquad
-	\begin{subfigure}[b]{0.45\textwidth}
-		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/probSpawning.pdf} 
-		\caption{Pr(spawning)} 
-		\label{fig:grow3}
-	\end{subfigure}
-	\qquad
-	\begin{subfigure}[b]{0.45\textwidth}
-		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/eggSize.pdf} 
-		\caption{Eggs produced } 
-		\label{fig:ip3}
-	\end{subfigure}
-   \caption{Input functions for Scenario \ref{egwimb}.}
-   \label{fig:scn3}
-\end{figure}
-
-This population is not limited and grows towards infinity (Figure \ref{fig:pop3}).
-The dominant eigenvalue is \texttt{1.23+0i}.
-The population reaches a stable size distribution as the number of individuals in the population goes towards infinity (Figure \ref{fig:size3}). 
-
-
-\begin{figure}[htbp]
-	\centering
-	\begin{subfigure}[b]{0.45\textwidth}
-		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/popOut3.pdf} 
-		\caption{Population size} 
-		\label{fig:pop3}
-	\end{subfigure}
-	\qquad
-	\begin{subfigure}[b]{0.45\textwidth}
-		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/sizeOut3.pdf} 
-		\caption{Fish length distribution} 
-		\label{fig:size3}
-	\end{subfigure}
-   \caption{Models outputs for Scenario \ref{egwimb}.}
-   \label{fig:scn3out}
-\end{figure}
-
-\subsection{Include density within the model}\label{idwitm}
-
-
-The next step is to include density within the model.
-The model is the same, other than two new functions are needed.
-First, a relationship between length and weight is needed.
-An existing relationship was used from work by \citet{wanner2009length}:
-\begin{eqnarray}
-\text{log}_{10} (\text{weight}) = \alpha_{\text{lw}} + \beta_\text{lw}\text{log}_{10} (\text{length}).
-\end{eqnarray}
-This equation fit well (\(r^2 = 0.87\)).
-A negative-expoential function is used to model how increasing biomass decreases recruitment \citep[Figure \ref{fig:biomass};][]{bolker2008ecological}.
-
-
-
-\begin{figure}[htbp]
-	\centering
-	\begin{subfigure}[b]{0.45\textwidth}
-		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/LW.pdf} 
-		\caption{Length-weight relationship} 
-		\label{fig:lw}
-	\end{subfigure}
-	\qquad
-	\begin{subfigure}[b]{0.45\textwidth}
-		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/biomass.pdf} 
-		\caption{Biomass function} 
-		\label{fig:biomass}
-	\end{subfigure}
-   \caption{Input functions for Scenario \ref{idwitm}.}
-   \label{fig:scn4}
-\end{figure}
-
-This system can be used to produce deterministic results (Figures \ref{fig:pop4} and \ref{fig:size4}) as well stochastic (Figures \ref{fig:pop5}--\ref{fig:size5}).
-The stochastic functions have a randomly generated chance of spawning occurring.
-The models are more biological realistic but come with a tradeoff of less analytical tractability.
-
-\begin{figure}[htbp]
-	\centering
-	\begin{subfigure}[b]{0.4\textwidth}
-		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/popOut4.pdf} 
-		\caption{Population size} 
-		\label{fig:pop4}
-	\end{subfigure}
-	\qquad
-	\begin{subfigure}[b]{0.4\textwidth}
-		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/sizeOut4.pdf} 
-		\caption{Fish length distribution} 
-		\label{fig:size4}
-	\end{subfigure}
-	\qquad\\
-	\begin{subfigure}[b]{0.4\textwidth}
-		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/popOut5.pdf} 
-		\caption{Population size} 
-		\label{fig:pop5}
-	\end{subfigure}
-	\qquad
-	\begin{subfigure}[b]{0.4\textwidth}
-		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/popOutHist5.pdf} 
-		\caption{Histogram of population size} 
-		\label{fig:popHist5}
-	\end{subfigure}
-	\qquad
-	\begin{subfigure}[b]{0.4\textwidth}
-		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/sizeOut5.pdf} 
-		\caption{Fish length distribution} 
-		\label{fig:size5}
-	\end{subfigure}
-   \caption{Models outputs for Scenario \ref{egwimb}, with and without stochastic birth pulses.}
-   \label{fig:scn3out}
-\end{figure}
-
-
-\subsection{Females, males, and YY-male model}\label{fmYYm}
-
-The last portion of the model involves modeling males and YY-males in addition to females.
-This model allows for control scenarios to be explored. 
-The inputs are the same as before other than sex-ratios that are needed for spawning and the initial conditions. 
-The outputs can be broken viewed as female, male, YY-male, and the total population.
-This population cannot go extinct numerically unless the population reaches numeric zero (i.e., 0s to the floating point decimal, which is difficult to obtain).  
+%\subsection{Examine growth without mortality}\label{egwm}
+%
+%The first scenario had no mortality (Figure \ref{fig:suv1}) or recruitment and examined how grass carp would grow through time (Figure \ref{fig:grow1}).
+%The initial population size distribution was log normal (Figure \ref{fig:ip1}).
+%
+%\begin{figure}[htbp]
+%	\centering
+%	\begin{subfigure}[b]{0.2\textwidth}
+%		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/constantSurvival.pdf} 
+%		\caption{Survival function} 
+%		\label{fig:suv1}
+%	\end{subfigure}
+%	\qquad
+%	\begin{subfigure}[b]{0.3\textwidth}
+%		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/growthKernal.pdf} 
+%		\caption{Growth kernel} 
+%		\label{fig:grow1}
+%	\end{subfigure}
+%	\qquad
+%	\begin{subfigure}[b]{0.2\textwidth}
+%		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/initialPopulation.pdf} 
+%		\caption{Initial population distribution} 
+%		\label{fig:ip1}
+%	\end{subfigure}
+%   \caption{Input functions for Scenario \ref{egwm}.}
+%   \label{fig:scn1}
+%\end{figure}
+%
+%The dominant eigenvalue of this system is 1.
+%If it was not, then there might be problems with the numerical methods or the mesh size may need to be adjusted. 
+%The output population is constant (Figure \ref{fig:pop1}). 
+%If the population changed or the leading eigenvalue was not 1, there may be numerical problems or wrong parameters used.
+%For example, when debugging the mid-point rule, individuals would be lost because the dominant eigenvalue was \texttt{0.998}.
+%The size distribution grows until a stable distribution is reached (Figure \ref{fig:size1}).
+%This is important because it indicates the growth function is behaving as expected.
+%
+%
+%\begin{figure}[htbp]
+%	\centering
+%	\begin{subfigure}[b]{0.45\textwidth}
+%		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/popOut1.pdf} 
+%		\caption{Population size} 
+%		\label{fig:pop1}
+%	\end{subfigure}
+%	\qquad
+%	\begin{subfigure}[b]{0.45\textwidth}
+%		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/sizeOut1.pdf} 
+%		\caption{Fish length distribution} 
+%		\label{fig:size1}
+%	\end{subfigure}
+%   \caption{Models outputs for Scenario \ref{egwm}.}
+%   \label{fig:scn1out}
+%\end{figure}
+%
+%
+%\subsection{Examine growth with mortality}\label{egwim}
+%
+%Next, we build upon \S \ref{egwm} and include mortality as a function of length.
+%All other parameters and functions were held constant and were the same as \S \ref{egwm} (Figure \ref{fig:scn1}).
+%
+%\begin{figure}[htbp]
+%	\centering
+%	\begin{subfigure}[b]{0.45\textwidth}
+%		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/varySurvival.pdf} 
+%		\caption{Survival function} 
+%		\label{fig:suv1}
+%	\end{subfigure}
+%   \caption{Input functions for Scenario \ref{egwim}.}
+%   \label{fig:scn1}
+%\end{figure}
+%
+%In this scenario, the dominant eigenvalue is \texttt{0.909+0i }.
+%The population size decreases through time (Figure \ref{fig:pop2}).
+%The size of individuals in the population increase through time, but the population is shrinking through time (Figure \ref{fig:size2}).
+%These are the expected outcomes for the model under these scenarios. 
+%
+%\begin{figure}[htbp]
+%	\centering
+%	\begin{subfigure}[b]{0.3\textwidth}
+%		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/popOut2.pdf} 
+%		\caption{Population size} 
+%		\label{fig:pop2}
+%	\end{subfigure}
+%	\qquad
+%	\begin{subfigure}[b]{0.3\textwidth}
+%		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/sizeOut2.pdf} 
+%		\caption{Fish length distribution} 
+%		\label{fig:size2}
+%	\end{subfigure}
+%   \caption{Models outputs for Scenario \ref{egwim}.}
+%   \label{fig:scn2out}
+%\end{figure}
+%
+%
+%\subsection{Examine linear model}\label{egwimb}
+%
+%
+%Next, births are added into the model. 
+%All other parameters and function are the same, but some new parameters are required. 
+%An egg transition to recruits parameters is required.
+%A value of \(1\times 10^{-4}\) was used for this parameter. 
+%The initial size distribution of new recruits is required (Figure \ref{fig:suv3}). 
+%
+%\begin{figure}[htbp]
+%	\centering
+%	\begin{subfigure}[b]{0.45\textwidth}
+%		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/JuvenileSize.pdf} 
+%		\caption{Initial recruit size} 
+%		\label{fig:suv3}
+%	\end{subfigure}
+%	\qquad
+%	\begin{subfigure}[b]{0.45\textwidth}
+%		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/probSpawning.pdf} 
+%		\caption{Pr(spawning)} 
+%		\label{fig:grow3}
+%	\end{subfigure}
+%	\qquad
+%	\begin{subfigure}[b]{0.45\textwidth}
+%		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/eggSize.pdf} 
+%		\caption{Eggs produced } 
+%		\label{fig:ip3}
+%	\end{subfigure}
+%   \caption{Input functions for Scenario \ref{egwimb}.}
+%   \label{fig:scn3}
+%\end{figure}
+%
+%This population is not limited and grows towards infinity (Figure \ref{fig:pop3}).
+%The dominant eigenvalue is \texttt{1.23+0i}.
+%The population reaches a stable size distribution as the number of individuals in the population goes towards infinity (Figure \ref{fig:size3}). 
+%
+%
+%\begin{figure}[htbp]
+%	\centering
+%	\begin{subfigure}[b]{0.45\textwidth}
+%		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/popOut3.pdf} 
+%		\caption{Population size} 
+%		\label{fig:pop3}
+%	\end{subfigure}
+%	\qquad
+%	\begin{subfigure}[b]{0.45\textwidth}
+%		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/sizeOut3.pdf} 
+%		\caption{Fish length distribution} 
+%		\label{fig:size3}
+%	\end{subfigure}
+%   \caption{Models outputs for Scenario \ref{egwimb}.}
+%   \label{fig:scn3out}
+%\end{figure}
+%
+%\subsection{Include density within the model}\label{idwitm}
+%
+%
+%The next step is to include density within the model.
+%The model is the same, other than two new functions are needed.
+%First, a relationship between length and weight is needed.
+%An existing relationship was used from work by \citet{wanner2009length}:
+%\begin{eqnarray}
+%\text{log}_{10} (\text{weight}) = \alpha_{\text{lw}} + \beta_\text{lw}\text{log}_{10} (\text{length}).
+%\end{eqnarray}
+%This equation fit well (\(r^2 = 0.87\)).
+%A negative-expoential function is used to model how increasing biomass decreases recruitment \citep[Figure \ref{fig:biomass};][]{bolker2008ecological}.
+%
+%
+%
+%\begin{figure}[htbp]
+%	\centering
+%	\begin{subfigure}[b]{0.45\textwidth}
+%		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/LW.pdf} 
+%		\caption{Length-weight relationship} 
+%		\label{fig:lw}
+%	\end{subfigure}
+%	\qquad
+%	\begin{subfigure}[b]{0.45\textwidth}
+%		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/biomass.pdf} 
+%		\caption{Biomass function} 
+%		\label{fig:biomass}
+%	\end{subfigure}
+%   \caption{Input functions for Scenario \ref{idwitm}.}
+%   \label{fig:scn4}
+%\end{figure}
+%
+%This system can be used to produce deterministic results (Figures \ref{fig:pop4} and \ref{fig:size4}) as well stochastic (Figures \ref{fig:pop5}--\ref{fig:size5}).
+%The stochastic functions have a randomly generated chance of spawning occurring.
+%The models are more biological realistic but come with a tradeoff of less analytical tractability.
+%
+%\begin{figure}[htbp]
+%	\centering
+%	\begin{subfigure}[b]{0.4\textwidth}
+%		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/popOut4.pdf} 
+%		\caption{Population size} 
+%		\label{fig:pop4}
+%	\end{subfigure}
+%	\qquad
+%	\begin{subfigure}[b]{0.4\textwidth}
+%		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/sizeOut4.pdf} 
+%		\caption{Fish length distribution} 
+%		\label{fig:size4}
+%	\end{subfigure}
+%	\qquad\\
+%	\begin{subfigure}[b]{0.4\textwidth}
+%		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/popOut5.pdf} 
+%		\caption{Population size} 
+%		\label{fig:pop5}
+%	\end{subfigure}
+%	\qquad
+%	\begin{subfigure}[b]{0.4\textwidth}
+%		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/popOutHist5.pdf} 
+%		\caption{Histogram of population size} 
+%		\label{fig:popHist5}
+%	\end{subfigure}
+%	\qquad
+%	\begin{subfigure}[b]{0.4\textwidth}
+%		\includegraphics[width = \textwidth]{../../../model/carpipm/testOutputs/sizeOut5.pdf} 
+%		\caption{Fish length distribution} 
+%		\label{fig:size5}
+%	\end{subfigure}
+%   \caption{Models outputs for Scenario \ref{egwimb}, with and without stochastic birth pulses.}
+%   \label{fig:scn3out}
+%\end{figure}
+%
+%
+%\subsection{Females, males, and YY-male model}\label{fmYYm}
+%
+%The last portion of the model involves modeling males and YY-males in addition to females.
+%This model allows for control scenarios to be explored. 
+%The inputs are the same as before other than sex-ratios that are needed for spawning and the initial conditions. 
+%The outputs can be broken viewed as female, male, YY-male, and the total population.
+%This population cannot go extinct numerically unless the population reaches numeric zero (i.e., 0s to the floating point decimal, which is difficult to obtain).  
 
 
 \section{Model output verification}
@@ -952,14 +997,15 @@ This population cannot go extinct numerically unless the population reaches nume
 \textbf{Summary:}
 \begin{verse}
 \textbf{
-Our model was unable to be formally parameterized. However, we qualitatively compared our model's outputs to existing data and discuss this realism. 
+Summary text goes here.
+%Our model was unable to be formally parameterized. 
+%However, we qualitatively compared our model's outputs to existing data and discuss this realism. 
 }
 \end{verse}
 
-We were unable to formally parameterize our model. 
-We were able to qualitatively compare our results to a study by \citet{martyn1986mapping} who examined the length distributions of grass carp following their release into a reservoir.
-Additionally, \S \ref{sec:IpVer} aggress with observations that would be expected based upon first principles of fish population dynamics. 
-
+%We were unable to formally parameterize our model. 
+%We were able to qualitatively compare our results to a study by \citet{martyn1986mapping} who examined the length distributions of grass carp following their release into a reservoir.
+%Additionally, \S \ref{sec:IpVer} aggress with observations that would be expected based upon first principles of fish population dynamics. 
 
 \section{Model analysis}
 
@@ -968,209 +1014,210 @@ Additionally, \S \ref{sec:IpVer} aggress with observations that would be expecte
 \textbf{Summary:}
 \begin{verse}
 \textbf{
-We conducted formal sensitivity analysis by changing input parameters and examining the impacts on the annual population growth rate \(\lambda\).
-Furthermore, we examined how different parameters changed the recovery time from YY-males releases. 
+Summary text here
+%We conducted formal sensitivity analysis by changing input parameters and examining the impacts on the annual population growth rate \(\lambda\).
+%Furthermore, we examined how different parameters changed the recovery time from YY-males releases. 
 }
 \end{verse}
 
-We examined the sensitivity of the population's growth rate through time.
-We conducted this analysis to understand how different management actions might be able to change the dynamics of the system and also gain insight into the importance of different parameters. 
-We based our analysis upon that of \citet{easterling2000size} and \citet{caswell_matrix_2001}, but adapted it for the non-linearities of our system to to address our specific question. 
-We specifically examined how the annual population growth \(\lambda\), changed through time relative to the reference parameter combination.
-This was done for each time step.
-We scaled the change in \(\lambda\) by the magnitude of the parameter changed (Table \ref{tab:sensInputs}).
-For example  \(\lambda\)'s sensitivity parameter \(x\)'s would be
-\begin{eqnarray}
-S_x = \frac{\partial \lambda}{\partial x}.
-\end{eqnarray}
-
-\begin{table}[htbp]
-   \centering
-\topcaption{Parameter inputs for sensitivity analysis. Parameter details may be found in Table \ref{tab:parameterValues}.} % requires the topcapt package
-   \begin{tabular}{@{} c c@{}} % Column formatting, @{} suppresses leading/trailing space
-      \toprule
-%      \multicolumn{2}{c}{Item} \\
-%      \cmidrule(r){1-2} % Partial rule. (r) trims the line a little bit on the right; (l) & (lr) also possible
-      Symbol   & Inputs \\
-      \midrule
-\(a_G\) & \(\{100, 180, 200, 220, 400\}\) \\
-\(k_G\)   & \(\{ 0.075, .0135, 0.15, 0.165, 0.3 \}\)\\
-\(\sigma_G\)   & \(\{5, 9, 10, 11, 20\}\)\\
- \cmidrule(r){1-2}
-\(s_\text{min}\) & \(\{ 1\times10^{-4}, 1\times10^{-3}, 1\times10^{-2}, 1\times10^{-1}, 2\times10^{-1}\}\) \\
-\(s_\text{max}\) & \(\{ 0.50, 0.56, 0.62, 0.68, 0.74, 0.81, 0.87, 0.93, 0.95, 0.99\}\) \\
- \cmidrule(r){1-2}
-\(e_t\)  & \{\(1\times10^{-3}, 2.7\times10^{-3}, 3\times10^{-3}, 3.3\times10^{-3}, 4\times10^{-3}\} \)  \\
-\cmidrule(r){1-2}
- \(e_\text{kg}\) & \(\{2.5\times10^{3}, 4.5\times10^{3}, 5\times10^{3}, 5.5\times10^{3}, 1\times10^{4} \}\) \\
-   \midrule
-  \(p_f\) & \(\{0.001, 0.054, 0.106, 0.159, 0.264, 0.316, 0.369, 0.421, 0.474, 0.500,\)  \\ 
-            & \(\ \ 0.526, 0.579, 0.631, 0.684, 0.736, 0.789, 0.841, 0.894, 0.946, 0.999 \}\) \\ 
-      \bottomrule
-   \end{tabular} 
-   \label{tab:sensInputs}
-\end{table}
-
-
-We examined the sensitivity of \(\lambda\) to the egg parameters and minimum and maximum survival parameters (Figure \ref{fig:eggSens}).
-The egg transition parameter, eggs per kg of adult female parameter, and minimum survival rate parameters' sensitivities all converged.
-The  maximum survival rate sensitivity did not converge.
-The model was the most sensitive to the egg transition parameters and then the maximum survival rate parameters. 
-The egg per female parameter had an almost trivial sensitivity.
-  
-\begin{figure}[htbp]
-	\centering
-	\begin{subfigure}[b]{0.45\textwidth}
-	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/eggTransition.pdf} % requires the graphicx package
-	   \caption{Sensitivity of \(\lambda\) to \(e_t\).}
-	   \label{fig:sensET}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.45\textwidth}
-	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/eggkg.pdf} % requires the graphicx package
-	   \caption{Sensitivity of \(\lambda\) to \(e_\text{kg}\).}
-	   \label{fig:sensEKG}
-	\end{subfigure}
-   \caption{Sensitives of \(\lambda\) (\(S_\lambda\)) of egg parameters through time.}
-   	\begin{subfigure}[b]{0.45\textwidth}
-	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/maxS.pdf} % requires the graphicx package
-	   \caption{Sensitivity of \(\lambda\) to \(s_\text{max}\).}
-	   \label{fig:sensSmax}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.45\textwidth}
-	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/minS.pdf} % requires the graphicx package
-	   \caption{Sensitivity of \(\lambda\) to \(s_\text{min}\).}
-	   \label{fig:sensSmin}
-	\end{subfigure}  
-   \caption{Sensitivities of \(\lambda\) to egg and survival parameters.}
-   \label{fig:eggSens}  
-\end{figure}
-
-We also examined the sensitivity of \(\lambda\) to the fish growth parameters and the proportion of female sex ratio (Figure \ref{fig:lengthSens}). 
-Of these parameters, the maximum fish length parameter was the most sensitive, which is likely a modeling artifact.
-Specifically, if fish do not get long enough to reproduce in the model, there is a lower population growth.
-However, biologically, fish have shown the ability to adapt to harvesting large fish to the loss of large individuals \citep[e.g., harvesting large fish;][]{birkeland2005importance}.
-
-\begin{figure}[htbp]
-	\centering
-	\begin{subfigure}[b]{0.45\textwidth}
-	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/aG.pdf} % requires the graphicx package
-	   \caption{Sensitivity of \(\lambda\) to \(a_G\).}
-	   \label{fig:sensET}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.45\textwidth}
-	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/kG.pdf} % requires the graphicx package
-	   \caption{Sensitivity of \(\lambda\) to \(k_G\).}
-	   \label{fig:sensEKG}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.45\textwidth}
-	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/sigmaG.pdf} % requires the graphicx package
-	   \caption{Sensitivity of \(\lambda\) to \(\sigma_G\).}
-	   \label{fig:sensEKG}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.45\textwidth}
-	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/birthSexRatioFemales.pdf} % requires the graphicx package
-	   \caption{Sensitivity of \(\lambda\) to \(p_f\).}
-	   \label{fig:sensPF}
-	\end{subfigure}
-     \caption{Sensitivities of \(\lambda\) to fish growth parameters and proportion of female sex ratio.}
-   \label{fig:lengthSens}
-\end{figure}
-
-
-
-In addition to sensitivities we also examined how different parameters changed the recovery time. 
-We specifically calculated the time it took for the population to recover to its pre-YY-male release size.
-We used 0.99 of this population to account for possible numerical rounding errors.
-For these simulations, we ran the simulation 50 years and then released 10,000 YY-males per year for 20 years. 
-The model was then allowed to run for 130 addition years (a total of 200 years of simulations) to allow the model to return to equilibrium. 
-
-In general, the small changes to parameters had small effects on the recovery time (Figure \ref{fig:recoveryTimes}).
-The effects of larger changes varied by parameter.
-The results for the egg transition parameter, \(e_t\), and the eggs per female kg were straight forward as expected (Figures \ref{fig:ET_RT} and \ref{fig:Ekg_RT}).
-The results for the two length parameters, \(a_g\) and \(k_g\), behaved as expected for the small changes near the reference parameter value (Figure \ref{fig:aG_RT} and \ref{fig:kG_RT}).
-Larger changes however, dramatically reduced the recovery time and both the largest and smallest values.
-Although similar outcomes, these reflect two different outcomes.
-The parameter values that increased the populations growth rate caused the population to recover more quickly.
-Conversely, the parameters values that deceased the population growth rate had a lower equilibrium population size that required less to return to.
-Decreasing the standard deviation of growth parameters, \(\sigma_g\) caused the time to recover to increase, which was expected (Figure \ref{fig:sigmaG_RT}).
-This is because a larger standard deviation allows some individuals to become big quicker and these individuals therefore reproduce more quickly.
-
-
-The effects of the female sex ratio at birth, \(p_f\), generally behaved as expected (Figure \ref{fig:pF_RT}).
-The populations with a higher female ratio recovered more quickly. 
-However, at the lowest sex ratios, the recovery time for the mostly male population becomes quicker.
-This occurs for two reasons.
-First, these populations have a smaller equilibrium population size. 
-Second, stocking YY-males has minimal effect on the sex ratio because it is already low. 
-This also illustrates the difficulties of stocking with YY-males to reduce a population. 
-
-The maximum survival parameter, \(s_\text{max}\), had local sensitivities that were reasonable and intuitive (Figure \ref{fig:maxS_RT}).
-Small decreases increased recovery time and small increases decreased recovery time.
-Conversely, larger changes had the opposite effect.
-When the maximum survival rate was highest, recovery time was longer, which reflects a larger equilibrium population that requires more time for recovery to occur. 
-Similarly, simulations with smaller maximum adult survival rates had smaller equilibrium population sizes, which required less time to for recovery to occur.
-
-Compared to the maximum survival, recovery time was less sensitive for the minimum survival parameter, \(s_\text{max}\) (Figure \ref{fig:minS_RT}).
-However, all of these changes had effects that would be expected. 
-The decreases all increased recovery time and the increases all decreased recovery time. 
-These changes also reflect the high recruitment strategy \citep[e.g., an \(r\) versus \(k\) species;][]{Gotelli:2008} of this species, specifically, if most small carp die, further decreasing this survival will not have as large of impact compared to a long-lived species.
-
-
-\begin{figure}[htbp]
-	\centering
-	\begin{subfigure}[b]{0.45\textwidth}
-	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/recoverTimeEggT.pdf} % requires the graphicx package
-	   \caption{Effect of  \(e_t\) on recovery time}
-	   \label{fig:ET_RT}
-	\end{subfigure}
-	\centering
-	\begin{subfigure}[b]{0.45\textwidth}
-	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/recoverTimeEggKg.pdf} % requires the graphicx package
-	   \caption{Effect of  \(e_\text{kg}\) on recovery time}
-	   \label{fig:Ekg_RT}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.45\textwidth}
-	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/recoverTime_aG.pdf} % requires the graphicx package
-	   \caption{Effect of  \(a_G\) on recovery time}
-	   \label{fig:aG_RT}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.45\textwidth}
-	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/recoverTime_kG.pdf} % requires the graphicx package
-	   \caption{Effect of  \(k_G\) on recovery time}
-	   \label{fig:kG_RT}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.45\textwidth}
-	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/recoverTime_sigmaG.pdf} % requires the graphicx package
-	   \caption{Effect of  \(\sigma_G\) on recovery time}
-	   \label{fig:sigmaG_RT}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.45\textwidth}
-	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/recoverTime_birthSexRatioFemales.pdf} % requires the graphicx package
-	   \caption{Effect of  \(p_f\) on recovery time}
-	   \label{fig:pF_RT}
-	\end{subfigure}	
-	\begin{subfigure}[b]{0.45\textwidth}
-	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/recoverTime_maxS.pdf} % requires the graphicx package
-	   \caption{Effect of  \(s_\text{max}\) on recovery time}
-	   \label{fig:maxS_RT}
-	\end{subfigure}		
-	\begin{subfigure}[b]{0.45\textwidth}
-	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/recoverTime_minS.pdf} % requires the graphicx package
-	   \caption{Effect of  \(s_\text{min}\) on recovery time}
-	   \label{fig:minS_RT}
-	\end{subfigure}		
-     \caption{Sensitivities of  recovery time. The parameter value farthest to the left is generally the reference value parameter.}
-   \label{fig:recoveryTimes}
-\end{figure}
-
-
-In summary, our model was most sensitivity to the egg transition parameters, which specifically control recruitment based upon both the sensitivity analysis and the recovery time analysis.
-The sex ratio was not important for the sensitivity analysis, but was important for recovery time. 
-Although seemingly paradoxical, this reflects the biology of the species and management scenario.  
-The sex ratio affects the population's growth rate and its equilibrium size.
-Hence, if it is altered too much, the simulated population has a much smaller equilibrium size and can recover quickly.
-Additionally, from a management perspective, the sex ratio could only be change as long as YY-males are release, not permanently  as was done with the recovery time analysis.
-Furthermore, one female grass carp can produce 100,000s to 1,000,000s of eggs, which means even one female can have a large impact on the population. 
+%We examined the sensitivity of the population's growth rate through time.
+%We conducted this analysis to understand how different management actions might be able to change the dynamics of the system and also gain insight into the importance of different parameters. 
+%We based our analysis upon that of \citet{easterling2000size} and \citet{caswell_matrix_2001}, but adapted it for the non-linearities of our system to to address our specific question. 
+%We specifically examined how the annual population growth \(\lambda\), changed through time relative to the reference parameter combination.
+%This was done for each time step.
+%We scaled the change in \(\lambda\) by the magnitude of the parameter changed (Table \ref{tab:sensInputs}).
+%For example  \(\lambda\)'s sensitivity parameter \(x\)'s would be
+%\begin{eqnarray}
+%S_x = \frac{\partial \lambda}{\partial x}.
+%\end{eqnarray}
+%
+%\begin{table}[htbp]
+%   \centering
+%\topcaption{Parameter inputs for sensitivity analysis. Parameter details may be found in Table \ref{tab:parameterValues}.} % requires the topcapt package
+%   \begin{tabular}{@{} c c@{}} % Column formatting, @{} suppresses leading/trailing space
+%      \toprule
+%%      \multicolumn{2}{c}{Item} \\
+%%      \cmidrule(r){1-2} % Partial rule. (r) trims the line a little bit on the right; (l) & (lr) also possible
+%      Symbol   & Inputs \\
+%      \midrule
+%\(a_G\) & \(\{100, 180, 200, 220, 400\}\) \\
+%\(k_G\)   & \(\{ 0.075, .0135, 0.15, 0.165, 0.3 \}\)\\
+%\(\sigma_G\)   & \(\{5, 9, 10, 11, 20\}\)\\
+% \cmidrule(r){1-2}
+%\(s_\text{min}\) & \(\{ 1\times10^{-4}, 1\times10^{-3}, 1\times10^{-2}, 1\times10^{-1}, 2\times10^{-1}\}\) \\
+%\(s_\text{max}\) & \(\{ 0.50, 0.56, 0.62, 0.68, 0.74, 0.81, 0.87, 0.93, 0.95, 0.99\}\) \\
+% \cmidrule(r){1-2}
+%\(e_t\)  & \{\(1\times10^{-3}, 2.7\times10^{-3}, 3\times10^{-3}, 3.3\times10^{-3}, 4\times10^{-3}\} \)  \\
+%\cmidrule(r){1-2}
+% \(e_\text{kg}\) & \(\{2.5\times10^{3}, 4.5\times10^{3}, 5\times10^{3}, 5.5\times10^{3}, 1\times10^{4} \}\) \\
+%   \midrule
+%  \(p_f\) & \(\{0.001, 0.054, 0.106, 0.159, 0.264, 0.316, 0.369, 0.421, 0.474, 0.500,\)  \\ 
+%            & \(\ \ 0.526, 0.579, 0.631, 0.684, 0.736, 0.789, 0.841, 0.894, 0.946, 0.999 \}\) \\ 
+%      \bottomrule
+%   \end{tabular} 
+%   \label{tab:sensInputs}
+%\end{table}
+%
+%
+%We examined the sensitivity of \(\lambda\) to the egg parameters and minimum and maximum survival parameters (Figure \ref{fig:eggSens}).
+%The egg transition parameter, eggs per kg of adult female parameter, and minimum survival rate parameters' sensitivities all converged.
+%The  maximum survival rate sensitivity did not converge.
+%The model was the most sensitive to the egg transition parameters and then the maximum survival rate parameters. 
+%The egg per female parameter had an almost trivial sensitivity.
+%  
+%\begin{figure}[htbp]
+%	\centering
+%	\begin{subfigure}[b]{0.45\textwidth}
+%	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/eggTransition.pdf} % requires the graphicx package
+%	   \caption{Sensitivity of \(\lambda\) to \(e_t\).}
+%	   \label{fig:sensET}
+%	\end{subfigure}
+%	\begin{subfigure}[b]{0.45\textwidth}
+%	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/eggkg.pdf} % requires the graphicx package
+%	   \caption{Sensitivity of \(\lambda\) to \(e_\text{kg}\).}
+%	   \label{fig:sensEKG}
+%	\end{subfigure}
+%   \caption{Sensitives of \(\lambda\) (\(S_\lambda\)) of egg parameters through time.}
+%   	\begin{subfigure}[b]{0.45\textwidth}
+%	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/maxS.pdf} % requires the graphicx package
+%	   \caption{Sensitivity of \(\lambda\) to \(s_\text{max}\).}
+%	   \label{fig:sensSmax}
+%	\end{subfigure}
+%	\begin{subfigure}[b]{0.45\textwidth}
+%	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/minS.pdf} % requires the graphicx package
+%	   \caption{Sensitivity of \(\lambda\) to \(s_\text{min}\).}
+%	   \label{fig:sensSmin}
+%	\end{subfigure}  
+%   \caption{Sensitivities of \(\lambda\) to egg and survival parameters.}
+%   \label{fig:eggSens}  
+%\end{figure}
+%
+%We also examined the sensitivity of \(\lambda\) to the fish growth parameters and the proportion of female sex ratio (Figure \ref{fig:lengthSens}). 
+%Of these parameters, the maximum fish length parameter was the most sensitive, which is likely a modeling artifact.
+%Specifically, if fish do not get long enough to reproduce in the model, there is a lower population growth.
+%However, biologically, fish have shown the ability to adapt to harvesting large fish to the loss of large individuals \citep[e.g., harvesting large fish;][]{birkeland2005importance}.
+%
+%\begin{figure}[htbp]
+%	\centering
+%	\begin{subfigure}[b]{0.45\textwidth}
+%	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/aG.pdf} % requires the graphicx package
+%	   \caption{Sensitivity of \(\lambda\) to \(a_G\).}
+%	   \label{fig:sensET}
+%	\end{subfigure}
+%	\begin{subfigure}[b]{0.45\textwidth}
+%	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/kG.pdf} % requires the graphicx package
+%	   \caption{Sensitivity of \(\lambda\) to \(k_G\).}
+%	   \label{fig:sensEKG}
+%	\end{subfigure}
+%	\begin{subfigure}[b]{0.45\textwidth}
+%	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/sigmaG.pdf} % requires the graphicx package
+%	   \caption{Sensitivity of \(\lambda\) to \(\sigma_G\).}
+%	   \label{fig:sensEKG}
+%	\end{subfigure}
+%	\begin{subfigure}[b]{0.45\textwidth}
+%	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/birthSexRatioFemales.pdf} % requires the graphicx package
+%	   \caption{Sensitivity of \(\lambda\) to \(p_f\).}
+%	   \label{fig:sensPF}
+%	\end{subfigure}
+%     \caption{Sensitivities of \(\lambda\) to fish growth parameters and proportion of female sex ratio.}
+%   \label{fig:lengthSens}
+%\end{figure}
+%
+%
+%
+%In addition to sensitivities we also examined how different parameters changed the recovery time. 
+%We specifically calculated the time it took for the population to recover to its pre-YY-male release size.
+%We used 0.99 of this population to account for possible numerical rounding errors.
+%For these simulations, we ran the simulation 50 years and then released 10,000 YY-males per year for 20 years. 
+%The model was then allowed to run for 130 addition years (a total of 200 years of simulations) to allow the model to return to equilibrium. 
+%
+%In general, the small changes to parameters had small effects on the recovery time (Figure \ref{fig:recoveryTimes}).
+%The effects of larger changes varied by parameter.
+%The results for the egg transition parameter, \(e_t\), and the eggs per female kg were straight forward as expected (Figures \ref{fig:ET_RT} and \ref{fig:Ekg_RT}).
+%The results for the two length parameters, \(a_g\) and \(k_g\), behaved as expected for the small changes near the reference parameter value (Figure \ref{fig:aG_RT} and \ref{fig:kG_RT}).
+%Larger changes however, dramatically reduced the recovery time and both the largest and smallest values.
+%Although similar outcomes, these reflect two different outcomes.
+%The parameter values that increased the populations growth rate caused the population to recover more quickly.
+%Conversely, the parameters values that deceased the population growth rate had a lower equilibrium population size that required less to return to.
+%Decreasing the standard deviation of growth parameters, \(\sigma_g\) caused the time to recover to increase, which was expected (Figure \ref{fig:sigmaG_RT}).
+%This is because a larger standard deviation allows some individuals to become big quicker and these individuals therefore reproduce more quickly.
+%
+%
+%The effects of the female sex ratio at birth, \(p_f\), generally behaved as expected (Figure \ref{fig:pF_RT}).
+%The populations with a higher female ratio recovered more quickly. 
+%However, at the lowest sex ratios, the recovery time for the mostly male population becomes quicker.
+%This occurs for two reasons.
+%First, these populations have a smaller equilibrium population size. 
+%Second, stocking YY-males has minimal effect on the sex ratio because it is already low. 
+%This also illustrates the difficulties of stocking with YY-males to reduce a population. 
+%
+%The maximum survival parameter, \(s_\text{max}\), had local sensitivities that were reasonable and intuitive (Figure \ref{fig:maxS_RT}).
+%Small decreases increased recovery time and small increases decreased recovery time.
+%Conversely, larger changes had the opposite effect.
+%When the maximum survival rate was highest, recovery time was longer, which reflects a larger equilibrium population that requires more time for recovery to occur. 
+%Similarly, simulations with smaller maximum adult survival rates had smaller equilibrium population sizes, which required less time to for recovery to occur.
+%
+%Compared to the maximum survival, recovery time was less sensitive for the minimum survival parameter, \(s_\text{max}\) (Figure \ref{fig:minS_RT}).
+%However, all of these changes had effects that would be expected. 
+%The decreases all increased recovery time and the increases all decreased recovery time. 
+%These changes also reflect the high recruitment strategy \citep[e.g., an \(r\) versus \(k\) species;][]{Gotelli:2008} of this species, specifically, if most small carp die, further decreasing this survival will not have as large of impact compared to a long-lived species.
+%
+%
+%\begin{figure}[htbp]
+%	\centering
+%	\begin{subfigure}[b]{0.45\textwidth}
+%	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/recoverTimeEggT.pdf} % requires the graphicx package
+%	   \caption{Effect of  \(e_t\) on recovery time}
+%	   \label{fig:ET_RT}
+%	\end{subfigure}
+%	\centering
+%	\begin{subfigure}[b]{0.45\textwidth}
+%	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/recoverTimeEggKg.pdf} % requires the graphicx package
+%	   \caption{Effect of  \(e_\text{kg}\) on recovery time}
+%	   \label{fig:Ekg_RT}
+%	\end{subfigure}
+%	\begin{subfigure}[b]{0.45\textwidth}
+%	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/recoverTime_aG.pdf} % requires the graphicx package
+%	   \caption{Effect of  \(a_G\) on recovery time}
+%	   \label{fig:aG_RT}
+%	\end{subfigure}
+%	\begin{subfigure}[b]{0.45\textwidth}
+%	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/recoverTime_kG.pdf} % requires the graphicx package
+%	   \caption{Effect of  \(k_G\) on recovery time}
+%	   \label{fig:kG_RT}
+%	\end{subfigure}
+%	\begin{subfigure}[b]{0.45\textwidth}
+%	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/recoverTime_sigmaG.pdf} % requires the graphicx package
+%	   \caption{Effect of  \(\sigma_G\) on recovery time}
+%	   \label{fig:sigmaG_RT}
+%	\end{subfigure}
+%	\begin{subfigure}[b]{0.45\textwidth}
+%	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/recoverTime_birthSexRatioFemales.pdf} % requires the graphicx package
+%	   \caption{Effect of  \(p_f\) on recovery time}
+%	   \label{fig:pF_RT}
+%	\end{subfigure}	
+%	\begin{subfigure}[b]{0.45\textwidth}
+%	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/recoverTime_maxS.pdf} % requires the graphicx package
+%	   \caption{Effect of  \(s_\text{max}\) on recovery time}
+%	   \label{fig:maxS_RT}
+%	\end{subfigure}		
+%	\begin{subfigure}[b]{0.45\textwidth}
+%	   \includegraphics[width=\textwidth]{../../../model/carpipm/sensOut/recoverTime_minS.pdf} % requires the graphicx package
+%	   \caption{Effect of  \(s_\text{min}\) on recovery time}
+%	   \label{fig:minS_RT}
+%	\end{subfigure}		
+%     \caption{Sensitivities of  recovery time. The parameter value farthest to the left is generally the reference value parameter.}
+%   \label{fig:recoveryTimes}
+%\end{figure}
+%
+%
+%In summary, our model was most sensitivity to the egg transition parameters, which specifically control recruitment based upon both the sensitivity analysis and the recovery time analysis.
+%The sex ratio was not important for the sensitivity analysis, but was important for recovery time. 
+%Although seemingly paradoxical, this reflects the biology of the species and management scenario.  
+%The sex ratio affects the population's growth rate and its equilibrium size.
+%Hence, if it is altered too much, the simulated population has a much smaller equilibrium size and can recover quickly.
+%Additionally, from a management perspective, the sex ratio could only be change as long as YY-males are release, not permanently  as was done with the recovery time analysis.
+%Furthermore, one female grass carp can produce 100,000s to 1,000,000s of eggs, which means even one female can have a large impact on the population. 
 
 
 \section{Model output corroboration}
@@ -1180,18 +1227,19 @@ Furthermore, one female grass carp can produce 100,000s to 1,000,000s of eggs, w
 \textbf{Summary:}
 \begin{verse}
 \textbf{
-We were unable to formally corroborate our model to any datasets.
-We discuss a qualitative corroboration to a previously study and why existing datasets do not allow for corroboration.
+summary text here
+%We were unable to formally corroborate our model to any datasets.
+%We discuss a qualitative corroboration to a previously study and why existing datasets do not allow for corroboration.
 }
 \end{verse}
 
-No datasets exist that examine our system or a similar system through time.
-Qualitatively, our results were similar \citet{martyn1986mapping} as noted in \S \ref{sec:dev}.
-In both our model and their system system, he population of carps grows in length through time. 
-However, robust field observations of large-scale grass carp invasions are sparse. 
-A long-term data exists that examines how grass carp have spread up the Mississippi River system \citep{Ickes:2014} that can be used to estimate population trends \citep[e.g.,][]{EricksonAcceptedEcoInd}.
-However, the spread of this population through a complex river systems differs greatly from the homogenous population that our model assumes. 
-This spatial diffusion and movement would need to be incorporated for a population model to capture the population dynamics of an invasive species in system such as the Mississippi River. 
+%No datasets exist that examine our system or a similar system through time.
+%Qualitatively, our results were similar \citet{martyn1986mapping} as noted in \S \ref{sec:dev}.
+%In both our model and their system system, he population of carps grows in length through time. 
+%However, robust field observations of large-scale grass carp invasions are sparse. 
+%A long-term data exists that examines how grass carp have spread up the Mississippi River system \citep{Ickes:2014} that can be used to estimate population trends \citep[e.g.,][]{EricksonAcceptedEcoInd}.
+%However, the spread of this population through a complex river systems differs greatly from the homogenous population that our model assumes. 
+%This spatial diffusion and movement would need to be incorporated for a population model to capture the population dynamics of an invasive species in system such as the Mississippi River. 
 
 
 %% If using natbib, you need a style and file for your bibliography

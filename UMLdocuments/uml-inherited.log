@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.10.4)  13 DEC 2017 12:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.10.4)  13 DEC 2017 12:50
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -773,7 +773,7 @@ inherited.aux) )
 Here is how much of TeX's memory you used:
  17758 strings out of 492990
  393047 string characters out of 6132636
- 666767 words of memory out of 5000000
+ 666762 words of memory out of 5000000
  21002 multiletter control sequences out of 15000+600000
  5771 words of font info for 21 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -782,7 +782,7 @@ Here is how much of TeX's memory you used:
 /cm/cmbx9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/c
 m/cmr9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/c
 msy9.pfb>
-Output written on uml-inherited.pdf (1 page, 56948 bytes).
+Output written on uml-inherited.pdf (1 page, 56941 bytes).
 PDF statistics:
  47 PDF objects out of 1000 (max. 8388607)
  24 compressed objects within 1 object stream
