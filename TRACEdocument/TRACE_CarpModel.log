@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.10.4)  15 DEC 2017 16:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.10.4)  18 DEC 2017 08:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -258,28 +258,61 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/mathtools/mathtools.sty
+Package: mathtools 2017/05/24 v1.19 mathematical typesetting tools
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count108
+\calc@Bcount=\count109
+\calc@Adimen=\dimen135
+\calc@Bdimen=\dimen136
+\calc@Askip=\skip90
+\calc@Bskip=\skip91
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count110
+\calc@Cskip=\skip92
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/mathtools/mhsetup.sty
+Package: mhsetup 2017/03/31 v1.3 programming setup (MH)
+)
+LaTeX Info: Thecontrolsequence`\('isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
+\g_MT_multlinerow_int=\count111
+\l_MT_multwidth_dim=\dimen137
+\origjot=\skip93
+\l_MT_shortvdotswithinadjustabove_dim=\dimen138
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen139
+\l_MT_above_intertext_sep=\dimen140
+\l_MT_below_intertext_sep=\dimen141
+\l_MT_above_shortintertext_sep=\dimen142
+\l_MT_below_shortintertext_sep=\dimen143
+)
 (/usr/local/texlive/2017/texmf-dist/tex/latex/ltxmisc/topcapt.sty
 Package: topcapt 2004/12/11 v1.2 Caption at top of float
 )
 (/usr/local/texlive/2017/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2016/04/27 v1.618033 publication quality tables
-\heavyrulewidth=\dimen135
-\lightrulewidth=\dimen136
-\cmidrulewidth=\dimen137
-\belowrulesep=\dimen138
-\belowbottomsep=\dimen139
-\aboverulesep=\dimen140
-\abovetopsep=\dimen141
-\cmidrulesep=\dimen142
-\cmidrulekern=\dimen143
-\defaultaddspace=\dimen144
-\@cmidla=\count108
-\@cmidlb=\count109
-\@aboverulesep=\dimen145
-\@belowrulesep=\dimen146
-\@thisruleclass=\count110
-\@lastruleclass=\count111
-\@thisrulewidth=\dimen147
+\heavyrulewidth=\dimen144
+\lightrulewidth=\dimen145
+\cmidrulewidth=\dimen146
+\belowrulesep=\dimen147
+\belowbottomsep=\dimen148
+\aboverulesep=\dimen149
+\abovetopsep=\dimen150
+\cmidrulesep=\dimen151
+\cmidrulekern=\dimen152
+\defaultaddspace=\dimen153
+\@cmidla=\count112
+\@cmidlb=\count113
+\@aboverulesep=\dimen154
+\@belowrulesep=\dimen155
+\@thisruleclass=\count114
+\@lastruleclass=\count115
+\@thisrulewidth=\dimen156
 )
 (./TRACE_CarpModel.aux)
 \openout1 = `TRACE_CarpModel.aux'.
@@ -333,16 +366,16 @@ LaTeX Font Info:    ... okay on input line 114.
 
 (/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count112
-\scratchdimen=\dimen148
+\scratchcounter=\count116
+\scratchdimen=\dimen157
 \scratchbox=\box29
-\nofMPsegments=\count113
-\nofMParguments=\count114
+\nofMPsegments=\count117
+\nofMParguments=\count118
 \everyMPshowfont=\toks22
-\MPscratchCnt=\count115
-\MPscratchDim=\dimen149
-\MPnumerator=\count116
-\makeMPintoPDFobject=\count117
+\MPscratchCnt=\count119
+\MPscratchDim=\dimen158
+\MPnumerator=\count120
+\makeMPintoPDFobject=\count121
 \everyMPtoPDFconversion=\toks23
 ) (/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -419,48 +452,48 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \openout3 = `TRACE_CarpModel.toc'.
 
  [2] [3]
-\c@ttl@toc@sections=\count118
-
-(./TRACE_CarpModel.ptc [4]) [5]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 278.
+[4] [5]
+\c@ttl@toc@sections=\count122
+ (./TRACE_CarpModel.ptc) [6]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 277.
 
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 278.
- [6] [7] [8]
-[9] [10] [11] [12] [13]
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 277.
+ [7] [8] [9]
+[10] [11] [12] [13] [14] [15]
 LaTeX Font Info:    Font shape `OMS/cmr/bx/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/b/n' tried instead on input line 672.
- [14]
-<../../../Figure/FlowChart.pdf, id=59, pagebox=cropbox, 184.94295pt x 241.84856
+(Font)              Font shape `OMS/cmsy/b/n' tried instead on input line 693.
+ [16]
+<../../../Figure/FlowChart.pdf, id=65, pagebox=cropbox, 184.94295pt x 241.84856
 pt>
 File: ../../../Figure/FlowChart.pdf Graphic file (type pdf)
 <use ../../../Figure/FlowChart.pdf>
-Package pdftex.def Info: ../../../Figure/FlowChart.pdf  used on input line 737.
- on input line 737.
+Package pdftex.def Info: ../../../Figure/FlowChart.pdf  used on input line 766.
+ on input line 766.
 Package pdftex.def Info: Requested size: 187.89914pt x 245.71909pt on input lin
-e 737.
- [15] [16 <../../../Figure/FlowChart.pdf>]
-(./TRACE_CarpModel.bbl
+e 766.
+ [17] [18 <../../../Figure/FlowChart.pdf>]
+(./TRACE_CarpModel.bbl [19]
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no “ in font cmr10!
- [17] [18])
+ [20] [21])
 \tf@ptc=\write4
 \openout4 = `TRACE_CarpModel.ptc'.
 
- [19] (./TRACE_CarpModel.aux) ) 
+ [22] (./TRACE_CarpModel.aux) ) 
 Here is how much of TeX's memory you used:
- 5451 strings out of 492990
- 80346 string characters out of 6132636
- 163320 words of memory out of 5000000
- 8909 multiletter control sequences out of 15000+600000
+ 6012 strings out of 492990
+ 90442 string characters out of 6132636
+ 174073 words of memory out of 5000000
+ 9459 multiletter control sequences out of 15000+600000
  8911 words of font info for 34 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,12n,43p,713b,402s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,12n,43p,713b,380s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2017/texmf-dist/fonts/type1/
 public/amsfonts/cm/cmbsy10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/
 public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/p
@@ -479,10 +512,10 @@ m/cmsy10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm
 msy7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmt
 i10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt
 10.pfb>
-Output written on TRACE_CarpModel.pdf (19 pages, 248541 bytes).
+Output written on TRACE_CarpModel.pdf (22 pages, 257249 bytes).
 PDF statistics:
- 149 PDF objects out of 1000 (max. 8388607)
- 108 compressed objects within 2 object streams
+ 158 PDF objects out of 1000 (max. 8388607)
+ 114 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

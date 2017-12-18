@@ -4,28 +4,40 @@
 \citation{Erickson:2017ecomod,schill2017simulated}
 \citation{strasser2012contributions}
 \citation{Ellner:2010IPM}
-\@writefile{toc}{\contentsline {section}{\numberline {1}Problem Formulation}{3}}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Problem Formulation}{4}}
 \citation{hostetler2015full}
 \citation{Taylor:2010}
 \citation{betini2015experimental}
 \citation{wiederholt2017estimating,sample2017general,erickson2017defining,bieriGuide2018}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Model description}{4}}
-\newlabel{sec:md}{{2}{4}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Model description}{5}}
+\newlabel{sec:md}{{2}{5}}
 \ttl@writefile{ptc}{\ttl@starttoc{sections@1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Purpose}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Entities, state variables, and scales}{6}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Process overview and scheduling}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Purpose}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Entities, state variables, and scales}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Process overview and scheduling}{7}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.1}Model with time periods}{7}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.2}Model without time periods}{7}}
+\citation{lagler1962john}
+\citation{ellner2006integral,merow2014advancing}
+\citation{wiederholt2017estimating,sample2017general,erickson2017defining,bieriGuide2018}
+\citation{Erickson:2017ecomod}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Design concepts}{8}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.1}Basic principles}{8}}
+\newlabel{sec:bp}{{2.4.1}{8}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.2}Emergence}{8}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.3}Adaptation}{8}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.4}Objectives}{8}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.5}Learning}{8}}
 \citation{bolker2008ecological}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Design concepts}{7}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.1}Basic principles}{7}}
-\newlabel{sec:bp}{{2.4.1}{7}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.2}Emergence}{7}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.3}Adaptation}{7}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.4}Objectives}{7}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.5}Learning}{7}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.6}Prediction}{7}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.7}Sensing}{7}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.8}Interaction}{7}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.6}Prediction}{9}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.7}Sensing}{9}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.8}Interaction}{9}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.9}Stochasticity}{9}}
+\newlabel{stoc}{{2.4.9}{9}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.10}Collectives}{9}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.11}Observation}{9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Initialization}{9}}
+\newlabel{sec:init}{{2.5}{9}}
 \citation{chilton1992biology}
 \citation{chapman2013first,wittmann2014grass}
 \citation{shireman1983synopsis}
@@ -46,17 +58,6 @@
 \citation{dhanze1997biology}
 \citation{wanner2009length}
 \citation{wanner2009length}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.9}Stochasticity}{8}}
-\newlabel{stoc}{{2.4.9}{8}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.10}Collectives}{8}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.11}Observation}{8}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Initialization}{8}}
-\newlabel{sec:init}{{2.5}{8}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.6}Input data}{8}}
-\newlabel{sec:Input}{{2.6}{8}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Parameter symbols, names, values, and sources used for grass carp integrated population model. All units are on an annual time step. Lengths are in cm and weights in kg.}}{9}}
-\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{tab:parameterValues}{{1}{9}}
 \citation{bolker2008ecological}
 \citation{USFWS2014grass}
 \citation{shireman1983synopsis,martyn1986mapping}
@@ -68,90 +69,109 @@
 \citation{shireman1983synopsis}
 \citation{shireman1978size}
 \citation{shireman1978size}
-\citation{shireman1983synopsis}
-\citation{kirk2003longevity}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6}Input data}{10}}
+\newlabel{sec:Input}{{2.6}{10}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.6.1}Length-weight relationship}{10}}
 \newlabel{eqn:LW}{{1}{10}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.6.2}Growth-rate}{10}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.6.3}Survival}{10}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Parameter symbols, names, values, and sources used for grass carp integrated population model. All units are on an annual time step. Lengths are in cm and weights in kg.}}{11}}
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{tab:parameterValues}{{1}{11}}
+\citation{shireman1983synopsis}
+\citation{kirk2003longevity}
 \citation{kilambi1979effects,shelton1981density}
 \citation{shireman1983synopsis}
 \citation{ashraf1998effects}
 \citation{shireman1983synopsis}
 \citation{shireman1983synopsis}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.6.3}Survival}{12}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.6.4}Density}{12}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.6.5}Egg production and transition to recruits}{12}}
 \citation{ellner2006integral,ramula2009integral,merow2014advancing}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.6.4}Density}{11}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.6.5}Egg production and transition to recruits}{11}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.6.6}Sex ratio}{11}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.7}Stochastic spawning and recruitment}{11}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.8}Submodels}{11}}
-\newlabel{sec:submdl}{{2.8}{11}}
 \citation{ellner2006integral}
 \citation{bolker2008ecological}
-\newlabel{eqn:Growth}{{3}{12}}
-\newlabel{eqn:Fec}{{4}{12}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.6.6}Sex ratio}{13}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.7}Submodels}{13}}
+\newlabel{sec:submdl}{{2.7}{13}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.7.1}Integral Projection Model}{13}}
+\newlabel{eqn:Growth}{{3}{13}}
 \citation{wanner2009length}
+\newlabel{eqn:Fec}{{4}{14}}
+\newlabel{eqn:femaleEQN}{{9}{14}}
 \citation{burden2005numerical}
 \citation{ellner2006integral,ramula2009integral,merow2014advancing}
-\newlabel{eqn:femaleEQN}{{9}{13}}
-\citation{martyn1986mapping}
-\citation{martyn1986mapping}
-\citation{martyn1986mapping}
-\citation{martyn1986mapping}
-\citation{martyn1986mapping}
+\citation{Taylor:2010}
+\citation{Erickson:2014,Wiederholt:inreview,erickson2016effects}
+\citation{Taylor:2010}
+\citation{erickson:2017}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.7.2}Network-node model}{15}}
 \ttl@writefile{ptc}{\ttl@stoptoc{sections@1}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Data evaluation}{14}}
-\newlabel{sec:dev}{{3}{14}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Data evaluation}{15}}
+\newlabel{sec:dev}{{3}{15}}
+\citation{martyn1986mapping}
+\citation{martyn1986mapping}
+\citation{martyn1986mapping}
+\citation{martyn1986mapping}
+\citation{martyn1986mapping}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Conceptual model evaluation}{16}}
 \citation{lagler1962john}
 \citation{shireman1983synopsis}
 \citation{ellner2006integral,ramula2009integral,merow2014advancing}
+\citation{Erickson:2017ecomod}
+\citation{benedict2003first}
 \citation{schill2016production}
 \citation{kirk2003longevity}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Conceptual model evaluation}{15}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Implementation verification}{15}}
-\newlabel{sec:IpVer}{{5}{15}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Conceptual map of grass carp life history. \(p_f\) is the proportion of recruits who are female and \(p_m\) is the proportion who are male. By definition, \(p_f + p_m = 1\). Our model seeks to alter this ratio through the introduction of YY-males. Growth/maturation is the annual increase in fish length. Recruitment is the successful spawning and development of eggs to produce age-1 fish. Recruitment does not occur from females until they increase in length.\relax }}{16}}
-\newlabel{fig:cMap}{{1}{16}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Model output verification}{16}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Model analysis}{16}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Implementation verification}{17}}
+\newlabel{sec:IpVer}{{5}{17}}
+\citation{martyn1986mapping}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Conceptual map of grass carp life history. \(p_f\) is the proportion of recruits who are female and \(p_m\) is the proportion who are male. By definition, \(p_f + p_m = 1\). Our model seeks to alter this ratio through the introduction of YY-males. Growth/maturation is the annual increase in fish length. Recruitment is the successful spawning and development of eggs to produce age-1 fish. Recruitment does not occur from females until they increase in length.\relax }}{18}}
+\newlabel{fig:cMap}{{1}{18}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Model output verification}{18}}
+\citation{martyn1986mapping}
 \bibstyle{elsarticle-harv}
 \bibdata{/Users/rerickson/Documents/bibFiles/allBib.bib}
 \bibcite{ashraf1998effects}{{1}{1998}{{Ashraf and Fairgrieve}}{{}}}
-\bibcite{betini2015experimental}{{2}{2015}{{Betini et~al.}}{{Betini, Fitzpatrick and Norris}}}
-\bibcite{bieriGuide2018}{{3}{2018}{{Bieri et~al.}}{{Bieri, Sample, Thogmartin, Diffendorfer, Earl, Erickson, Federico, Flockhart, Nicol, Semmens, Skraber, Wiederhold and Mattsson}}}
-\bibcite{bolker2008ecological}{{4}{2008}{{Bolker}}{{}}}
-\bibcite{burden2005numerical}{{5}{2005}{{Burden and Faires}}{{}}}
-\bibcite{cassani1986efficient}{{6}{1986}{{Cassani and Caton}}{{}}}
-\bibcite{chapman2013first}{{7}{2013}{{Chapman et~al.}}{{Chapman, Davis, Jenkins, Kocovsky, Miner, Farver and Jackson}}}
-\bibcite{chilton1992biology}{{8}{1992}{{Chilton~II and Muoneke}}{{}}}
-\bibcite{dhanze1997biology}{{9}{1997}{{Dhanze and Dhanse}}{{}}}
-\bibcite{Ellner:2010IPM}{{10}{2010}{{Ellner et~al.}}{{Ellner, Childs and Rees}}}
-\bibcite{ellner2006integral}{{11}{2006}{{Ellner and Rees}}{{}}}
-\bibcite{erickson2017defining}{{12}{2017a}{{Erickson et~al.}}{{Erickson, Diffendorfer, Norris, Bieri, Earl, Federico, Fryxell, Long, Mattsson, Sample, Wiederhold and Thogmarting}}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Model output corroboration}{17}}
-\@writefile{toc}{\contentsline {section}{Bibliography}{17}}
-\bibcite{Erickson:2017ecomod}{{13}{2017b}{{Erickson et~al.}}{{Erickson, Eager, Brey, Hansen and Kocovsky}}}
-\bibcite{hostetler2015full}{{14}{2015}{{Hostetler et~al.}}{{Hostetler, Sillett and Marra}}}
-\bibcite{kilambi1979effects}{{15}{1979}{{Kilambi and Robison}}{{}}}
-\bibcite{kilambi1980food}{{16}{1980}{{Kilambi}}{{}}}
-\bibcite{kirk2003longevity}{{17}{2003}{{Kirk and Socha}}{{}}}
-\bibcite{lagler1962john}{{18}{1962}{{Lagler et~al.}}{{Lagler, Bardach and Ichthyology}}}
-\bibcite{martyn1986mapping}{{19}{1986}{{Martyn et~al.}}{{Martyn, Noble, Bettoli, Maggio et~al.}}}
-\bibcite{merow2014advancing}{{20}{2014}{{Merow et~al.}}{{Merow, Dahlgren, Metcalf, Childs, Evans, Jongejans, Record, Rees, Salguero-G{\'o}mez and McMahon}}}
-\bibcite{morris2002quantitative}{{21}{2002}{{Morris and Doak}}{{}}}
-\bibcite{ramula2009integral}{{22}{2009}{{Ramula et~al.}}{{Ramula, Rees and Buckley}}}
-\bibcite{sample2017general}{{23}{2017}{{Sample et~al.}}{{Sample, Fryxell, Bieri, Federico, Earl, Wiederholt, Mattsson, Flockhart, Nicol, Diffendorfer, Thogmartin and Erickson}}}
-\bibcite{schill2016production}{{24}{2016}{{Schill et~al.}}{{Schill, Heindel, Campbell, Meyer and Mamer}}}
-\bibcite{schill2017simulated}{{25}{2017}{{Schill et~al.}}{{Schill, Meyer and Hansen}}}
-\bibcite{shelton1981density}{{26}{1981}{{Shelton et~al.}}{{Shelton, Smitherman and Jensen}}}
-\bibcite{shireman1978size}{{27}{1978}{{Shireman et~al.}}{{Shireman, Colle and Rottmann}}}
-\bibcite{shireman1983synopsis}{{28}{1983}{{Shireman and Smith}}{{}}}
-\bibcite{stott1973note}{{29}{1973}{{Stott and Cross}}{{}}}
-\bibcite{strasser2012contributions}{{30}{2012}{{Strasser et~al.}}{{Strasser, Neubert, Caswell and Hunter}}}
-\bibcite{Taylor:2010}{{31}{2010}{{Taylor and Norris}}{{}}}
-\bibcite{tsehaye2013prospects}{{32}{2013}{{Tsehaye et~al.}}{{Tsehaye, Catalano, Sass, Glover and Roth}}}
-\bibcite{USFWS2014grass}{{33}{2014}{{US Fish and Wildlife Serivce}}{{}}}
-\bibcite{wanner2009length}{{34}{2009}{{Wanner and Klumb}}{{}}}
-\bibcite{wiederholt2017estimating}{{35}{2017}{{Wiederholt et~al.}}{{Wiederholt, Mattsson, Thogmartin, Runge, Diffendorfer, Erickson, Federico, L{\'o}pez-Hoffman, Fryxell, Norris et~al.}}}
-\bibcite{wittmann2014grass}{{36}{2014}{{Wittmann et~al.}}{{Wittmann, Jerde, Howeth, Maher, Deines, Jenkins, Whitledge, Burbank, Chadderton, Mahon, Tyson, Gantz, Keller, Drake and Lodge}}}
+\bibcite{benedict2003first}{{2}{2003}{{Benedict and Robinson}}{{}}}
+\bibcite{betini2015experimental}{{3}{2015}{{Betini et~al.}}{{Betini, Fitzpatrick and Norris}}}
+\bibcite{bieriGuide2018}{{4}{2018}{{Bieri et~al.}}{{Bieri, Sample, Thogmartin, Diffendorfer, Earl, Erickson, Federico, Flockhart, Nicol, Semmens, Skraber, Wiederhold and Mattsson}}}
+\bibcite{bolker2008ecological}{{5}{2008}{{Bolker}}{{}}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Model analysis}{19}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Model output corroboration}{19}}
+\@writefile{toc}{\contentsline {section}{Bibliography}{19}}
+\bibcite{burden2005numerical}{{6}{2005}{{Burden and Faires}}{{}}}
+\bibcite{cassani1986efficient}{{7}{1986}{{Cassani and Caton}}{{}}}
+\bibcite{chapman2013first}{{8}{2013}{{Chapman et~al.}}{{Chapman, Davis, Jenkins, Kocovsky, Miner, Farver and Jackson}}}
+\bibcite{chilton1992biology}{{9}{1992}{{Chilton~II and Muoneke}}{{}}}
+\bibcite{dhanze1997biology}{{10}{1997}{{Dhanze and Dhanse}}{{}}}
+\bibcite{Ellner:2010IPM}{{11}{2010}{{Ellner et~al.}}{{Ellner, Childs and Rees}}}
+\bibcite{ellner2006integral}{{12}{2006}{{Ellner and Rees}}{{}}}
+\bibcite{erickson2017defining}{{13}{2017a}{{Erickson et~al.}}{{Erickson, Diffendorfer, Norris, Bieri, Earl, Federico, Fryxell, Long, Mattsson, Sample, Wiederhold and Thogmarting}}}
+\bibcite{erickson:2017}{{14}{2017b}{{Erickson et~al.}}{{Erickson, Diffendorfer, Norris, Bieri, Earl, Federico, Fryxell, Long, Mattsson, Sample et~al.}}}
+\bibcite{Erickson:2017ecomod}{{15}{2017c}{{Erickson et~al.}}{{Erickson, Eager, Brey, Hansen and Kocovsky}}}
+\bibcite{Erickson:2014}{{16}{2014}{{Erickson et~al.}}{{Erickson, Russell, Diffendorfer, Szymanksi and Thogmartin}}}
+\bibcite{erickson2016effects}{{17}{2016}{{Erickson et~al.}}{{Erickson, Thogmartin, Diffendorfer, Russell and Szymanski}}}
+\bibcite{hostetler2015full}{{18}{2015}{{Hostetler et~al.}}{{Hostetler, Sillett and Marra}}}
+\bibcite{kilambi1979effects}{{19}{1979}{{Kilambi and Robison}}{{}}}
+\bibcite{kilambi1980food}{{20}{1980}{{Kilambi}}{{}}}
+\bibcite{kirk2003longevity}{{21}{2003}{{Kirk and Socha}}{{}}}
+\bibcite{lagler1962john}{{22}{1962}{{Lagler et~al.}}{{Lagler, Bardach and Ichthyology}}}
+\bibcite{martyn1986mapping}{{23}{1986}{{Martyn et~al.}}{{Martyn, Noble, Bettoli, Maggio et~al.}}}
+\bibcite{merow2014advancing}{{24}{2014}{{Merow et~al.}}{{Merow, Dahlgren, Metcalf, Childs, Evans, Jongejans, Record, Rees, Salguero-G{\'o}mez and McMahon}}}
+\bibcite{morris2002quantitative}{{25}{2002}{{Morris and Doak}}{{}}}
+\bibcite{ramula2009integral}{{26}{2009}{{Ramula et~al.}}{{Ramula, Rees and Buckley}}}
+\bibcite{sample2017general}{{27}{2017}{{Sample et~al.}}{{Sample, Fryxell, Bieri, Federico, Earl, Wiederholt, Mattsson, Flockhart, Nicol, Diffendorfer, Thogmartin and Erickson}}}
+\bibcite{schill2016production}{{28}{2016}{{Schill et~al.}}{{Schill, Heindel, Campbell, Meyer and Mamer}}}
+\bibcite{schill2017simulated}{{29}{2017}{{Schill et~al.}}{{Schill, Meyer and Hansen}}}
+\bibcite{shelton1981density}{{30}{1981}{{Shelton et~al.}}{{Shelton, Smitherman and Jensen}}}
+\bibcite{shireman1978size}{{31}{1978}{{Shireman et~al.}}{{Shireman, Colle and Rottmann}}}
+\bibcite{shireman1983synopsis}{{32}{1983}{{Shireman and Smith}}{{}}}
+\bibcite{stott1973note}{{33}{1973}{{Stott and Cross}}{{}}}
+\bibcite{strasser2012contributions}{{34}{2012}{{Strasser et~al.}}{{Strasser, Neubert, Caswell and Hunter}}}
+\bibcite{Taylor:2010}{{35}{2010}{{Taylor and Norris}}{{}}}
+\bibcite{tsehaye2013prospects}{{36}{2013}{{Tsehaye et~al.}}{{Tsehaye, Catalano, Sass, Glover and Roth}}}
+\bibcite{USFWS2014grass}{{37}{2014}{{US Fish and Wildlife Serivce}}{{}}}
+\bibcite{wanner2009length}{{38}{2009}{{Wanner and Klumb}}{{}}}
+\bibcite{Wiederholt:inreview}{{39}{2013}{{Wiederholt et~al.}}{{Wiederholt, {L\'{o}pez-Hoffman}, Cline, Medell\`{i}n, Cryan, Russell, McCracken, Diffendorfer and Semmens}}}
+\bibcite{wiederholt2017estimating}{{40}{2017}{{Wiederholt et~al.}}{{Wiederholt, Mattsson, Thogmartin, Runge, Diffendorfer, Erickson, Federico, L{\'o}pez-Hoffman, Fryxell, Norris et~al.}}}
+\bibcite{wittmann2014grass}{{41}{2014}{{Wittmann et~al.}}{{Wittmann, Jerde, Howeth, Maher, Deines, Jenkins, Whitledge, Burbank, Chadderton, Mahon, Tyson, Gantz, Keller, Drake and Lodge}}}
 \ttl@finishall

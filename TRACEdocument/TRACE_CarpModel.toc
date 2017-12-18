@@ -1,35 +1,38 @@
-\contentsline {section}{\numberline {1}Problem Formulation}{3}
-\contentsline {section}{\numberline {2}Model description}{4}
-\contentsline {subsection}{\numberline {2.1}Purpose}{5}
-\contentsline {subsection}{\numberline {2.2}Entities, state variables, and scales}{6}
-\contentsline {subsection}{\numberline {2.3}Process overview and scheduling}{6}
-\contentsline {subsection}{\numberline {2.4}Design concepts}{7}
-\contentsline {subsubsection}{\numberline {2.4.1}Basic principles}{7}
-\contentsline {subsubsection}{\numberline {2.4.2}Emergence}{7}
-\contentsline {subsubsection}{\numberline {2.4.3}Adaptation}{7}
-\contentsline {subsubsection}{\numberline {2.4.4}Objectives}{7}
-\contentsline {subsubsection}{\numberline {2.4.5}Learning}{7}
-\contentsline {subsubsection}{\numberline {2.4.6}Prediction}{7}
-\contentsline {subsubsection}{\numberline {2.4.7}Sensing}{7}
-\contentsline {subsubsection}{\numberline {2.4.8}Interaction}{7}
-\contentsline {subsubsection}{\numberline {2.4.9}Stochasticity}{8}
-\contentsline {subsubsection}{\numberline {2.4.10}Collectives}{8}
-\contentsline {subsubsection}{\numberline {2.4.11}Observation}{8}
-\contentsline {subsection}{\numberline {2.5}Initialization}{8}
-\contentsline {subsection}{\numberline {2.6}Input data}{8}
+\contentsline {section}{\numberline {1}Problem Formulation}{4}
+\contentsline {section}{\numberline {2}Model description}{5}
+\contentsline {subsection}{\numberline {2.1}Purpose}{7}
+\contentsline {subsection}{\numberline {2.2}Entities, state variables, and scales}{7}
+\contentsline {subsection}{\numberline {2.3}Process overview and scheduling}{7}
+\contentsline {subsubsection}{\numberline {2.3.1}Model with time periods}{7}
+\contentsline {subsubsection}{\numberline {2.3.2}Model without time periods}{7}
+\contentsline {subsection}{\numberline {2.4}Design concepts}{8}
+\contentsline {subsubsection}{\numberline {2.4.1}Basic principles}{8}
+\contentsline {subsubsection}{\numberline {2.4.2}Emergence}{8}
+\contentsline {subsubsection}{\numberline {2.4.3}Adaptation}{8}
+\contentsline {subsubsection}{\numberline {2.4.4}Objectives}{8}
+\contentsline {subsubsection}{\numberline {2.4.5}Learning}{8}
+\contentsline {subsubsection}{\numberline {2.4.6}Prediction}{9}
+\contentsline {subsubsection}{\numberline {2.4.7}Sensing}{9}
+\contentsline {subsubsection}{\numberline {2.4.8}Interaction}{9}
+\contentsline {subsubsection}{\numberline {2.4.9}Stochasticity}{9}
+\contentsline {subsubsection}{\numberline {2.4.10}Collectives}{9}
+\contentsline {subsubsection}{\numberline {2.4.11}Observation}{9}
+\contentsline {subsection}{\numberline {2.5}Initialization}{9}
+\contentsline {subsection}{\numberline {2.6}Input data}{10}
 \contentsline {subsubsection}{\numberline {2.6.1}Length-weight relationship}{10}
 \contentsline {subsubsection}{\numberline {2.6.2}Growth-rate}{10}
-\contentsline {subsubsection}{\numberline {2.6.3}Survival}{10}
-\contentsline {subsubsection}{\numberline {2.6.4}Density}{11}
-\contentsline {subsubsection}{\numberline {2.6.5}Egg production and transition to recruits}{11}
-\contentsline {subsubsection}{\numberline {2.6.6}Sex ratio}{11}
-\contentsline {subsection}{\numberline {2.7}Stochastic spawning and recruitment}{11}
-\contentsline {subsection}{\numberline {2.8}Submodels}{11}
-\contentsline {section}{\numberline {3}Data evaluation}{14}
-\contentsline {section}{\numberline {4}Conceptual model evaluation}{15}
-\contentsline {section}{\numberline {5}Implementation verification}{15}
-\contentsline {section}{\numberline {6}Model output verification}{16}
-\contentsline {section}{\numberline {7}Model analysis}{16}
-\contentsline {section}{\numberline {8}Model output corroboration}{17}
-\contentsline {section}{Bibliography}{17}
+\contentsline {subsubsection}{\numberline {2.6.3}Survival}{12}
+\contentsline {subsubsection}{\numberline {2.6.4}Density}{12}
+\contentsline {subsubsection}{\numberline {2.6.5}Egg production and transition to recruits}{12}
+\contentsline {subsubsection}{\numberline {2.6.6}Sex ratio}{13}
+\contentsline {subsection}{\numberline {2.7}Submodels}{13}
+\contentsline {subsubsection}{\numberline {2.7.1}Integral Projection Model}{13}
+\contentsline {subsubsection}{\numberline {2.7.2}Network-node model}{15}
+\contentsline {section}{\numberline {3}Data evaluation}{15}
+\contentsline {section}{\numberline {4}Conceptual model evaluation}{16}
+\contentsline {section}{\numberline {5}Implementation verification}{17}
+\contentsline {section}{\numberline {6}Model output verification}{18}
+\contentsline {section}{\numberline {7}Model analysis}{19}
+\contentsline {section}{\numberline {8}Model output corroboration}{19}
+\contentsline {section}{Bibliography}{19}
 \contentsfinish 

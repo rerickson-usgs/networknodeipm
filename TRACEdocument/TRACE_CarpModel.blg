@@ -4,44 +4,44 @@ The top-level auxiliary file: TRACE_CarpModel.aux
 The style file: elsarticle-harv.bst
 Database file #1: /Users/rerickson/Documents/bibFiles/allBib.bib.bib
 Reallocated singl_function (elt_size=4) to 100 items from 50.
-You've used 36 entries,
+You've used 41 entries,
             2990 wiz_defined-function locations,
-            849 strings with 13270 characters,
-and the built_in function-call counts, 26595 in all, are:
-= -- 1886
-> -- 1328
-< -- 16
-+ -- 514
-- -- 471
-* -- 3109
-:= -- 3890
-add.period$ -- 108
-call.type$ -- 36
-change.case$ -- 331
-chr.to.int$ -- 35
-cite$ -- 36
-duplicate$ -- 1891
-empty$ -- 1809
-format.name$ -- 599
-if$ -- 4816
-int.to.chr$ -- 2
+            875 strings with 14482 characters,
+and the built_in function-call counts, 31120 in all, are:
+= -- 2196
+> -- 1594
+< -- 17
++ -- 618
+- -- 567
+* -- 3671
+:= -- 4551
+add.period$ -- 123
+call.type$ -- 41
+change.case$ -- 387
+chr.to.int$ -- 39
+cite$ -- 41
+duplicate$ -- 2175
+empty$ -- 2096
+format.name$ -- 712
+if$ -- 5631
+int.to.chr$ -- 3
 int.to.str$ -- 1
-missing$ -- 403
-newline$ -- 195
-num.names$ -- 144
-pop$ -- 728
+missing$ -- 468
+newline$ -- 220
+num.names$ -- 164
+pop$ -- 835
 preamble$ -- 1
-purify$ -- 299
+purify$ -- 350
 quote$ -- 0
-skip$ -- 476
+skip$ -- 542
 stack$ -- 0
-substring$ -- 1017
-swap$ -- 1474
+substring$ -- 1244
+swap$ -- 1718
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 309
+type$ -- 354
 warning$ -- 0
-while$ -- 158
+while$ -- 179
 width$ -- 0
-write$ -- 513
+write$ -- 582

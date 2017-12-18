@@ -1,4 +1,4 @@
-\begin{thebibliography}{36}
+\begin{thebibliography}{41}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\href}[2]{#2}
@@ -19,6 +19,14 @@
   fecundity and egg fertilization rate in chinese and indian major carps}.
 \newblock \bibinfo{journal}{Pakistan Journal of Zoology} \bibinfo{volume}{30},
   \bibinfo{pages}{185--189}.
+%Type = Article
+\bibitem[{Benedict and Robinson(2003)}]{benedict2003first}
+\bibinfo{author}{Benedict, M.Q.}, \bibinfo{author}{Robinson, A.S.},
+  \bibinfo{year}{2003}.
+\newblock \bibinfo{title}{The first release of transgenic mosquitoes: an
+  argument for the sterile insect techique}.
+\newblock \bibinfo{journal}{Trends in Parasitology} \bibinfo{volume}{19},
+  \bibinfo{pages}{349--355}.
 %Type = Article
 \bibitem[{Betini et~al.(2015)Betini, Fitzpatrick and
   Norris}]{betini2015experimental}
@@ -123,15 +131,46 @@
 \newblock \bibinfo{journal}{Journal of Applied Ecology} \bibinfo{volume}{55},
   \bibinfo{pages}{108–117}.
 %Type = Article
-\bibitem[{Erickson et~al.(2017b)Erickson, Eager, Brey, Hansen and
+\bibitem[{Erickson et~al.(2017b)Erickson, Diffendorfer, Norris, Bieri, Earl,
+  Federico, Fryxell, Long, Mattsson, Sample et~al.}]{erickson:2017}
+\bibinfo{author}{Erickson, R.A.}, \bibinfo{author}{Diffendorfer, J.E.},
+  \bibinfo{author}{Norris, D.R.}, \bibinfo{author}{Bieri, J.A.},
+  \bibinfo{author}{Earl, J.E.}, \bibinfo{author}{Federico, P.},
+  \bibinfo{author}{Fryxell, J.M.}, \bibinfo{author}{Long, K.R.},
+  \bibinfo{author}{Mattsson, B.J.}, \bibinfo{author}{Sample, C.}, et~al.,
+  \bibinfo{year}{2017}b.
+\newblock \bibinfo{title}{Defining and classifying migratory habitats as
+  sources and sinks: the migratory pathway approach}.
+\newblock \bibinfo{journal}{Journal of Applied Ecology} .
+%Type = Article
+\bibitem[{Erickson et~al.(2017c)Erickson, Eager, Brey, Hansen and
   Kocovsky}]{Erickson:2017ecomod}
 \bibinfo{author}{Erickson, R.A.}, \bibinfo{author}{Eager, E.A.},
   \bibinfo{author}{Brey, M.B.}, \bibinfo{author}{Hansen, M.J.},
-  \bibinfo{author}{Kocovsky, P.M.}, \bibinfo{year}{2017}b.
+  \bibinfo{author}{Kocovsky, P.M.}, \bibinfo{year}{2017}c.
 \newblock \bibinfo{title}{An integral projeciton model with yy-males and
   appliation to evalutating grass carp control}.
 \newblock \bibinfo{journal}{Ecological Modelling} \bibinfo{volume}{361},
   \bibinfo{pages}{14--25}.
+%Type = Article
+\bibitem[{Erickson et~al.(2014)Erickson, Russell, Diffendorfer, Szymanksi and
+  Thogmartin}]{Erickson:2014}
+\bibinfo{author}{Erickson, R.A.}, \bibinfo{author}{Russell, R.E.},
+  \bibinfo{author}{Diffendorfer, J.E.}, \bibinfo{author}{Szymanksi, J.A.},
+  \bibinfo{author}{Thogmartin, W.E.}, \bibinfo{year}{2014}.
+\newblock \bibinfo{title}{{A stage-structured, spatially explicit migration
+  model for colonial species with a focus on \textit{Myotis} bats}}.
+\newblock \bibinfo{journal}{Letters in Biomathematics} \bibinfo{volume}{1},
+  \bibinfo{pages}{1--16}.
+%Type = Article
+\bibitem[{Erickson et~al.(2016)Erickson, Thogmartin, Diffendorfer, Russell and
+  Szymanski}]{erickson2016effects}
+\bibinfo{author}{Erickson, R.A.}, \bibinfo{author}{Thogmartin, W.E.},
+  \bibinfo{author}{Diffendorfer, J.E.}, \bibinfo{author}{Russell, R.E.},
+  \bibinfo{author}{Szymanski, J.A.}, \bibinfo{year}{2016}.
+\newblock \bibinfo{title}{Effects of wind energy generation and white-nose
+  syndrome on the viability of the indiana bat}.
+\newblock \bibinfo{journal}{PeerJ} \bibinfo{volume}{4}, \bibinfo{pages}{e2830}.
 %Type = Article
 \bibitem[{Hostetler et~al.(2015)Hostetler, Sillett and
   Marra}]{hostetler2015full}
@@ -317,6 +356,19 @@
   species in the missouri river}.
 \newblock \bibinfo{journal}{Journal of Freshwater Ecology}
   \bibinfo{volume}{24}, \bibinfo{pages}{489--495}.
+%Type = Article
+\bibitem[{Wiederholt et~al.(2013)Wiederholt, {L\'{o}pez-Hoffman}, Cline,
+  Medell\`{i}n, Cryan, Russell, McCracken, Diffendorfer and
+  Semmens}]{Wiederholt:inreview}
+\bibinfo{author}{Wiederholt, R.}, \bibinfo{author}{{L\'{o}pez-Hoffman}, L.},
+  \bibinfo{author}{Cline, J.}, \bibinfo{author}{Medell\`{i}n, R.A.},
+  \bibinfo{author}{Cryan, P.}, \bibinfo{author}{Russell, A.},
+  \bibinfo{author}{McCracken, G.}, \bibinfo{author}{Diffendorfer, J.},
+  \bibinfo{author}{Semmens, D.}, \bibinfo{year}{2013}.
+\newblock \bibinfo{title}{{Moving across the border: Modeling migratory bat
+  populations}}.
+\newblock \bibinfo{journal}{Ecosphere} \bibinfo{volume}{4:art114},
+  \bibinfo{pages}{http://dx.doi.org/10.1890/ES13--00023.1}.
 %Type = Article
 \bibitem[{Wiederholt et~al.(2017)Wiederholt, Mattsson, Thogmartin, Runge,
   Diffendorfer, Erickson, Federico, L{\'o}pez-Hoffman, Fryxell, Norris
