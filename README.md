@@ -61,7 +61,13 @@ We have included a brief tutorial covering these two topics.
 	 - `populatedNetworkSexNonUnitTest.py`: Tests the `networkModelPopulateSex` module
 	 - `populatedNetworkYYNonUnitTest.py`: Tests the `networkModelPopulateYYmale` module
 	 - `populatedNetworkSterileNonUntTest.py`: Tests the `networkModelPopulateSterileMale` module
-7. `simulationsDir`: Contains simulations used for the manuscript
+7. `simulationsPaper`: Contains simulations used for the manuscript
+  -  `lake_Scn_*.py` contains the lake scenarios
+  -  `river_Scenarios.py` runs the river scenarios
+  -  `plotSimulationOutputs.R` plots the results using `R`
+  -  `modelOutputs` contains csv files of the model's outputs
+  -  `summaryFigures` contains the summary output figures
+  -  `inputParameters` contains csv files that are used as the model's inputs
 
 ## Code contact
 
