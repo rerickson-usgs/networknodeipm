@@ -149,7 +149,7 @@ Augusiak J, Van den Brink PJ, Grimm V. 2014. Merging validation and evaluation o
 
 \textbf{Summary:}
 \begin{verse}
-\textbf{ Summary text goes here
+\textbf{ 
 Resource managers and ecologists often seek to understand and model spatial dynamics of invasive species.
 These models can be applied to both the management of species (e.g., ``how many do we need to kill?'') and development new control methods (e.g., ``is approach \textit{X} a feasible tool that should be further developed?''). 
 We developed a spatially explicit, integral projection model that can be used to help managers. 
@@ -344,10 +344,11 @@ This model does not contain ``learning'' (e.g., individuals changing and adaptin
 
 \subsubsection{Prediction}
 
-The model assumes a static future and does include internal or external updates. 
-Grass carp spawning events can be stochastic, but the events are random within the model.
-We included this in a previous version of the model, but not this version \citep{Erickson:2017ecomod}.
-Sterile males that can be released are predetermined and a set number may be released each year.
+As presented, our model was deterministic and does not include stochasticity.
+%The model assumes a static future and does include internal or external updates. 
+%Grass carp spawning events can be stochastic, but the events are random within the model.
+%We included this in a previous version of the model, but not this version \citep{Erickson:2017ecomod}.
+%Sterile males that can be released are predetermined and a set number may be released each year.
 
 %Prediction is fundamental to successful decision?making; if an agent?s adaptive traits or learning
 %procedures are based on estimating future consequences of decisions, how do agents predict the future
@@ -778,11 +779,14 @@ Barriers work by decreasing carp movement among nodes.
 We build the model using Python.
 We included formal unit testing and version control as part of our model building.
 We also included non-unit testing to check our code's plotting function.
-}
+Additionally, we created a Universal Modeling Language (UML) diagram of our model's code.}
 \end{verse}
 
-We build our model using unit testing, using the \texttt{unittest} module in python.
+We build our model using unit testing, using the \texttt{unittest} module in Python.
+These tests ensure functions behave as expected and provide coverage of most of the model's code.
 We have included this test code as part of our \texttt{git} repository.  
+We also ensured our mesh size did not gain or lose fish \citep{williams2012avoiding}.  
+We also created a Universal Modeling Language (UML) diagram of our model's code design. 
 
 \section{Model output verification}
 

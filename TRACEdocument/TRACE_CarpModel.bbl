@@ -1,4 +1,4 @@
-\begin{thebibliography}{41}
+\begin{thebibliography}{42}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\href}[2]{#2}
@@ -382,6 +382,15 @@
 \newblock \bibinfo{title}{Estimating the per-capita contribution of habitats
   and pathways in a migratory network: a modelling approach}.
 \newblock \bibinfo{journal}{Ecography} .
+%Type = Article
+\bibitem[{Williams et~al.(2012)Williams, Miller and
+  Ellner}]{williams2012avoiding}
+\bibinfo{author}{Williams, J.L.}, \bibinfo{author}{Miller, T.E.},
+  \bibinfo{author}{Ellner, S.P.}, \bibinfo{year}{2012}.
+\newblock \bibinfo{title}{Avoiding unintentional eviction from integral
+  projection models}.
+\newblock \bibinfo{journal}{Ecology} \bibinfo{volume}{93},
+  \bibinfo{pages}{2008--2014}.
 %Type = Article
 \bibitem[{Wittmann et~al.(2014)Wittmann, Jerde, Howeth, Maher, Deines, Jenkins,
   Whitledge, Burbank, Chadderton, Mahon, Tyson, Gantz, Keller, Drake and
