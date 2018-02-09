@@ -50,11 +50,13 @@ lakeScenariosData[ , Stocking := factor(Stocking,
 
 allNodeGroup <- ggplot(lakeScenariosData, aes(x = Year, y = Population,
                                               color = Stocking, linetype = Sex)) +
+    geom_vline(xintercept = 30, color = 'grey25') + 
     geom_line() +
     facet_grid( PlotLife ~ Node) +
     theme_minimal() +
     scale_color_manual(values = c("black", "red", "blue", "orange")) +
-    scale_y_continuous( labels = scales::comma)
+    scale_y_continuous( labels = scales::comma) 
+
 
 allNodeGroup
 ggsave(plot = allNodeGroup,
@@ -75,6 +77,7 @@ lakeTotalPop[ Sex == TRUE, Type := "Non-released"]
 lakeTotalPlot <- ggplot(lakeTotalPop, aes(x = Year,
                                           y = Population, color = Stocking,
                                           linetype = Type)) +
+    geom_vline(xintercept = 30, color = 'grey25') + 
     geom_line() +
     facet_grid( PlotLife ~ ., scales = "free_y") +
     theme_minimal() +
@@ -156,6 +159,7 @@ riverPlotAll <- ggplot(riverScenariosDataPlot, aes(x = Year,
                                                   y = Population,
                                                   linetype = HarvestLocation,
                                                   color = Barrier)) +
+    geom_vline(xintercept = 15, color = 'grey25') + 
     facet_grid(  Node ~ HarvestLevel, scales = "free_y") +
     geom_line() +
     scale_color_manual(values = c("red", "blue", "black")) +

@@ -22,8 +22,6 @@ The [Python homepage](https://www.python.org/doc/) contains links to tutorials a
 A non-spatially explicit version of this model has been published as an [R package](https://my.usgs.gov/bitbucket/projects/UMESC/repos/carpipm/browse).
 This R package would be more friendly for beginners.
 A Python beginner could likely adapt existing models by changing the input CSV files, but adapting the model requires an understanding of multiple inheritance and class construction in Python.
-We have included a brief tutorial covering these two topics. 
-
 
 ## Description of files and folders 
 
@@ -32,7 +30,7 @@ We have included a brief tutorial covering these two topics.
 2. `UMLdocuments`: folder contains the UML Diagram for the model
   - `uml-inherited.tex`: The LaTeX file used to generate the diagram
   - `uml-inherited.pdf`: The PDF of the UML Diagram
-3. `inputParameters`: A folder with input parameter tables used for model testing. The column names are described in a `tutorial`.
+3. `inputParameters`: A folder with input parameter tables used for model testing. 
 4. `modelFiles`: A folder with the Python source files
    - `networkMode.py`: Contains files to build a basic network-node model
    - `networkModelPopulated.py`: Adds in groups and populations to a network model
@@ -41,11 +39,7 @@ We have included a brief tutorial covering these two topics.
    - `networkModelPopulatedYYmale.py`: Allows a class with YY-males to be inheretited as a Python class
    - `netowrkModelTimePeriods.py`: Allows within year time periods to be included within the model
    - `nodeHarvest.py`: Allows nodes to include harvest
-5. `tutorial`: A placeholder folder for model tutorials
-   - `CSVinputFiles.md`: Describes how to populate models using csv files
-   - `OverviewOfModel.md`: Describes an overview of how use existing models that were presented within the paper
-   - `BuildingNewClasses.md`: Provides a high-level overview of how to build new classes with inheritance
-6. `testFiles`: Contains test files including unit tests and graphic tests that plot results (and are not formal unit tests)
+5. `testFiles`: Contains test files including unit tests and graphic tests that plot results (and are not formal unit tests)
    - Formal unit tests:
      - `unitTestNetwork.py`: Tests the `networkModel` module
      - `unitTestNetworkPopulate.py`: Tests the `networkModelPopulate` module
@@ -61,7 +55,7 @@ We have included a brief tutorial covering these two topics.
 	 - `populatedNetworkSexNonUnitTest.py`: Tests the `networkModelPopulateSex` module
 	 - `populatedNetworkYYNonUnitTest.py`: Tests the `networkModelPopulateYYmale` module
 	 - `populatedNetworkSterileNonUntTest.py`: Tests the `networkModelPopulateSterileMale` module
-7. `simulationsPaper`: Contains simulations used for the manuscript
+6. `simulationsPaper`: Contains simulations used for the manuscript
   -  `lake_Scn_*.py` contains the lake scenarios
   -  `river_Scenarios.py` runs the river scenarios
   -  `plotSimulationOutputs.R` plots the results using `R`
