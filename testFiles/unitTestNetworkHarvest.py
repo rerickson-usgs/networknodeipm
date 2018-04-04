@@ -36,6 +36,33 @@ class test_nodeHarvest( unittest.TestCase):
 
         self.assertEqual( nodeTest1.groups[0].showPopDistYear(0).sum(), 2.5)
 
+    def testHarvestNonUniform( self):
+        '''
+        Tests a uniform harvest input
+        '''
+        class popNodeHarvest( nH.nodeHarvest, nmp.populatedNode):
+            pass
+
+        nYears = 10
+        harvest  = np.array([ [0.0, 0.1, 0.5, 0.9, 1.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]])
+        nPoints = harvest.shape[1]
+        nodeTest1 = popNodeHarvest("test node 1")
+        nodeTest1.setHarvest( harvest )
+
+        self.assertEqual( nodeTest1.showNodeHarvest()[1 ,2] , harvest[1, 2])
+        self.assertTrue( all(nodeTest1.showNodeHarvestYear(0) == harvest[ 0, :]))
+
+        group = nmp.group('test group')
+        group.createPopDist( nYears = nYears,
+                             nPoints = nPoints,
+                             popDist0 = np.ones( nPoints))
+
+        nodeTest1.addGroups( [group])
+        nodeTest1.nodeHarvest( year = 0)
+        self.assertEqual( nodeTest1.groups[0].showPopDistYear(0).sum(), 3.5)
+
+        
+        
 class test_addNodeHarvestCSV( unittest.TestCase):
 
     def testAddFunction( self):
