@@ -62,7 +62,6 @@ class test_nodeHarvest( unittest.TestCase):
         self.assertEqual( nodeTest1.groups[0].showPopDistYear(0).sum(), 3.5)
 
         
-        
 class test_addNodeHarvestCSV( unittest.TestCase):
 
     def testAddFunction( self):
@@ -121,6 +120,41 @@ class test_addNodeHarvestCSV( unittest.TestCase):
         self.assertEqual(network.nodes[1].showNodeHarvest()[0], 0.0)
         self.assertEqual(network.nodes[1].showNodeHarvest()[1], 0.75)
         self.assertEqual(network.nodes[1].showNodeHarvest()[3], 0.0)
+
+
+
+class test_addNodeHarvestLogisticCSV( unittest.TestCase):
+
+    def testAddFunction( self):
+        inputFolder = "../inputParameters/"
+        
+        harvestFile = inputFolder + 'nodeHarvestTestHarvestLogistic.csv'
+        dfHarvest = pd.read_csv( harvestFile)
+
+        networkFile = inputFolder + 'twoNodeTestNetwork.csv'
+        dfNetwork = pd.read_csv( networkFile)
+
+        
+        nodeFile = inputFolder + 'twoNodeTestNodes.csv'
+        dfNode = pd.read_csv( nodeFile)
+        
+        class popNodeWithHarvestCSV( nH.addNodeHarvestCSV, nmp.createNetworkFromCSV):
+            pass
+
+        class popNodeWithHarvest( nH.nodeHarvest, nmp.populatedNode):
+            pass
+        
+        createNetwork = popNodeWithHarvestCSV( dfNetwork)
+
+        createNetwork.addNodesFromCSV( dfNode, popNodeWithHarvest)
+        createNetwork.addLogisticHarvestIntoNodes( dfHarvest)
+
+   
+        network = createNetwork.showNetwork()
+        self.assertAlmostEqual(network.nodes[0].harvest.max(), 0.999999987852)
+        self.assertAlmostEqual(network.nodes[1].harvest.max(), 0.0)
+
+        self.assertTrue( network.nodes[0].harvest.shape == (network.nYears, len(network.omega)))
         
 if __name__ == '__main__':
     unittest.main()

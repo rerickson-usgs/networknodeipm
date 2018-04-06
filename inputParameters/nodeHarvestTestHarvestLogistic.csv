@@ -1,0 +1,3 @@
+"node","startYear","endYear","minHar","maxHar","alphaHar","betaHar"
+"node 1",0,3,0,1,180,-20
+"node 2",0,0,0,1,180,-20

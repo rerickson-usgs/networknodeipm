@@ -1,0 +1,8 @@
+Scenario,Stocking,Lifespan
+Scn_0,Reference,Reference
+Scn_1,Low,Normal
+Scn_2,Mid,Normal
+Scn_3,High,Normal
+Scn_4,Low,Shorter
+Scn_5,Mid,Shorter
+Scn_6,High,Shorter
