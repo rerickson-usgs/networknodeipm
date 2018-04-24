@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import sys 
+import networkModelPopulate as nmp 
 
 class nodeHarvest:
 
@@ -40,3 +41,23 @@ class addNodeHarvestCSV:
                 harvestLevel, startYear, endYear =  dfHarvestUse['harvest'].values[0].split(";")
                 harvestIn[ int(startYear): int(endYear)] = float(harvestLevel)
                 nd.setHarvest( harvestIn)
+
+    def addLogisticHarvestIntoNodes( self, dfHarvest):
+
+        for nd in self.network.nodes:
+            dfHarvestUse = dfHarvest.query( str('node == ' + "'" +
+                                                nd.showNodeName() + "'"))
+
+            harvestIn = np.zeros( (self.network.nYears , len(self.network.omega)))
+            harvestLogistic = nmp.logistic( alphaL = dfHarvestUse["alphaHar"],
+                                            betaL =  dfHarvestUse["betaHar"],
+                                            minL = dfHarvestUse["minHar"],
+                                            maxL = dfHarvestUse["maxHar"])
+
+            yearRowsUse = range(dfHarvestUse[ "startYear"], dfHarvestUse[ "endYear"])
+            
+            if len(yearRowsUse) > 0:
+                harvestVec = np.transpose(np.tile(np.array([ harvestLogistic( z = zIn) for zIn in self.network.omega]), (1, len(yearRowsUse))))
+                harvestIn[ yearRowsUse, :] = harvestVec
+                
+            nd.setHarvest(harvestIn)
