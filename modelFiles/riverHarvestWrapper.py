@@ -46,25 +46,51 @@ def riverWrapper(scnName  = "river",
             First dotproduct is growth/maturation.
             Second dotproduct is recruitment.
             '''
-            if nextYear is None:
-                nextYear = year + 1
+            reproducingPopulation  = 0.0
             
+            groupsMale   = [grp.showSex() == "male"  for grp in self.groups]
+            groupsFemale = [grp.showSex() == "female"  for grp in self.groups]
+            groupsPop    = np.array([grp.showPopYear(year)  for grp in self.groups])
+            
+            maleContribution   = np.array([grp.showImpactOnMaleRatio()    for grp in self.groups])[ groupsMale]
+            femaleContribution = np.array([grp.showImpactOnFemaleRatio()  for grp in self.groups])[ groupsFemale]
+            
+            malePop   = groupsPop[groupsMale]
+            femalePop = groupsPop[groupsFemale]
+
+            maleRatio   = (maleContribution   * malePop / malePop.sum()).sum()
+            femaleRatio = (femaleContribution * femalePop / femalePop.sum()).sum()
+            
+            for grp in self.groups:
+                ## First, sum up reruitment groups
+                if grp.showRecruitmentGroup():
+                    reproducingPopulation += grp.showPopDistYear( year)
+                    if grp.showSex() == "male":
+                        if grp.showRecruitmentProportion() > 0.0:
+                            grp.addRecruitmentProportionMod(
+                                maleRatio
+                            )                    
+                            
+                    if grp.showSex() == "female":
+                        if grp.showRecruitmentProportion() > 0.0:
+                            grp.addRecruitmentProportionMod(
+                                femaleRatio
+                            )
+
             for grp in self.groups:
                 popAdd = ( np.dot( hWidth * grp.growth( omega, omega), 
                                    grp.showPopDistYear( year) *
                                    grp.survival( omega) ) +
                            np.dot(hWidth * grp.recruitment( omega, omega),
-                                  grp.showPopDistYear( year)) *
-                           grp.density(nodeBiomass)
+                                  reproducingPopulation *  grp.density(nodeBiomass) *
+                                  grp.showRecruitmentProportionMod() )
                 )
-                popAdd = popAdd * (1.0 - self.showNodeHarvestYear(year))
+                
                 if grp.showStocking():
-                    grp.updatePopDistYear( nextYear,
-                                           (popAdd +
-                                            grp.showStockingPopYear(year)))
+                    grp.updatePopDistYear( year + 1, popAdd + grp.showStockingPopYear(year))
                 else:
-                    grp.updatePopDistYear( nextYear, popAdd)    
-
+                    grp.updatePopDistYear( year + 1, popAdd)
+            
     class createNetworkUse(
             nh.addNodeHarvestCSV,
             nmp.createNetworkFromCSV):

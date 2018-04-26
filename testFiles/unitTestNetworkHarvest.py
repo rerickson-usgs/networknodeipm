@@ -38,7 +38,7 @@ class test_nodeHarvest( unittest.TestCase):
 
     def testHarvestNonUniform( self):
         '''
-        Tests a uniform harvest input
+        Tests a non-uniform harvest input
         '''
         class popNodeHarvest( nH.nodeHarvest, nmp.populatedNode):
             pass
@@ -124,7 +124,10 @@ class test_addNodeHarvestCSV( unittest.TestCase):
 
 
 class test_addNodeHarvestLogisticCSV( unittest.TestCase):
-
+    ''' 
+    Tests adding a logisitc curve as the harvest function.
+    '''
+    
     def testAddFunction( self):
         inputFolder = "../inputParameters/"
         
@@ -148,12 +151,11 @@ class test_addNodeHarvestLogisticCSV( unittest.TestCase):
 
         createNetwork.addNodesFromCSV( dfNode, popNodeWithHarvest)
         createNetwork.addLogisticHarvestIntoNodes( dfHarvest)
-
    
         network = createNetwork.showNetwork()
         self.assertAlmostEqual(network.nodes[0].harvest.max(), 0.999999987852)
         self.assertAlmostEqual(network.nodes[1].harvest.max(), 0.0)
-
+        
         self.assertTrue( network.nodes[0].harvest.shape == (network.nYears, len(network.omega)))
         
 if __name__ == '__main__':
