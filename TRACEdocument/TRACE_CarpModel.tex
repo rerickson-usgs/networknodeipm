@@ -120,7 +120,7 @@
 This is a TRACE documentation (``TRAnsparent and Comprehensive model Evaludation''), 
 which provides supporting evidence that our model presented in:
 \begin{center}
-\textbf{Erickson RA, Eager EA, Long, KR,  Kocovsky PM, Glover D, et al. A spatially discrete, integral projection model and its application to invasive carps. Interface.}
+\textbf{Erickson RA, Eager EA, Long, KR,  Kocovsky PM, Glover D, et al. A spatially discrete, integral projection model and its application to invasive carps. Ecological Modelling.}
 \end{center}
 was thoughtfully designed, correctly implemented, thoroughly tested, well understood, and appropriately used for its intended purpose. 
 
@@ -152,6 +152,7 @@ Augusiak J, Van den Brink PJ, Grimm V. 2014. Merging validation and evaluation o
 \textbf{ 
 Resource managers and ecologists often seek to understand and model spatial dynamics of invasive species.
 These models can be applied to both the management of species (e.g., ``how many do we need to kill?'') and development new control methods (e.g., ``is approach \textit{X} a feasible tool that should be further developed?''). 
+Furthermore, management activities often target organisms of a specific size (e.g., harvest may only target large fish or a barrier may limit the movement small fish but not large fish).
 We developed a spatially explicit, integral projection model that can be used to help managers. 
 We demonstrate the use of the modeling framework on a lake-tributary system and a series of river pools for grass carp.
 We did not parameterize our system to any specific system of grass carp.
@@ -237,7 +238,7 @@ This section describes the model's equations and lists the sources for the model
 
 \subsection{Purpose}
 
-We created this model to allow managers and researchers to compare different spatially explicit management approaches.
+We created this model to allow managers and researchers to compare different spatially explicit and size specific management approaches.
 We were specifically motivated by managers wanting to compare different management scenarios and new, theoretical technologies (e.g., YY-males, sterile-males, or other modified organisms) for invasive carps. 
 Our model allows for the comparison of different management strategies (e.g., harvest, barriers) and new control technologies to meet this need.
 We also sought to create a generalizable framework as we addressed these needs. 
@@ -565,101 +566,104 @@ We explored this assumption in our sensitivity analysis.
 
 \subsubsection{Integral Projection Model}
 
-The backbone of our model is an integral projection model.
-Integral projection models are still relatively new to population ecology, especially applied ecology, and we refer readers who are unfamiliar with them to recent summary and tutorial articles \citep[e.g.,][]{ellner2006integral, ramula2009integral, merow2014advancing}. The state variables for our model are the populations of female grass carp (\(P_\text{f}(z,t)\)), male grass carp (\(P_\text{m}(z, t)\)), and YY-male grass carp (\(P_\text{YY}(z, t)\)), which are continuous functions of a size variable \(z\) for each (discrete) time \(t\).  The variable \(z\) generally ranges over the domain \(\Omega\), which is usually an interval of possible sizes.  The integral
-\begin{equation*}
-||P_{\text{f}}(\cdot, t)|| = \int_{\Omega}P_{\text{f}}(z, t) dz
-\end{equation*}
-gives the total population size of female carp for each time \(t\), and similarly for male grass carp and YY-male grass carp. 
+We modeled the life history of carp using an integral projection model based upon previous work by \citet{Erickson:2017ecomod}. 
+Our model  presentation closely followes that of \citet{Erickson:2017ecomod}.
+Recent work provides overviews, introductions, and tutorials of integral projection models for readers who are unfamiliar with their basic application \citep[e.g.,][]{ellner2006integral, ramula2009integral, Ellner:2010IPM, merow2014advancing}.
+The continuous-length distribution of individuals within populations form the basic foundations of the model (Figure \ref{fig:cMap}).
+We model the length of individuals (\(z\)) within the population through discrete time (\(t\)).
+The variable \(z\) ranges over an interval of possible lengths \(\Omega\), with considerations for unintentional eviction \citep{williams2012avoiding}.
+Our specific time step differs between case studies, reflecting the different amounts of biological data for the case studies.
+By default, we include 2 fixed population sex-classes within the model: females \(P_\text{f}(z,t))\) and males \(P_\text{m}(z, t)\) of size \(z\) at time \(t)\). 
+Our model includes the option to add additional sex-classes such as YY-males \citep{Erickson:2017ecomod} or genetically modified sterile individuals \citep{knols2006gm} or ignore sex-structure within the populations.
+We include some of these variations within this paper. 
 
-In traditional matrix population models, the population vector is multiplied on the left by a matrix to project population size and distribution from one time step to next.  In an integral projection model, an integral kernel \(K(z,z')\) is used as an analogue to a matrix, where the population at time \(t+1\) is found via an integral of the form
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width = 0.5\textwidth]{../../manuscript/Figure2.eps} 
+	   \caption{Conceptual map of carp life history. \(p_f\) is the proportion of female recruits and \(p_m\) is the proportion of male recruits. By definition, \(p_f + p_m = 1\).  The recruitment kernel (\(F(z, z^\prime)\)) is defined in Equation \ref{eqn:Fec}, where \(z\) is size at the current time, \(t\) and \(z^\prime\) is the size at the next time step \(t+1\). The growth/survival kernel (\(M (z, z')\)) is defined in Equation \ref{eqn:growMat}.  Growth/maturation is the annual increase in fish length including the survival. Recruitment is the successful spawning and development of eggs to produce age-1 fish. Recruitment does not occur from females until they become of sufficient length. Figure is reprinted from \citet{Erickson:2017ecomod}  and is in the public domain because it was created by a US Government Employee as part of his official duties.}
+   \label{fig:cMap}
+\end{figure}
+
+An integral gives the total population size of female carp at each time step \(t\)
 \begin{equation*}
-P(z', t+1) = \int_{\Omega} K(z, z')P(z, t) \; dz
+||P_{\text{f}}(\cdot, t)|| = \int_{\Omega}P_{\text{f}}(z, t) dz,
 \end{equation*}
-for each time \(t\).  In many ecological settings one can partition the kernel into two kernels, a kernel for growth and maturation and a kernel for fecundity/recruitment \citep{ellner2006integral}.  The maturation and growth kernel, \(M\), projects how fish increase in length through time (i.e., a fish at time \(t\) with size \(z\) will have size \(z^\prime\) at time \(t+1\)).
-This kernel includes survival, which is a function of current size (\(S(z)\)), and 
-growth, which is a function of the current size and size at the next time step (\(G(z, z^\prime)\)):
+with similar equations existing for males and other possible sex classes (e.g., sterile males or YY-males).
+Using matrix population models, one ``projects'' the population size and distribution from one time step to the next by multiplying a population vector with a matrix.
+Using integral projection models, one ``integrates'' the integral kernel (i.e., the function from one time step to the next) \(K(z,z')\) to calculate the population size through time: 
+\begin{equation*}
+P(z', t+1) = \int_{\Omega} (K(z, z')P(z, t))\; dz
+\end{equation*}
+for each time \(t\). 
+Note that if \(z\) is the current length at time \(t\), then \(z^\prime\) is the length at time \(t+1\).
+The kernel often can be split into two kernels: a kernel for recruitment/fecundity and a kernel for growth and maturation \citep{ellner2006integral}.  
+Additionally, we include immigration, \(I(z)\), and emigration, \(E(z)\), kernels modeling connections among subpopulation as a function of fish size.
+These terms include both movement mappings and survival  (i.e., they indicate the probability of a fish both moving between nodes and surviving the move).
+Non-moving fish have a different survival function.
+The growth and maturation kernel, \(M\), models how fish grow in length as a function of time and includes both survival, \(S(z)\), and growth, \(G(z, z^\prime)\). 
 \begin{eqnarray}
-M = S(z) G(z, z^\prime).
+M(z, z^\prime) = S(z) G(z, z^\prime).\label{eqn:growMat}
 \end{eqnarray}
-The survival function is a logistic function with four parameters: 
+We used a four-parameter logistic function for survival:
 a minimum survival rate, \(s_\text{min}\); 
 a maximum survival rate, \(s_\text{max}\);
-a slope parameter, \(\alpha_s\); and 
-an intercept parameter, \(\beta_s\) \citep{bolker2008ecological}.
-The growth function is a two-variable normal distribution centered around a modified von Bertalanffy function of the current size, \(z\).
-The function includes two parameters for the modified von Bertalanffy equation: \(k_g\) and \(a_g\), and a standard deviation \(\sigma_g\):
+an intercept parameter, \(\alpha_s\); and 
+a slope parameter, \(\beta_s\) \citep{bolker2008ecological}:
 \begin{eqnarray}
-G(z, z^\prime) &=&  \text{Prob}(z^\prime | z, k_g, a_g, \sigma_g) = \text{Normal PDF}((1 - k_g) z + k_g * a_g , \sigma_G).\label{eqn:Growth}
+S(z) = s_\text{min} + \frac{s_\text{max} - s_\text{min}}{ 1 + e^{\beta_s (\log(z) - \log(\alpha_s))}} .
+\end{eqnarray}
+We modified and derived a von Bertalanffy function to model growth.
+First, we took the derivative of the length with respect to length (i.e., how length changes as a function of length) because the von Bertalanffy function usually denotes the relationship between time and length.
+Second, we assumed the function was centered around a modified normal distirbution. 
+We created a mapping between current size at time \(t\) (\(z\)) and size at the next time step \(t+1\) (\(z^\prime\)).
+Our new function included two parameters for the modified von Bertalanffy equation: \(k_g\) and \(a_g\), and a standard deviation \(\sigma_g\):
+\begin{eqnarray}
+G(z, z^\prime) &=&  \text{Prob}(z^\prime | z, k_g, a_g, \sigma_g) = \text{Normal PDF}((1 - k_g) z + k_g  a_g , \sigma_G).\label{eqn:Growth}
 \end{eqnarray}
 
-The  fecundity/recruitment kernel, \(F\),  is a function of the probability of 
+Our fecundity/recruitment kernel, \(F\), is a function of the probability of 
 an egg transitioning to become a recruit, \(e_t\);
 the probability of females surviving from the previous year, \(S(z)\);
 the probability of females spawning, \(P_r(z)\);
-the number of eggs produced per female, \(E(z)\); and 
-the initial recruit size distribution, \(J(z^\prime\)):
+the number of eggs produced per female, \(Egg(z)\); and 
+the initial recruit length distribution, \(J(z^\prime\)):
 \begin{eqnarray}
-F(z, z^\prime) &=& e_t S(z) P_r(z) E(z) J(z).\label{eqn:Fec}
+F(z, z^\prime) &=& e_t S(z) P_r(z) Egg(z) J(z).\label{eqn:Fec}
 \end{eqnarray}
 \(S(z)\) and \(P_r(z)\) are both logistic functions, while
-\(E(z)\) is the function of eggs produced by fish based upon their size, using the length-weight relationship. 
-The input, female fish length \(z\), is converted to biomass using Equation \ref{eqn:LW}, which is integrated for the entire female population.
+\(Egg(z)\) is the function of eggs produced by fish based upon her length, using the length-weight relationship. 
+The input, female fish length \(z\), is converted to biomass based upon the relationship between weight and length from \cite{wanner2009length}:
+\begin{eqnarray}
+\text{log}_{10} (\text{biomass}) = \alpha_{\text{lw}} + \beta_\text{lw}\text{log}_{10} (z)\label{eqn:LW},
+\end{eqnarray}
+which is integrated for the entire female population.
 This is then multiplied by the eggs produced per kg of female (\(e_\text{kg}\)).  
-The minimum survival is \(s_\text{min}\);
-the maximum survival is \(s_\text{max}\);
-the survival slope parameter is \(\alpha_s\);  and
-the survival intercept parameter, \(\beta_s\).
 The minimum probability of spawning is \(r_\text{min}\);
 the maximum probability of spawning is \(r_\text{max}\);
-the probability of spawning slope parameter is \(\alpha_r\);  and
-the probability of spawning intercept parameter, \(\beta_r\).
-The recruit size distribution is the size distribution of recruit and is a log-normal distribution with mean \(\mu_J\) and standard deviation \(\sigma_J\).
-The egg transition probability to recruits includes  eggs fertilization, survival, and transition to age-1 fish.
+the probability of spawning  intercept parameter is \(\alpha_r\);  and
+the probability of spawning slope parameter is \(\beta_r\).
+The recruit length distribution is the length distribution of recruits and is a log-normal distribution with mean \(\mu_J\) and standard deviation \(\sigma_J\).
+The egg transition probability to recruits includes the eggs fertilization, survival, and recruitment to age-1 fish.
 
-The year-to-year projection for YY-males is the simplest because the only recruitment is from the pulse releases during each year, \(\textbf{P}_\text{YY}(t)\), and maturation kernel, \(M\):
-\begin{eqnarray}
-P_\text{YY}(z', t + 1) = \int_\Omega (M (z, z')P_\text{YY}(z, t)) dz + \textbf{P}_\text{YY}(z, t).
-\end{eqnarray}
-The pulse function, \(\textbf{P}_\text{YY}(t)\), is the number and size of YY-males released each year.
-It is a size distribution for each year of release. 
-The year-to-year projection for males includes maturation and new recruits, as well as the proportion of males produced (\(p_m, p_m = 1- p_f\)); 
-The proportion of spawning and successful recruitment during a given year is drawn each year from a beta-distribution, \(p_\text{spawn} \sim \text{Beta}(\alpha, \beta)\); and 
-depends on population density, \(d\).  
-The effect of density is calculated using the total biomass of carp (i.e., the sum of the weight for all individuals carp), where
-the relationship between weight and length is taken from \cite{wanner2009length}:
-\begin{eqnarray}
-\text{log}_{10} (\text{weight}) = \alpha_{\text{lw}} + \beta_\text{lw}\text{log}_{10} (\text{length}).
-\end{eqnarray}
+The proportion of spawning and successful recruitment during a given year, \(p_\text{recruit}\)  depends on population density, \(d\).  
+The effect of density is calculated using the total biomass of carp (i.e., the sum of the weight for all individuals carp), using Equation \ref{eqn:LW}.  
 This biomass calculation is then used in a negative exponential function to calculate the decrease in fecundity caused by grass carp density:
 \begin{eqnarray}
 d  = a e^{-b \text{biomass}}.
 \end{eqnarray}
-These term are combined to make the (now density-dependent) male kernel:
+These terms are combined to make the (now density-dependent) male kernel:
 \begin{eqnarray}
-P_\text{male}(z', t + 1) = \int_\omega (M(z,z') P_\text{male}(z, t) + F(z,z') P_\text{female}(z, t) p_{m}^\star\; d \; p_\text{spawn}) \; dz.
+P_\text{male}(z', t + 1) = \int_\omega (M(z,z') P_\text{male}(z, t) + F(z,z') P_\text{female}(z, t) p_{m}; d \; p_\text{recruit} + I(z)  - E(z)) \; dz.
 \end{eqnarray}
 The female year-to-year projection is similar to the male kernel:
 \begin{eqnarray}
-P_\text{female}(z', t + 1) = \int_\omega (M(z,z') P_\text{female}(z, t) + F(z,z') P_\text{female}(z, t) p_{f}^\star \; d \; p_\text{spawn}) \; dz.\label{eqn:femaleEQN}
-\end{eqnarray}
-The sex ratio at hatching is a function of the population size of YY-males and regular males:
-\begin{eqnarray}
-p_f^\star = \frac{p_f  ||P_\text{m}(\cdot, t)||}{||P_\text{m}(\cdot, t)|| + ||P_\text{YY}(\cdot, t)||}.
+P_\text{female}(z', t + 1) = \int_\omega (M(z,z') P_\text{female}(z, t) + F(z,z') P_\text{female}(z, t) p_{f}\; d \; p_\text{recruit} + I(z)  - E(z)) \; dz.\label{eqn:femaleEQN}
 \end{eqnarray}
 
-Our model makes some important assumptions about grass carp and the impacts of sex.
-First, our model assumes that normal males and females survive and grow at the same rate.
-We made this assumption because data does not exist for the growth and survival of each sex individually.
-Second, we assume YY-males are the same biologically as normal males.
-We made this assumption because YY-males have not yet been created and data does not exist on their possible survival rate.
-
-The transient dynamics of our model also depend upon the initial conditions.
-We chose a log-normal distribution to model the initial size distribution of individuals for both males and females.
- 
-
-We used the mid-point rule to numerically solve the system of integrals \citep{burden2005numerical} using large approximating matrices.
-Most recent IPM models have used this approach because of its simplicity \citep{ellner2006integral, ramula2009integral, merow2014advancing}.
+Our model makes an important assumptions about grass carp and the impacts of sex.
+Our model assumes that XY-males and females survive, grow, and are produced at the same rate.
+We made these assumptions because data do not exist for the growth and survival of each sex individually.
 
 \subsubsection{Network-node model}
 

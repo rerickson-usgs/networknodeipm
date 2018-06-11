@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.10.4)  20 DEC 2017 07:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.10.4)  11 JUN 2018 14:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -314,7 +314,14 @@ Package: booktabs 2016/04/27 v1.618033 publication quality tables
 \@lastruleclass=\count115
 \@thisrulewidth=\dimen156
 )
-(./TRACE_CarpModel.aux)
+(./TRACE_CarpModel.aux
+
+LaTeX Warning: Label `eqn:LW' multiply defined.
+
+
+LaTeX Warning: Label `fig:cMap' multiply defined.
+
+)
 \openout1 = `TRACE_CarpModel.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 114.
@@ -455,67 +462,88 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 [4] [5]
 \c@ttl@toc@sections=\count122
  (./TRACE_CarpModel.ptc) [6]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 277.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 278.
 
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 277.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 278.
  [7] [8] [9]
-[10] [11] [12] [13] [14]
+[10] [11] [12]
+Package epstopdf Info: Source file: <../../manuscript/Figure2.eps>
+(epstopdf)                    date: 2018-01-29 15:28:37
+(epstopdf)                    size: 207374 bytes
+(epstopdf)             Output file: <../../manuscript/Figure2-eps-converted-to.
+pdf>
+(epstopdf)                    date: 2018-01-29 15:28:45
+(epstopdf)                    size: 13010 bytes
+(epstopdf)             Command: <repstopdf --outfile=../../manuscript/Figure2-e
+ps-converted-to.pdf ../../manuscript/Figure2.eps>
+(epstopdf)             \includegraphics on input line 583.
+Package epstopdf Info: Output file is already uptodate.
+<../../manuscript/Figure2-eps-converted-to.pdf, id=50, pagebox=cropbox, 185.693
+76pt x 241.90375pt>
+File: ../../manuscript/Figure2-eps-converted-to.pdf Graphic file (type pdf)
+<use ../../manuscript/Figure2-eps-converted-to.pdf>
+Package pdftex.def Info: ../../manuscript/Figure2-eps-converted-to.pdf  used on
+ input line 583. on input line 583.
+Package pdftex.def Info: Requested size: 234.8775pt x 305.98149pt on input line
+ 583.
+ [13] [14 <../../manuscript/Figure2-eps-converted-to.pdf>]
+[15]
 LaTeX Font Info:    Font shape `OMS/cmr/bx/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/b/n' tried instead on input line 694.
- [15] [16]
-<../../../Figure/FlowChart.pdf, id=65, pagebox=cropbox, 184.94295pt x 241.84856
+(Font)              Font shape `OMS/cmsy/b/n' tried instead on input line 698.
+ [16] [17]
+<../../../Figure/FlowChart.pdf, id=93, pagebox=cropbox, 184.94295pt x 241.84856
 pt>
 File: ../../../Figure/FlowChart.pdf Graphic file (type pdf)
 <use ../../../Figure/FlowChart.pdf>
-Package pdftex.def Info: ../../../Figure/FlowChart.pdf  used on input line 767.
- on input line 767.
+Package pdftex.def Info: ../../../Figure/FlowChart.pdf  used on input line 771.
+ on input line 771.
 Package pdftex.def Info: Requested size: 187.89914pt x 245.71909pt on input lin
-e 767.
- [17 <../../../Figure/FlowChart.pdf>]
-[18] (./TRACE_CarpModel.bbl [19]
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no “ in font cmr10!
- [20] [21])
+e 771.
+ [18] [19 <../../../Figure/FlowChart.pdf>] (./TRACE_CarpModel.bbl [20] [21] [22
+])
 \tf@ptc=\write4
 \openout4 = `TRACE_CarpModel.ptc'.
 
- [22] (./TRACE_CarpModel.aux) ) 
+ [23] (./TRACE_CarpModel.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
 Here is how much of TeX's memory you used:
- 6015 strings out of 492990
- 90526 string characters out of 6132636
- 173135 words of memory out of 5000000
- 9462 multiletter control sequences out of 15000+600000
- 8911 words of font info for 34 fonts, out of 8000000 for 9000
+ 6018 strings out of 492990
+ 90715 string characters out of 6132636
+ 174244 words of memory out of 5000000
+ 9464 multiletter control sequences out of 15000+600000
+ 8292 words of font info for 32 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,12n,43p,713b,387s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2017/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmbsy10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmex10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmmi8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmr10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmr7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmsy10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmsy6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/c
-msy7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmt
-i10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt
-10.pfb>
-Output written on TRACE_CarpModel.pdf (22 pages, 257589 bytes).
+ 42i,12n,43p,975b,375s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pf
+b></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
+></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
+</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb
+></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
+</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
+/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></u
+sr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr
+/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/l
+ocal/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/loc
+al/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local
+/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/te
+xlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texli
+ve/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texliv
+e/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/
+2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/20
+17/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/201
+7/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on TRACE_CarpModel.pdf (23 pages, 275724 bytes).
 PDF statistics:
- 158 PDF objects out of 1000 (max. 8388607)
- 114 compressed objects within 2 object streams
+ 181 PDF objects out of 1000 (max. 8388607)
+ 131 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

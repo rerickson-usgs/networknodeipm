@@ -27,6 +27,7 @@
   argument for the sterile insect techique}.
 \newblock \bibinfo{journal}{Trends in Parasitology} \bibinfo{volume}{19},
   \bibinfo{pages}{349--355}.
+\newblock \DOIprefix\doi{https://doi.org/10.1016/S1471-4922(03)00144-2}.
 %Type = Article
 \bibitem[{Betini et~al.(2015)Betini, Fitzpatrick and
   Norris}]{betini2015experimental}
@@ -34,8 +35,9 @@
   \bibinfo{author}{Norris, D.R.}, \bibinfo{year}{2015}.
 \newblock \bibinfo{title}{Experimental evidence for the effect of habitat loss
   on the dynamics of migratory networks}.
-\newblock \bibinfo{journal}{Ecology letters} \bibinfo{volume}{18},
+\newblock \bibinfo{journal}{Ecology Letters} \bibinfo{volume}{18},
   \bibinfo{pages}{526--534}.
+\newblock \DOIprefix\doi{10.1111/ele.12432}.
 %Type = Article
 \bibitem[{Bieri et~al.(2018)Bieri, Sample, Thogmartin, Diffendorfer, Earl,
   Erickson, Federico, Flockhart, Nicol, Semmens, Skraber, Wiederhold and
@@ -49,20 +51,14 @@
   \bibinfo{author}{Mattsson, B.}, \bibinfo{year}{2018}.
 \newblock \bibinfo{title}{A guide to calculating habitat-quality metrics to
   inform conservation of highly mobile species}.
-\newblock \bibinfo{journal}{Natural Resource Modeling} .
+\newblock \bibinfo{journal}{Natural Resource Modeling}
+  \DOIprefix\doi{10.1111/nrm.12156}.
 %Type = Book
 \bibitem[{Bolker(2008)}]{bolker2008ecological}
 \bibinfo{author}{Bolker, B.M.}, \bibinfo{year}{2008}.
 \newblock \bibinfo{title}{{Ecological Models and Data in R}}.
 \newblock \bibinfo{publisher}{Princeton University Press},
   \bibinfo{address}{Prinecton}.
-%Type = Book
-\bibitem[{Burden and Faires(2005)}]{burden2005numerical}
-\bibinfo{author}{Burden, R.}, \bibinfo{author}{Faires, J.},
-  \bibinfo{year}{2005}.
-\newblock \bibinfo{title}{Numerical Analysis}.
-\newblock \bibinfo{edition}{8th} ed., \bibinfo{publisher}{Thomson/Brooks Cole},
-  \bibinfo{address}{Belmont, CA}.
 %Type = Article
 \bibitem[{Cassani and Caton(1986)}]{cassani1986efficient}
 \bibinfo{author}{Cassani, J.}, \bibinfo{author}{Caton, W.},
@@ -82,6 +78,7 @@
   lakes basin}.
 \newblock \bibinfo{journal}{Journal of Great Lakes Research}
   \bibinfo{volume}{39}, \bibinfo{pages}{547--554}.
+\newblock \DOIprefix\doi{https://doi.org/10.1016/j.jglr.2013.09.019}.
 %Type = Article
 \bibitem[{Chilton~II and Muoneke(1992)}]{chilton1992biology}
 \bibinfo{author}{Chilton~II, E.W.}, \bibinfo{author}{Muoneke, M.I.},
@@ -106,7 +103,7 @@
   \bibinfo{author}{Rees, M.}, \bibinfo{year}{2010}.
 \newblock \bibinfo{title}{Data-driven Modlling of Structured Popuations: A
   Practical Guide to the Integral Projection Model}.
-\newblock \bibinfo{publisher}{Spring}, \bibinfo{address}{New York, NY}.
+\newblock \bibinfo{publisher}{Springer}, \bibinfo{address}{New York, NY}.
 %Type = Article
 \bibitem[{Ellner and Rees(2006)}]{ellner2006integral}
 \bibinfo{author}{Ellner, S.P.}, \bibinfo{author}{Rees, M.},
@@ -115,6 +112,7 @@
   demography}.
 \newblock \bibinfo{journal}{The American Naturalist} \bibinfo{volume}{167},
   \bibinfo{pages}{410--428}.
+\newblock \DOIprefix\doi{https://doi.org/10.1086/499438}.
 %Type = Article
 \bibitem[{Erickson et~al.(2017a)Erickson, Diffendorfer, Norris, Bieri, Earl,
   Federico, Fryxell, Long, Mattsson, Sample, Wiederhold and
@@ -129,7 +127,8 @@
 \newblock \bibinfo{title}{Defining and classifying migratory habitats as
   sources and sinks: the migratory pathway approach}.
 \newblock \bibinfo{journal}{Journal of Applied Ecology} \bibinfo{volume}{55},
-  \bibinfo{pages}{108–117}.
+  \bibinfo{pages}{108--117}.
+\newblock \DOIprefix\doi{10.1111/1365-2664.12952}.
 %Type = Article
 \bibitem[{Erickson et~al.(2017b)Erickson, Diffendorfer, Norris, Bieri, Earl,
   Federico, Fryxell, Long, Mattsson, Sample et~al.}]{erickson:2017}
@@ -152,6 +151,7 @@
   appliation to evalutating grass carp control}.
 \newblock \bibinfo{journal}{Ecological Modelling} \bibinfo{volume}{361},
   \bibinfo{pages}{14--25}.
+\newblock \DOIprefix\doi{https://doi.org/10.1016/j.ecolmodel.2017.07.030}.
 %Type = Article
 \bibitem[{Erickson et~al.(2014)Erickson, Russell, Diffendorfer, Szymanksi and
   Thogmartin}]{Erickson:2014}
@@ -162,6 +162,7 @@
   model for colonial species with a focus on \textit{Myotis} bats}}.
 \newblock \bibinfo{journal}{Letters in Biomathematics} \bibinfo{volume}{1},
   \bibinfo{pages}{1--16}.
+\newblock \DOIprefix\doi{https://doi.org/10.1080/23737867.2014.11414477}.
 %Type = Article
 \bibitem[{Erickson et~al.(2016)Erickson, Thogmartin, Diffendorfer, Russell and
   Szymanski}]{erickson2016effects}
@@ -171,6 +172,7 @@
 \newblock \bibinfo{title}{Effects of wind energy generation and white-nose
   syndrome on the viability of the indiana bat}.
 \newblock \bibinfo{journal}{PeerJ} \bibinfo{volume}{4}, \bibinfo{pages}{e2830}.
+\newblock \DOIprefix\doi{https://doi.org/10.7717/peerj.2830}.
 %Type = Article
 \bibitem[{Hostetler et~al.(2015)Hostetler, Sillett and
   Marra}]{hostetler2015full}
@@ -180,6 +182,7 @@
   birds}.
 \newblock \bibinfo{journal}{The Auk} \bibinfo{volume}{132},
   \bibinfo{pages}{433--449}.
+\newblock \DOIprefix\doi{https://doi.org/10.1642/AUK-14-211.1}.
 %Type = Article
 \bibitem[{Kilambi and Robison(1979)}]{kilambi1979effects}
 \bibinfo{author}{Kilambi, R.}, \bibinfo{author}{Robison, W.},
@@ -203,6 +206,17 @@
   stocked into the santee cooper reservoirs of south carolina}.
 \newblock \bibinfo{journal}{Journal of Aquatic Plant Management}
   \bibinfo{volume}{41}, \bibinfo{pages}{90--92}.
+%Type = Article
+\bibitem[{Knols et~al.(2006)Knols, Hood-Nowotny, Bossin, Franz, Robinson,
+  Mukabana and Kemboi}]{knols2006gm}
+\bibinfo{author}{Knols, B.G.}, \bibinfo{author}{Hood-Nowotny, R.C.},
+  \bibinfo{author}{Bossin, H.}, \bibinfo{author}{Franz, G.},
+  \bibinfo{author}{Robinson, A.S.}, \bibinfo{author}{Mukabana, W.R.},
+  \bibinfo{author}{Kemboi, S.K.}, \bibinfo{year}{2006}.
+\newblock \bibinfo{title}{{GM sterile mosquitoes--a cautionary note}}.
+\newblock \bibinfo{journal}{Nature} \bibinfo{volume}{9},
+  \bibinfo{pages}{1067--1069}.
+\newblock \DOIprefix\doi{doi:10.1038/nbt0906-1067}.
 %Type = Book
 \bibitem[{Lagler et~al.(1962)Lagler, Bardach and Ichthyology}]{lagler1962john}
 \bibinfo{author}{Lagler, K.}, \bibinfo{author}{Bardach, J.},
@@ -232,6 +246,7 @@
   models: a practical guide}.
 \newblock \bibinfo{journal}{Methods in Ecology and Evolution}
   \bibinfo{volume}{5}, \bibinfo{pages}{99--110}.
+\newblock \DOIprefix\doi{10.1111/2041-210X.12146}.
 %Type = Book
 \bibitem[{Morris and Doak(2002)}]{morris2002quantitative}
 \bibinfo{author}{Morris, W.F.}, \bibinfo{author}{Doak, D.F.},
@@ -248,6 +263,7 @@
   perennial herbs}.
 \newblock \bibinfo{journal}{Journal of Applied Ecology} \bibinfo{volume}{46},
   \bibinfo{pages}{1048--1053}.
+\newblock \DOIprefix\doi{10.1111/j.1365-2664.2009.01706.x}.
 %Type = Article
 \bibitem[{Sample et~al.(2017)Sample, Fryxell, Bieri, Federico, Earl,
   Wiederholt, Mattsson, Flockhart, Nicol, Diffendorfer, Thogmartin and
@@ -261,17 +277,19 @@
   \bibinfo{year}{2017}.
 \newblock \bibinfo{title}{A general modeling framework for describing spatially
   structured population dynamics}.
-\newblock \bibinfo{journal}{Ecology and Evolution} .
+\newblock \bibinfo{journal}{Ecology and Evolution}
+  \DOIprefix\doi{10.1002/ece3.3685}.
 %Type = Article
 \bibitem[{Schill et~al.(2016)Schill, Heindel, Campbell, Meyer and
   Mamer}]{schill2016production}
 \bibinfo{author}{Schill, D.J.}, \bibinfo{author}{Heindel, J.A.},
   \bibinfo{author}{Campbell, M.R.}, \bibinfo{author}{Meyer, K.A.},
   \bibinfo{author}{Mamer, E.R.}, \bibinfo{year}{2016}.
-\newblock \bibinfo{title}{Production of a yy male brook trout broodstock for
-  potential eradication of undesired brook trout populations}.
+\newblock \bibinfo{title}{{Production of a YY Male Brook Trout Broodstock for
+  Potential Eradication of Undesired Brook Trout Populations}}.
 \newblock \bibinfo{journal}{North American journal of aquaculture}
   \bibinfo{volume}{78}, \bibinfo{pages}{72--83}.
+\newblock \DOIprefix\doi{10.1080/15222055.2015.1100149}.
 %Type = Article
 \bibitem[{Schill et~al.(2017)Schill, Meyer and Hansen}]{schill2017simulated}
 \bibinfo{author}{Schill, D.J.}, \bibinfo{author}{Meyer, K.A.},
@@ -298,6 +316,8 @@
   bass}.
 \newblock \bibinfo{journal}{Transactions of the American Fisheries Society}
   \bibinfo{volume}{107}, \bibinfo{pages}{213--215}.
+\newblock
+  \DOIprefix\doi{https://doi.org/10.1577/1548-8659(1978)107<213:SLTPOG>2.0.CO;2}.
 %Type = Techreport
 \bibitem[{Shireman and Smith(1983)}]{shireman1983synopsis}
 \bibinfo{author}{Shireman, J.V.}, \bibinfo{author}{Smith, C.R.},
@@ -331,6 +351,7 @@
 \newblock \bibinfo{title}{Population dynamics in migratory networks}.
 \newblock \bibinfo{journal}{Theoretical Ecology} \bibinfo{volume}{3},
   \bibinfo{pages}{65--73}.
+\newblock \DOIprefix\doi{https://doi.org/10.1007/s12080-009-0054-4}.
 %Type = Article
 \bibitem[{Tsehaye et~al.(2013)Tsehaye, Catalano, Sass, Glover and
   Roth}]{tsehaye2013prospects}
@@ -341,6 +362,7 @@
   asian carp in the illinois river}.
 \newblock \bibinfo{journal}{Fisheries} \bibinfo{volume}{38},
   \bibinfo{pages}{445--454}.
+\newblock \DOIprefix\doi{10.1080/03632415.2013.836501}.
 %Type = Techreport
 \bibitem[{{US Fish and Wildlife Serivce}(2014)}]{USFWS2014grass}
 \bibinfo{author}{{US Fish and Wildlife Serivce}}, \bibinfo{year}{2014}.
@@ -352,10 +374,11 @@
 \bibitem[{Wanner and Klumb(2009)}]{wanner2009length}
 \bibinfo{author}{Wanner, G.A.}, \bibinfo{author}{Klumb, R.A.},
   \bibinfo{year}{2009}.
-\newblock \bibinfo{title}{Length-weight relationships for three asian carp
-  species in the missouri river}.
+\newblock \bibinfo{title}{{Length-weight relationships for three Asian carp
+  species in the Missouri river}}.
 \newblock \bibinfo{journal}{Journal of Freshwater Ecology}
   \bibinfo{volume}{24}, \bibinfo{pages}{489--495}.
+\newblock \DOIprefix\doi{https://doi.org/10.1080/02705060.2009.9664322}.
 %Type = Article
 \bibitem[{Wiederholt et~al.(2013)Wiederholt, {L\'{o}pez-Hoffman}, Cline,
   Medell\`{i}n, Cryan, Russell, McCracken, Diffendorfer and
@@ -367,8 +390,8 @@
   \bibinfo{author}{Semmens, D.}, \bibinfo{year}{2013}.
 \newblock \bibinfo{title}{{Moving across the border: Modeling migratory bat
   populations}}.
-\newblock \bibinfo{journal}{Ecosphere} \bibinfo{volume}{4:art114},
-  \bibinfo{pages}{http://dx.doi.org/10.1890/ES13--00023.1}.
+\newblock \bibinfo{journal}{Ecosphere} \bibinfo{volume}{4:art114}.
+\newblock \DOIprefix\doi{http://dx.doi.org/10.1890/ES13-00023.1}.
 %Type = Article
 \bibitem[{Wiederholt et~al.(2017)Wiederholt, Mattsson, Thogmartin, Runge,
   Diffendorfer, Erickson, Federico, L{\'o}pez-Hoffman, Fryxell, Norris
@@ -381,7 +404,7 @@
   \bibinfo{year}{2017}.
 \newblock \bibinfo{title}{Estimating the per-capita contribution of habitats
   and pathways in a migratory network: a modelling approach}.
-\newblock \bibinfo{journal}{Ecography} .
+\newblock \bibinfo{journal}{Ecography} \DOIprefix\doi{10.1111/ecog.02718}.
 %Type = Article
 \bibitem[{Williams et~al.(2012)Williams, Miller and
   Ellner}]{williams2012avoiding}
@@ -391,6 +414,7 @@
   projection models}.
 \newblock \bibinfo{journal}{Ecology} \bibinfo{volume}{93},
   \bibinfo{pages}{2008--2014}.
+\newblock \DOIprefix\doi{10.1890/11-2147.1}.
 %Type = Article
 \bibitem[{Wittmann et~al.(2014)Wittmann, Jerde, Howeth, Maher, Deines, Jenkins,
   Whitledge, Burbank, Chadderton, Mahon, Tyson, Gantz, Keller, Drake and
