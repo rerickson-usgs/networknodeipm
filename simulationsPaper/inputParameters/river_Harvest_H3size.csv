@@ -1,5 +1,5 @@
 node,startYear,endYear,minHar,maxHar,alphaHar,betaHar
-Pool 1,15,50,0,0,50,-20
-Pool 2,15,50,0,0,50,-20
-Pool 3,15,50,0,0.75,50,-20
-Pool 4,15,50,0,0.75,50,-20
+Pool 1,15,50,0,0,80,-20
+Pool 2,15,50,0,0,80,-20
+Pool 3,15,50,0,0.75,80,-20
+Pool 4,15,50,0,0.75,80,-20

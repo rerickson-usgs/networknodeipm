@@ -36,7 +36,7 @@ lakeScenariosData <- copy(lakeScenariosData[ Year != 101,])
 lakeScenariosData
 
 
-lakeScn <- fread("./inputParameters/riverSummaryTable.csv")
+lakeScn <- fread("./inputParameters/lakeSummaryTable.csv")
 lakeScn
 
 setkey(lakeScenariosData, "Scenario")
@@ -120,9 +120,13 @@ for(rvScn in riverScenarios){
     riverScenariosData = rbind(riverScenariosData, rawIn2)
 }
 
-riverScenariosData <- copy(riverScenariosData[ Year != 51,])
+riverScenariosData <- copy(riverScenariosData[ Year < 99,])
 
 riverScenariosData[, Barrier := factor(Barrier, labels = c("Baseline", "50%", "10%"))]
+riverScenariosData[ , HarvestSize := "Uniform"]
+riverScenariosData[ grepl("size", Harvest), HarvestSize := "Larger fish"]
+riverScenariosData[ , Harvest := factor(gsub("size", "", Harvest))]
+
 riverScenariosData[ , Harvest := factor(Harvest,
                                         labels = c("Upriver-Low",
                                                    "Upriver-Medium",
@@ -146,6 +150,7 @@ riverScenariosDataPlot <- rbind(t1, t2, t3)
 
 unique(riverScenariosDataPlot$HarvestLocation)
 unique(riverScenariosDataPlot$HarvestLevel)
+unique(riverScenariosDataPlot$HarvestSize)
 
 riverScenariosDataPlot[ ,
                        HarvestLevel := factor(HarvestLevel,
@@ -153,14 +158,14 @@ riverScenariosDataPlot[ ,
                                                   unique(riverScenariosDataPlot$HarvestLevel)[c(4, 1:3)])]
 
 riverScenariosDataPlot[ , Barrier := factor(Barrier, levels = c("Baseline", "10%", "50%"))]
-
+riverScenariosDataPlot[ , HarvestSize := factor(HarvestSize, levels = c("Uniform", "Larger fish"))]
 
 riverPlotAll <- ggplot(riverScenariosDataPlot, aes(x = Year,
                                                   y = Population,
                                                   linetype = HarvestLocation,
                                                   color = Barrier)) +
     geom_vline(xintercept = 15, color = 'grey25') + 
-    facet_grid(  Node ~ HarvestLevel, scales = "free_y") +
+    facet_grid(  Node + HarvestSize ~ HarvestLevel, scales = "free_y") +
     geom_line() +
     scale_color_manual(values = c("red", "blue", "black")) +
     scale_linetype("Harvest\nlocation")  +
