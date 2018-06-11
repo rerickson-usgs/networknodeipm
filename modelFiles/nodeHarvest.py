@@ -49,15 +49,16 @@ class addNodeHarvestCSV:
                                                 nd.showNodeName() + "'"))
 
             harvestIn = np.zeros( (self.network.nYears , len(self.network.omega)))
-            harvestLogistic = nmp.logistic( alphaL = dfHarvestUse["alphaHar"],
-                                            betaL =  dfHarvestUse["betaHar"],
-                                            minL = dfHarvestUse["minHar"],
-                                            maxL = dfHarvestUse["maxHar"])
+            harvestLogistic = nmp.logistic( alphaL = dfHarvestUse["alphaHar"].values[0],
+                                            betaL =  dfHarvestUse["betaHar"].values[0],
+                                            minL =   dfHarvestUse["minHar"].values[0],
+                                            maxL =   dfHarvestUse["maxHar"].values[0])
 
             yearRowsUse = range(dfHarvestUse[ "startYear"], dfHarvestUse[ "endYear"])
             
             if len(yearRowsUse) > 0:
-                harvestVec = np.transpose(np.tile(np.array([ harvestLogistic( z = zIn) for zIn in self.network.omega]), (1, len(yearRowsUse))))
+                harvestRaw = [harvestLogistic( z = zIn)  for zIn in self.network.omega]
+                harvestVec = np.tile(np.array( harvestRaw), (len(yearRowsUse), 1))
                 harvestIn[ yearRowsUse, :] = harvestVec
                 
             nd.setHarvest(harvestIn)
