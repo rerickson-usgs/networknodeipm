@@ -17,22 +17,22 @@
 \contentsline {subsubsection}{\numberline {2.4.9}Stochasticity}{9}
 \contentsline {subsubsection}{\numberline {2.4.10}Collectives}{9}
 \contentsline {subsubsection}{\numberline {2.4.11}Observation}{9}
-\contentsline {subsection}{\numberline {2.5}Initialization}{10}
+\contentsline {subsection}{\numberline {2.5}Initialization}{9}
 \contentsline {subsection}{\numberline {2.6}Input data}{10}
 \contentsline {subsubsection}{\numberline {2.6.1}Length-weight relationship}{10}
-\contentsline {subsubsection}{\numberline {2.6.2}Growth-rate}{10}
-\contentsline {subsubsection}{\numberline {2.6.3}Survival}{12}
-\contentsline {subsubsection}{\numberline {2.6.4}Density}{12}
-\contentsline {subsubsection}{\numberline {2.6.5}Egg production and transition to recruits}{12}
-\contentsline {subsubsection}{\numberline {2.6.6}Sex ratio}{13}
-\contentsline {subsection}{\numberline {2.7}Submodels}{13}
-\contentsline {subsubsection}{\numberline {2.7.1}Integral Projection Model}{13}
-\contentsline {subsubsection}{\numberline {2.7.2}Network-node model}{16}
-\contentsline {section}{\numberline {3}Data evaluation}{16}
-\contentsline {section}{\numberline {4}Conceptual model evaluation}{17}
-\contentsline {section}{\numberline {5}Implementation verification}{18}
-\contentsline {section}{\numberline {6}Model output verification}{19}
-\contentsline {section}{\numberline {7}Model analysis}{19}
-\contentsline {section}{\numberline {8}Model output corroboration}{20}
-\contentsline {section}{Bibliography}{20}
+\contentsline {subsubsection}{\numberline {2.6.2}Growth-rate}{13}
+\contentsline {subsubsection}{\numberline {2.6.3}Survival}{13}
+\contentsline {subsubsection}{\numberline {2.6.4}Density}{13}
+\contentsline {subsubsection}{\numberline {2.6.5}Egg production and transition to recruits}{13}
+\contentsline {subsubsection}{\numberline {2.6.6}Sex ratio}{14}
+\contentsline {subsection}{\numberline {2.7}Submodels}{14}
+\contentsline {subsubsection}{\numberline {2.7.1}Integral Projection Model}{14}
+\contentsline {subsubsection}{\numberline {2.7.2}Network-node model}{17}
+\contentsline {section}{\numberline {3}Data evaluation}{18}
+\contentsline {section}{\numberline {4}Conceptual model evaluation}{19}
+\contentsline {section}{\numberline {5}Implementation verification}{20}
+\contentsline {section}{\numberline {6}Model output verification}{21}
+\contentsline {section}{\numberline {7}Model analysis}{21}
+\contentsline {section}{\numberline {8}Model output corroboration}{21}
+\contentsline {section}{Bibliography}{22}
 \contentsfinish 

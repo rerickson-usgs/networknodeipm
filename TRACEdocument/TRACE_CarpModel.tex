@@ -191,10 +191,11 @@ We specifically asked two questions:
 Second, we examined a riparian system that was comprised of a series connected pools.
 The management goal for this system is to decrease the population in the uppermost node.
 For example, fisheries managers seek to prevent the spread of invasive carp from the Illinois/Mississippi Rivers system to the Great Lakes or fisheries managers week to prevent the spread of invasive carp from the Lower Mississippi River into the Upper Mississippi River or other waterways in Minnesota.
-We specifically ask three questions with this system:
+We specifically ask four questions with this system:
 \begin{enumerate}
 \item What level of carp harvest is necessary to decrease the the population in the upper most pool?
 \item Where should this harvest occur? i.e., the upper pools or the lower pools? 
+\item Does the harvest size matter? i.e., does the ability to only harvest large organisms change the effects of harvest? 
 \item What impact does including a barrier have on managing the population? 
 \end{enumerate}
 Our model tracks the population number and size distribution in each node and keeps track of the fish sex groups for the first objective.  
@@ -345,11 +346,8 @@ This model does not contain ``learning'' (e.g., individuals changing and adaptin
 
 \subsubsection{Prediction}
 
-As presented, our model was deterministic and does not include stochasticity.
-%The model assumes a static future and does include internal or external updates. 
-%Grass carp spawning events can be stochastic, but the events are random within the model.
-%We included this in a previous version of the model, but not this version \citep{Erickson:2017ecomod}.
-%Sterile males that can be released are predetermined and a set number may be released each year.
+Our model is a deterministic population model. 
+There is no forcing within the model (e.g., no climate, temperature, or other outside conditions that impact the model). 
 
 %Prediction is fundamental to successful decision?making; if an agent?s adaptive traits or learning
 %procedures are based on estimating future consequences of decisions, how do agents predict the future
@@ -381,10 +379,11 @@ A negative exponential relationship is used model this interaction \citep{bolker
 
 \subsubsection{Stochasticity}\label{stoc}
 
-Within the model, spawning events and successful recruitment may be stochastic events. 
-The frequency of spawning events can greatly change the model's output and population size.
-Additionally, the simulated populations may be more likely to reach a quasi-extinction threshold when the frequency of spawning and successful recruitment increaes.
-Currently, stochastic spawning and recruitment is an important event in the life history of grass carp, but a paucity of data exists on the occurrence of spawning and recruitment in the Great Lakes. 
+As presented, our model was deterministic and does not include stochasticity. 
+%The model assumes a static future and does include internal or external updates. 
+%Grass carp spawning events can be stochastic, but the events are random within the model.
+%We included this in a previous version of the model, but not this version \citep{Erickson:2017ecomod}.
+%Sterile males that can be released are predetermined and a set number may be released each year.
 
 
 %What processes are modeled by assuming they are random or partly random? Is stochasticity
@@ -393,10 +392,24 @@ Currently, stochastic spawning and recruitment is an important event in the life
 
 \subsubsection{Collectives}
 
-The model assumes a single grass carp population. 
-This assumption was made because of a lack of data about grass carp in the Great Lakes and specifically Lake Erie.  
-Depending upon population structures, a spatial-explicit meta-population may be appropriate.
-However, only one tributary is currently known to have grass carp spawning within Lake Erie and hence, the meta-population dynamics might not be important (P.~Kocovsky, personal observation).  
+Our model includes a spatial structure within a network-node framework.
+One set of scenario assumes a lake-tributary system (Figure \ref{fig:spokeHub}) and the other set of scenarios assumes a series of river pools (Figure \ref{fig:seriesPool}).
+
+\begin{figure}[htbp]
+   \centering  
+   \includegraphics[width=0.75\textwidth]{Figure3.eps} % requires the graphicx package
+   \caption{Spoke-and-hub network model used to describe a grass carp population that spends most of its life cycle in a lake (Node 1), but spawns in nodes 2 and 3. Nodes are illustrated with circles and lines represent temporal movements with their corresponding numbers indicating which time periods the lines are used. The model has two time periods: Summer (time period 1) and winter (time period 2). Some grass carp migrate seasonally to spawn during summer, while others stay in node 1. During the winter, all grass carp move into node 1.}
+   \label{fig:spokeHub}
+\end{figure}
+
+\begin{figure}[htbp]
+   \centering  
+   \includegraphics[width=0.25\textheight]{Figure4.eps} % requires the graphicx package
+   \caption{A series of connected pools that form the river system used for the second case study. Transitions that ``skip'' pools are possible because fish can move among multiple pools during the course of an annual time step. The model ignores transitions that occur if a fish ends in the same pool it begins in. For example, if a fish starts in Pool 1, swims to Pool 2, and then swims back to Pool 1, the model would not record any transitions for the fish.}
+   \label{fig:seriesPool}
+\end{figure}
+
+
 
 %Do the individuals form or belong to aggregations that affect, and are affected by, the individuals?
 %Such collectives can be an important intermediate level of organization in an ABM; examples include social
@@ -418,7 +431,7 @@ The grass carp population numbers and lengths are the endpoint kept from the mod
 The initial grass carp population is the initial settings for our model.
 This population has three important attributes: size distribution (i.e., ``what lengths are the fish?''), sex distribution, and number.
 The transient dynamics of the system are important for the system and can change the behavior of the system.
-The initial conditions were not parameterized because the initial release(s) and escape(s) of grass carps into the Great Lakes are unknown. 
+The initial conditions were not parameterized because the initial release(s) and escape(s) of grass carps into the Great Lakes and Mississippi River Basin are unknown. 
 Additionally, the stochastic probability of spawning occurring is an important initial condition, although the model eventually reaches a quasi-stationary distribution.  
 We used a lognormal distribution with a mean of log(50) and standard deviation of 0.2 for our population's initial distribution. 
 
@@ -611,7 +624,7 @@ a maximum survival rate, \(s_\text{max}\);
 an intercept parameter, \(\alpha_s\); and 
 a slope parameter, \(\beta_s\) \citep{bolker2008ecological}:
 \begin{eqnarray}
-S(z) = s_\text{min} + \frac{s_\text{max} - s_\text{min}}{ 1 + e^{\beta_s (\log(z) - \log(\alpha_s))}} .
+S(z) = s_\text{min} + \frac{s_\text{max} - s_\text{min}}{ 1 + e^{\beta_s (\log(z) - \log(\alpha_s))}}. \label{eqn:surlog}
 \end{eqnarray}
 We modified and derived a von Bertalanffy function to model growth.
 First, we took the derivative of the length with respect to length (i.e., how length changes as a function of length) because the von Bertalanffy function usually denotes the relationship between time and length.
@@ -664,6 +677,13 @@ P_\text{female}(z', t + 1) = \int_\omega (M(z,z') P_\text{female}(z, t) + F(z,z'
 Our model makes an important assumptions about grass carp and the impacts of sex.
 Our model assumes that XY-males and females survive, grow, and are produced at the same rate.
 We made these assumptions because data do not exist for the growth and survival of each sex individually.
+For models with sterile males, we either assumed the sterile males had the same survival as normal males or had reduced survival. 
+This was done to explore potential modified organisms as a control tool.
+
+For scenarios with harvest, we assumed harvest either had a uniform distribution across size or a 
+4-parameter logistic equation (similar to Equation \ref{eqn:surlog}), but with different parameter values.
+The logistic harvest model allowed for larger fish to have a higher probability of harvest because these fish are easier to harvest. 
+
 
 \subsubsection{Network-node model}
 
@@ -680,6 +700,7 @@ The network model assumes groups do not change paths, allowing for paths to go e
 Broadly, we attempted to avoid using formal notation for nodes and edges unless absolutely necessary because it complicates the equations.
 When necessary, we used forward subscripts for locations (e.g., parameter or variable \(X\) for node 1 would be \(\prescript{}{1}{X}\)) and edges (e.g.,  parameter or variable \(X\) for the edge between nodes 2 and 3 would be \(\prescript{}{2,3}{X}\)).
 We were able to avoid this notation in our code by using an object-orientated programing approach.
+
 
 \stopcontents[sections]
 
@@ -754,10 +775,10 @@ It has been used as a method for mosquito control \citep[e.g.,][]{benedict2003fi
 We compared two different release scenarios for the modified organisms.
 First, we assumed the modified organisms were the same as normal males.
 Second, we explored using modified organisms that had half maximum survival rate as normal males.
-The YY-males decrease the sex ratio of the offspring and skew it towards male.
+The sterile males decrease the sex ratio of the offspring and skew it towards male.
 The goal of this management strategy is to decrease the population growth rate by decreasing the number of females \citep{schill2016production}. 
-This individuals are assumed to be the same demographically as XY-males.
-Although no YY-males have yet been created, triploid carps have been released to control vegetation.
+These individuals are assumed to be the same demographically as XY-males for one set of scenarios and have decreased survival for a second set of scenarios. 
+Although no YY-males or sterile have yet been created, triploid carps have been released to control vegetation.
 These individuals appear to have similar lifespans based upon research from reservoirs in the southeastern United States \citep{kirk2003longevity} and anecdotal evidences from pond owners who have released them (\url{http://forums.pondboss.com/ubbthreads.php?ubb=showflat&Number=146930}).
 
 Our model also allows other control tools to be included.

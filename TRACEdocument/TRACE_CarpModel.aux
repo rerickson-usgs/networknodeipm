@@ -27,6 +27,9 @@
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.3}Adaptation}{8}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.4}Objectives}{8}}
 \citation{bolker2008ecological}
+\citation{chilton1992biology}
+\citation{chapman2013first,wittmann2014grass}
+\citation{shireman1983synopsis}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.5}Learning}{9}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.6}Prediction}{9}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.7}Sensing}{9}}
@@ -35,9 +38,8 @@
 \newlabel{stoc}{{2.4.9}{9}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.10}Collectives}{9}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.11}Observation}{9}}
-\citation{chilton1992biology}
-\citation{chapman2013first,wittmann2014grass}
-\citation{shireman1983synopsis}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Initialization}{9}}
+\newlabel{sec:init}{{2.5}{9}}
 \citation{wanner2009length}
 \citation{wanner2009length}
 \citation{USFWS2014grass}
@@ -60,16 +62,17 @@
 \citation{shireman1983synopsis,martyn1986mapping}
 \citation{shireman1983synopsis}
 \citation{shireman1983synopsis}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Initialization}{10}}
-\newlabel{sec:init}{{2.5}{10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Spoke-and-hub network model used to describe a grass carp population that spends most of its life cycle in a lake (Node 1), but spawns in nodes 2 and 3. Nodes are illustrated with circles and lines represent temporal movements with their corresponding numbers indicating which time periods the lines are used. The model has two time periods: Summer (time period 1) and winter (time period 2). Some grass carp migrate seasonally to spawn during summer, while others stay in node 1. During the winter, all grass carp move into node 1.\relax }}{10}}
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:spokeHub}{{1}{10}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.6}Input data}{10}}
 \newlabel{sec:Input}{{2.6}{10}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.6.1}Length-weight relationship}{10}}
 \newlabel{eqn:LW}{{1}{10}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.6.2}Growth-rate}{10}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Parameter symbols, names, values, and sources used for grass carp integrated population model. All units are on an annual time step. Lengths are in cm and weights in kg.}}{11}}
-\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{tab:parameterValues}{{1}{11}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces A series of connected pools that form the river system used for the second case study. Transitions that ``skip'' pools are possible because fish can move among multiple pools during the course of an annual time step. The model ignores transitions that occur if a fish ends in the same pool it begins in. For example, if a fish starts in Pool 1, swims to Pool 2, and then swims back to Pool 1, the model would not record any transitions for the fish.\relax }}{11}}
+\newlabel{fig:seriesPool}{{2}{11}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Parameter symbols, names, values, and sources used for grass carp integrated population model. All units are on an annual time step. Lengths are in cm and weights in kg.}}{12}}
+\newlabel{tab:parameterValues}{{1}{12}}
 \citation{stott1973note,kilambi1980food,shelton1981density,cassani1986efficient}
 \citation{shireman1983synopsis}
 \citation{shireman1983synopsis}
@@ -81,11 +84,12 @@
 \citation{kilambi1979effects,shelton1981density}
 \citation{shireman1983synopsis}
 \citation{ashraf1998effects}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.6.2}Growth-rate}{13}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.6.3}Survival}{13}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.6.4}Density}{13}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.6.5}Egg production and transition to recruits}{13}}
 \citation{shireman1983synopsis}
 \citation{shireman1983synopsis}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.6.3}Survival}{12}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.6.4}Density}{12}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.6.5}Egg production and transition to recruits}{12}}
 \citation{Erickson:2017ecomod}
 \citation{Erickson:2017ecomod}
 \citation{ellner2006integral,ramula2009integral,Ellner:2010IPM,merow2014advancing}
@@ -95,51 +99,53 @@
 \citation{Erickson:2017ecomod}
 \citation{Erickson:2017ecomod}
 \citation{ellner2006integral}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.6.6}Sex ratio}{14}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.7}Submodels}{14}}
+\newlabel{sec:submdl}{{2.7}{14}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.7.1}Integral Projection Model}{14}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Conceptual map of carp life history. \(p_f\) is the proportion of female recruits and \(p_m\) is the proportion of male recruits. By definition, \(p_f + p_m = 1\). The recruitment kernel (\(F(z, z^\prime )\)) is defined in Equation 5\hbox {}, where \(z\) is size at the current time, \(t\) and \(z^\prime \) is the size at the next time step \(t+1\). The growth/survival kernel (\(M (z, z')\)) is defined in Equation 2\hbox {}. Growth/maturation is the annual increase in fish length including the survival. Recruitment is the successful spawning and development of eggs to produce age-1 fish. Recruitment does not occur from females until they become of sufficient length. Figure is reprinted from \citet  {Erickson:2017ecomod} and is in the public domain because it was created by a US Government Employee as part of his official duties.\relax }}{15}}
+\newlabel{fig:cMap}{{3}{15}}
 \citation{bolker2008ecological}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.6.6}Sex ratio}{13}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.7}Submodels}{13}}
-\newlabel{sec:submdl}{{2.7}{13}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.7.1}Integral Projection Model}{13}}
-\newlabel{eqn:growMat}{{2}{13}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Conceptual map of carp life history. \(p_f\) is the proportion of female recruits and \(p_m\) is the proportion of male recruits. By definition, \(p_f + p_m = 1\). The recruitment kernel (\(F(z, z^\prime )\)) is defined in Equation 5\hbox {}, where \(z\) is size at the current time, \(t\) and \(z^\prime \) is the size at the next time step \(t+1\). The growth/survival kernel (\(M (z, z')\)) is defined in Equation 2\hbox {}. Growth/maturation is the annual increase in fish length including the survival. Recruitment is the successful spawning and development of eggs to produce age-1 fish. Recruitment does not occur from females until they become of sufficient length. Figure is reprinted from \citet  {Erickson:2017ecomod} and is in the public domain because it was created by a US Government Employee as part of his official duties.\relax }}{14}}
-\newlabel{fig:cMap}{{1}{14}}
 \citation{wanner2009length}
-\newlabel{eqn:Growth}{{4}{15}}
-\newlabel{eqn:Fec}{{5}{15}}
-\newlabel{eqn:LW}{{6}{15}}
+\newlabel{eqn:growMat}{{2}{16}}
+\newlabel{eqn:surlog}{{3}{16}}
+\newlabel{eqn:Growth}{{4}{16}}
+\newlabel{eqn:Fec}{{5}{16}}
+\newlabel{eqn:LW}{{6}{16}}
 \citation{Taylor:2010}
 \citation{Erickson:2014,Wiederholt:inreview,erickson2016effects}
 \citation{Taylor:2010}
 \citation{erickson:2017}
-\newlabel{eqn:femaleEQN}{{9}{16}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.7.2}Network-node model}{16}}
+\newlabel{eqn:femaleEQN}{{9}{17}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.7.2}Network-node model}{17}}
 \ttl@writefile{ptc}{\ttl@stoptoc{sections@1}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Data evaluation}{16}}
-\newlabel{sec:dev}{{3}{16}}
 \citation{martyn1986mapping}
 \citation{martyn1986mapping}
 \citation{martyn1986mapping}
 \citation{martyn1986mapping}
 \citation{martyn1986mapping}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Data evaluation}{18}}
+\newlabel{sec:dev}{{3}{18}}
 \citation{lagler1962john}
 \citation{shireman1983synopsis}
 \citation{ellner2006integral,ramula2009integral,merow2014advancing}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Conceptual model evaluation}{17}}
 \citation{Erickson:2017ecomod}
 \citation{benedict2003first}
 \citation{schill2016production}
 \citation{kirk2003longevity}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Conceptual model evaluation}{19}}
 \citation{williams2012avoiding}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Implementation verification}{18}}
-\newlabel{sec:IpVer}{{5}{18}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Conceptual map of grass carp life history. \(p_f\) is the proportion of recruits who are female and \(p_m\) is the proportion who are male. By definition, \(p_f + p_m = 1\). Our model seeks to alter this ratio through the introduction of YY-males. Growth/maturation is the annual increase in fish length. Recruitment is the successful spawning and development of eggs to produce age-1 fish. Recruitment does not occur from females until they increase in length.\relax }}{20}}
+\newlabel{fig:cMap}{{4}{20}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Implementation verification}{20}}
+\newlabel{sec:IpVer}{{5}{20}}
 \citation{martyn1986mapping}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Conceptual map of grass carp life history. \(p_f\) is the proportion of recruits who are female and \(p_m\) is the proportion who are male. By definition, \(p_f + p_m = 1\). Our model seeks to alter this ratio through the introduction of YY-males. Growth/maturation is the annual increase in fish length. Recruitment is the successful spawning and development of eggs to produce age-1 fish. Recruitment does not occur from females until they increase in length.\relax }}{19}}
-\newlabel{fig:cMap}{{2}{19}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Model output verification}{19}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Model analysis}{19}}
 \citation{martyn1986mapping}
 \bibstyle{elsarticle-harv}
 \bibdata{/Users/rerickson/Documents/bibFiles/allBib.bib}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Model output verification}{21}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Model analysis}{21}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Model output corroboration}{21}}
 \bibcite{ashraf1998effects}{{1}{1998}{{Ashraf and Fairgrieve}}{{}}}
 \bibcite{benedict2003first}{{2}{2003}{{Benedict and Robinson}}{{}}}
 \bibcite{betini2015experimental}{{3}{2015}{{Betini et~al.}}{{Betini, Fitzpatrick and Norris}}}
@@ -147,8 +153,6 @@
 \bibcite{bolker2008ecological}{{5}{2008}{{Bolker}}{{}}}
 \bibcite{cassani1986efficient}{{6}{1986}{{Cassani and Caton}}{{}}}
 \bibcite{chapman2013first}{{7}{2013}{{Chapman et~al.}}{{Chapman, Davis, Jenkins, Kocovsky, Miner, Farver and Jackson}}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Model output corroboration}{20}}
-\@writefile{toc}{\contentsline {section}{Bibliography}{20}}
 \bibcite{chilton1992biology}{{8}{1992}{{Chilton~II and Muoneke}}{{}}}
 \bibcite{dhanze1997biology}{{9}{1997}{{Dhanze and Dhanse}}{{}}}
 \bibcite{Ellner:2010IPM}{{10}{2010}{{Ellner et~al.}}{{Ellner, Childs and Rees}}}
@@ -156,6 +160,7 @@
 \bibcite{erickson2017defining}{{12}{2017a}{{Erickson et~al.}}{{Erickson, Diffendorfer, Norris, Bieri, Earl, Federico, Fryxell, Long, Mattsson, Sample, Wiederhold and Thogmarting}}}
 \bibcite{erickson:2017}{{13}{2017b}{{Erickson et~al.}}{{Erickson, Diffendorfer, Norris, Bieri, Earl, Federico, Fryxell, Long, Mattsson, Sample et~al.}}}
 \bibcite{Erickson:2017ecomod}{{14}{2017c}{{Erickson et~al.}}{{Erickson, Eager, Brey, Hansen and Kocovsky}}}
+\@writefile{toc}{\contentsline {section}{Bibliography}{22}}
 \bibcite{Erickson:2014}{{15}{2014}{{Erickson et~al.}}{{Erickson, Russell, Diffendorfer, Szymanksi and Thogmartin}}}
 \bibcite{erickson2016effects}{{16}{2016}{{Erickson et~al.}}{{Erickson, Thogmartin, Diffendorfer, Russell and Szymanski}}}
 \bibcite{hostetler2015full}{{17}{2015}{{Hostetler et~al.}}{{Hostetler, Sillett and Marra}}}
