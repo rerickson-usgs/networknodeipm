@@ -122,7 +122,8 @@ for(rvScn in riverScenarios){
 
 riverScenariosData <- copy(riverScenariosData[ Year < 99,])
 
-riverScenariosData[, Barrier := factor(Barrier, labels = c("Baseline", "50%", "10%"))]
+riverScenariosData[, unique(Barrier)]
+riverScenariosData[, Barrier := factor(Barrier, labels = c("Baseline", "10%", "50%"))]
 riverScenariosData[ , HarvestSize := "Uniform"]
 riverScenariosData[ grepl("size", Harvest), HarvestSize := "Larger fish"]
 riverScenariosData[ , Harvest := factor(gsub("size", "", Harvest))]
@@ -157,8 +158,14 @@ riverScenariosDataPlot[ ,
                                               levels =
                                                   unique(riverScenariosDataPlot$HarvestLevel)[c(4, 1:3)])]
 
-riverScenariosDataPlot[ , Barrier := factor(Barrier, levels = c("Baseline", "10%", "50%"))]
+## riverScenariosDataPlot[ , Barrier := factor(Barrier, levels = c("Baseline", "10%", "50%"))]
 riverScenariosDataPlot[ , HarvestSize := factor(HarvestSize, levels = c("Uniform", "Larger fish"))]
+
+levels(riverScenariosDataPlot$HarvestLevel)<-
+                              c("No harvest",
+                                "25% harvest",
+                                "50% harvest",
+                                "75% harvest")
 
 riverPlotAll <- ggplot(riverScenariosDataPlot, aes(x = Year,
                                                   y = Population,
@@ -169,6 +176,8 @@ riverPlotAll <- ggplot(riverScenariosDataPlot, aes(x = Year,
     geom_line() +
     scale_color_manual(values = c("red", "blue", "black")) +
     scale_linetype("Harvest\nlocation")  +
-    theme_minimal()
+    theme_minimal() +
+    theme(panel.spacing = unit(1, "lines"))
 print(riverPlotAll)
+
 ggsave("./summaryfigures/riverPlotAll.pdf", riverPlotAll, width = 6, height = 6)
