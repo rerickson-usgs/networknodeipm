@@ -19,52 +19,114 @@ class seacarpNode( nmps.populatedNodeWithSex, nmp.populatedHelpers):
         self.groups = []
         self.pathsIn = []
         self.pathsOut = {}
-
-
+        self.nodeSeason = ''
+    def showNodeSeason(self):
+        return self.nodeSeason
+    def setNodeSeason(self, nodeSeason):
+        self.nodeSeason = nodeSeason
+    
 class createSEACarPNetwork( seacarpNetwork):
     def __init__(self, 
                  inputFolder = "./CSV-SEACarP/",
                  networkFile = "SEACarP_IL_Network.csv",
                  transitionFile = "SEACarP_IL_Transitions.csv",
-                 intraAnnualTime = np.linspace(1,12,12),
-                 intraAnnualTimeName = 'month'):
+                 vonBcoefFile = "coefAll_vonB.csv",
+                 lwCoefFile = "lengthWeightCoefAll.csv",
+                 matCoefFile = "maturityCoefAll.csv",
+                 groupDetails = "groupDetails.csv",
+                 spp = "Bighead carp",
+                 intraAnnualTime = np.linspace(1,12,12)
+    ):
         '''
         Build a network model intra-annual time periods.
-        This assumes transitions are on monthly time step.
+        This assumes transitions are on monthly time step,
+        but inputs are on an annual timestep.
         '''
 
         self.nodes = []
         self.paths = []
 
         # Read in input files 
-        networkFile = inputFolder + networkFile
-        dfNetwork = pd.read_csv(networkFile)
+        networkFilePath = inputFolder + networkFile
+        dfNetwork = pd.read_csv(networkFilePath)
 
-        transitionFile = inputFolder + transitionFile
-        dfTransitions = pd.read_csv(transitionFile)
+        transitionFilePath = inputFolder + transitionFile
+        dfTransitions = pd.read_csv(transitionFilePath)
 
+        vonBcoefFilePath = inputFolder + vonBcoefFile
+        dfVonB = pd.read_csv(vonBcoefFilePath)
+
+        lwCoefFilePath = inputFolder + lwCoefFile
+        dfLW = pd.read_csv(lwCoefFilePath)
+
+        matCoefFilePath = inputFolder + matCoefFile
+        dfMat = pd.read_csv(matCoefFilePath)
+
+        groupDetailsFilePath = inputFolder + groupDetails
+        dfGroup = pd.read_csv(groupDetailsFilePath)
+        
         self.networkName = dfNetwork['networkName'][0]
+
+        def selectParameterDF(dfLWIn = dfLW,
+                      colName = 'Pool',
+                      sppCol = 'SpeciesFull',
+                      nodeName = nd,
+                      hyperName = 'Hyper-parameter'):
+            ''' 
+            This function extrats parameter coefficients for a specific node and
+            a specific species.
+            
+            If a pool is not present, the hyper parameter is used.
+            '''
+            if nodeName in dfLW['Pool'].unique():
+                nodeName = nodeName
+            else:
+                nodeName = hyperName
+            return dfLW[ (dfLW['Pool'] == nodeName) & (dfLW['SpeciesFull'] == spp) ]
+
         
         ## Create nodes 
-        for season in intraAnnualTime:
-            for nd in dfTransitions['start'].unique():
-                nodeName = nd + ' ' + intraAnnualTimeName + ' ' +  str(season)
-                dfProb =  dfTransitions[dfTransitions['start'] == nd]
-                nodeTemp = seacarpNode( nd)
-                nodeTemp.addPathsIn( dfTransitions[dfTransitions['stop'] == nd]['start'])
-        
-                pathOutTemp = {}
-                stayProb = 1
-                for index, row in dfProb.iterrows():
-                    pathOutTemp[row['stop']] = row['prob']
-                    stayProb += - row['prob']
 
-                pathOutTemp[nd] = stayProb
-                nodeTemp.addPathsOut(pathOutTemp)
+for season in intraAnnualTime:
+    for nd in dfTransitions['start'].unique():
+        nodeName = nd
+        nodeSeason = season
+        dfProb =  dfTransitions[dfTransitions['start'] == nd]
+        nodeTemp = seacarpNode( nd)
+        nodeTemp.addPathsIn( dfTransitions[dfTransitions['stop'] == nd]['start'])       
+        pathOutTemp = {}
+        stayProb = 1
+        for index, row in dfProb.iterrows():
+            pathOutTemp[row['stop']] = row['prob']
+            stayProb += - row['prob']
+        pathOutTemp[nd] = stayProb
+        nodeTemp.addPathsOut(pathOutTemp)
+        nodeTemp.setNodeSeason(nodeSeason)
 
-                self.addNodes([nodeTemp])
-            
+## Move these lines back into for looops 
+nodeLWIn =  selectParameterDF(dfLWIn = dfLW,
+                              colName = 'Pool',
+                              sppCol = 'SpeciesFull',
+                              nodeName = nd,
+                              hyperName = 'Hyper-parameter')
 
+nodeGroupIn = dfGroup[dfGroup['Node'] == nd]
+for  index, row in nodeGroupIn.iterrows():
+    ## extract parameters 
+    groupName = nd + ' ' + row['Group']
+    groupSex = row['Group']
+    groupRG = row['ProduceEggs']
+    groupRP = row['RatioAtBirth']
+    ## Create group and add parameters 
+    tempGroup =  nmps.groupWithSex(groupName)
+    tempGroup.addSex(groupSex)
+    tempGroup.addRecruitmentGroup(groupRG)
+    tempGroup.addRecruitmentProportion(groupRP)
+
+
+    
+## Last line of node for loops 
+        self.addNodes([nodeTemp])
 
 
 # class groupWithSex( nmp.group):
