@@ -2,7 +2,6 @@ import networkModelPopulate as nmp
 import numpy as np
 import scipy.stats as stats
 import sys 
-# import matplotlib.pyplot as plt
 import pandas as pd
 
 
