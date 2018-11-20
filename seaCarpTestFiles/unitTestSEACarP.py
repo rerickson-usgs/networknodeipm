@@ -6,20 +6,6 @@ import sys
 sys.path.append("../modelFiles")
 import SEACarP as sea
 
-## Next steps:
-## Add in group parameter values
-## [x] create generic group variables
-## Look at nmp.addGroupsFromCSV for next steps 
-## [X] add in starting population details
-## [X] add in LW details, no need to adjust for monthly
-## [X] add in VB details and survival, adjust for monthly
-## [X] add in maturation details, no need to adjust for montly
-## [X] add in other parameter (not parameterize, in GroupDetails.csv)
-## AM HERE, need to debug extraction function
-## [ ] Add in update nodes (if needed)
-## [ ] Add in harvest option, will need to create table for this step 
-## [ ] Add in stochastic recruitment
-
 class test_buildNetwork( unittest.TestCase):
 
     def test_network_construction(self):
@@ -55,12 +41,9 @@ class test_buildNetwork( unittest.TestCase):
         self.assertAlmostEqual(network.nodes[3].groups[0].survival, 0.96074806)
         self.assertAlmostEqual(network.nodes[3].groups[1].survival, 0.96074806)
         self.assertAlmostEqual(network.nodes[6].groups[0].survival, 0.95449851)
-
         self.assertAlmostEqual(network.nodes[0].showNodeHarvest().sum(), 0)
         self.assertAlmostEqual(network.nodes[24].showNodeHarvest().sum(), 1.7)
-
         self.assertAlmostEqual(len(network.nodes[0].showNodeHarvest()), 51)
-
 
 if __name__ == '__main__':
     unittest.main()
