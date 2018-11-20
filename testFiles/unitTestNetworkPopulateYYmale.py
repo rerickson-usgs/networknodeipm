@@ -74,10 +74,10 @@ class test_populatedNodeWithSex( unittest.TestCase):
 
         self.assertEqual( self.network.nodes[0].groups[1].showRecruitmentProportion(), 0.5)
 
-        self.assertAlmostEqual( self.network.showNetworkPop()[25], 63504.567277205584)
+        self.assertAlmostEqual( self.network.showNetworkPop()[25], 70430.656962600915)
 
         self.assertAlmostEqual( self.network.nodes[0].groups[2].showStockingPopYear(11).sum(),
-                                10000.0)
+                                0000.0)
         self.assertEqual( self.network.nodes[0].groups[2].showStockingPopYear(9).sum(), 0.0)
 if __name__ == '__main__':
     unittest.main()

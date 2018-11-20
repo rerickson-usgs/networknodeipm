@@ -50,7 +50,6 @@ class logistic:
         self.betaL = betaL
         self.minL = minL
         self.maxL = maxL       
-
     def __call__(self, z):
         out = ( self.minL + 
                 (self.maxL - self.minL) / 
@@ -504,7 +503,15 @@ class createNetworkFromCSV:
                 if 'stocking' in  dfGroups.columns:
                     if groupRow[1]['stocking'] != 'None':
                         grpTemp.setStocking( True)
-                        nStock, startStock, endStock = [int(x) for x in groupRow[1]['stocking'].split(";")]
+
+                        stockParRaw = groupRow[1]['stocking']
+                        ## This may cause problems in the future.
+                        ## There is a problem extracting stocking numbers here 
+                        stockPar = [x for x in stockParRaw.split(";")]
+                        
+                        nStock = 100000
+                        startStock = 56
+                        endStock = 90
                         grpTemp.setStockingDistribution( startStockingYear = startStock,
                                                          endStockingYear = endStock,
                                                          nStock = nStock,

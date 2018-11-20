@@ -450,7 +450,7 @@ class test_csvPopulate( unittest.TestCase):
 
         self.assertEqual( self.network.nodes[1].groups[0].showStockingPopYear(55).sum(), 0.0)
         self.assertAlmostEqual( self.network.nodes[1].groups[0].showStockingPopYear(56).sum(),
-                                100000.0)
+                                100000)
 
 
         

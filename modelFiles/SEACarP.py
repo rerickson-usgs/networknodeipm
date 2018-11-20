@@ -21,7 +21,7 @@ class seacarpNetwork( ntp.networkWithTimePeriod, nmp.populatedNetwork):
         self.paths = []
         self.timePeriods = []
         
-class seacarpNode( ntp.nodeTimePeriod, nmps.populatedNodeWithSex, nmp.populatedHelpers, nh.nodeHarvest):
+class seacarpNode( nh.nodeHarvest, ntp.nodeTimePeriod, nmps.populatedNodeWithSex, nmp.populatedHelpers, ):
     def __init__(self, nodeName):
         self.nodeName = nodeName
         self.groups = []
@@ -29,7 +29,9 @@ class seacarpNode( ntp.nodeTimePeriod, nmps.populatedNodeWithSex, nmp.populatedH
         self.pathsOut = {}
         self.timePeriod = ''
         self.harvest = 0.0
-
+        self.nodeBiomass = 0.0
+        self.population = 0.0
+        
     def projectGroups(self, year, omega, hWidth, nodeBiomass, nextYear = None):
         '''  projects population using midpoint rule.
              First dotproduct is growth/maturation.
@@ -115,6 +117,7 @@ class createSEACarPNetwork:
         This assumes transitions are on monthly time step,
         but inputs are on an annual timestep.
         '''
+
         # Read in input files 
         networkFilePath = inputFolder + networkFile
         dfNetwork = pd.read_csv(networkFilePath)
@@ -139,6 +142,8 @@ class createSEACarPNetwork:
         
         self.network = seacarpNetwork(dfNetwork['networkName'][0])
 
+        self.network.timePeriods = intraAnnualTime
+                
         self.network.setYears( dfNetwork['nYears'][0] )
         self.network.setupNetworkMesh( dfNetwork['nPoints'][0], dfNetwork['minLength'][0], dfNetwork['maxLength'][0])
         
@@ -210,25 +215,34 @@ class createSEACarPNetwork:
                                                 colName = 'Pool',
                                                 sppCol = 'SpeciesFull',
                                                 hyperName = 'Hyper-parameter')
-                    tempGroup.setLengthWeight(nmp.lengthWeight(alphaLW = dfLWuse[dfLWuse['parameter'] == 'Intercept']['mean'],
-                                                               betaLW  = dfLWuse[dfLWuse['parameter'] == 'Slope']['mean']))
+                    tempGroup.setLengthWeight(nmp.lengthWeight(alphaLW = dfLWuse[dfLWuse['parameter'] == 'Intercept']['mean'].values[0],
+                                                               betaLW  = dfLWuse[dfLWuse['parameter'] == 'Slope']['mean'].values[0]))
                     dfVonBuse = selectParameterDF(nodeName,
                                                   spp = spp,
                                                   dfLWIn = dfVonB,
                                                   colName = 'Pool',
                                                   sppCol = 'Species',
                                                   hyperName = 'Hyper-parameter')
-                    tempGroup.setGrowth(nmp.growthVB(aG = dfVonBuse[dfVonBuse['Parameter'] == 'Linfinty']['mean'],
-                                                     kG = dfVonBuse[dfVonBuse['Parameter'] == 'K']['mean']/len(intraAnnualTime),
-                                                     sigmaG = dfVonBuse[dfVonBuse['Parameter'] == 'K']['sd']))
-                    mTemp = convertAndAdjustMort( dfVonBuse[(dfVonBuse['Parameter'] == 'M')]['mean'].values,
+                    tempGroup.setGrowth(nmp.growthVB(aG = dfVonBuse[dfVonBuse['Parameter'] == 'Linfinty']['mean'].values[0],
+                                                     kG = dfVonBuse[dfVonBuse['Parameter'] == 'K']['mean'].values[0]/len(intraAnnualTime),
+                                                     sigmaG = dfVonBuse[dfVonBuse['Parameter'] == 'K']['sd'].values[0]))
+                    mTemp = convertAndAdjustMort( dfVonBuse[(dfVonBuse['Parameter'] == 'M')]['mean'].values[0],
                                                   len(intraAnnualTime))
+
+                    ## Create uniform survival 
+                    class survivalTemp:
+                        def __init__(self, mTemp):
+                            self.mTemp = mTemp
+
+                        def __call__(self, x):
+                            return self.mTemp
+                        
+                    tempGroup.setSurvival( survivalTemp(mTemp) )
                     
-                    tempGroup.setSurvival( mTemp)
                     dfMatuse = dfMat[dfMat['Species'] == spp]
                     tempGroup.setProbabilityOfReproducing(
-                        nmp.logistic( alphaL = dfMatuse[(dfMatuse['parameter'] == 'alpha')]['mean'],
-                                      betaL  = dfMatuse[(dfMatuse['parameter'] == 'beta')]['mean'],
+                        nmp.logistic( alphaL = -1.0 * dfMatuse[(dfMatuse['parameter'] == 'alpha')]['mean'].values[0],
+                                      betaL  = dfMatuse[(dfMatuse['parameter'] == 'beta')]['mean'].values[0],
                                       minL = 0,
                                       maxL = 1))
                     nodeTemp.addGroups( [tempGroup] )

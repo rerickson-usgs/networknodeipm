@@ -211,9 +211,9 @@ class testSimulationRunWithDeath( unittest.TestCase):
         network.runSimulation()
         network.calculateNetworkPop()
         
-        self.assertAlmostEqual( network.nodes[0].showNodePopulation()[24], 2769.61819149)
-        self.assertAlmostEqual( network.nodes[1].showNodePopulation()[24], 2766.60008091)
-        self.assertAlmostEqual( network.nodes[2].showNodePopulation()[24], 2763.58525978)
+        self.assertAlmostEqual( network.nodes[0].showNodePopulation()[24], 2766.6000809149141)
+        self.assertAlmostEqual( network.nodes[1].showNodePopulation()[24], 2763.5852597783942)
+        self.assertAlmostEqual( network.nodes[2].showNodePopulation()[24], 2760.5737244112697)
 
         
 if __name__ == '__main__':

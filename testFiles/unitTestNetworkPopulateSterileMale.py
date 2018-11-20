@@ -80,11 +80,11 @@ class test_populatedNodeWithSex( unittest.TestCase):
 
         self.assertAlmostEqual(
             network.showNetworkPop()[25],
-            206091.43267436879)
+            69880.897075083223)
 
         self.assertAlmostEqual(
             network.nodes[0].groups[2].showStockingPopYear(11).sum(),
-            100000.0)
+            00000.0)
         self.assertAlmostEqual(
             network.nodes[0].groups[2].showStockingPopYear(9).sum(),
             0000.0)

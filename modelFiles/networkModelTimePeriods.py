@@ -68,19 +68,21 @@ class networkWithTimePeriod:
         This function runs the network simulation and assumes 
         movement occures before spawning.
         '''
-        for yearIndex in range(1, self.nYears):
+        for yearIndex in range(0, self.nYears):
+            print "year " + str(yearIndex)
             for tp in self.showTimePeriods():
                 ## Step 1, move groups 
                 self.moveGroups( yearIndex, yearIndex, tp)
-                ## Step 2, update popualtions within nodes
+                # ## Step 2, update popualtions within nodes
                 for n in self.nodes:
                     if n.showTimePeriod() == tp:
                         ## Step 2a: calculate biomass in each node and density effect
                         n.calculateNodeBiomass( omega = self.omega, year = yearIndex )
-                        ## Step 2b: project groups through time
-                        n.projectGroups(yearIndex, self.omega,
-                                        self.hWidth, nodeBiomass = n.showNodeBiomass(),
-                                        nextYear = yearIndex)
+                        for grp in n.groups:
+                            ## Step 2b: project groups through time
+                            n.projectGroups(yearIndex, self.omega,
+                                            self.hWidth, nodeBiomass = n.showNodeBiomass(),
+                                            nextYear = yearIndex)
 
 class createNetworkFromCSVwithTimeBase:
     '''contains functions to populate a network from csv files'''
