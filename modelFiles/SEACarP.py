@@ -1,5 +1,6 @@
 import networkModelPopulateSex as nmps
 import networkModelPopulate as nmp
+import networkModelTimePeriods as ntp
 import nodeHarvest as nh
 import networkModel as nm
 import numpy as np
@@ -13,26 +14,21 @@ def standarizedLogNormal(omega,  sIn, scaleIn):
              stats.lognorm.pdf( omega, loc = 0, s = sIn, scale = scaleIn).sum() )
 
 
-class seacarpNetwork( nmp.populatedNetwork):
+class seacarpNetwork( ntp.networkWithTimePeriod, nmp.populatedNetwork):
     def __init__(self, networkName):
         self.networkName = networkName
         self.nodes = []
         self.paths = []
-
-class seacarpNode( nmps.populatedNodeWithSex, nmp.populatedHelpers, nh.nodeHarvest):
+        self.timePeriods = []
+        
+class seacarpNode( ntp.nodeTimePeriod, nmps.populatedNodeWithSex, nmp.populatedHelpers, nh.nodeHarvest):
     def __init__(self, nodeName):
         self.nodeName = nodeName
         self.groups = []
         self.pathsIn = []
         self.pathsOut = {}
-        self.nodeSeason = ''
+        self.timePeriod = ''
         self.harvest = 0.0
-
-    def showNodeSeason(self):
-        return self.nodeSeason
-
-    def setNodeSeason(self, nodeSeason):
-        self.nodeSeason = nodeSeason
 
     def projectGroups(self, year, omega, hWidth, nodeBiomass, nextYear = None):
         '''  projects population using midpoint rule.
@@ -61,35 +57,6 @@ class seacarpNode( nmps.populatedNodeWithSex, nmp.populatedHelpers, nh.nodeHarve
                 grp.updatePopDistYear( year + 1, popAdd + grp.showStockingPopYear(year))
             else:
                 grp.updatePopDistYear( year + 1, popAdd)
-
-
-        
-#     def projectGroups(self, year, omega, hWidth, nodeBiomass, nextYear = None):
-#         '''  projects population using midpoint rule.
-#              First dotproduct is growth/maturation.
-#              Second dotproduct is recruitment.
-#         '''
-
-#         if nextYear is None:
-#             nextYear = year + 1
-            
-#         reproducingPopulation  = 0.0
-#         for grp in self.groups:
-#             if grp.showRecruitmentGroup():
-#                 reproducingPopulation += grp.showPopDistYear( year)
-#         for grp in self.groups:
-#             popAdd = ( np.dot( hWidth * grp.growth( omega, omega), 
-#                                grp.showPopDistYear( year) *
-#                                grp.survival( omega)  )  +
-#                             np.dot(hWidth * grp.recruitment( omega, omega),
-#                                    reproducingPopulation *  grp.density(nodeBiomass) *
-#                                    grp.showRecruitmentProportion() )
-#                             ) 
-
-#             if grp.showStocking():
-#                 grp.updatePopDistYear( year + 1, popAdd + grp.showStockingPopYear(year))
-#             else:
-#                 grp.updatePopDistYear( year + 1, popAdd)
 
 
 def selectParameterDF(nodeName,
@@ -176,11 +143,11 @@ class createSEACarPNetwork:
         self.network.setupNetworkMesh( dfNetwork['nPoints'][0], dfNetwork['minLength'][0], dfNetwork['maxLength'][0])
         
         ## Create nodes
-        for season in intraAnnualTime:
+        for timePeriod in intraAnnualTime:
             ## Create node transition probabilites
             for nd in dfTransitions['start'].unique():
                 nodeName = nd
-                nodeSeason = season
+                nodeTimePeriod = timePeriod
                 dfProb =  dfTransitions[dfTransitions['start'] == nd]
                 nodeTemp = seacarpNode( nd)
                 nodeTemp.addPathsIn( dfTransitions[dfTransitions['stop'] == nd]['start'])       
@@ -195,9 +162,9 @@ class createSEACarPNetwork:
                     print(nd + ' is not in the node input file ' + nodeFilePath)
                     break
 
-                ## Enter in harvest for season
+                ## Enter in harvest for timePeriod
                 harvestLevels = np.zeros(self.network.nYears + 1)
-                if season in [float(x) for x in dfNodeUse['HarvestMonths'].values[0].split(";")]:
+                if timePeriod in [float(x) for x in dfNodeUse['HarvestMonths'].values[0].split(";")]:
                     harvestLevels[ (int(dfNodeUse['HarvestStart']) - 1):int(dfNodeUse['HarvestEnd']) ] = dfNodeUse[ "HarvestLevel"]
                 nodeTemp.setHarvest(harvestLevels)
                 
@@ -209,11 +176,12 @@ class createSEACarPNetwork:
                     stayProb += - row['prob']
                     pathOutTemp[nd] = stayProb
                     nodeTemp.addPathsOut(pathOutTemp)
-                    nodeTemp.setNodeSeason(nodeSeason)
+                    nodeTemp.addTimePeriod(timePeriod)
                     nodeGroupIn = dfGroup[dfGroup['Node'] == nd]
                     
                 ## Enter in Groups     
                 for  index, row in nodeGroupIn.iterrows():                                            
+
                     ## Create group and add parametes
                     tempGroup =  nmps.groupWithSex( nd + ' ' + row['Group'])
                     tempGroup.addSex( row['Group'] ) 
@@ -224,6 +192,9 @@ class createSEACarPNetwork:
                     tempGroup.setEggPerkg( row['eggPerkg'] )
                     tempGroup.setSigmaJ( row['sigmaJ'] )
                     tempGroup.setMuJ( row['muJ'] )
+
+                    tempGroup.setDensity( nmp.densityNegExp(a = dfNodeUse['densityA'].values[0],
+                                                            b = dfNodeUse['densityB'].values[0]) )
 
 
                     

@@ -504,7 +504,7 @@ class createNetworkFromCSV:
                 if 'stocking' in  dfGroups.columns:
                     if groupRow[1]['stocking'] != 'None':
                         grpTemp.setStocking( True)
-                        nStock, startStock, endStock = [int(x) for x in groupRow[1]['stocking'].split(",")]
+                        nStock, startStock, endStock = [int(x) for x in groupRow[1]['stocking'].split(";")]
                         grpTemp.setStockingDistribution( startStockingYear = startStock,
                                                          endStockingYear = endStock,
                                                          nStock = nStock,

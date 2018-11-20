@@ -6,17 +6,19 @@ import sys
 sys.path.append("../modelFiles")
 import SEACarP as sea
 
-class test_buildNetwork( unittest.TestCase):
+class test_Network( unittest.TestCase):
 
-    def test_network_construction(self):
+    def test_network_(self):
         '''
         This funciton tests the construction of the network and
         the paths within the network. 
         '''
         rawNetwork = sea.createSEACarPNetwork()
         network = rawNetwork.outputNetwork()
+
+        ## testbuilding the network 
         self.assertEqual(network.showNetworkName(), "SEACarpIL")
-        self.assertEqual(network.nodes[12].showNodeSeason(), 3.0)
+        self.assertEqual(network.nodes[12].showTimePeriod(), 3.0)
         self.assertEqual(network.nodes[0].showNodeName(), 'Alton')
         self.assertEqual(network.nodes[0].showPathsIn(), ['LaGrange', 'Peoria'] )
         self.assertEqual(network.nodes[0].showPathsOut(),  ['LaGrange', 'Alton'] )
@@ -34,6 +36,10 @@ class test_buildNetwork( unittest.TestCase):
         self.assertEqual(network.nodes[3].groups[1].eggTransition, 7e-5)
         self.assertEqual(network.nodes[3].groups[0].muJ, 10)
         self.assertEqual(network.nodes[3].groups[1].muJ, 10)
+        self.assertAlmostEqual(network.nodes[3].groups[1].density(0), 1.0)
+        self.assertAlmostEqual(network.nodes[3].groups[1].density(1E4), 0.99004983374916811)
+        self.assertAlmostEqual(network.nodes[3].groups[1].density(1E6), 0.36787944117144233)
+        self.assertAlmostEqual(network.nodes[3].groups[1].density(1E8), 3.7200759760208361e-44)
         self.assertEqual(network.nodes[3].groups[0].sigmaJ, 2)
         self.assertEqual(network.nodes[3].groups[1].sigmaJ, 2)
         self.assertEqual(network.nodes[3].groups[0].showPopYear(0), 1000.0)
@@ -45,5 +51,11 @@ class test_buildNetwork( unittest.TestCase):
         self.assertAlmostEqual(network.nodes[24].showNodeHarvest().sum(), 1.7)
         self.assertAlmostEqual(len(network.nodes[0].showNodeHarvest()), 51)
 
+        network.runSimulation()
+        ## Check network projections 
+        # for yearIndex in xrange(network.nYears):
+        #     print yearIndex
+            
+        
 if __name__ == '__main__':
     unittest.main()
