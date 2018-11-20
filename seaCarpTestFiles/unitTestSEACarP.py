@@ -48,27 +48,7 @@ class test_Network( unittest.TestCase):
         self.assertAlmostEqual(network.nodes[3].groups[0].survival(1), 0.96074806)
         self.assertAlmostEqual(network.nodes[3].groups[1].survival(10), 0.96074806)
         self.assertAlmostEqual(network.nodes[6].groups[0].survival(234), 0.95449851)
-        self.assertAlmostEqual(network.nodes[0].showNodeHarvest().sum(), 0.3)
-
-
-        network.runSimulation()
-        # network.calculateNetworkPop()
-        # print network.showNetworkPop()
-
-        # for yearIndex in range(1, network.nYears):
-        #     print yearIndex 
-            # for tp in self.showTimePeriods():
-            #     ## Step 1, move groups 
-            #     self.moveGroups( yearIndex, yearIndex, tp)
-            #     ## Step 2, update popualtions within nodes
-            #     for n in self.nodes:
-            #         if n.showTimePeriod() == tp:
-            #             ## Step 2a: calculate biomass in each node and density effect
-            #             n.calculateNodeBiomass( omega = self.omega, year = yearIndex )
-            #             ## Step 2b: project groups through time
-            #             n.projectGroups(yearIndex, self.omega,
-            #                             self.hWidth, nodeBiomass = n.showNodeBiomass(),
-            #                             nextYear = yearIndex)
+        self.assertAlmostEqual(network.nodes[24].showNodeHarvest().sum(), 2.5)
 
 
         

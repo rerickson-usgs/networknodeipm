@@ -173,8 +173,6 @@ class createSEACarPNetwork:
                     harvestLevels[ (int(dfNodeUse['HarvestStart']) - 1):int(dfNodeUse['HarvestEnd']) ] = dfNodeUse[ "HarvestLevel"]
                 nodeTemp.setHarvest(harvestLevels)
                 
-
-                
                 ## enter in transition probability 
                 for index, row in dfProb.iterrows():
                     pathOutTemp[row['stop']] = row['prob']
@@ -183,7 +181,8 @@ class createSEACarPNetwork:
                     nodeTemp.addPathsOut(pathOutTemp)
                     nodeTemp.addTimePeriod(timePeriod)
                     nodeGroupIn = dfGroup[dfGroup['Node'] == nd]
-                    
+
+                
                 ## Enter in Groups     
                 for  index, row in nodeGroupIn.iterrows():                                            
 
@@ -201,8 +200,6 @@ class createSEACarPNetwork:
                     tempGroup.setDensity( nmp.densityNegExp(a = dfNodeUse['densityA'].values[0],
                                                             b = dfNodeUse['densityB'].values[0]) )
 
-
-                    
                     popSize0temp = standarizedLogNormal(self.network.omega,
                                                         sIn = row['initialMu'], 
                                                         scaleIn = row['initialSD'])  * row['StartPop']         
